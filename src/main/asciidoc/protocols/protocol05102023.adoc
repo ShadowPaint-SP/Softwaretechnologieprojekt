@@ -1,0 +1,29 @@
+= Protokoll Gruppe 06
+
+Treffen am 05.10.2023
+
+Ort:      Gang vor HSZ/04 +
+Beginn:   17:55 Uhr +
+Ende:     18:30 Uhr
+
+__Schriftführer:__
+Tom Fiedler
+
+*Nächstes Treffen:* +
+16.10.2023, 14.50 Uhr, Unbekannt (11.10.2023 12:28)
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Richard Karl Fuchs (Betreuer, Kunde)
+- Tom Fiedler (vorläufig Scrum-Master)
+- Daniel Arsenev
+- Vincent Ponizil
+- Armin Stegner
+- Jannes Müller
+- Irina Drumeva
+
+== Bemerkungen
+Festlegen des Termins zur Pflichtkonsultation. +
+Aktuell am Montag 5.DS. Raum bis auf Weiteres Unbekannt. +
+Alle Teammitglieder sollen sich grob ins Springframework einarbeiten mithilfe des guestbook Projekts.
