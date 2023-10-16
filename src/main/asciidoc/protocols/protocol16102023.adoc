@@ -1,0 +1,37 @@
+= Protokoll Gruppe 06
+
+Treffen am 05.10.2023
+
+Ort:      APB/E067 +
+Beginn:   14:55 Uhr +
+Ende:     16:30 Uhr
+
+__Schriftführer:__
+Tom Fiedler
+
+*Nächstes Treffen:* +
+23.10.2023, 14.50 Uhr, Unbekannt (16.10.2023 16:27)
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Richard Karl Fuchs (Betreuer, Kunde)
+- Tom Fiedler (vorläufig Scrum-Master)
+- Daniel Arsenev
+- Vincent Ponizil
+- Armin Stegner
+- Jannes Müller
+- Irina Drumeva
+- Richard Voigtmann
+- Shengzhe Fan
+
+== Bemerkungen
+Aufgabenverteilung Videoshop +
+(hier hinzufügen) +
+Pair-Programming Paare: +
+Armin - Vincent +
+David - Tom +
+Richard - Irina +
+Shengzhe - Janis +
+
+
