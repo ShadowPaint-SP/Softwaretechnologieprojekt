@@ -26,8 +26,24 @@ __Teilnehmer:__
 - Shengzhe Fan
 
 == Bemerkungen
-Aufgabenverteilung Videoshop +
-(hier hinzufügen) +
+Aufgabenverteilung Videoshop:
+
+Löschen/Leeren (Vincent): Im Warenkorb Button, der den gesamten Warenkorb löscht + Für jedes Item einen löschen-Button
+
+Durchschnitt Bewertungen (Armin): Von allen Bewertungen für einen Film den Durchschnitt bilden und auf Film-Seite anzeigen
+
+Nachbestellungen (Richard): Chef kann im Lager Filme nachbestellen (jeder Film kann um n Exemplare erhöht werden)
+
+Suche (Daniel): Suchfeld, Wort wird im Titel und Genre gesucht und in Tabelle/Liste angezeigt
+
+Stückzahl (Irina): Im Warenkorb die Anzahl von Exemplaren ändern (nicht mehr als im Lager vorhanden)
+
+Registrierung (Jannis): Passwort bei Registrierung doppelt eingeben, im Server prüfen ob identisch und Fehlermeldung wenn nicht
+
+Passwort ändern (Shengzhe): Neue Seite in Menü - "Konto", Name & Adresse anzeigen, Passwort ändern mit vorher aktuellem Passwort abfragen
+
+Genaue Bestellungen (Tom): In Bestellungs-Ansicht des Chefs auch Filme und jeweilige Stückzahl in einer Bestellung anzeigen
+
 Pair-Programming Paare: +
 Armin - Vincent +
 David - Tom +
