@@ -6,9 +6,9 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 // See http://asciidoctor.org/docs/user-manual/#tables
 [option="headers"]
 |===
-|Woche |Armin |Vincent |Irina |Richard |Janis |David |Shengzhe | Tom
-|1  |…   |…    |…    |…    |…    |…    |…    |20
-|2  |…   |…    |…    |…    |…    |…    |…    |...
+|Woche |Armin |Vincent |Irina |Richard |Janis |Daniel |Shengzhe | Tom
+|1  |240 |120    |…    |180    |…    |42    |…    |20
+|2  |…   |180    |…    |…    |…    |…    |…    |120
 |3  |…   |…    |…    |…    |…    |…    |…    |..
 |4  |…   |…    |…    |…    |…    |…    |…    |..
 |5  |…   |…    |…    |…    |…    |…    |…    |..
