@@ -7,8 +7,8 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 [option="headers"]
 |===
 |Woche |Armin |Vincent |Irina |Richard |Janis |Daniel |Shengzhe | Tom
-|1  |240 |120    |…    |180    |…    |40    |…    |20
-|2  |…   |180    |…    |80    |…    |90    |…    |120
+|1  |240 |120    |120…   |180    |…    |40    |…    |20
+|2  |…   |180    |120   |80    |…    |90    |…    |120
 |3  |…   |…    |…    |…    |…    |…    |…    |..
 |4  |…   |…    |…    |…    |…    |…    |…    |..
 |5  |…   |…    |…    |…    |…    |…    |…    |..
