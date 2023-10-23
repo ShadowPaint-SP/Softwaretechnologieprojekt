@@ -38,16 +38,20 @@ Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm
 
 === Akteure
 
-Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darauf zugreifen. Dokumentieren Sie die Akteure in einer Tabelle. Diese Tabelle gibt einen Überblick über die Akteure und beschreibt sie kurz. Die Tabelle hat also mindestens zwei Spalten (Akteur Name und Kommentar).
-Weitere relevante Spalten können bei Bedarf ergänzt werden.
+Akteure sind die Benutzer der Campingplatz Webseite. Dokumentiert sind hier die Akteure in einer Tabelle. Diese Tabelle gibt einen Überblick über die Akteure und beschreibt sie kurz. Akteure die weiter unten in der Tabelle sind, besitzen alle Fähigkeiten oder über ihnen
 
-// See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
-[cols="1,4"]
+[[registered_user]]
+[[actors]]
 |===
-|Name |Beschreibung
-|...  |...
+|Name | Rechte
+|Anonymer Nutzer       | Nutzeransicht der Plots sich angucken, Reservierungen in den Warenkorb legen
+|Registrierter Nutzer  | Reservierungen final bestätigen
+|Angestellter          | Mitarbeitersicht der Plots sich angucken, manuelle Buchung von plots und Sportgeräten.
+|Boss                  | Zugriff auf die Finanzen
 |===
+
+
 
 === Überblick Anwendungsfalldiagramm
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
