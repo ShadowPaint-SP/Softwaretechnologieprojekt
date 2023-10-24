@@ -101,10 +101,54 @@ Akteure sind die Benutzer der Campingplatz Webseite. Dokumentiert sind hier die 
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 
 === Anwendungsfallbeschreibungen
-Dieser Unterabschnitt beschreibt die Anwendungsfälle. In dieser Beschreibung müssen noch nicht alle Sonderfälle und Varianten berücksichtigt werden. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems zu finden. Wichtig sind solche Anwendungsfälle, die für den Auftraggeber, den Nutzer den größten Nutzen bringen.
-Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
-Einfache Anwendungsfälle mit einem Absatz beschreiben.
-Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem einzigen zusammengefasst werden.
+Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems aufzulisten.
+
+[cols="1h, 3"]
+[[AccountManagment]]
+|===
+|Name                       |**<<AccountManagment>>**
+|Beschribung                |Ein benutzer soll sich in auf der Webseite einen Account erstellen können, dort einloggen können und sich auch ausloggen können
+|Akteure                     |User
+|Trigger                    |Nutzer drückt das entsprechende navigations Element
+|Vorbedingungen           a|
+_Registrieren_: User ist nicht in einem Account eingeloggt +
+_Login_: User ist nicht in einem Account eingeloggt +
+_Logout_: User ist in einem Account eingeloggt
+|Schritte          a|
+_Registrieren_:
+
+1. Nutzer drückt "Registrieren" in der navigations Leiste
+2. Nutzer füllt das Formular aus
+3. Account erstellung im System
+
+_Login_:
+
+1. Nutzer drückt "Einloggen" in der navigations Leiste
+2. Nutzer füllt das Formular aus
+
+_Logout_:
+
+1. Nutzer drückt "Ausloggen" in der navigations Leiste
+2. Nutzer wird auf den Home Bildschirm umgeleitet
+|===
+
+
+
+[[PlatzKatalog]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<PlatzKatalog>>**
+|Beschreibung                |Jeder Nutzer der Camingplatz Webseite soll in der Lage sein den vollen Katalog der verfügbaren Stellplätze zu sehen
+|Akteure                     |User
+|Trigger                    |Nutzer drückt das navigations Element, um zu der Katalog sicht zu navigieren
+|Vorbedingungen            a|None
+|Schritte                  a|
+1. Nutzer drückt "Plätze Buchen" in der navigations Leiste
+2. Nutzer bekommt alle Plätze in einer Liste angezeigt
+|===
+
+
+
 
 == Funktionale Anforderungen
 
