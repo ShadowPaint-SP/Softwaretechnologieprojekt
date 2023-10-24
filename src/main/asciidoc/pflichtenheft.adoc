@@ -1,5 +1,11 @@
 = Pflichtenheft
-:project_name: Projektname
+:project_name: Camping Platz
+:company_name: Below the Sun
+
+
+
+
+
 == __{project_name}__
 
 [options="header"]
@@ -24,7 +30,45 @@ In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingun
 Zusätzlich kurze Einleitung für fachfremde Personen
 
 == Interessensgruppen (Stakeholders)
-Welche realen und juristischen Personen(-gruppen) haben Einfluss auf die Anforderungen im Projekt?
+Hier sind alle realen und juristischen Personen(-gruppen), die Einfluss auf die Anforderungen im Projekt haben, aufgelistet
+Ausßerdem wird juder Gruppe ein "Priorität"-Wert zugeordnet, vom 1 bis 5
+[options="header", cols="2, ^1, 4, 4"]
+|===
+|Name
+|Priorität
+|Beschreibung
+|Ziele
+
+|{company_name}
+|5
+|Der Klient
+a|
+- Automatisierung des Buchungsprozesses für Mitarbeiter
+- Ermöglichen eines Reservierungsprozesses für Nutzer
+- Übersicht über den Campingplatz über das Dashboard
+
+|Mitarbeiter
+|2
+|Von unserem Klienten angestellte Mitarbeiter
+a|
+- Automatisierung des Buchungsprozesses für Mitarbeiter:
+- Automatisches Management der Buchungen und Verfügbarkeit der Plätze
+
+|Nutzer
+|3
+|Benutzer der Webseite, tatsächliche und potenzielle Kunden.
+a|
+- Ermöglichen eines Reservierungsprozesses für Nutzer:
+- Übersicht über die buchbaren Plätze und Sportgeräte
+
+|Developers
+|3
+|Die aktuellen entwickler der Webseite und die zukünftigen Maintainer
+a|
+- Einfach
+- Wartbar
+- Erweiterbar
+|===
 
 == Systemgrenze und Top-Level-Architektur
 
