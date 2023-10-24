@@ -1,10 +1,9 @@
 = Pflichtenheft
 :project_name: Camping Platz
 :company_name: Below the Sun
-
-
-
-
+:toc: macro
+:toc-title:
+:toclevels: 1
 
 == __{project_name}__
 
@@ -16,7 +15,7 @@
 |===
 
 == Inhaltsverzeichnis
-Dieses Dokument benötigt ein Inhaltsverzeichnis. Es existieren mehrere Einbindungsmöglichkeiten.
+toc::[ ]
 
 == Zusammenfassung
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
