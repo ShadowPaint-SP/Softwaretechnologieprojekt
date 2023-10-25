@@ -80,6 +80,9 @@ image::./diagrams/images/context.png[context diagram, 100%, 100%, pdfwidth=100%,
 === Top-Level-Architektur
 Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm.
 
+[[TLA]]
+image::./diagrams/images/tpa.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the {project_name} in UML", align=center]
+
 == Anwendungsfälle
 
 === Akteure
