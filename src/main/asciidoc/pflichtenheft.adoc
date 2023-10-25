@@ -24,25 +24,28 @@ Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 Text aus Aufgabenstellung kopieren und ggfs. präzisieren.
 Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht werden sollen.
 
-Der Besitzer des Campingplatzes Below-The-Sun hat Sie damit beauftragt, eine Software zu entwickeln. Der
-Platz wächst stetig und ist gut besucht, doch besteht ein starker Personalmangel. Die Besitzer erhoffen sich
+Der Besitzer des Campingplatzes Below-The-Sun hat die Gruppe sechs damit beauftragt, eine Software zu entwickeln. Der
+Platz wächst stetig und ist gut besucht, doch es besteht ein starker Personalmangel. Der Besitzer erhofft sich
 durch eine Software zum Self-Management der Camper eine Verringerung des Arbeitsaufwandes, sodass
-Personal geziehlter eingesetzt werden kann. Ein Beispiel ist die Reservierung: Bisher wird eine Person in
-Vollzeit benötigt um Reservierungen entgegen zu nehmen und Stellplätze zu planen, diese Aufgabe könnte
-das System jedoch komplett selbst umsetzen.
+Personal gezielter eingesetzt werden kann. +
+Ein Beispiel ist die Reservierung: Bisher wird eine Person in
+Vollzeit benötigt, um Reservierungen entgegenzunehmen und Stellplätze zu planen, diese Aufgabe könnte
+die Software jedoch komplett selbst umsetzen.
 
-Das wichtigste dabei ist natürlich die Verwaltung/Vergabe der Stellplätze. Below-The-Sun hat eine gewisse
-Anzahl von verschieden dimensionierten Zelt- und Lagerplätzen. An einigen ist direkt ein Parkplatz für Auto,
-Motorrad oder Campingwagen angegliedert. Alle Kombinationen sind hier denkbar. Das Vorreservieren der
-Plätze soll möglich sein, die Reservierungen werden aber am Morgen nach dem geplanten Anreisetermin
-gelöscht und der Platz steht anderen Campern wieder zur Verfügung. Jeder Kunde wird bei seiner Ankunft
-vom Personal offiziell eingechecked und erhält den gewünschten Platz automatisch zugewiesen bzw.
-entsprechend seiner Reservierung. Sollte während der Reservierung oder des Check-In kein den
-Anforderungen des Kunden entsprechender Stellplatz mehr vorhanden sein, so muss nach passenden
-Alternative gesuchen werden können. Eventuell kann der Camper sein Auto beispielsweise auf einem anderen
-Parkplatz abstellen oder ist mit einem kleineren Platz zufrieden. Gruppen erhalten Gruppenrabatte auf die
-Plätze. Jeder Platz kann durch Verschmutzung oder technischen Defekt ausfallen und bei der Reparatur Kosten
-verursachen. Das Programm soll dieser Tatsache beachten.
+Das wichtigste dabei ist natürlich die Verwaltung und Vergabe von Stellplätzen (_Plot_). +
+Below-The-Sun hat eine gewisse Anzahl von verschieden dimensionierten Stellplätzen.
+An einigen ist direkt ein Parkplatz (_Attachment_) für Auto, Motorrad oder Campingwagen angegliedert.
+Alle Kombinationen sind hier denkbar. +
+Das Vorreservieren der Stellplätze soll möglich sein, die Reservierungen werden aber am Morgen nach dem geplanten Anreisetermin
+gelöscht und der Platz steht anderen Campern wieder zur Verfügung. Jeder Kunde (_Costumer_) wird bei seiner Ankunft
+vom Personal (_Employee_) offiziell eingecheckt und erhält den gewünschten Stellplatz automatisch zugewiesen bzw.
+entsprechend seiner Reservierung. <- hääää  +
+Sollte während der Reservierung oder des Check-in kein den Anforderungen des Kunden entsprechender
+Stellplatz mehr vorhanden sein, so muss nach passenden Alternativen gesucht werden können. Eventuell kann der Camper
+sein Auto beispielsweise auf einem anderen Parkplatz abstellen oder ist mit einem kleineren Platz zufrieden. +
+Gruppen erhalten Gruppenrabatte auf die Plätze. +
+Jeder Stellplatz kann durch Verschmutzung oder technische Defekte (_Issue_) ausfallen und bei der Reparatur Kosten
+verursachen. Die Software sollte diese Tatsache beachten.
 
 Natürlich muß auch der Verbrauch an Strom und Wasser abgerechnet werden. Kunden bezahlen
 Pauschalbeträge pro Tag, sie bekommen bei der Abreise eine Gesamtrechnung über Platzgebühren und
