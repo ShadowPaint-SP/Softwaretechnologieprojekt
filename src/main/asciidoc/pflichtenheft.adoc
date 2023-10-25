@@ -24,6 +24,48 @@ Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 Text aus Aufgabenstellung kopieren und ggfs. präzisieren.
 Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht werden sollen.
 
+Der Besitzer des Campingplatzes Below-The-Sun hat Sie damit beauftragt, eine Software zu entwickeln. Der
+Platz wächst stetig und ist gut besucht, doch besteht ein starker Personalmangel. Die Besitzer erhoffen sich
+durch eine Software zum Self-Management der Camper eine Verringerung des Arbeitsaufwandes, sodass
+Personal geziehlter eingesetzt werden kann. Ein Beispiel ist die Reservierung: Bisher wird eine Person in
+Vollzeit benötigt um Reservierungen entgegen zu nehmen und Stellplätze zu planen, diese Aufgabe könnte
+das System jedoch komplett selbst umsetzen.
+
+Das wichtigste dabei ist natürlich die Verwaltung/Vergabe der Stellplätze. Below-The-Sun hat eine gewisse
+Anzahl von verschieden dimensionierten Zelt- und Lagerplätzen. An einigen ist direkt ein Parkplatz für Auto,
+Motorrad oder Campingwagen angegliedert. Alle Kombinationen sind hier denkbar. Das Vorreservieren der
+Plätze soll möglich sein, die Reservierungen werden aber am Morgen nach dem geplanten Anreisetermin
+gelöscht und der Platz steht anderen Campern wieder zur Verfügung. Jeder Kunde wird bei seiner Ankunft
+vom Personal offiziell eingechecked und erhält den gewünschten Platz automatisch zugewiesen bzw.
+entsprechend seiner Reservierung. Sollte während der Reservierung oder des Check-In kein den
+Anforderungen des Kunden entsprechender Stellplatz mehr vorhanden sein, so muss nach passenden
+Alternative gesuchen werden können. Eventuell kann der Camper sein Auto beispielsweise auf einem anderen
+Parkplatz abstellen oder ist mit einem kleineren Platz zufrieden. Gruppen erhalten Gruppenrabatte auf die
+Plätze. Jeder Platz kann durch Verschmutzung oder technischen Defekt ausfallen und bei der Reparatur Kosten
+verursachen. Das Programm soll dieser Tatsache beachten.
+
+Natürlich muß auch der Verbrauch an Strom und Wasser abgerechnet werden. Kunden bezahlen
+Pauschalbeträge pro Tag, sie bekommen bei der Abreise eine Gesamtrechnung über Platzgebühren und
+Nebenkosten. Um seinen Kunden den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der
+Betreiber von Below-The-Sun auch Sportgeräte: Bälle, Tischtennisgarnituren, Volleyballnetze und
+Federballsets. Dabei müssen die Camper eine Leihgebühr bezahlen und eine Kaution von 30 Euro hinterlegen,
+die sie nach Rückgabe des unversehrten Gerätes wieder ausgehändigt bekommen. Über den Aufbau einer
+Fahrradvermietung wird ebenfalls nachgedacht. Kunden sollen ganz bequem einsehehn können, wann welche
+Sportgeräte ausleihbar sind und diese dann bequem buchen.
+
+Schließlich möchte der Campingplatzbesitzer auch eine Übersichtsfunktion im Programm eingebaut haben,
+worüber er jederzeit ein Dashboard mit den Einnahmen, der Auslastung, defekten Stellplätzen Geräten sowie
+anderen nützlichen Infos einsehen kann, um schnell zu reagieren. Ebenfalls möchte er nicht, dass es nötig ist,
+bei kleinen Änderungen am Campingplatz ständig das System updaten zu müssen, denn das kostet Geld unfd
+Zeit. So sollen Stellplätze, Sportgeräte und Preise möglichst variable von bestimmten Mitarbeitern
+konfigurierbar sein.
+
+Ein gesonderter Bereich von Below-The-Sun ist in sogenannte Saisonstellplätze aufgeteilt. Hier bekommen
+Dauercamper jedes Jahr von April bis Oktober denselben Platz zugewiesen, sofern sie sich rechtzeitig
+anmelden. Die Stellplätze für Dauercamper haben entsprechende Anschlüsse mit Stromzählern und
+Wasseruhren. Hier kann der Verbrauch direkt abgelesen werden, die Abrechnung erfolgt monatlich oder bei
+der endgültigen Abreise.
+
 == Produktnutzung
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
 Zusätzlich kurze Einleitung für fachfremde Personen
