@@ -129,17 +129,22 @@ image::./projektbezogene_dateien/images/tpa.png[top-level architecture, 100%, 10
 
 === Akteure
 
-Akteure sind die Benutzer der Campingplatz Webseite. Dokumentiert sind hier die Akteure in einer Tabelle. Diese Tabelle gibt einen Überblick über die Akteure und beschreibt sie kurz. Akteure die weiter unten in der Tabelle sind, besitzen alle Fähigkeiten oder über ihnen
+Akteure sind die Benutzer der Campingplatz Webseite. +
+Akteure, die weiter unten in der Tabelle sind, besitzen alle Rechte über ihnen.
 
 [options="header"]
 [[registered_user]]
 [[actors]]
 |===
 |Name | Rechte
-|Anonymer Nutzer       | Nutzeransicht der Plots sich angucken, Reservierungen in den Warenkorb legen
-|Registrierter Nutzer  | Reservierungen final bestätigen
-|Angestellter          | Mitarbeitersicht der Plots sich angucken, manuelle Buchung von plots und Sportgeräten.
-|Boss                  | Zugriff auf die Finanzen
+|Anonymer Nutzer +
+(_User_)| Repräsentiert alle Personen die mit dem System interagieren
+|Kunde +
+(_Costumer_)| Repräsentiert alle Personen, die dem System gegenüber authentifiziert sind
+|Mitarbeiter +
+(_Employee_)| Repräsentiert alle Personen, die Änderungen in Datenbanken vornehmen können.
+|Boss +
+(_Boss_)| Eine Person die anderen Nutzer Rechte zuweist
 |===
 
 
