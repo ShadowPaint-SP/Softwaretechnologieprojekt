@@ -1,9 +1,22 @@
 = Pflichtenheft
 :project_name: Camping Platz
 :company_name: Below-The-Sun
+:campsite: Camping Platz
+:website: Camping Platz Webseite
+
 :toc: macro
 :toc-title:
 :toclevels: 1
+
+:navigate_catalog: Platzreservierung
+:navigate_sports_eqipment: Sportgerätverleih
+:navigate_login: Einloggen
+:navigate_logout: Ausloggen
+:navigate_register: Anmelden
+:navigate_dashboard: Dashboard
+
+
+
 
 == __{project_name}__
 
@@ -137,7 +150,7 @@ Akteure, die weiter unten in der Tabelle sind, besitzen alle Rechte über ihnen.
 [[actors]]
 |===
 |Name | Rechte
-|Anonymer Nutzer +
+|Nutzer +
 (_User_)| Repräsentiert alle Personen die mit dem System interagieren
 |Kunde +
 (_Costumer_)| Repräsentiert alle Personen, die dem System gegenüber authentifiziert sind
@@ -155,13 +168,14 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 === Anwendungsfallbeschreibungen
 Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems aufzulisten.
 
-[cols="1h, 3"]
+
 [[AccountManagment]]
+[cols="1h, 3"]
 |===
-|Name                       |**<<AccountManagment>>**
-|Beschribung                |Ein benutzer soll sich in auf der Webseite einen Account erstellen können, dort einloggen können und sich auch ausloggen können
-|Akteure                     |User
-|Trigger                    |Nutzer drückt das entsprechende navigations Element
+|Name                      |**<<AccountManagment>>**
+|Beschribung               |Ein benutzer soll sich in auf der Webseite einen Account erstellen können, dort einloggen können und sich auch ausloggen können
+|Akteure                   |Nutzer
+|Trigger                   |Nutzer möchte seinen einloggen/registrieren, um einen Platz zu reservieren oder möchte ausloggen
 |Vorbedingungen           a|
 _Registrieren_: User ist nicht in einem Account eingeloggt +
 _Login_: User ist nicht in einem Account eingeloggt +
@@ -169,18 +183,18 @@ _Logout_: User ist in einem Account eingeloggt
 |Schritte          a|
 _Registrieren_:
 
-1. Nutzer drückt "Registrieren" in der navigations Leiste
+1. Nutzer drückt "{navigate_register}" in der navigations Leiste
 2. Nutzer füllt das Formular aus
 3. Account erstellung im System
 
 _Login_:
 
-1. Nutzer drückt "Einloggen" in der navigations Leiste
+1. Nutzer drückt "{navigate_login}" in der navigations Leiste
 2. Nutzer füllt das Formular aus
 
 _Logout_:
 
-1. Nutzer drückt "Ausloggen" in der navigations Leiste
+1. Nutzer drückt "{navigate_logout}" in der navigations Leiste
 2. Nutzer wird auf den Home Bildschirm umgeleitet
 |===
 
@@ -190,15 +204,127 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<PlatzKatalog>>**
-|Beschreibung                |Jeder Nutzer der Camingplatz Webseite soll in der Lage sein den vollen Katalog der verfügbaren Stellplätze zu sehen
-|Akteure                     |User
-|Trigger                    |Nutzer drückt das navigations Element, um zu der Katalog sicht zu navigieren
+|Done?                      |False
+|Beschreibung               |Jeder Nutzer der {website} soll in der Lage sein den vollen Katalog der verfügbaren Stellplätze zu sehen
+|Akteure                    |Nutzer
+|Trigger                    |Nutzer möchte sich die Auswahl an Plätze ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. Nutzer drückt "Plätze Buchen" in der navigations Leiste
+1. Nutzer drückt "{navigate_catalog}" in der navigations Leiste
 2. Nutzer bekommt alle Plätze in einer Liste angezeigt
 |===
 
+
+
+[[PlatzReservieren]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<PlatzReservieren>>**
+|Done?                      |False
+|Beschreibung               |Jeder Kunde der {website} soll in der Lage sein den die im Katalog angezeigten Stellplätze zu reservieren
+|Akteure                    |Kunde
+|Trigger                    |Kunde möchte einen Platz reservieren
+|Vorbedingungen            a|Kunde sieht den <<PlatzKatalog>>
+|Schritte                  a|
+1. Kunde drückt das entsprechende Element, um die Reservierung durchzuführen
+|===
+
+
+
+[[SportgeräteKatalog]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<SportgeräteKatalog>>**
+|Done?                      |False
+|Beschreibung               |Jeder Nutzer der {website} soll in der Lage sein den vollen Katalog der verfügbaren Sportgeräte zu sehen
+|Akteure                    |Nutzer
+|Trigger                    |Nutzer möchte sich die Auswahl an Sportgeräten ansehen
+|Vorbedingungen            a|None
+|Schritte                  a|
+1. Nutzer drückt "{navigate_sports_eqipment}" in der navigations Leiste
+2. Nutzer bekommt alle Sportgeräte in einer Liste angezeigt
+|===
+
+
+
+[[KundenEinchecken]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<KundenEinchecken>>**
+|Done?                      |False
+|Beschreibung               |Jeder Kunde wird bei seiner Ankunft von Mitarbeitern offiziell eingecheckt und erhält den gewünschten Stellplatz zugewiesen.
+|Akteure                    |Mitarbeiter
+|Trigger                    |Kunde trifft physisch beim {campsite} ein
+|Vorbedingungen            a|None
+|Schritte                  a|
+1. Mitarbeiter markiert die <<PlatzReservieren, Reservierung>> vom Kunden als wahrgenommen
+|Extension                  | Wenn ein Kunde ohne Reservierung zum {campsite} kommt, müsste der Mitarbeiter für seine Verweilzeit eine Reservierung anlegen und sofort bestätigen. Stattdessen dem Mitarbeiter die option geben, das in einem Schritt zu machen
+|===
+
+
+
+[[SportgeräteAusleihe]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<SportgeräteAusleihe>>**
+|Done?                      |False
+|Beschreibung               |Um seinen Kunden den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der Betreiber von Below-The-Sun auch Sportgeräte
+|Akteure                    |Mitarbeiter
+|Trigger                    |Kunde leiht sich physisch ein Sportgerät aus
+|Vorbedingungen            a|None
+|Schritte                  a|
+1. Mitarbeiter markiert das Sportgerät als ausgeliehen
+|===
+
+
+
+[[SportgeräteRückgabe]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<SportgeräteRückgabe>>**
+|Done?                      |False
+|Beschreibung               |Ausgeliehene Sportgeräte können auch zurückgegeben werden
+|Akteure                    |Mitarbeiter
+|Trigger                    |Kunde gibt physisch ein Sportgerät aus
+|Vorbedingungen            a|Ein Sportgerät wurde <<SportgeräteAusleihe, Ausgeliehen>>
+|Schritte                  a|
+1. Mitarbeiter markiert das Sportgerät als verfügbar
+|===
+
+
+
+[[DatenAnpassen]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<DatenAnpassen>>**
+|Done?                      |False
+|Beschreibung               |Mitarbeiter sollen Stellplätze, Sportgeräte und Preise variabel konfigurieren können.
+|Akteure                    |Mitarbeiter
+|Trigger                    |Mitarbeiter möchte etwas anpassen
+|Vorbedingungen            a|None
+|Schritte                  a|
+1. Mitarbeiter navigiert zur entsprechenden Seite +
+ - <<PlatzKatalog>> für das Bearbeiten von Stellplätzen
+ - <<SportgeräteKatalog>> für das Bearbeiten von Sportgeräten
+2. Mitarbeiter führt Änderung durch
+ - Ändert einen Wert
+ - Fügt einen artikel hinzu
+ - Entfernt einen Artikel
+|===
+
+
+[[DashBoard]]
+[cols="1h, 3"]
+|===
+|Name                       |**<<DashBoard>>**
+|Done?                      |False
+|Beschreibung               |der Besitzer des Campingplatzes möchte eine Übersichtsfunktion in die Software integriert haben
+|Akteure                    |Boss
+|Trigger                    |Boss möchte sich einen Überblick über seinen {campsite} verschaffen
+|Vorbedingungen            a|None
+|Schritte                  a|
+1. Boss drückt "{navigate_dashboard}" in der navigations Leiste
+|===
 
 
 
