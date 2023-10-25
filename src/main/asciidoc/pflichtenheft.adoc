@@ -1,6 +1,6 @@
 = Pflichtenheft
 :project_name: Camping Platz
-:company_name: Below the Sun
+:company_name: Below-The-Sun
 :toc: macro
 :toc-title:
 :toclevels: 1
@@ -21,11 +21,8 @@ toc::[ ]
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 
 == Aufgabenstellung und Zielsetzung
-Text aus Aufgabenstellung kopieren und ggfs. präzisieren.
-Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht werden sollen.
-
-Der Besitzer des Campingplatzes Below-The-Sun hat die Gruppe sechs damit beauftragt, eine Software zu entwickeln. Der
-Platz wächst stetig und ist gut besucht, doch es besteht ein starker Personalmangel. Der Besitzer erhofft sich
+Der Betreiber des Campingplatzes Below-The-Sun hat die Gruppe sechs damit beauftragt, eine Software zu entwickeln. Der
+Platz wächst stetig und ist gut besucht, doch es besteht ein starker Personalmangel. Der Betreiber erhofft sich
 durch eine Software zum Self-Management der Camper eine Verringerung des Arbeitsaufwandes, sodass
 Personal gezielter eingesetzt werden kann. +
 Ein Beispiel ist die Reservierung: Bisher wird eine Person in
@@ -33,39 +30,39 @@ Vollzeit benötigt, um Reservierungen entgegenzunehmen und Stellplätze zu plane
 die Software jedoch komplett selbst umsetzen.
 
 Das wichtigste dabei ist natürlich die Verwaltung und Vergabe von Stellplätzen (_Plot_). +
-Below-The-Sun hat eine gewisse Anzahl von verschieden dimensionierten Stellplätzen.
+**{company_name}** hat eine gewisse Anzahl von verschieden dimensionierten Stellplätzen.
 An einigen ist direkt ein Parkplatz (_Attachment_) für Auto, Motorrad oder Campingwagen angegliedert.
 Alle Kombinationen sind hier denkbar. +
 Das Vorreservieren der Stellplätze soll möglich sein, die Reservierungen werden aber am Morgen nach dem geplanten Anreisetermin
 gelöscht und der Platz steht anderen Campern wieder zur Verfügung. Jeder Kunde (_Costumer_) wird bei seiner Ankunft
-vom Personal (_Employee_) offiziell eingecheckt und erhält den gewünschten Stellplatz automatisch zugewiesen bzw.
-entsprechend seiner Reservierung. <- hääää  +
+von Mitarbeitern (_Employee_) offiziell eingecheckt und erhält den gewünschten Stellplatz automatisch zugewiesen. +
 Sollte während der Reservierung oder des Check-in kein den Anforderungen des Kunden entsprechender
 Stellplatz mehr vorhanden sein, so muss nach passenden Alternativen gesucht werden können. Eventuell kann der Camper
 sein Auto beispielsweise auf einem anderen Parkplatz abstellen oder ist mit einem kleineren Platz zufrieden. +
 Gruppen erhalten Gruppenrabatte auf die Plätze. +
 Jeder Stellplatz kann durch Verschmutzung oder technische Defekte (_Issue_) ausfallen und bei der Reparatur Kosten
-verursachen. Die Software sollte diese Tatsache beachten.
-
-Natürlich muß auch der Verbrauch an Strom und Wasser abgerechnet werden. Kunden bezahlen
+verursachen. Die Software sollte diese Tatsache beachten. +
+Natürlich muss auch der Verbrauch von Strom und Wasser abgerechnet werden. Kunden bezahlen
 Pauschalbeträge pro Tag, sie bekommen bei der Abreise eine Gesamtrechnung über Platzgebühren und
-Nebenkosten. Um seinen Kunden den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der
-Betreiber von Below-The-Sun auch Sportgeräte: Bälle, Tischtennisgarnituren, Volleyballnetze und
+Nebenkosten.
+
+Um seinen Kunden den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der
+Betreiber von **{company_name}** auch Sportgeräte: Bälle, Tischtennisgarnituren, Volleyballnetze und
 Federballsets. Dabei müssen die Camper eine Leihgebühr bezahlen und eine Kaution von 30 Euro hinterlegen,
-die sie nach Rückgabe des unversehrten Gerätes wieder ausgehändigt bekommen. Über den Aufbau einer
-Fahrradvermietung wird ebenfalls nachgedacht. Kunden sollen ganz bequem einsehehn können, wann welche
-Sportgeräte ausleihbar sind und diese dann bequem buchen.
+die sie nach Rückgabe des unversehrten Gerätes wieder ausgehändigt bekommen. +
+Über den Aufbau einer Fahrradvermietung wird ebenfalls nachgedacht. Kunden sollen ganz bequem einsehen können,
+wann welche Sportgeräte ausleihbar sind und diese dann buchen.
 
-Schließlich möchte der Campingplatzbesitzer auch eine Übersichtsfunktion im Programm eingebaut haben,
+Schließlich möchte der Besitzer (_Boss_) des Campingplatzes auch eine Übersichtsfunktion in die Software integriert haben,
 worüber er jederzeit ein Dashboard mit den Einnahmen, der Auslastung, defekten Stellplätzen Geräten sowie
-anderen nützlichen Infos einsehen kann, um schnell zu reagieren. Ebenfalls möchte er nicht, dass es nötig ist,
-bei kleinen Änderungen am Campingplatz ständig das System updaten zu müssen, denn das kostet Geld unfd
-Zeit. So sollen Stellplätze, Sportgeräte und Preise möglichst variable von bestimmten Mitarbeitern
-konfigurierbar sein.
+anderen nützlichen Informationen einsehen kann, um schnell zu reagieren. +
+Mitarbeiter sollen Stellplätze, Sportgeräte und Preise variabel konfigurieren können.
 
-Ein gesonderter Bereich von Below-The-Sun ist in sogenannte Saisonstellplätze aufgeteilt. Hier bekommen
+Ein gesonderter Bereich von **{company_name}** ist in sogenannte Saisonstellplätze aufgeteilt. +
+Hier bekommen
 Dauercamper jedes Jahr von April bis Oktober denselben Platz zugewiesen, sofern sie sich rechtzeitig
-anmelden. Die Stellplätze für Dauercamper haben entsprechende Anschlüsse mit Stromzählern und
+anmelden. +
+Die Stellplätze für Dauercamper haben entsprechende Anschlüsse mit Stromzählern und
 Wasseruhren. Hier kann der Verbrauch direkt abgelesen werden, die Abrechnung erfolgt monatlich oder bei
 der endgültigen Abreise.
 
@@ -120,13 +117,13 @@ a|
 Das Kontextdiagramm zeigt das geplante Software-System in seiner Umgebung. Zur Umgebung gehören alle Nutzergruppen des Systems und Nachbarsysteme. Die Grafik kann auch informell gehalten sein. Überlegen Sie sich dann geeignete Symbole. Die Grafik kann beispielsweise mit Visio erstellt werden. Wenn nötig, erläutern Sie diese Grafik.
 
 [[context_diagram]]
-image::./diagrams/images/context.png[context diagram, 100%, 100%, pdfwidth=100%, title= "Context diagram of the {project_name} in UML", align=center]
+image::./projektbezogene_dateien/images/context.png[context diagram, 100%, 100%, pdfwidth=100%, title= "Context diagram of the {project_name} in UML", align=center]
 
 === Top-Level-Architektur
 Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm.
 
 [[TLA]]
-image::./diagrams/images/tpa.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the {project_name} in UML", align=center]
+image::./projektbezogene_dateien/images/tpa.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the {project_name} in UML", align=center]
 
 == Anwendungsfälle
 
