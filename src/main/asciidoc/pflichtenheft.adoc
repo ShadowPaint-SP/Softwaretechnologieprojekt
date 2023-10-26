@@ -3,6 +3,7 @@
 :company_name: Below-The-Sun
 :campsite: Camping Platz
 :website: Camping Platz Webseite
+:system: System
 :toc: macro
 :toc-title:
 :toclevels: 1
@@ -12,6 +13,10 @@
 :navigate_logout: Ausloggen
 :navigate_register: Anmelden
 :navigate_dashboard: Dashboard
+:actor_user: Nutzer
+:actor_customer: Kunde
+:actor_employee: Mitarbeiter
+:actor_boss: Boss
 
 
 
@@ -99,14 +104,14 @@ a|
 - Ermöglichen eines Reservierungsprozesses für Nutzer
 - Übersicht über den Campingplatz über das Dashboard
 
-|Mitarbeiter
+|{actor_employee}
 |2
 |Von unserem Klienten angestellte Mitarbeiter
 a|
 - Automatisierung des Buchungsprozesses für Mitarbeiter:
 - Automatisches Management der Buchungen und Verfügbarkeit der Plätze
 
-|Nutzer
+|{actor_user}
 |3
 |Benutzer der Webseite, tatsächliche und potenzielle Kunden.
 a|
@@ -148,13 +153,13 @@ Akteure, die weiter unten in der Tabelle sind, besitzen alle Rechte über ihnen.
 [[actors]]
 |===
 |Name | Rechte
-|Nutzer +
+|{actor_user} +
 (_User_)| Repräsentiert alle Personen die mit dem System interagieren
-|Kunde +
+|{actor_customer} +
 (_Costumer_)| Repräsentiert alle Personen, die dem System gegenüber authentifiziert sind
-|Mitarbeiter +
+|{actor_employee} +
 (_Employee_)| Repräsentiert alle Personen, die Änderungen in Datenbanken vornehmen können.
-|Boss +
+|{actor_boss} +
 (_Boss_)| Eine Person die anderen Nutzer Rechte zuweist
 |===
 
@@ -172,28 +177,30 @@ Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die w
 |===
 |Name                      |**<<AccountManagment>>**
 |Beschribung               |Ein benutzer soll sich in auf der Webseite einen Account erstellen können, dort einloggen können und sich auch ausloggen können
-|Akteure                   |Nutzer
-|Trigger                   |Nutzer möchte seinen einloggen/registrieren, um einen Platz zu reservieren oder möchte ausloggen
+|Akteure                   |{actor_user}
+|Trigger                   |{actor_user} möchte seinen einloggen/registrieren, um einen Platz zu reservieren oder möchte ausloggen
 |Vorbedingungen           a|
-_Registrieren_: User ist nicht in einem Account eingeloggt +
-_Login_: User ist nicht in einem Account eingeloggt +
-_Logout_: User ist in einem Account eingeloggt
+_Registrieren_: {actor_user} ist nicht in einem Account eingeloggt +
+_Login_: {actor_user} ist nicht in einem Account eingeloggt +
+_Logout_: {actor_user} ist in einem Account eingeloggt
 |Schritte          a|
 _Registrieren_:
 
-1. Nutzer drückt "{navigate_register}" in der navigations Leiste
-2. Nutzer füllt das Formular aus
+1. {actor_user} drückt "{navigate_register}" in der navigations Leiste
+2. {actor_user} füllt das Formular aus
 3. Account erstellung im System
 
 _Login_:
 
-1. Nutzer drückt "{navigate_login}" in der navigations Leiste
-2. Nutzer füllt das Formular aus
+1. {actor_user} drückt "{navigate_login}" in der navigations Leiste
+2. {actor_user} füllt das Formular aus
 
 _Logout_:
 
-1. Nutzer drückt "{navigate_logout}" in der navigations Leiste
-2. Nutzer wird auf den Home Bildschirm umgeleitet
+1. {actor_user} drückt "{navigate_logout}" in der navigations Leiste
+2. {actor_user} wird auf den Home Bildschirm umgeleitet
+
+|Funktionale Anforderungen | <<F0010>> <<F0020>> <<F0021>>
 |===
 
 
@@ -203,13 +210,14 @@ _Logout_:
 |===
 |Name                       |**<<PlatzKatalog>>**
 |Done?                      |False
-|Beschreibung               |Jeder Nutzer der {website} soll in der Lage sein den vollen Katalog der verfügbaren Stellplätze zu sehen
-|Akteure                    |Nutzer
-|Trigger                    |Nutzer möchte sich die Auswahl an Plätze ansehen
+|Beschreibung               |Jeder {actor_user} der {website} soll in der Lage sein den vollen Katalog der verfügbaren Stellplätze zu sehen
+|Akteure                    |{actor_user}
+|Trigger                    |{actor_user} möchte sich die Auswahl an Plätze ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. Nutzer drückt "{navigate_catalog}" in der navigations Leiste
-2. Nutzer bekommt alle Plätze in einer Liste angezeigt
+1. {actor_user} drückt "{navigate_catalog}" in der navigations Leiste
+2. {actor_user} bekommt alle Plätze in einer Liste angezeigt
+|Funktionale Anforderungen | <<F0100>> <<F0104>>
 |===
 
 
@@ -219,12 +227,13 @@ _Logout_:
 |===
 |Name                       |**<<PlatzReservieren>>**
 |Done?                      |False
-|Beschreibung               |Jeder Kunde der {website} soll in der Lage sein den die im Katalog angezeigten Stellplätze zu reservieren
-|Akteure                    |Kunde
-|Trigger                    |Kunde möchte einen Platz reservieren
-|Vorbedingungen            a|Kunde sieht den <<PlatzKatalog>>
+|Beschreibung               |Jeder {actor_customer} der {website} soll in der Lage sein den die im Katalog angezeigten Stellplätze zu reservieren
+|Akteure                    |{actor_customer}
+|Trigger                    |{actor_customer} möchte einen Platz reservieren
+|Vorbedingungen            a|{actor_customer} sieht den <<PlatzKatalog>>
 |Schritte                  a|
-1. Kunde drückt das entsprechende Element, um die Reservierung durchzuführen
+1. {actor_customer} drückt das entsprechende Element, um die Reservierung durchzuführen
+|Funktionale Anforderungen | <<F0010>> <<F0104>> <<F0106>>
 |===
 
 
@@ -235,12 +244,13 @@ _Logout_:
 |Name                       |**<<SportgeräteKatalog>>**
 |Done?                      |False
 |Beschreibung               |Jeder Nutzer der {website} soll in der Lage sein den vollen Katalog der verfügbaren Sportgeräte zu sehen
-|Akteure                    |Nutzer
+|Akteure                    |{actor_user}
 |Trigger                    |Nutzer möchte sich die Auswahl an Sportgeräten ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. Nutzer drückt "{navigate_sports_eqipment}" in der navigations Leiste
-2. Nutzer bekommt alle Sportgeräte in einer Liste angezeigt
+1. {actor_user} drückt "{navigate_sports_eqipment}" in der navigations Leiste
+2. {actor_user} bekommt alle Sportgeräte in einer Liste angezeigt
+|Funktionale Anforderungen | <<F0020>> <<F0114>>
 |===
 
 
@@ -250,13 +260,14 @@ _Logout_:
 |===
 |Name                       |**<<KundenEinchecken>>**
 |Done?                      |False
-|Beschreibung               |Jeder Kunde wird bei seiner Ankunft von Mitarbeitern offiziell eingecheckt und erhält den gewünschten Stellplatz zugewiesen.
-|Akteure                    |Mitarbeiter
-|Trigger                    |Kunde trifft physisch beim {campsite} ein
+|Beschreibung               |Jeder {actor_customer} wird bei seiner Ankunft von Mitarbeitern offiziell eingecheckt und erhält den gewünschten Stellplatz zugewiesen.
+|Akteure                    |{actor_employee}
+|Trigger                    |{actor_customer} trifft physisch beim {campsite} ein
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. Mitarbeiter markiert die <<PlatzReservieren, Reservierung>> vom Kunden als wahrgenommen
-|Extension                  | Wenn ein Kunde ohne Reservierung zum {campsite} kommt, müsste der Mitarbeiter für seine Verweilzeit eine Reservierung anlegen und sofort bestätigen. Stattdessen dem Mitarbeiter die option geben, das in einem Schritt zu machen
+1. {actor_employee} markiert die <<PlatzReservieren, Reservierung>> vom {actor_customer} als wahrgenommen
+|Extension                  | Wenn ein {actor_customer} ohne Reservierung zum {campsite} kommt, müsste der Mitarbeiter für seine Verweilzeit eine Reservierung anlegen und sofort bestätigen. Stattdessen dem Mitarbeiter die option geben, das in einem Schritt zu machen
+|Funktionale Anforderungen | <<F0010>> <<F0104>> <<F0107>>
 |===
 
 
@@ -266,12 +277,13 @@ _Logout_:
 |===
 |Name                       |**<<SportgeräteAusleihe>>**
 |Done?                      |False
-|Beschreibung               |Um seinen Kunden den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der Betreiber von Below-The-Sun auch Sportgeräte
-|Akteure                    |Mitarbeiter
-|Trigger                    |Kunde leiht sich physisch ein Sportgerät aus
+|Beschreibung               |Um seinen {actor_customer}n den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der Betreiber von Below-The-Sun auch Sportgeräte
+|Akteure                    |{actor_employee}
+|Trigger                    |{actor_customer} leiht sich physisch ein Sportgerät aus
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. Mitarbeiter markiert das Sportgerät als ausgeliehen
+1. {actor_employee} markiert das Sportgerät als ausgeliehen
+|Funktionale Anforderungen | <<F0010>> <<F0115>>
 |===
 
 
@@ -282,11 +294,12 @@ _Logout_:
 |Name                       |**<<SportgeräteRückgabe>>**
 |Done?                      |False
 |Beschreibung               |Ausgeliehene Sportgeräte können auch zurückgegeben werden
-|Akteure                    |Mitarbeiter
-|Trigger                    |Kunde gibt physisch ein Sportgerät aus
+|Akteure                    |{actor_employee}
+|Trigger                    |{actor_customer} gibt physisch ein Sportgerät aus
 |Vorbedingungen            a|Ein Sportgerät wurde <<SportgeräteAusleihe, Ausgeliehen>>
 |Schritte                  a|
-1. Mitarbeiter markiert das Sportgerät als verfügbar
+1. {actor_employee} markiert das Sportgerät als verfügbar
+|Funktionale Anforderungen | <<F0010>> <<F0116>>
 |===
 
 
@@ -296,18 +309,19 @@ _Logout_:
 |===
 |Name                       |**<<DatenAnpassen>>**
 |Done?                      |False
-|Beschreibung               |Mitarbeiter sollen Stellplätze, Sportgeräte und Preise variabel konfigurieren können.
-|Akteure                    |Mitarbeiter
-|Trigger                    |Mitarbeiter möchte etwas anpassen
+|Beschreibung               |{actor_employee} sollen Stellplätze, Sportgeräte und Preise variabel konfigurieren können.
+|Akteure                    |{actor_employee}
+|Trigger                    |{actor_employee} möchte etwas anpassen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. Mitarbeiter navigiert zur entsprechenden Seite +
+1. {actor_employee} navigiert zur entsprechenden Seite +
  - <<PlatzKatalog>> für das Bearbeiten von Stellplätzen
  - <<SportgeräteKatalog>> für das Bearbeiten von Sportgeräten
-2. Mitarbeiter führt Änderung durch
+2. {actor_employee} führt Änderung durch
  - Ändert einen Wert
  - Fügt einen artikel hinzu
  - Entfernt einen Artikel
+|Funktionale Anforderungen | <<F0010>> <<F0101>> <<F0102>> <<F0103>> <<F0111>> <<F0112>> <<F0113>>
 |===
 
 
@@ -317,16 +331,172 @@ _Logout_:
 |Name                       |**<<DashBoard>>**
 |Done?                      |False
 |Beschreibung               |der Besitzer des Campingplatzes möchte eine Übersichtsfunktion in die Software integriert haben
-|Akteure                    |Boss
-|Trigger                    |Boss möchte sich einen Überblick über seinen {campsite} verschaffen
+|Akteure                    |{actor_boss}
+|Trigger                    |{actor_boss} möchte sich einen Überblick über seinen {campsite} verschaffen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. Boss drückt "{navigate_dashboard}" in der navigations Leiste
+1. {actor_boss} drückt "{navigate_dashboard}" in der navigations Leiste
+|Funktionale Anforderungen | <<F0010>> <<F0200>>
 |===
 
 
 
 == Funktionale Anforderungen
+
+
+[options="header", cols="2h, 1, 3, 12"]
+|===
+|ID
+|Version
+|Name
+|Description
+
+|[[F0010]]<<F0010>>
+|v0.1
+|Authentifizierung
+a|
+Die {website} muss in allen {actor_user} zugängliche Teile, authentifizierten {actor_employee} zugängliche Teile, authentifizierten{actor_employee} zugängliche Teile, und {actor_boss} zugängliche Teile unterteilt werden können.
+Wenn ein Benutzer im System vorhanden ist (<<AccountManagment, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
+folgenden Informationen angibt:
+
+* Benutzername
+* Kennwort
+
+|[[F0020]]<<F0020>>
+|v0.1
+|Registrierung
+a|
+Die {website} muss einem nicht authentifizierten Benutzer ({actor_user}) die Möglichkeit bieten, sich zu registrieren, nachdem
+das Navigationselement "Registrieren" aufzurufen.
+
+Die folgenden Informationen müssen bereitgestellt werden:
+
+* Benutzername
+* E-Mail (eindeutig)
+* Passwort
+
+Die {website} validiert die angegebenen Daten (<<F0021>>).
+Der Benutzer wird im System als Kunde registriert und kann sich nach erfolgreicher Validierung authentifizieren (<<F0010>>).
+
+
+|[[F0021]]<<F0021>>
+|v0.1
+|Registrierung validieren
+a|
+Die {website} muss in der Lage sein, die angegebenen Daten eines nicht registrierten Benutzers zu validieren.
+
+Die Einzigartigkeit der E-Mail muss gewährleistet sein, der {actor_user} muss informiert werden, falls das nicht der Fall ist.
+
+
+
+
+|[[F0100]]<<F0100>>
+|v0.1
+|Plätze Inventar
+a|
+Das {system} muss in der Lage sein, Daten über die Plätze in einem Inventar dauerhaft zu speichern.
+
+|[[F0101]]<<F0101>>
+|v0.1
+|Plätze hinzufügen
+a|
+Das {system} muss in der Lage sein, dem Inventar Plätze hinzuzufügen.
+
+|[[F0102]]<<F0102>>
+|v0.1
+|Plätze entfernen
+a|
+Das {system} muss in der Lage sein, dem Inventar Plätze zu entfernen.
+
+|[[F0103]]<<F0103>>
+|v0.1
+|Plätze anpassen
+a|
+Das {system} muss in der Lage sein, Daten von Plätze vom Inventar anzupassen.
+
+|[[F0104]]<<F0104>>
+|v0.1
+|Plätze Katalog
+a|
+Das System muss in der Lage sein, {actor_user}n einen Katalog im Nur-Lese-Zugriff auf vorhandene Plätze zu ermöglichen.
+
+|[[F0105]]<<F0105>>
+|v0.1
+|Plätze Katalog filtern (optional)
+a|
+Das {system} muss einem {actor_user} die Möglichkeit bieten, Plätze im Katalog gefiltert nach einer gewählten Kategorie (größe, anliegender parkplatz)
+
+|[[F0106]]<<F0106>>
+|v0.1
+|Plätze Reservieren
+a|
+Das System muss in der Lage sein, Plätze als reserviert für eine bestimmte Periode zu markieren
+
+|[[F0107]]<<F0107>>
+|v0.1
+|Plätze Reservierung Wahrnehmen
+a|
+Das System muss in der Lage sein, Plätze als besetzt für eine bestimmte Periode zu markieren
+
+
+
+|[[F0110]]<<F0110>>
+|v0.1
+|Sportgeräte Inventar
+a|
+Das {system} muss in der Lage sein, Daten über die Sportgeräte in einem Inventar dauerhaft zu speichern.
+
+|[[F0111]]<<F0111>>
+|v0.1
+|Sportgeräte hinzufügen
+a|
+Das {system} muss in der Lage sein, dem Inventar Sportgeräte hinzuzufügen.
+
+|[[F0112]]<<F0112>>
+|v0.1
+|Sportgeräte entfernen
+a|
+Das {system} muss in der Lage sein, dem Inventar Sportgeräte zu entfernen.
+
+|[[F0113]]<<F0113>>
+|v0.1
+|Sportgeräte anpassen
+a|
+Das {system} muss in der Lage sein, Daten von Sportgeräte vom Inventar anzupassen.
+
+|[[F0114]]<<F0114>>
+|v0.1
+|Sportgeräte Katalog
+a|
+Das System muss in der Lage sein, {actor_user}n einen Katalog im Nur-Lese-Zugriff auf vorhandene Sportgeräte zu ermöglichen.
+
+|[[F0115]]<<F0115>>
+|v0.1
+|Sportgeräte ausgeliehen
+a|
+Das {system} muss in der Lage sein, dem Inventar Sportgeräte als ausgeliehen zu markieren.
+
+|[[F0116]]<<F0116>>
+|v0.1
+|Sportgeräte rückgeben
+a|
+Das {system} muss in der Lage sein, dem Inventar Sportgeräte als nicht mehr ausgeliehen zu markieren.
+
+
+
+
+|[[F0200]]<<F0200>>
+|v0.1
+|Übersicht anzeigen
+a|
+Das {system} muss dem {actor_boss} die Möglichkeit bieten nützlichen Informationen einzusehen, wie:
+- Einnahmen, Ausgaben
+- Auslastung
+- Defekte Stellplätze
+- andere nützliche Informationen
+|===
+
+
 
 === Muss-Kriterien
 Was das zu erstellende Programm auf alle Fälle leisten muss.
