@@ -3,11 +3,9 @@
 :company_name: Below-The-Sun
 :campsite: Camping Platz
 :website: Camping Platz Webseite
-
 :toc: macro
 :toc-title:
 :toclevels: 1
-
 :navigate_catalog: Platzreservierung
 :navigate_sports_eqipment: Sportgerätverleih
 :navigate_login: Einloggen
