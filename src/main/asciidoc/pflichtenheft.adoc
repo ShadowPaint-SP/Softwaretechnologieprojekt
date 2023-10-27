@@ -546,7 +546,7 @@ Dokumentieren Sie in einer Tabelle die Qualitätsziele, welche das System erreic
 |===
 |Qualitätsanforderungen           | 1 | 2 | 3 | 4 | 5
 |Wartbarkeit          |   |   |   | x |
-|Benutzerfreundlichkeit                |   |   | x |   |
+|Benutzerfreundlichkeit                |   |   |  |   |x
 |Sicherheit                 |   |   |   | x |
 |===
 
@@ -555,6 +555,41 @@ Dokumentieren Sie in einer Tabelle die Qualitätsziele, welche das System erreic
 
 Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
 Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein muss.
+
+[options="header", cols="2h, 1, 3, 12"]
+|===
+|ID
+|Version
+|Name
+|Description
+
+|[[NF0008]]<<NF0008>>
+|v0.1
+|Verfügbarkeit - Betriebszeit
+a|
+Das System sollte zumindest um die 90% der Zeit erreichbar/ funktional sein. In Saisonzeiten in denen viele Reservierungen getätigt werden bis zu 99%.
+
+|[[NF0009]]<<NF0009>>
+|v0.1
+|Wartbarkeit - wenige Updates
+a|
+Das System sollte so konzipiert sein, das es Änderungen in der Organisation des Zeltplatzes ohne notwendige Updates übernehmen kann.
+
+|[[NF0010]]<<NF0010>>
+|v0.1
+|Benutzerfreundlichkeit - intuitiv bedienbar
+a|
+Das System sollte mit seinem Design intuitiv und für alle Altersschichten leicht und verständlich bedienbar sein.
+
+
+|[[NF0018]]<<NF0018>>
+|v0.1
+|Sicherheit - Passwortspeicherung
+a|
+Die Passwörter der Nutzer dürfen nur als Hash-Werte gespeichert werden, um Diebstahl zu verhindern.
+
+|===
+
 
 == GUI Prototyp
 ////
