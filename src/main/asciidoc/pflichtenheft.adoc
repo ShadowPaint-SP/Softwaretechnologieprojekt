@@ -205,6 +205,8 @@ Akteure, die weiter unten in der Tabelle sind, besitzen alle Rechte über ihnen.
 
 === Überblick Anwendungsfalldiagramm
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
+[[use_case]]
+image::./projektbezogene_dateien/images/useCaseDiagram.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "<use case diagram of the> {project_name} in UML", align=center]
 
 === Anwendungsfallbeschreibungen
 Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems aufzulisten.
