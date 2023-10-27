@@ -600,7 +600,7 @@ Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialogla
 ////
 
 [[home_image]]
-image::./projektbezogene_dateien/images/gui-home.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Landing page of {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-home.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Empfangsseite vom {project_name}", align=center]
 
 [[home_reservation]]
 image::./projektbezogene_dateien/images/gui-reservierung.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsseite vom {project_name}", align=center]
