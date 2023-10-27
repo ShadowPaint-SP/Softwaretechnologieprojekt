@@ -1,22 +1,52 @@
 = Pflichtenheft
-:project_name: Camping Platz
-:company_name: Below-The-Sun
-:campsite: Camping Platz
-:website: Camping Platz Webseite
-:system: System
+// Table of Contents macro related
 :toc: macro
 :toc-title:
-:toclevels: 1
+:toclevels: 2
+
+// Variablen für Bezeichnungen die mit der Firma zutun haben
+:project_name: Camping Platz
+:company_name: Below-The-Sun
+:campsite: Campingplatz
+:website: Campingplatz-Webseite
+:system: System
+
+// Variablen für Bezeichnungen der Navigationselemente der Webseite
 :navigate_catalog: Platzreservierung
 :navigate_sports_eqipment: Sportgerätverleih
 :navigate_login: Einloggen
 :navigate_logout: Ausloggen
 :navigate_register: Anmelden
 :navigate_dashboard: Dashboard
-:actor_user: Nutzer
-:actor_customer: Kunde
-:actor_employee: Mitarbeiter
-:actor_boss: Boss
+
+// Variablen für grundlegende Bezeichnungen
+:base_user: Nutzer
+:base_customer: Kunde
+:base_employee: Mitarbeiter
+:base_boss: Boss
+:base_developers: Developers
+:base_catalog: Katalog
+:base_reserve: Reservierung
+:base_plot: Platz
+:base_plots: Plätze
+
+// Links in den glossar. Es sind sie zu benutzen, wenn möglich
+:glossar_user: <<{base_user}, {base_user}>>
+:glossar_customer: <<{base_customer}, {base_customer}>>
+:glossar_employee: <<{base_employee}, {base_employee}>>
+:glossar_boss: <<{base_boss}, {base_boss}>>
+:glossar_developers: <<{base_developers}, {base_developers}>>
+:glossar_company_name: <<{company_name}, {company_name}>>
+:glossar_website: <<{website}, {website}>>
+:glossar_system: <<{system}, {system}>>
+:glossar_catalog: <<{base_catalog}, {base_catalog}>>
+:glossar_reserve: <<{base_reserve}, {base_reserve}>>
+:glossar_plot: <<{base_plot}, {base_plot}>>
+:glossar_plots: <<{base_plot}, {base_plots}>>
+
+
+
+
 
 
 
@@ -37,7 +67,7 @@ toc::[ ]
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 
 == Aufgabenstellung und Zielsetzung
-Der Betreiber des Campingplatzes Below-The-Sun hat die Gruppe 6 damit beauftragt, eine Software zu entwickeln. Der
+Der Betreiber des Campingplatzes Below-The-Sun hat die Gruppe sechs damit beauftragt, eine Software zu entwickeln. Der
 Platz wächst stetig und ist gut besucht, doch es besteht ein starker Personalmangel. Der Betreiber erhofft sich
 durch eine Software zum Self-Management der Camper eine Verringerung des Arbeitsaufwandes, sodass
 Personal gezielter eingesetzt werden kann. +
@@ -46,7 +76,7 @@ Vollzeit benötigt, um Reservierungen entgegenzunehmen und Stellplätze zu plane
 die Software jedoch komplett selbst umsetzen.
 
 Das wichtigste dabei ist natürlich die Verwaltung und Vergabe von Stellplätzen (_Plot_). +
-**{company_name}** hat eine gewisse Anzahl von verschieden dimensionierten Stellplätzen.
+**{glossar_company_name}** hat eine gewisse Anzahl von verschieden dimensionierten Stellplätzen.
 An einigen ist direkt ein Parkplatz (_Attachment_) für Auto, Motorrad oder Campingwagen angegliedert.
 Alle Kombinationen sind hier denkbar. +
 Das Vorreservieren der Stellplätze soll möglich sein, die Reservierungen werden aber am Morgen nach dem geplanten Anreisetermin
@@ -63,7 +93,7 @@ Pauschalbeträge pro Tag, sie bekommen bei der Abreise eine Gesamtrechnung über
 Nebenkosten.
 
 Um seinen Kunden den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der
-Betreiber von **{company_name}** auch Sportgeräte: Bälle, Tischtennisgarnituren, Volleyballnetze und
+Betreiber von **{glossar_company_name}** auch Sportgeräte: Bälle, Tischtennisgarnituren, Volleyballnetze und
 Federballsets. Dabei müssen die Camper eine Leihgebühr bezahlen und eine Kaution von 30 Euro hinterlegen,
 die sie nach Rückgabe des unversehrten Gerätes wieder ausgehändigt bekommen. +
 Über den Aufbau einer Fahrradvermietung wird ebenfalls nachgedacht. Kunden sollen ganz bequem einsehen können,
@@ -74,7 +104,7 @@ worüber er jederzeit ein Dashboard mit den Einnahmen, der Auslastung, defekten 
 anderen nützlichen Informationen einsehen kann, um schnell zu reagieren. +
 Mitarbeiter sollen Stellplätze, Sportgeräte und Preise variabel konfigurieren können.
 
-Ein gesonderter Bereich von **{company_name}** ist in sogenannte Saisonstellplätze aufgeteilt. +
+Ein gesonderter Bereich von **{glossar_company_name}** ist in sogenannte Saisonstellplätze aufgeteilt. +
 Hier bekommen
 Dauercamper jedes Jahr von April bis Oktober denselben Platz zugewiesen, sofern sie sich rechtzeitig
 anmelden. +
@@ -96,31 +126,31 @@ Ausßerdem wird juder Gruppe ein "Priorität"-Wert zugeordnet, vom 1 bis 5
 |Beschreibung
 |Ziele
 
-|{company_name}
+|{glossar_company_name}
 |5
 |Der Klient
 a|
 - Automatisierung des Buchungsprozesses für Mitarbeiter
-- Ermöglichen eines Reservierungsprozesses für Nutzer
-- Übersicht über den Campingplatz über das Dashboard
+- Ermöglichen eines {glossar_reserve}sprozesses für Nutzer
+- Übersicht über den {campsite} über das Dashboard
 
-|{actor_employee}
+|{glossar_employee}
 |2
 |Von unserem Klienten angestellte Mitarbeiter
 a|
 - Automatisierung des Buchungsprozesses für Mitarbeiter:
-- Automatisches Management der Buchungen und Verfügbarkeit der Plätze
+- Automatisches Management der Buchungen und Verfügbarkeit der {glossar_plots}
 
-|{actor_user}
+|{glossar_user}
 |3
 |Benutzer der Webseite, tatsächliche und potenzielle Kunden.
 a|
-- Ermöglichen eines Reservierungsprozesses für Nutzer:
-- Übersicht über die buchbaren Plätze und Sportgeräte
+- Ermöglichen eines {glossar_reserve}sprozesses für Nutzer:
+- Übersicht über die buchbaren {glossar_plots} und Sportgeräte
 
-|Developers
+|{glossar_developers}
 |3
-|Die aktuellen entwickler der Webseite und die zukünftigen Maintainer
+|Die aktuellen entwickler der {glossar_website} und die zukünftigen Maintainer
 a|
 - Einfach
 - Wartbar
@@ -153,13 +183,13 @@ Akteure, die weiter unten in der Tabelle sind, besitzen alle Rechte über ihnen.
 [[actors]]
 |===
 |Name | Rechte
-|{actor_user} +
+|{glossar_user} +
 (_User_)| Repräsentiert alle Personen die mit dem System interagieren
-|{actor_customer} +
+|{glossar_customer} +
 (_Costumer_)| Repräsentiert alle Personen, die dem System gegenüber authentifiziert sind
-|{actor_employee} +
+|{glossar_employee} +
 (_Employee_)| Repräsentiert alle Personen, die Änderungen in Datenbanken vornehmen können.
-|{actor_boss} +
+|{glossar_boss} +
 (_Boss_)| Eine Person die anderen Nutzer Rechte zuweist
 |===
 
@@ -177,28 +207,28 @@ Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die w
 |===
 |Name                      |**<<AccountManagment>>**
 |Beschribung               |Ein benutzer soll sich in auf der Webseite einen Account erstellen können, dort einloggen können und sich auch ausloggen können
-|Akteure                   |{actor_user}
-|Trigger                   |{actor_user} möchte seinen einloggen/registrieren, um einen Platz zu reservieren oder möchte ausloggen
+|Akteure                   |{glossar_user}
+|Trigger                   |{glossar_user} möchte seinen einloggen/registrieren, um einen {base_plot} zu <<{base_reserve}, reservieren>> oder möchte ausloggen
 |Vorbedingungen           a|
-_Registrieren_: {actor_user} ist nicht in einem Account eingeloggt +
-_Login_: {actor_user} ist nicht in einem Account eingeloggt +
-_Logout_: {actor_user} ist in einem Account eingeloggt
+_Registrieren_: {glossar_user} ist nicht in einem Account eingeloggt +
+_Login_: {glossar_user} ist nicht in einem Account eingeloggt +
+_Logout_: {glossar_user} ist in einem Account eingeloggt
 |Schritte          a|
 _Registrieren_:
 
-1. {actor_user} drückt "{navigate_register}" in der navigations Leiste
-2. {actor_user} füllt das Formular aus
+1. {glossar_user} drückt "{navigate_register}" in der navigations Leiste
+2. {glossar_user} füllt das Formular aus
 3. Account erstellung im System
 
 _Login_:
 
-1. {actor_user} drückt "{navigate_login}" in der navigations Leiste
-2. {actor_user} füllt das Formular aus
+1. {glossar_user} drückt "{navigate_login}" in der navigations Leiste
+2. {glossar_user} füllt das Formular aus
 
 _Logout_:
 
-1. {actor_user} drückt "{navigate_logout}" in der navigations Leiste
-2. {actor_user} wird auf den Home Bildschirm umgeleitet
+1. {glossar_user} drückt "{navigate_logout}" in der navigations Leiste
+2. {glossar_user} wird auf den Home Bildschirm umgeleitet
 
 |Funktionale Anforderungen | <<F0010>> <<F0020>> <<F0021>>
 |===
@@ -210,13 +240,13 @@ _Logout_:
 |===
 |Name                       |**<<PlatzKatalog>>**
 |Done?                      |False
-|Beschreibung               |Jeder {actor_user} der {website} soll in der Lage sein den vollen Katalog der verfügbaren Stellplätze zu sehen
-|Akteure                    |{actor_user}
-|Trigger                    |{actor_user} möchte sich die Auswahl an Plätze ansehen
+|Beschreibung               |Jeder {glossar_user} der {glossar_website} soll in der Lage sein den vollen {glossar_catalog} der verfügbaren Stell{glossar_plots} zu sehen
+|Akteure                    |{glossar_user}
+|Trigger                    |{glossar_user} möchte sich die Auswahl an {glossar_plots} ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {actor_user} drückt "{navigate_catalog}" in der navigations Leiste
-2. {actor_user} bekommt alle Plätze in einer Liste angezeigt
+1. {glossar_user} drückt "{navigate_catalog}" in der navigations Leiste
+2. {glossar_user} bekommt alle {glossar_plots} in einer Liste angezeigt
 |Funktionale Anforderungen | <<F0100>> <<F0104>>
 |===
 
@@ -227,12 +257,12 @@ _Logout_:
 |===
 |Name                       |**<<PlatzReservieren>>**
 |Done?                      |False
-|Beschreibung               |Jeder {actor_customer} der {website} soll in der Lage sein den die im Katalog angezeigten Stellplätze zu reservieren
-|Akteure                    |{actor_customer}
-|Trigger                    |{actor_customer} möchte einen Platz reservieren
-|Vorbedingungen            a|{actor_customer} sieht den <<PlatzKatalog>>
+|Beschreibung               |Jeder {glossar_customer} der {glossar_website} soll in der Lage sein den die im {glossar_catalog} angezeigten Stell{glossar_plots} zu <<{base_reserve}, reservieren>>
+|Akteure                    |{glossar_customer}
+|Trigger                    |{glossar_customer} möchte einen Platz <<{base_reserve}, reservieren>>
+|Vorbedingungen            a|{glossar_customer} sieht den <<{base_plot}Katalog>>
 |Schritte                  a|
-1. {actor_customer} drückt das entsprechende Element, um die Reservierung durchzuführen
+1. {glossar_customer} drückt das entsprechende Element, um die {glossar_reserve} durchzuführen
 |Funktionale Anforderungen | <<F0010>> <<F0104>> <<F0106>>
 |===
 
@@ -243,13 +273,13 @@ _Logout_:
 |===
 |Name                       |**<<SportgeräteKatalog>>**
 |Done?                      |False
-|Beschreibung               |Jeder Nutzer der {website} soll in der Lage sein den vollen Katalog der verfügbaren Sportgeräte zu sehen
-|Akteure                    |{actor_user}
+|Beschreibung               |Jeder Nutzer der {glossar_website} soll in der Lage sein den vollen {glossar_catalog} der verfügbaren Sportgeräte zu sehen
+|Akteure                    |{glossar_user}
 |Trigger                    |Nutzer möchte sich die Auswahl an Sportgeräten ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {actor_user} drückt "{navigate_sports_eqipment}" in der navigations Leiste
-2. {actor_user} bekommt alle Sportgeräte in einer Liste angezeigt
+1. {glossar_user} drückt "{navigate_sports_eqipment}" in der navigations Leiste
+2. {glossar_user} bekommt alle Sportgeräte in einer Liste angezeigt
 |Funktionale Anforderungen | <<F0020>> <<F0114>>
 |===
 
@@ -260,13 +290,13 @@ _Logout_:
 |===
 |Name                       |**<<KundenEinchecken>>**
 |Done?                      |False
-|Beschreibung               |Jeder {actor_customer} wird bei seiner Ankunft von Mitarbeitern offiziell eingecheckt und erhält den gewünschten Stellplatz zugewiesen.
-|Akteure                    |{actor_employee}
-|Trigger                    |{actor_customer} trifft physisch beim {campsite} ein
+|Beschreibung               |Jeder {glossar_customer} wird bei seiner Ankunft von Mitarbeitern offiziell eingecheckt und erhält den gewünschten Stell{base_plot} zugewiesen.
+|Akteure                    |{glossar_employee}
+|Trigger                    |{glossar_customer} trifft physisch beim {campsite} ein
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {actor_employee} markiert die <<PlatzReservieren, Reservierung>> vom {actor_customer} als wahrgenommen
-|Extension                  | Wenn ein {actor_customer} ohne Reservierung zum {campsite} kommt, müsste der Mitarbeiter für seine Verweilzeit eine Reservierung anlegen und sofort bestätigen. Stattdessen dem Mitarbeiter die option geben, das in einem Schritt zu machen
+1. {glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Extension                  | Wenn ein {glossar_customer} ohne Reservierung zum {campsite} kommt, müsste der Mitarbeiter für seine Verweilzeit eine {glossar_reserve} anlegen und sofort bestätigen. Stattdessen dem Mitarbeiter die option geben, das in einem Schritt zu machen
 |Funktionale Anforderungen | <<F0010>> <<F0104>> <<F0107>>
 |===
 
@@ -277,12 +307,12 @@ _Logout_:
 |===
 |Name                       |**<<SportgeräteAusleihe>>**
 |Done?                      |False
-|Beschreibung               |Um seinen {actor_customer}n den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der Betreiber von Below-The-Sun auch Sportgeräte
-|Akteure                    |{actor_employee}
-|Trigger                    |{actor_customer} leiht sich physisch ein Sportgerät aus
+|Beschreibung               |Um seinen {glossar_customer}n den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der Betreiber von Below-The-Sun auch Sportgeräte
+|Akteure                    |{glossar_employee}
+|Trigger                    |{glossar_customer} leiht sich physisch ein Sportgerät aus
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {actor_employee} markiert das Sportgerät als ausgeliehen
+1. {glossar_employee} markiert das Sportgerät als ausgeliehen
 |Funktionale Anforderungen | <<F0010>> <<F0115>>
 |===
 
@@ -294,11 +324,11 @@ _Logout_:
 |Name                       |**<<SportgeräteRückgabe>>**
 |Done?                      |False
 |Beschreibung               |Ausgeliehene Sportgeräte können auch zurückgegeben werden
-|Akteure                    |{actor_employee}
-|Trigger                    |{actor_customer} gibt physisch ein Sportgerät aus
+|Akteure                    |{glossar_employee}
+|Trigger                    |{glossar_customer} gibt physisch ein Sportgerät aus
 |Vorbedingungen            a|Ein Sportgerät wurde <<SportgeräteAusleihe, Ausgeliehen>>
 |Schritte                  a|
-1. {actor_employee} markiert das Sportgerät als verfügbar
+1. {glossar_employee} markiert das Sportgerät als verfügbar
 |Funktionale Anforderungen | <<F0010>> <<F0116>>
 |===
 
@@ -309,18 +339,18 @@ _Logout_:
 |===
 |Name                       |**<<DatenAnpassen>>**
 |Done?                      |False
-|Beschreibung               |{actor_employee} sollen Stellplätze, Sportgeräte und Preise variabel konfigurieren können.
-|Akteure                    |{actor_employee}
-|Trigger                    |{actor_employee} möchte etwas anpassen
+|Beschreibung               |{glossar_employee} sollen Stell{glossar_plots}, Sportgeräte und Preise variabel konfigurieren können.
+|Akteure                    |{glossar_employee}
+|Trigger                    |{glossar_employee} möchte etwas anpassen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {actor_employee} navigiert zur entsprechenden Seite +
- - <<PlatzKatalog>> für das Bearbeiten von Stellplätzen
- - <<SportgeräteKatalog>> für das Bearbeiten von Sportgeräten
-2. {actor_employee} führt Änderung durch
- - Ändert einen Wert
- - Fügt einen artikel hinzu
- - Entfernt einen Artikel
+1. {glossar_employee} navigiert zur entsprechenden Seite +
+- <<PlatzKatalog>> für das Bearbeiten von Stellplätzen
+- <<SportgeräteKatalog>> für das Bearbeiten von Sportgeräten
+2. {glossar_employee} führt Änderung durch
+- Ändert einen Wert
+- Fügt einen artikel hinzu
+- Entfernt einen Artikel
 |Funktionale Anforderungen | <<F0010>> <<F0101>> <<F0102>> <<F0103>> <<F0111>> <<F0112>> <<F0113>>
 |===
 
@@ -331,11 +361,11 @@ _Logout_:
 |Name                       |**<<DashBoard>>**
 |Done?                      |False
 |Beschreibung               |der Besitzer des Campingplatzes möchte eine Übersichtsfunktion in die Software integriert haben
-|Akteure                    |{actor_boss}
-|Trigger                    |{actor_boss} möchte sich einen Überblick über seinen {campsite} verschaffen
+|Akteure                    |{glossar_boss}
+|Trigger                    |{glossar_boss} möchte sich einen Überblick über seinen {campsite} verschaffen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {actor_boss} drückt "{navigate_dashboard}" in der navigations Leiste
+1. {glossar_boss} drückt "{navigate_dashboard}" in der navigations Leiste
 |Funktionale Anforderungen | <<F0010>> <<F0200>>
 |===
 
@@ -355,7 +385,7 @@ _Logout_:
 |v0.1
 |Authentifizierung
 a|
-Die {website} muss in allen {actor_user} zugängliche Teile, authentifizierten {actor_employee} zugängliche Teile, authentifizierten{actor_employee} zugängliche Teile, und {actor_boss} zugängliche Teile unterteilt werden können.
+Die {glossar_website} muss in allen {glossar_user} zugängliche Teile, authentifizierten {glossar_employee} zugängliche Teile, authentifizierten{glossar_employee} zugängliche Teile, und {glossar_boss} zugängliche Teile unterteilt werden können.
 Wenn ein Benutzer im System vorhanden ist (<<AccountManagment, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
 folgenden Informationen angibt:
 
@@ -366,7 +396,7 @@ folgenden Informationen angibt:
 |v0.1
 |Registrierung
 a|
-Die {website} muss einem nicht authentifizierten Benutzer ({actor_user}) die Möglichkeit bieten, sich zu registrieren, nachdem
+Die {glossar_website} muss einem nicht authentifizierten Benutzer ({glossar_user}) die Möglichkeit bieten, sich zu registrieren, nachdem
 das Navigationselement "Registrieren" aufzurufen.
 
 Die folgenden Informationen müssen bereitgestellt werden:
@@ -375,7 +405,7 @@ Die folgenden Informationen müssen bereitgestellt werden:
 * E-Mail (eindeutig)
 * Passwort
 
-Die {website} validiert die angegebenen Daten (<<F0021>>).
+Die {glossar_website} validiert die angegebenen Daten (<<F0021>>).
 Der Benutzer wird im System als Kunde registriert und kann sich nach erfolgreicher Validierung authentifizieren (<<F0010>>).
 
 
@@ -383,60 +413,60 @@ Der Benutzer wird im System als Kunde registriert und kann sich nach erfolgreich
 |v0.1
 |Registrierung validieren
 a|
-Die {website} muss in der Lage sein, die angegebenen Daten eines nicht registrierten Benutzers zu validieren.
+Die {glossar_website} muss in der Lage sein, die angegebenen Daten eines nicht registrierten Benutzers zu validieren.
 
-Die Einzigartigkeit der E-Mail muss gewährleistet sein, der {actor_user} muss informiert werden, falls das nicht der Fall ist.
+Die Einzigartigkeit der E-Mail muss gewährleistet sein, der {glossar_user} muss informiert werden, falls das nicht der Fall ist.
 
 
 
 
 |[[F0100]]<<F0100>>
 |v0.1
-|Plätze Inventar
+|{glossar_plots} Inventar
 a|
-Das {system} muss in der Lage sein, Daten über die Plätze in einem Inventar dauerhaft zu speichern.
+Das {glossar_system} muss in der Lage sein, Daten über die {glossar_plots} in einem Inventar dauerhaft zu speichern.
 
 |[[F0101]]<<F0101>>
 |v0.1
-|Plätze hinzufügen
+|{glossar_plots} hinzufügen
 a|
-Das {system} muss in der Lage sein, dem Inventar Plätze hinzuzufügen.
+Das {glossar_system} muss in der Lage sein, dem Inventar {glossar_plots} hinzuzufügen.
 
 |[[F0102]]<<F0102>>
 |v0.1
-|Plätze entfernen
+|{glossar_plots} entfernen
 a|
-Das {system} muss in der Lage sein, dem Inventar Plätze zu entfernen.
+Das {glossar_system} muss in der Lage sein, dem Inventar {glossar_plots} zu entfernen.
 
 |[[F0103]]<<F0103>>
 |v0.1
-|Plätze anpassen
+|{glossar_plots} anpassen
 a|
-Das {system} muss in der Lage sein, Daten von Plätze vom Inventar anzupassen.
+Das {glossar_system} muss in der Lage sein, Daten von {glossar_plots} vom Inventar anzupassen.
 
 |[[F0104]]<<F0104>>
 |v0.1
-|Plätze Katalog
+|{glossar_plots} {glossar_catalog}
 a|
-Das System muss in der Lage sein, {actor_user}n einen Katalog im Nur-Lese-Zugriff auf vorhandene Plätze zu ermöglichen.
+Das System muss in der Lage sein, {glossar_user}n einen {glossar_catalog} im Nur-Lese-Zugriff auf vorhandene {glossar_plots} zu ermöglichen.
 
 |[[F0105]]<<F0105>>
 |v0.1
-|Plätze Katalog filtern (optional)
+|{glossar_plots} {glossar_catalog} filtern (optional)
 a|
-Das {system} muss einem {actor_user} die Möglichkeit bieten, Plätze im Katalog gefiltert nach einer gewählten Kategorie (größe, anliegender parkplatz)
+Das {glossar_system} muss einem {glossar_user} die Möglichkeit bieten, {glossar_plots} im {glossar_catalog} gefiltert nach einer gewählten Kategorie (größe, anliegender parkplatz)
 
 |[[F0106]]<<F0106>>
 |v0.1
-|Plätze Reservieren
+|{glossar_plots} <<{base_reserve}, Reservieren>>
 a|
-Das System muss in der Lage sein, Plätze als reserviert für eine bestimmte Periode zu markieren
+Das System muss in der Lage sein, {glossar_plots} als reserviert für eine bestimmte Periode zu markieren
 
 |[[F0107]]<<F0107>>
 |v0.1
-|Plätze Reservierung Wahrnehmen
+|{glossar_plots} {glossar_reserve} Wahrnehmen
 a|
-Das System muss in der Lage sein, Plätze als besetzt für eine bestimmte Periode zu markieren
+Das System muss in der Lage sein, {glossar_plots} als besetzt für eine bestimmte Periode zu markieren
 
 
 
@@ -444,43 +474,43 @@ Das System muss in der Lage sein, Plätze als besetzt für eine bestimmte Period
 |v0.1
 |Sportgeräte Inventar
 a|
-Das {system} muss in der Lage sein, Daten über die Sportgeräte in einem Inventar dauerhaft zu speichern.
+Das {glossar_system} muss in der Lage sein, Daten über die Sportgeräte in einem Inventar dauerhaft zu speichern.
 
 |[[F0111]]<<F0111>>
 |v0.1
 |Sportgeräte hinzufügen
 a|
-Das {system} muss in der Lage sein, dem Inventar Sportgeräte hinzuzufügen.
+Das {glossar_system} muss in der Lage sein, dem Inventar Sportgeräte hinzuzufügen.
 
 |[[F0112]]<<F0112>>
 |v0.1
 |Sportgeräte entfernen
 a|
-Das {system} muss in der Lage sein, dem Inventar Sportgeräte zu entfernen.
+Das {glossar_system} muss in der Lage sein, dem Inventar Sportgeräte zu entfernen.
 
 |[[F0113]]<<F0113>>
 |v0.1
 |Sportgeräte anpassen
 a|
-Das {system} muss in der Lage sein, Daten von Sportgeräte vom Inventar anzupassen.
+Das {glossar_system} muss in der Lage sein, Daten von Sportgeräte vom Inventar anzupassen.
 
 |[[F0114]]<<F0114>>
 |v0.1
-|Sportgeräte Katalog
+|Sportgeräte {glossar_catalog}
 a|
-Das System muss in der Lage sein, {actor_user}n einen Katalog im Nur-Lese-Zugriff auf vorhandene Sportgeräte zu ermöglichen.
+Das System muss in der Lage sein, {glossar_user}n einen {glossar_catalog} im Nur-Lese-Zugriff auf vorhandene Sportgeräte zu ermöglichen.
 
 |[[F0115]]<<F0115>>
 |v0.1
 |Sportgeräte ausgeliehen
 a|
-Das {system} muss in der Lage sein, dem Inventar Sportgeräte als ausgeliehen zu markieren.
+Das {glossar_system} muss in der Lage sein, dem Inventar Sportgeräte als ausgeliehen zu markieren.
 
 |[[F0116]]<<F0116>>
 |v0.1
 |Sportgeräte rückgeben
 a|
-Das {system} muss in der Lage sein, dem Inventar Sportgeräte als nicht mehr ausgeliehen zu markieren.
+Das {glossar_system} muss in der Lage sein, dem Inventar Sportgeräte als nicht mehr ausgeliehen zu markieren.
 
 
 
@@ -489,10 +519,10 @@ Das {system} muss in der Lage sein, dem Inventar Sportgeräte als nicht mehr aus
 |v0.1
 |Übersicht anzeigen
 a|
-Das {system} muss dem {actor_boss} die Möglichkeit bieten nützlichen Informationen einzusehen, wie:
+Das {glossar_system} muss dem {glossar_boss} die Möglichkeit bieten nützlichen Informationen einzusehen, wie:
 - Einnahmen, Ausgaben
 - Auslastung
-- Defekte Stellplätze
+- Defekte Stell{glossar_plots}
 - andere nützliche Informationen
 |===
 
@@ -581,9 +611,27 @@ Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwa
 Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
 
 == Glossar
-Sämtliche Begriffe, die innerhalb des Projektes verwendet werden und deren gemeinsames Verständnis aller beteiligten Stakeholder essentiell ist, sollten hier aufgeführt werden.
-Insbesondere Begriffe der zu implementierenden Domäne wurden bereits beschrieben, jedoch gibt es meist mehr Begriffe, die einer Beschreibung bedürfen. +
-Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes (Auftraggeber)?
 
+[options="header", cols="1h, 4"]
+[[glossar]]
+|===
+|Term                                  |Description
+|[[{base_user}]]{base_user}            |Eine beliebige Person, welche die {glossar_website} besucht
+|[[{base_customer}]]{base_customer}    |Eine authentifizierte Person; eine Person welche eingeloggt in einem Account ist
+|[[{base_employee}]]{base_employee}    |Eine vom {campsite} angestellte Person; eine Person welche eingeloggt ist in einem Account, welcher als Mitarbeiter markiert ist
+|[[{base_boss}]]{base_boss}            |Der Besitzer vom {campsite}; eine Person welche eingeloggt ist in einem Account, welcher als Boss markiert ist
+|[[{company_name}]]{company_name}      |Unser Klient. Ein {campsite}
+|[[{base_developers}]]{base_developers}|Die Entwickler der {glossar_website}. Aktuell sind wir, die Gruppe 6, das. In der Zukunft könnten das andere Entwicklerteams sein
+|[[{website}]]{website}                |Das Produkt welchen wir erstellen, mit Fokus auf den frontend Teil
+|[[{system}]]{system}                  |Das Produkt welchen wir erstellen, mit Fokus auf den backend Teil
+
+|[[{base_plot}]]{base_plot}            |Ein Stellplatz, das Hauptprodukt des {glossar_company_name}. Auf ihm können die {glossar_customer} Zelt aufschlagen. Das Self-Management der {glossar_customer} für eine Verringerung des Arbeitsaufwandes des Personales ist die Hauptaufgabe der {glossar_website}
+|[[{base_catalog}]]{base_catalog}      |Eine ein oder zwei dimensionale Liste an Karten, welche einzelne Katalog Elemenete representieren
+|[[{base_reserve}]]{base_reserve}      |Markierung eines {base_plot}es auf einem bestimmten Zeitintervall. Andere {glossar_customer}n können dem selben {base_plot} in diesem Intervall nicht für sich reservieren.
+
+
+
+
+|===
 == Offene Punkte
 Offene Punkte werden entweder direkt in der Spezifikation notiert. Wenn das Pflichtenheft zum finalen Review vorgelegt wird, sollte es keine offenen Punkte mehr geben.
