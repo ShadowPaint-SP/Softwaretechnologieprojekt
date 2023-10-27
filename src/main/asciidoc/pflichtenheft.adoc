@@ -540,6 +540,17 @@ Anforderungen die das Programm leisten können soll, aber für den korrekten Bet
 
 Dokumentieren Sie in einer Tabelle die Qualitätsziele, welche das System erreichen soll, sowie deren Priorität.
 
+1 = nicht wichtig ..
+5 = sehr wichtig
+[options="header", cols="3h, ^1, ^1, ^1, ^1, ^1"]
+|===
+|Qualitätsanforderungen           | 1 | 2 | 3 | 4 | 5
+|Wartbarkeit          |   |   |   | x |
+|Benutzerfreundlichkeit                |   |   | x |   |
+|Sicherheit                 |   |   |   | x |
+|===
+
+
 === Konkrete Nicht-Funktionale Anforderungen
 
 Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
