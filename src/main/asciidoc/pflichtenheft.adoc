@@ -232,7 +232,7 @@ _Registrieren_:
 
 _Login_:
 
-1. {glossar_user} drückt "{navigate_login}" in der navigations Leiste
+1. {glossar_user} drückt "{navigate_login}" in der Navigationsleiste
 2. {glossar_user} füllt das Formular aus
 
 _Logout_:
@@ -765,25 +765,39 @@ anschließend drückt er erneut "Anmelden"
 |===
 
 
-// Sportgeräte Katalog
+// Sportgeräte Katalog 
 [cols="1h, 4"]
 |===
 |ID            |<<TSK01>>
 |Anwendungsfall|<<SportgeräteKatalog>>
-|Erwartung    a|
-|Event        a|
-|Ergebnis     a|
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|{glossar_user} wählt in der Navigationsleiste "Sportgerätverleih"
+|Ergebnis     a|Er bekommt eine Liste mit allen Sportgeräten angezeigt
 |===
 
 
 // Kunden Einchecken
+// Einchecken funktioniert
 [cols="1h, 4"]
 |===
 |ID            |<<TAE01>>
 |Anwendungsfall|<<KundenEinchecken>>
-|Erwartung    a|
-|Event        a|
+|Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
+|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
 |Ergebnis     a|
+- Es wird eine Bestätigung angezeigt, dass der {glossar_customer} eingecheckt hat
+|===
+
+// Einchecken schlägt fehl
+// das wird ja in der Aufgabenstellung erwähnt aber ich weiß nicht wie es je dazu kommen könnte
+[cols="1h, 4"]
+|===
+|ID            |<<TAE02>>
+|Anwendungsfall|<<KundenEinchecken>>
+|Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
+|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Ergebnis     a|
+- Es wird ein Fehler angezeigt weil der vom kunden reservierte {glossar_plot} nichtmehr vorhanden ist
 |===
 
 
@@ -792,9 +806,9 @@ anschließend drückt er erneut "Anmelden"
 |===
 |ID            |<<TSA01>>
 |Anwendungsfall|<<SportgeräteAusleihe>>
-|Erwartung    a|
-|Event        a|
-|Ergebnis     a|
+|Erwartung    a|Ein {glossar_customer} leiht Physisch bei einem {glossar_employee} das Sportgerät
+|Event        a|Der {glossar_employee} markiert das Sportgerät als ausgeliehen
+|Ergebnis     a|Das Sportgerät word auf der {glossar_website} als ausgeliehen angezeigt
 |===
 
 
@@ -803,20 +817,99 @@ anschließend drückt er erneut "Anmelden"
 |===
 |ID            |<<TSR01>>
 |Anwendungsfall|<<SportgeräteRückgabe>>
-|Erwartung    a|
-|Event        a|
-|Ergebnis     a|
+|Erwartung    a|Ein {glossar_customer} gibt einem {glossar_employee} das Sportgerät
+|Event        a|Der {glossar_employee} markiert das Sportgerät als verfügbar
+|Ergebnis     a|Das Sportgerät wird auf der {glossar_website} wieder als verfügbar angezeigt
 |===
 
 
-//Daten Anpassen
+// Daten Anpassen
+// Stellplatz Information ändern
 [cols="1h, 4"]
 |===
 |ID            |<<TDA01>>
 |Anwendungsfall|<<DatenAnpassen>>
-|Erwartung    a|
-|Event        a|
-|Ergebnis     a|
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|{glossar_employee} drückt auf dem <<PlatzKatalog>> bei einem {glossar_plot} auf bearbeiten und legt folgende neue Werte fest:
+
+- _Preis_: 35
+
+Anschließend drückt er auf "Informationen aktualisieren"
+|Ergebnis     a|- Der _Preis_ des {glossar_plot}es wird aktualisiert und angezeigt
+|===
+
+// Stellplatz hinzufügen funktioniert
+[cols="1h, 4"]
+|===
+|ID            |<<TDA02>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<PlatzKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Der neue {glossar_plot} wird in dem {glossar_system} gespeichert
+|===
+
+// Stellplatz hinzufügen schlägt fehl
+[cols="1h, 4"]
+|===
+|ID            |<<TDA03>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<PlatzKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Es wird eine Fehlermeldung angezeigt die aussagt, dass dieser {glossar_plot} bereits existiert
+|===
+
+// Stellplatz entfernen
+[cols="1h, 4"]
+|===
+|ID            |<<TDA04>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt bei einem {glossar_plot} auf entfernen
+|Ergebnis     a|Der {glossar_plot} wird aus dem {glossar_system} entfernt und ist nichtmehr vorhanden
+|===
+
+// Sportgerät Information ändern
+[cols="1h, 4"]
+|===
+|ID            |<<TDA11>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|{glossar_employee} drückt auf dem <<SportgeräteKatalog>> bei einem Sportgerät auf bearbeiten und legt folgende neue Werte fest:
+
+- _Preis_: 12
+
+Anschließend drückt er auf "Informationen aktualisieren"
+|Ergebnis     a|Der _Preis_ des Sportgerätes wird aktualisiert und angezeigt
+|===
+
+// Sportgerät hinzufügen funktioniert
+[cols="1h, 4"]
+|===
+|ID            |<<TDA12>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<SportgeräteKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Das neue Sportgerät wird in dem {glossar_system} gespeichert
+|===
+
+// Sportgerät hinzufügen schlägt fehl
+[cols="1h, 4"]
+|===
+|ID            |<<TDA13>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<SportgeräteKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Es wird eine Fehlermeldung angezeigt die aussagt, dass dieses Sportgerät bereits existiert
+|===
+
+// Sportgerät entfernen
+[cols="1h, 4"]
+|===
+|ID            |<<TDA14>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt bei einem Sportgerät auf entfernen
+|Ergebnis     a|Das Sportgerät wird aus dem {glossar_system} entfernt und ist nichtmehr vorhanden
 |===
 
 
@@ -825,9 +918,9 @@ anschließend drückt er erneut "Anmelden"
 |===
 |ID            |<<TDB01>>
 |Anwendungsfall|<<DashBoard>>
-|Erwartung    a|
-|Event        a|
-|Ergebnis     a|
+|Erwartung    a|Der {glossar_boss} nutzt die Seite
+|Event        a|Der {glossar_boss} wählt in der Navigationsleiste "Dashboard"
+|Ergebnis     a|Es wird eine Seite mit diversen Informationen über den Campingplatz angezeigt
 |===
 
 
