@@ -657,7 +657,7 @@ Für jeden Dialog:
 UML-Analyseklassendiagramm
 
 [[AnalyseKlassenDiagramm]]
-image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
+image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm1.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
 
 === Klassen und Enumerationen
 Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
@@ -666,7 +666,18 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung |
-|…                  |…            |
+|Campingplatz |beinhaltet alles            |
+|User| kann sich Plätze anschauen|
+|Customer| kann Pläte reservieren|
+|Registered User| um customer zu werden muss sich der User registrieren und wird im System als Registered User mit geringsten privilegien angelegt|
+|Cart| Stellplätze müssen im wahrenkorb liegen um reserviert zu werden|
+|Reservation|eine Reservierung hat ein An- und Abreise-Datum und einen Status|
+|Status| findet am Anreisetag kein Checkin statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)|
+|Item|neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden|
+|Inventory|enthält alle Items|
+|Cataloge|enthält alle verfügbaren bzw. ausgewählte Items|
+|Boss|hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen|
+|Employee|hat keinen zugriff auf das Dashborad, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen|
 |===
 
 == Akzeptanztestfälle
