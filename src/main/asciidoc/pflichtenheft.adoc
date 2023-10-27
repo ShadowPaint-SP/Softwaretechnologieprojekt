@@ -617,9 +617,9 @@ Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumen
 |===
 |Term                                  |Description
 |[[{base_user}]]{base_user}            |Eine beliebige Person, welche die {glossar_website} besucht
-|[[{base_customer}]]{base_customer}    |Eine authentifizierte Person; eine Person welche eingeloggt in einem Account ist
-|[[{base_employee}]]{base_employee}    |Eine vom {campsite} angestellte Person; eine Person welche eingeloggt ist in einem Account, welcher als Mitarbeiter markiert ist
-|[[{base_boss}]]{base_boss}            |Der Besitzer vom {campsite}; eine Person welche eingeloggt ist in einem Account, welcher als Boss markiert ist
+|[[{base_customer}]]{base_customer}    |Eine authentifizierte Person; eine Person welche in einem Account eingeloggt  ist
+|[[{base_employee}]]{base_employee}    |Eine vom {campsite} angestellte Person; eine Person welche in einem Account eingeloggt ist, welcher als Mitarbeiter markiert ist
+|[[{base_boss}]]{base_boss}            |Der Besitzer vom {campsite}; eine Person welche in einem Account eingeloggt ist, welcher als Boss markiert ist
 |[[{company_name}]]{company_name}      |Unser Klient. Ein {campsite}
 |[[{base_developers}]]{base_developers}|Die Entwickler der {glossar_website}. Aktuell sind wir, die Gruppe 6, das. In der Zukunft könnten das andere Entwicklerteams sein
 |[[{website}]]{website}                |Das Produkt welchen wir erstellen, mit Fokus auf den frontend Teil
