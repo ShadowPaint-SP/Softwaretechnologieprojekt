@@ -610,28 +610,28 @@ Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialogla
 ////
 
 [[home_image]]
-image::./projektbezogene_dateien/images/gui-home.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Empfangsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-home.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Empfangsseite vom {project_name}", align=center]
 
 [[home_reservation]]
-image::./projektbezogene_dateien/images/gui-reservierung.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-reservierung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsseite vom {project_name}", align=center]
 
 [[home_reservation2]]
-image::./projektbezogene_dateien/images/gui-reservierung2.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "gefilterte Reservierungsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-reservierung2.png[Landing page, 100%, 100%, pdfwidth=100%, title= "gefilterte Reservierungsseite vom {project_name}", align=center]
 
 [[home_reservation-approved]]
-image::./projektbezogene_dateien/images/gui-reservierungsbestätigung.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsbestätigung {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-reservierungsbestätigung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsbestätigung {project_name}", align=center]
 
 [[home_logIn]]
-image::./projektbezogene_dateien/images/gui-logIn.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "LogIn-Seite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-logIn.png[Landing page, 100%, 100%, pdfwidth=100%, title= "LogIn-Seite vom {project_name}", align=center]
 
 [[home_Anmeldung]]
-image::./projektbezogene_dateien/images/gui-anmeldung.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Anmeldungsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-anmeldung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Anmeldungsseite vom {project_name}", align=center]
 
 [[home_sportgeräteverleih]]
-image::./projektbezogene_dateien/images/gui-sportgeräteverleih.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Seite zum Ausleih von Sportgeräten vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-sportgeräteverleih.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Seite zum Ausleih von Sportgeräten vom {project_name}", align=center]
 
 [[home_dashboard]]
-image::./projektbezogene_dateien/images/gui-dashboard.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Dashboard vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-dashboard.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Dashboard vom {project_name}", align=center]
 
 
 
