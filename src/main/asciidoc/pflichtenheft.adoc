@@ -116,6 +116,14 @@ der endgültigen Abreise.
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
 Zusätzlich kurze Einleitung für fachfremde Personen
 
+Das System wird als Webanwendung für die Planung und Buchung von Campingplätzen und für die Vermietung von Sportgeräten durch die Benutzer der Website (die potenziellen Kunden des Campingplatzes) genutzt. Es wird auch von den Mitarbeitern des Campings zur Verwaltung der Reservierungen und der Stellplätze verwendet.
+
+Die Software sollte über einen Browser zugänglich sein (Google Chrome, Version 118.0.5993.89).
+
+Sowohl von den Hauptbenutzern (Kunden und Mitarbeiter),als auch von dem Administrator (Betrieber des Campingplatzes Below-The-Sun) werden nur die grundlegendsten Kenntnisse im Umgang mit einer Website erwartet.
+
+Der Administrator muss nicht mit HTML, Java und Springboot vertraut sein.
+
 == Interessensgruppen (Stakeholders)
 Hier sind alle realen und juristischen Personen(-gruppen), die Einfluss auf die Anforderungen im Projekt haben, aufgelistet
 Ausßerdem wird juder Gruppe ein "Priorität"-Wert zugeordnet, vom 1 bis 5
