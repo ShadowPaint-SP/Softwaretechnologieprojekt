@@ -212,17 +212,17 @@ image::./projektbezogene_dateien/images/useCaseDiagram.png[top-level architectur
 Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems aufzulisten.
 
 
-[[AccountManagment]]
+[[AccountManagement]]
 [cols="1h, 3"]
 |===
-|Name                      |**<<AccountManagment>>**
-|Beschribung               |Ein benutzer soll sich in auf der Webseite einen Account erstellen können, dort einloggen können und sich auch ausloggen können
-|Akteure                   |{glossar_user}
-|Trigger                   |{glossar_user} möchte seinen einloggen/registrieren, um einen {base_plot} zu <<{base_reserve}, reservieren>> oder möchte ausloggen
+|Name                      |**<<AccountManagement>>**
+|Beschribung               |Ein benutzer soll sich auf der Webseite einen Account erstellen, dort einloggen und auch ausloggen können
+|Akteure                   |{glossar_user}, {glossar_customer}
+|Trigger                   |{glossar_user}/{glossar_customer} möchte sich registrieren/einloggen, um einen {base_plot} zu <<{base_reserve}, reservieren>> oder möchte sich ausloggen
 |Vorbedingungen           a|
 _Registrieren_: {glossar_user} ist nicht in einem Account eingeloggt +
 _Login_: {glossar_user} ist nicht in einem Account eingeloggt +
-_Logout_: {glossar_user} ist in einem Account eingeloggt
+_Logout_: {glossar_customer} ist in einem Account eingeloggt
 |Schritte          a|
 _Registrieren_:
 
@@ -237,8 +237,8 @@ _Login_:
 
 _Logout_:
 
-1. {glossar_user} drückt "{navigate_logout}" in der navigations Leiste
-2. {glossar_user} wird auf den Home Bildschirm umgeleitet
+1. {glossar_customer} drückt "{navigate_logout}" in der navigations Leiste
+2. {glossar_customer} wird auf den Home Bildschirm umgeleitet
 
 |Funktionale Anforderungen | <<F0010>> <<F0020>> <<F0021>>
 |===
@@ -255,7 +255,7 @@ _Logout_:
 |Trigger                    |{glossar_user} möchte sich die Auswahl an {glossar_plots} ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {glossar_user} drückt "{navigate_catalog}" in der navigations Leiste
+1. {glossar_user} drückt "{navigate_catalog}" in der Navigationsleiste
 2. {glossar_user} bekommt alle {glossar_plots} in einer Liste angezeigt
 |Funktionale Anforderungen | <<F0100>> <<F0104>>
 |===
@@ -396,7 +396,7 @@ _Logout_:
 |Authentifizierung
 a|
 Die {glossar_website} muss in allen {glossar_user} zugängliche Teile, authentifizierten {glossar_employee} zugängliche Teile, authentifizierten{glossar_employee} zugängliche Teile, und {glossar_boss} zugängliche Teile unterteilt werden können.
-Wenn ein Benutzer im System vorhanden ist (<<AccountManagment, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
+Wenn ein Benutzer im System vorhanden ist (<<AccountManagement, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
 folgenden Informationen angibt:
 
 * Benutzername
@@ -610,28 +610,28 @@ Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialogla
 ////
 
 [[home_image]]
-image::./projektbezogene_dateien/images/gui-home.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Empfangsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-home.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Empfangsseite vom {project_name}", align=center]
 
 [[home_reservation]]
-image::./projektbezogene_dateien/images/gui-reservierung.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-reservierung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsseite vom {project_name}", align=center]
 
 [[home_reservation2]]
-image::./projektbezogene_dateien/images/gui-reservierung2.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "gefilterte Reservierungsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-reservierung2.png[Landing page, 100%, 100%, pdfwidth=100%, title= "gefilterte Reservierungsseite vom {project_name}", align=center]
 
 [[home_reservation-approved]]
-image::./projektbezogene_dateien/images/gui-reservierungsbestätigung.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsbestätigung {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-reservierungsbestätigung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsbestätigung {project_name}", align=center]
 
 [[home_logIn]]
-image::./projektbezogene_dateien/images/gui-logIn.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "LogIn-Seite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-logIn.png[Landing page, 100%, 100%, pdfwidth=100%, title= "LogIn-Seite vom {project_name}", align=center]
 
 [[home_Anmeldung]]
-image::./projektbezogene_dateien/images/gui-anmeldung.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Anmeldungsseite vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-anmeldung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Anmeldungsseite vom {project_name}", align=center]
 
 [[home_sportgeräteverleih]]
-image::./projektbezogene_dateien/images/gui-sportgeräteverleih.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Seite zum Ausleih von Sportgeräten vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-sportgeräteverleih.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Seite zum Ausleih von Sportgeräten vom {project_name}", align=center]
 
 [[home_dashboard]]
-image::./projektbezogene_dateien/images/gui-dashboard.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Dashboard vom {project_name}", align=center]
+image::./projektbezogene_dateien/images/gui-dashboard.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Dashboard vom {project_name}", align=center]
 
 
 
@@ -666,8 +666,170 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |===
 
 == Akzeptanztestfälle
-Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
-Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
+
+
+// Account Management
+// Registrierung funktioniert
+[cols="1h, 4"]
+|===
+|ID            |<<TAM01>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} drückt "Anmelden" und füllt das Formular den folgenden Informationen aus:
+
+- _Name_: jannes
+- _Passwort_: 12HG875tG
+
+anschließend drückt er erneut "Anmelden"
+|Ergebnis     a|
+- Mit den im Formular angegebenen daten wird ein neuer Account im System erstellt
+- Er kann sich nun anmelden
+- Er erhällt zugriff auf die Funktionalitäten eines {glossar_customer}n 
+|===
+
+// Registrierung schlägt fehl
+[cols="1h, 4"]
+|===
+|ID            |<<TAM02>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} drückt "Anmelden" und füllt das Formular den folgenden Informationen aus:
+
+- _Name_: jörg
+- _Passwort_: 1823h7og1
+
+anschließend drückt er erneut "Anmelden"
+|Ergebnis     a|
+- Eine Error Nachricht wird angezeigt da bereits ein Kunde mit diesen Informationen existiert
+|===
+
+// Nutzer loggt sich ein
+[cols="1h, 4"]
+|===
+|ID            |<<TAM03>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} drückt "Einloggen" und füllt das Formular mit seinen existierenden Informationen aus (jörg, 1823h7og1) 
+|Ergebnis     a|
+- Er wird als "jörg" authentifiziert
+- Er erhällt zugriff auf die Funktionalitäten eines {glossar_customer}n
+|===
+
+// Kunde loggt sich aus
+[cols="1h, 4"]
+|===
+|ID            |<<TAM04>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_customer} nutzt die Seite
+|Event        a|Der {glossar_customer} drückt "Ausloggen"
+|Ergebnis     a|
+- Er wird zu einem {glossar_user}
+- Er verliert den zugang zu funktionalitäten eines {glossar_customer}n
+|===
+
+
+// Platz Katalog
+// Platzkatalog wird aufgerufen
+[cols="1h, 4"]
+|===
+|ID            |<<TPK01>>
+|Anwendungsfall|<<PlatzKatalog>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} wählt in der Navigationsleiste "Platzreservierung"
+|Ergebnis     a|Er bekommt alle {glossar_plots} in einer Liste angezeigt
+|===
+
+
+// Platz Reservierung
+// Platzreservierung geht durch
+[cols="1h, 4"]
+|===
+|ID            |<<TPR01>>
+|Anwendungsfall|<<PlatzReservieren>>
+|Erwartung    a|{glossar_customer} sieht den <<{base_plot}Katalog>>
+|Event        a|Der {glossar_customer} drückt bei einem Platz auf <<{base_reserve}, reservieren>> und gibt den Zeitraum (01.01.2024-23.01.2024) an in welchem er <<{base_reserve}, reservieren>> möchte
+|Ergebnis     a|
+- Der {glossar_plot} wird für den angegebenen Zeitraum (01.01.2024-23.01.2024) reserviert
+- Er bekommt eine {glossar_reserve}sbestätigung angezeigt
+|===
+
+// Platzreservierung schlägt fehl
+[cols="1h, 4"]
+|===
+|ID            |<<TPR02>>
+|Anwendungsfall|<<PlatzReservieren>>
+|Erwartung    a|{glossar_customer} sieht den <<{base_plot}Katalog>>
+|Event        a|Der {glossar_customer} drückt bei einem Platz auf <<{base_reserve}, reservieren>> und gibt den Zeitraum (10.02.2024-15.02.2024) an in welchem er <<{base_reserve}, reservieren>> möchte
+|Ergebnis     a|
+- Es wird eine Fehlermeldung angezeigt da der {glossar_plot} bereits für diesen Zeitraum reserviert wurde
+|===
+
+
+// Sportgeräte Katalog
+[cols="1h, 4"]
+|===
+|ID            |<<TSK01>>
+|Anwendungsfall|<<SportgeräteKatalog>>
+|Erwartung    a|
+|Event        a|
+|Ergebnis     a|
+|===
+
+
+// Kunden Einchecken
+[cols="1h, 4"]
+|===
+|ID            |<<TAE01>>
+|Anwendungsfall|<<KundenEinchecken>>
+|Erwartung    a|
+|Event        a|
+|Ergebnis     a|
+|===
+
+
+// Sportgeräte Ausleihe
+[cols="1h, 4"]
+|===
+|ID            |<<TSA01>>
+|Anwendungsfall|<<SportgeräteAusleihe>>
+|Erwartung    a|
+|Event        a|
+|Ergebnis     a|
+|===
+
+
+// Sportgeräte Rückgabe
+[cols="1h, 4"]
+|===
+|ID            |<<TSR01>>
+|Anwendungsfall|<<SportgeräteRückgabe>>
+|Erwartung    a|
+|Event        a|
+|Ergebnis     a|
+|===
+
+
+//Daten Anpassen
+[cols="1h, 4"]
+|===
+|ID            |<<TDA01>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|
+|Event        a|
+|Ergebnis     a|
+|===
+
+
+// DashBoard
+[cols="1h, 4"]
+|===
+|ID            |<<TDB01>>
+|Anwendungsfall|<<DashBoard>>
+|Erwartung    a|
+|Event        a|
+|Ergebnis     a|
+|===
+
 
 == Glossar
 
