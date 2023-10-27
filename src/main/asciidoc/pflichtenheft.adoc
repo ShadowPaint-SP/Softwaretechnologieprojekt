@@ -37,7 +37,7 @@ toc::[ ]
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 
 == Aufgabenstellung und Zielsetzung
-Der Betreiber des Campingplatzes Below-The-Sun hat die Gruppe sechs damit beauftragt, eine Software zu entwickeln. Der
+Der Betreiber des Campingplatzes Below-The-Sun hat die Gruppe 6 damit beauftragt, eine Software zu entwickeln. Der
 Platz wächst stetig und ist gut besucht, doch es besteht ein starker Personalmangel. Der Betreiber erhofft sich
 durch eine Software zum Self-Management der Camper eine Verringerung des Arbeitsaufwandes, sodass
 Personal gezielter eingesetzt werden kann. +
