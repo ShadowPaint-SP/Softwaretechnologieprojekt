@@ -179,6 +179,7 @@ Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm
 [[TLA]]
 image::./projektbezogene_dateien/images/tla.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the {project_name} in UML", align=center]
 
+
 == Anwendungsfälle
 
 === Akteure
@@ -654,6 +655,9 @@ Für jeden Dialog:
 
 === Überblick: Klassendiagramm
 UML-Analyseklassendiagramm
+
+[[AnalyseKlassenDiagramm]]
+image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
 
 === Klassen und Enumerationen
 Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
