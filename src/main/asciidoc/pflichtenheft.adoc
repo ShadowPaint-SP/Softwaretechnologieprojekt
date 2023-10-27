@@ -516,10 +516,12 @@ Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor d
 Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein muss.
 
 == GUI Prototyp
-
+////
 In diesem Kapitel soll ein Entwurf der Navigationsmöglichkeiten und Dialoge des Systems erstellt werden.
 Idealerweise entsteht auch ein grafischer Prototyp, welcher dem Kunden zeigt, wie sein System visuell umgesetzt werden soll.
 Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialoglandkarte höhere Priorität hat - sind mit dem Kunden zu treffen.
+
+////
 
 [[home_image]]
 image::./projektbezogene_dateien/images/gui-home.PNG[Landing page, 100%, 100%, pdfwidth=100%, title= "Landing page of {project_name}", align=center]
@@ -547,7 +549,7 @@ image::./projektbezogene_dateien/images/gui-dashboard.PNG[Landing page, 100%, 10
 
 
 
-
+////
 
 === Überblick: Dialoglandkarte
 Erstellen Sie ein Übersichtsdiagramm, das das Zusammenspiel Ihrer Masken zur Laufzeit darstellt. Also mit welchen Aktionen zwischen den Masken navigiert wird.
@@ -560,6 +562,7 @@ Für jeden Dialog:
 2. Maskenentwürfe (Screenshot, Mockup)
 3. Maskenelemente (Ein/Ausgabefelder, Aktionen wie Buttons, Listen, …)
 4. Evtl. Maskendetails, spezielle Widgets
+////
 
 == Datenmodell
 
