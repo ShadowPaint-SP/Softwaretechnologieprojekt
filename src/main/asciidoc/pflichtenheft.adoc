@@ -64,7 +64,12 @@
 toc::[ ]
 
 == Zusammenfassung
-Eine kurze Beschreibung des Dokuments. Wenige Absätze.
+Dieses Dokument beschreibt die Anforderungen im Projekt {project_name}.
+
+Es vermittelt einen Überblick über das entstehende Softwareprodukt, die Kommunikation der Interessengruppen
+und dient als Basis für einen Vertrag zwischen dem Klienten und dem Entwicklerteam.
+
+Im Pflichtenheft erfasste Funktionen sind, am Ende, nachprüfbar und vollständig im Softwareprodukt enthalten.
 
 == Aufgabenstellung und Zielsetzung
 Der Betreiber des Campingplatzes Below-The-Sun hat die Gruppe sechs damit beauftragt, eine Software zu entwickeln. Der
@@ -116,17 +121,17 @@ der endgültigen Abreise.
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
 Zusätzlich kurze Einleitung für fachfremde Personen
 
-Das System wird als Webanwendung für die Planung und Buchung von Campingplätzen und für die Vermietung von Sportgeräten durch die Benutzer der Website (die potenziellen Kunden des Campingplatzes) genutzt. Es wird auch von den Mitarbeitern des Campings zur Verwaltung der Reservierungen und der Stellplätze verwendet.
+Das System wird als Webanwendung für die Planung und Buchung von Campingplätzen und für die Vermietung von Sportgeräten durch die Benutzer der Website (die potenziellen Kunden des Campingplatzes) genutzt. Es wird auch von den Mitarbeitern des {campsite}es zur Verwaltung der Reservierungen und der Stellplätze verwendet.
 
 Die Software sollte über einen Browser zugänglich sein (Google Chrome, Version 118.0.5993.89).
 
-Sowohl von den Hauptbenutzern (Kunden und Mitarbeiter),als auch von dem Administrator (Betrieber des Campingplatzes Below-The-Sun) werden nur die grundlegendsten Kenntnisse im Umgang mit einer Website erwartet.
+Sowohl von den Hauptbenutzern (Kunden und Mitarbeiter), als auch von dem Administrator (Betreiber des Campingplatzes Below-The-Sun) werden nur die grundlegendsten Kenntnisse im Umgang mit einer Website erwartet.
 
 Der Administrator muss nicht mit HTML, Java und Springboot vertraut sein.
 
 == Interessensgruppen (Stakeholders)
-Hier sind alle realen und juristischen Personen(-gruppen), die Einfluss auf die Anforderungen im Projekt haben, aufgelistet
-Ausßerdem wird juder Gruppe ein "Priorität"-Wert zugeordnet, vom 1 bis 5
+Hier sind alle realen und juristischen Personen(-gruppen), die Einfluss auf die Anforderungen im Projekt haben, aufgelistet.
+Außerdem wird jeder Gruppe ein "Priorität"-Wert zugeordnet, vom 1 bis 5
 [options="header", cols="2, ^1, 4, 4"]
 |===
 |Name
@@ -174,10 +179,10 @@ Das Kontextdiagramm zeigt das geplante Software-System in seiner Umgebung. Zur U
 image::./projektbezogene_dateien/images/context.png[context diagram, 100%, 100%, pdfwidth=100%, title= "Context diagram of the {project_name} in UML", align=center]
 
 === Top-Level-Architektur
-Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm.
+Dokumentieren Sie ihre Top-Level-Architektur mithilfe eines Komponentendiagramms.
 
 [[TLA]]
-image::./projektbezogene_dateien/images/tla.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the {project_name} in UML", align=center]
+image::./projektbezogene_dateien/images/top-level.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the {project_name} in UML", align=center]
 
 
 == Anwendungsfälle
@@ -217,7 +222,7 @@ Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die w
 [cols="1h, 3"]
 |===
 |Name                      |**<<AccountManagement>>**
-|Beschribung               |Ein benutzer soll sich auf der Webseite einen Account erstellen, dort einloggen und auch ausloggen können
+|Beschreibung               |Ein benutzer soll sich auf der Webseite einen Account erstellen, dort einloggen und auch ausloggen können
 |Akteure                   |{glossar_user}, {glossar_customer}
 |Trigger                   |{glossar_user}/{glossar_customer} möchte sich registrieren/einloggen, um einen {base_plot} zu <<{base_reserve}, reservieren>> oder möchte sich ausloggen
 |Vorbedingungen           a|
@@ -227,7 +232,7 @@ _Logout_: {glossar_customer} ist in einem Account eingeloggt
 |Schritte          a|
 _Registrieren_:
 
-1. {glossar_user} drückt "{navigate_register}" in der navigations Leiste
+1. {glossar_user} drückt "{navigate_register}" in der Navigationsleiste
 2. {glossar_user} füllt das Formular aus
 3. Account erstellung im System
 
@@ -238,7 +243,7 @@ _Login_:
 
 _Logout_:
 
-1. {glossar_customer} drückt "{navigate_logout}" in der navigations Leiste
+1. {glossar_customer} drückt "{navigate_logout}" in der Navigationsleiste
 2. {glossar_customer} wird auf den Home Bildschirm umgeleitet
 
 |Funktionale Anforderungen | <<F0010>> <<F0020>> <<F0021>>
@@ -279,17 +284,17 @@ _Logout_:
 
 
 
-[[SportgeräteKatalog]]
+[[SportgeraeteKatalog]]
 [cols="1h, 3"]
 |===
-|Name                       |**<<SportgeräteKatalog>>**
+|Name                       |**<<SportgeraeteKatalog>>**
 |Done?                      |False
 |Beschreibung               |Jeder Nutzer der {glossar_website} soll in der Lage sein den vollen {glossar_catalog} der verfügbaren Sportgeräte zu sehen
 |Akteure                    |{glossar_user}
 |Trigger                    |Nutzer möchte sich die Auswahl an Sportgeräten ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {glossar_user} drückt "{navigate_sports_eqipment}" in der navigations Leiste
+1. {glossar_user} drückt "{navigate_sports_eqipment}" in der Navigationsleiste
 2. {glossar_user} bekommt alle Sportgeräte in einer Liste angezeigt
 |Funktionale Anforderungen | <<F0020>> <<F0114>>
 |===
@@ -306,17 +311,17 @@ _Logout_:
 |Trigger                    |{glossar_customer} trifft physisch beim {campsite} ein
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+1. {glossar_employee} markiert die <<PlatzReservieren,Reservierung>> vom {glossar_customer} als wahrgenommen
 |Extension                  | Wenn ein {glossar_customer} ohne Reservierung zum {campsite} kommt, müsste der Mitarbeiter für seine Verweilzeit eine {glossar_reserve} anlegen und sofort bestätigen. Stattdessen dem Mitarbeiter die option geben, das in einem Schritt zu machen
 |Funktionale Anforderungen | <<F0010>> <<F0104>> <<F0107>>
 |===
 
 
 
-[[SportgeräteAusleihe]]
+[[SportgeraeteAusleihe]]
 [cols="1h, 3"]
 |===
-|Name                       |**<<SportgeräteAusleihe>>**
+|Name                       |**<<SportgeraeteAusleihe>>**
 |Done?                      |False
 |Beschreibung               |Um seinen {glossar_customer}n den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der Betreiber von Below-The-Sun auch Sportgeräte
 |Akteure                    |{glossar_employee}
@@ -329,15 +334,15 @@ _Logout_:
 
 
 
-[[SportgeräteRückgabe]]
+[[SportgeraeteRueckgabe]]
 [cols="1h, 3"]
 |===
-|Name                       |**<<SportgeräteRückgabe>>**
+|Name                       |**<<SportgeraeteRueckgabe>>**
 |Done?                      |False
 |Beschreibung               |Ausgeliehene Sportgeräte können auch zurückgegeben werden
 |Akteure                    |{glossar_employee}
 |Trigger                    |{glossar_customer} gibt physisch ein Sportgerät aus
-|Vorbedingungen            a|Ein Sportgerät wurde <<SportgeräteAusleihe, Ausgeliehen>>
+|Vorbedingungen            a|Ein Sportgerät wurde <<SportgeraeteAusleihe,Ausgeliehen>>
 |Schritte                  a|
 1. {glossar_employee} markiert das Sportgerät als verfügbar
 |Funktionale Anforderungen | <<F0010>> <<F0116>>
@@ -357,7 +362,7 @@ _Logout_:
 |Schritte                  a|
 1. {glossar_employee} navigiert zur entsprechenden Seite +
 - <<PlatzKatalog>> für das Bearbeiten von Stellplätzen
-- <<SportgeräteKatalog>> für das Bearbeiten von Sportgeräten
+- <<SportgeraeteKatalog>> für das Bearbeiten von Sportgeräten
 2. {glossar_employee} führt Änderung durch
 - Ändert einen Wert
 - Fügt einen artikel hinzu
@@ -376,7 +381,7 @@ _Logout_:
 |Trigger                    |{glossar_boss} möchte sich einen Überblick über seinen {campsite} verschaffen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {glossar_boss} drückt "{navigate_dashboard}" in der navigations Leiste
+1. {glossar_boss} drückt "{navigate_dashboard}" in der Navigationsleiste
 |Funktionale Anforderungen | <<F0010>> <<F0200>>
 |===
 
@@ -397,7 +402,7 @@ _Logout_:
 |Authentifizierung
 a|
 Die {glossar_website} muss in allen {glossar_user} zugängliche Teile, authentifizierten {glossar_employee} zugängliche Teile, authentifizierten{glossar_employee} zugängliche Teile, und {glossar_boss} zugängliche Teile unterteilt werden können.
-Wenn ein Benutzer im System vorhanden ist (<<AccountManagement, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
+Wenn ein Benutzer im System vorhanden ist (<<AccountManagement,registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
 folgenden Informationen angibt:
 
 * Benutzername
@@ -543,7 +548,7 @@ Das {glossar_system} muss dem {glossar_boss} die Möglichkeit bieten nützlichen
 Was das zu erstellende Programm auf alle Fälle leisten muss.
 
 === Kann-Kriterien
-Anforderungen die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
+Anforderungen, die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
 
 == Nicht-Funktionale Anforderungen
 
@@ -578,7 +583,7 @@ Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein m
 |v0.1
 |Verfügbarkeit - Betriebszeit
 a|
-Das System sollte zumindest um die 90% der Zeit erreichbar/ funktional sein. In Saisonzeiten in denen viele Reservierungen getätigt werden bis zu 99%.
+Das System sollte zumindest um die 90 % der Zeit erreichbar/ funktional sein. In Saisonzeiten in denen viele Reservierungen getätigt werden bis zu 99 %.
 
 |[[NF0009]]<<NF0009>>
 |v0.1
@@ -628,7 +633,7 @@ image::./projektbezogene_dateien/images/gui-logIn.png[Landing page, 100%, 100%, 
 [[home_Anmeldung]]
 image::./projektbezogene_dateien/images/gui-anmeldung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Anmeldungsseite vom {project_name}", align=center]
 
-[[home_sportgeräteverleih]]
+[[home_sportgeraeteverleih]]
 image::./projektbezogene_dateien/images/gui-sportgeräteverleih.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Seite zum Ausleih von Sportgeräten vom {project_name}", align=center]
 
 [[home_dashboard]]
@@ -647,7 +652,7 @@ Für jeden Dialog:
 
 1. Kurze textuelle Dialogbeschreibung eingefügt: Was soll der jeweilige Dialog? Was kann man damit tun? Überblick?
 2. Maskenentwürfe (Screenshot, Mockup)
-3. Maskenelemente (Ein/Ausgabefelder, Aktionen wie Buttons, Listen, …)
+3. Maskenelemente (Ein-/Ausgabefelder, Aktionen wie Buttons, Listen, …)
 4. Evtl. Maskendetails, spezielle Widgets
 ////
 
@@ -669,15 +674,15 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |Campingplatz |beinhaltet alles            |
 |User| kann sich Plätze anschauen|
 |Customer| kann Pläte reservieren|
-|Registered User| um customer zu werden muss sich der User registrieren und wird im System als Registered User mit geringsten privilegien angelegt|
-|Cart| Stellplätze müssen im wahrenkorb liegen um reserviert zu werden|
+|Registered User| um customer zu werden, muss sich der User registrieren und wird im System als Registered User mit geringsten privilegien angelegt|
+|Cart| Stellplätze müssen im Warenkorb liegen, um reserviert zu werden|
 |Reservation|eine Reservierung hat ein An- und Abreise-Datum und einen Status|
-|Status| findet am Anreisetag kein Checkin statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)|
+|Status| findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)|
 |Item|neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden|
 |Inventory|enthält alle Items|
-|Cataloge|enthält alle verfügbaren bzw. ausgewählte Items|
+|Catalog|enthält alle verfügbaren bzw. ausgewählte Items|
 |Boss|hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen|
-|Employee|hat keinen zugriff auf das Dashborad, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen|
+|Employee|hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen|
 |===
 
 == Akzeptanztestfälle
@@ -792,7 +797,7 @@ anschließend drückt er erneut "Anmelden"
 [[TSK01]]
 |===
 |ID            |<<TSK01>>
-|Anwendungsfall|<<SportgeräteKatalog>>
+|Anwendungsfall|<<SportgeraeteKatalog>>
 |Erwartung    a|Ein {glossar_user} nutzt die Seite
 |Event        a|{glossar_user} wählt in der Navigationsleiste "Sportgerätverleih"
 |Ergebnis     a|Er bekommt eine Liste mit allen Sportgeräten angezeigt
@@ -807,7 +812,7 @@ anschließend drückt er erneut "Anmelden"
 |ID            |<<TAE01>>
 |Anwendungsfall|<<KundenEinchecken>>
 |Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
-|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Event        a|{glossar_employee} markiert die <<PlatzReservieren,Reservierung>> vom {glossar_customer} als wahrgenommen
 |Ergebnis     a|
 - Es wird eine Bestätigung angezeigt, dass der {glossar_customer} eingecheckt hat
 |===
@@ -820,7 +825,7 @@ anschließend drückt er erneut "Anmelden"
 |ID            |<<TAE02>>
 |Anwendungsfall|<<KundenEinchecken>>
 |Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
-|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Event        a|{glossar_employee} markiert die<<PlatzReservieren,Reservierung>> vom {glossar_customer} als wahrgenommen
 |Ergebnis     a|
 - Es wird ein Fehler angezeigt weil der vom kunden reservierte {glossar_plot} nicht mehr vorhanden ist
 |===
@@ -831,7 +836,7 @@ anschließend drückt er erneut "Anmelden"
 [[TSA01]]
 |===
 |ID            |<<TSA01>>
-|Anwendungsfall|<<SportgeräteAusleihe>>
+|Anwendungsfall|<<SportgeraeteAusleihe>>
 |Erwartung    a|Ein {glossar_customer} leiht Physisch bei einem {glossar_employee} das Sportgerät
 |Event        a|Der {glossar_employee} markiert das Sportgerät als ausgeliehen
 |Ergebnis     a|Das Sportgerät word auf der {glossar_website} als ausgeliehen angezeigt
@@ -843,7 +848,7 @@ anschließend drückt er erneut "Anmelden"
 [[TSR01]]
 |===
 |ID            |<<TSR01>>
-|Anwendungsfall|<<SportgeräteRückgabe>>
+|Anwendungsfall|<<SportgeraeteRueckgabe>>
 |Erwartung    a|Ein {glossar_customer} gibt einem {glossar_employee} das Sportgerät
 |Event        a|Der {glossar_employee} markiert das Sportgerät als verfügbar
 |Ergebnis     a|Das Sportgerät wird auf der {glossar_website} wieder als verfügbar angezeigt
@@ -906,7 +911,7 @@ Anschließend drückt er auf "Informationen aktualisieren"
 |ID            |<<TDA11>>
 |Anwendungsfall|<<DatenAnpassen>>
 |Erwartung    a|Ein {glossar_employee} nutzt die Seite
-|Event        a|{glossar_employee} drückt auf dem <<SportgeräteKatalog>> bei einem Sportgerät auf bearbeiten und legt folgende neue Werte fest:
+|Event        a|{glossar_employee} drückt auf dem <<SportgeraeteKatalog>> bei einem Sportgerät auf bearbeiten und legt folgende neue Werte fest:
 
 - _Preis_: 12
 
@@ -921,7 +926,7 @@ Anschließend drückt er auf "Informationen aktualisieren"
 |ID            |<<TDA12>>
 |Anwendungsfall|<<DatenAnpassen>>
 |Erwartung    a|Ein {glossar_employee} nutzt die Seite
-|Event        a|Der {glossar_employee} drückt in dem <<SportgeräteKatalog>> auf erstellen und füllt ein Formular aus
+|Event        a|Der {glossar_employee} drückt in dem <<SportgeraeteKatalog>> auf erstellen und füllt ein Formular aus
 |Ergebnis     a|Das neue Sportgerät wird in dem {glossar_system} gespeichert
 |===
 
@@ -932,7 +937,7 @@ Anschließend drückt er auf "Informationen aktualisieren"
 |ID            |<<TDA13>>
 |Anwendungsfall|<<DatenAnpassen>>
 |Erwartung    a|Ein {glossar_employee} nutzt die Seite
-|Event        a|Der {glossar_employee} drückt in dem <<SportgeräteKatalog>> auf erstellen und füllt ein Formular aus
+|Event        a|Der {glossar_employee} drückt in dem <<SportgeraeteKatalog>> auf erstellen und füllt ein Formular aus
 |Ergebnis     a|Es wird eine Fehlermeldung angezeigt die aussagt, dass dieses Sportgerät bereits existiert
 |===
 
@@ -976,8 +981,8 @@ Anschließend drückt er auf "Informationen aktualisieren"
 |[[{system}]]{system}                  |Das Produkt welchen wir erstellen, mit Fokus auf den backend Teil
 
 |[[{base_plot}]]{base_plot}            |Ein Stellplatz, das Hauptprodukt des {glossar_company_name}. Auf ihm können die {glossar_customer} Zelt aufschlagen. Das Self-Management der {glossar_customer} für eine Verringerung des Arbeitsaufwandes des Personales ist die Hauptaufgabe der {glossar_website}
-|[[{base_catalog}]]{base_catalog}      |Eine ein oder zwei dimensionale Liste an Karten, welche einzelne Katalog Elemenete representieren
-|[[{base_reserve}]]{base_reserve}      |Markierung eines {base_plot}es auf einem bestimmten Zeitintervall. Andere {glossar_customer}n können dem selben {base_plot} in diesem Intervall nicht für sich reservieren.
+|[[{base_catalog}]]{base_catalog}      |Eine ein oder zwei dimensionale Liste an Karten, welche einzelne Katalog Elemente repräsentieren
+|[[{base_reserve}]]{base_reserve}      |Markierung eines {base_plot}es auf einem bestimmten Zeitintervall. Andere {glossar_customer}n können demselben {base_plot} in diesem Intervall nicht für sich reservieren.
 
 
 
