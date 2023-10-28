@@ -213,17 +213,17 @@ image::./projektbezogene_dateien/images/useCaseDiagram.png[top-level architectur
 Dieser Unterabschnitt beschreibt die Anwendungsfälle. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems aufzulisten.
 
 
-[[AccountManagment]]
+[[AccountManagement]]
 [cols="1h, 3"]
 |===
-|Name                      |**<<AccountManagment>>**
-|Beschribung               |Ein benutzer soll sich in auf der Webseite einen Account erstellen können, dort einloggen können und sich auch ausloggen können
-|Akteure                   |{glossar_user}
-|Trigger                   |{glossar_user} möchte seinen einloggen/registrieren, um einen {base_plot} zu <<{base_reserve}, reservieren>> oder möchte ausloggen
+|Name                      |**<<AccountManagement>>**
+|Beschribung               |Ein benutzer soll sich auf der Webseite einen Account erstellen, dort einloggen und auch ausloggen können
+|Akteure                   |{glossar_user}, {glossar_customer}
+|Trigger                   |{glossar_user}/{glossar_customer} möchte sich registrieren/einloggen, um einen {base_plot} zu <<{base_reserve}, reservieren>> oder möchte sich ausloggen
 |Vorbedingungen           a|
 _Registrieren_: {glossar_user} ist nicht in einem Account eingeloggt +
 _Login_: {glossar_user} ist nicht in einem Account eingeloggt +
-_Logout_: {glossar_user} ist in einem Account eingeloggt
+_Logout_: {glossar_customer} ist in einem Account eingeloggt
 |Schritte          a|
 _Registrieren_:
 
@@ -233,13 +233,13 @@ _Registrieren_:
 
 _Login_:
 
-1. {glossar_user} drückt "{navigate_login}" in der navigations Leiste
+1. {glossar_user} drückt "{navigate_login}" in der Navigationsleiste
 2. {glossar_user} füllt das Formular aus
 
 _Logout_:
 
-1. {glossar_user} drückt "{navigate_logout}" in der navigations Leiste
-2. {glossar_user} wird auf den Home Bildschirm umgeleitet
+1. {glossar_customer} drückt "{navigate_logout}" in der navigations Leiste
+2. {glossar_customer} wird auf den Home Bildschirm umgeleitet
 
 |Funktionale Anforderungen | <<F0010>> <<F0020>> <<F0021>>
 |===
@@ -256,7 +256,7 @@ _Logout_:
 |Trigger                    |{glossar_user} möchte sich die Auswahl an {glossar_plots} ansehen
 |Vorbedingungen            a|None
 |Schritte                  a|
-1. {glossar_user} drückt "{navigate_catalog}" in der navigations Leiste
+1. {glossar_user} drückt "{navigate_catalog}" in der Navigationsleiste
 2. {glossar_user} bekommt alle {glossar_plots} in einer Liste angezeigt
 |Funktionale Anforderungen | <<F0100>> <<F0104>>
 |===
@@ -397,7 +397,7 @@ _Logout_:
 |Authentifizierung
 a|
 Die {glossar_website} muss in allen {glossar_user} zugängliche Teile, authentifizierten {glossar_employee} zugängliche Teile, authentifizierten{glossar_employee} zugängliche Teile, und {glossar_boss} zugängliche Teile unterteilt werden können.
-Wenn ein Benutzer im System vorhanden ist (<<AccountManagment, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
+Wenn ein Benutzer im System vorhanden ist (<<AccountManagement, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
 folgenden Informationen angibt:
 
 * Benutzername
@@ -681,8 +681,284 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |===
 
 == Akzeptanztestfälle
-Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
-Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
+
+
+// Account Management
+// Registrierung funktioniert
+[cols="1h, 4"]
+[[TAM01]]
+|===
+|ID            |<<TAM01>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} drückt "Anmelden" und füllt das Formular den folgenden Informationen aus:
+
+- _Name_: jannes
+- _Passwort_: 12HG875tG
+
+anschließend drückt er erneut "Anmelden"
+|Ergebnis     a|
+- Mit den im Formular angegebenen daten wird ein neuer Account im System erstellt
+- Er kann sich nun anmelden
+- Er erhällt zugriff auf die Funktionalitäten eines {glossar_customer}n 
+|===
+
+// Registrierung schlägt fehl
+[cols="1h, 4"]
+[[TAM02]]
+|===
+|ID            |<<TAM02>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} drückt "Anmelden" und füllt das Formular den folgenden Informationen aus:
+
+- _Name_: jörg
+- _Passwort_: 1823h7og1
+
+anschließend drückt er erneut "Anmelden"
+|Ergebnis     a|
+- Eine Error Nachricht wird angezeigt da bereits ein Kunde mit diesen Informationen existiert
+|===
+
+// Nutzer loggt sich ein
+[cols="1h, 4"]
+[[TAM03]]
+|===
+|ID            |<<TAM03>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} drückt "Einloggen" und füllt das Formular mit seinen existierenden Informationen aus (jörg, 1823h7og1) 
+|Ergebnis     a|
+- Er wird als "jörg" authentifiziert
+- Er erhällt zugriff auf die Funktionalitäten eines {glossar_customer}n
+|===
+
+// Kunde loggt sich aus
+[cols="1h, 4"]
+[[TAM04]]
+|===
+|ID            |<<TAM04>>
+|Anwendungsfall|<<AccountManagement>>
+|Erwartung    a|Ein {glossar_customer} nutzt die Seite
+|Event        a|Der {glossar_customer} drückt "Ausloggen"
+|Ergebnis     a|
+- Er wird zu einem {glossar_user}
+- Er verliert den zugang zu funktionalitäten eines {glossar_customer}n
+|===
+
+
+// Platz Katalog
+// Platzkatalog wird aufgerufen
+[cols="1h, 4"]
+[[TPK01]]
+|===
+|ID            |<<TPK01>>
+|Anwendungsfall|<<PlatzKatalog>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|Der {glossar_user} wählt in der Navigationsleiste "Platzreservierung"
+|Ergebnis     a|Er bekommt alle {glossar_plots} in einer Liste angezeigt
+|===
+
+
+// Platz Reservierung
+// Platzreservierung geht durch
+[cols="1h, 4"]
+[[TPR01]]
+|===
+|ID            |<<TPR01>>
+|Anwendungsfall|<<PlatzReservieren>>
+|Erwartung    a|{glossar_customer} sieht den <<{base_plot}Katalog>>
+|Event        a|Der {glossar_customer} drückt bei einem Platz auf <<{base_reserve}, reservieren>> und gibt den Zeitraum (01.01.2024-23.01.2024) an in welchem er <<{base_reserve}, reservieren>> möchte
+|Ergebnis     a|
+- Der {glossar_plot} wird für den angegebenen Zeitraum (01.01.2024-23.01.2024) reserviert
+- Er bekommt eine {glossar_reserve}sbestätigung angezeigt
+|===
+
+// Platzreservierung schlägt fehl
+[cols="1h, 4"]
+[[TPR02]]
+|===
+|ID            |<<TPR02>>
+|Anwendungsfall|<<PlatzReservieren>>
+|Erwartung    a|{glossar_customer} sieht den <<{base_plot}Katalog>>
+|Event        a|Der {glossar_customer} drückt bei einem Platz auf <<{base_reserve}, reservieren>> und gibt den Zeitraum (10.02.2024-15.02.2024) an in welchem er <<{base_reserve}, reservieren>> möchte
+|Ergebnis     a|
+- Es wird eine Fehlermeldung angezeigt da der {glossar_plot} bereits für diesen Zeitraum reserviert wurde
+|===
+
+
+// Sportgeräte Katalog 
+[cols="1h, 4"]
+[[TSK01]]
+|===
+|ID            |<<TSK01>>
+|Anwendungsfall|<<SportgeräteKatalog>>
+|Erwartung    a|Ein {glossar_user} nutzt die Seite
+|Event        a|{glossar_user} wählt in der Navigationsleiste "Sportgerätverleih"
+|Ergebnis     a|Er bekommt eine Liste mit allen Sportgeräten angezeigt
+|===
+
+
+// Kunden Einchecken
+// Einchecken funktioniert
+[cols="1h, 4"]
+[[TAE01]]
+|===
+|ID            |<<TAE01>>
+|Anwendungsfall|<<KundenEinchecken>>
+|Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
+|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Ergebnis     a|
+- Es wird eine Bestätigung angezeigt, dass der {glossar_customer} eingecheckt hat
+|===
+
+// Einchecken schlägt fehl
+// das wird ja in der Aufgabenstellung erwähnt aber ich weiß nicht wie es je dazu kommen könnte
+[cols="1h, 4"]
+[[TAE02]]
+|===
+|ID            |<<TAE02>>
+|Anwendungsfall|<<KundenEinchecken>>
+|Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
+|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Ergebnis     a|
+- Es wird ein Fehler angezeigt weil der vom kunden reservierte {glossar_plot} nicht mehr vorhanden ist
+|===
+
+
+// Sportgeräte Ausleihe
+[cols="1h, 4"]
+[[TSA01]]
+|===
+|ID            |<<TSA01>>
+|Anwendungsfall|<<SportgeräteAusleihe>>
+|Erwartung    a|Ein {glossar_customer} leiht Physisch bei einem {glossar_employee} das Sportgerät
+|Event        a|Der {glossar_employee} markiert das Sportgerät als ausgeliehen
+|Ergebnis     a|Das Sportgerät word auf der {glossar_website} als ausgeliehen angezeigt
+|===
+
+
+// Sportgeräte Rückgabe
+[cols="1h, 4"]
+[[TSR01]]
+|===
+|ID            |<<TSR01>>
+|Anwendungsfall|<<SportgeräteRückgabe>>
+|Erwartung    a|Ein {glossar_customer} gibt einem {glossar_employee} das Sportgerät
+|Event        a|Der {glossar_employee} markiert das Sportgerät als verfügbar
+|Ergebnis     a|Das Sportgerät wird auf der {glossar_website} wieder als verfügbar angezeigt
+|===
+
+
+// Daten Anpassen
+// Stellplatz Information ändern
+[cols="1h, 4"]
+[[TDA01]]
+|===
+|ID            |<<TDA01>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|{glossar_employee} drückt auf dem <<PlatzKatalog>> bei einem {glossar_plot} auf bearbeiten und legt folgende neue Werte fest:
+
+- _Preis_: 35
+
+Anschließend drückt er auf "Informationen aktualisieren"
+|Ergebnis     a|- Der _Preis_ des {glossar_plot}es wird aktualisiert und angezeigt
+|===
+
+// Stellplatz hinzufügen funktioniert
+[cols="1h, 4"]
+[[TDA02]]
+|===
+|ID            |<<TDA02>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<PlatzKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Der neue {glossar_plot} wird in dem {glossar_system} gespeichert
+|===
+
+// Stellplatz hinzufügen schlägt fehl
+[cols="1h, 4"]
+[[TDA03]]
+|===
+|ID            |<<TDA03>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<PlatzKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Es wird eine Fehlermeldung angezeigt die aussagt, dass dieser {glossar_plot} bereits existiert
+|===
+
+// Stellplatz entfernen
+[cols="1h, 4"]
+[[TDA04]]
+|===
+|ID            |<<TDA04>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt bei einem {glossar_plot} auf entfernen
+|Ergebnis     a|Der {glossar_plot} wird aus dem {glossar_system} entfernt und ist nicht mehr vorhanden
+|===
+
+// Sportgerät Information ändern
+[cols="1h, 4"]
+[[TDA11]]
+|===
+|ID            |<<TDA11>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|{glossar_employee} drückt auf dem <<SportgeräteKatalog>> bei einem Sportgerät auf bearbeiten und legt folgende neue Werte fest:
+
+- _Preis_: 12
+
+Anschließend drückt er auf "Informationen aktualisieren"
+|Ergebnis     a|Der _Preis_ des Sportgerätes wird aktualisiert und angezeigt
+|===
+
+// Sportgerät hinzufügen funktioniert
+[cols="1h, 4"]
+[[TDA12]]
+|===
+|ID            |<<TDA12>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<SportgeräteKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Das neue Sportgerät wird in dem {glossar_system} gespeichert
+|===
+
+// Sportgerät hinzufügen schlägt fehl
+[cols="1h, 4"]
+[[TDA13]]
+|===
+|ID            |<<TDA13>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt in dem <<SportgeräteKatalog>> auf erstellen und füllt ein Formular aus
+|Ergebnis     a|Es wird eine Fehlermeldung angezeigt die aussagt, dass dieses Sportgerät bereits existiert
+|===
+
+// Sportgerät entfernen
+[cols="1h, 4"]
+[[TDA14]]
+|===
+|ID            |<<TDA14>>
+|Anwendungsfall|<<DatenAnpassen>>
+|Erwartung    a|Ein {glossar_employee} nutzt die Seite
+|Event        a|Der {glossar_employee} drückt bei einem Sportgerät auf entfernen
+|Ergebnis     a|Das Sportgerät wird aus dem {glossar_system} entfernt und ist nicht mehr vorhanden
+|===
+
+
+// DashBoard
+[cols="1h, 4"]
+[[TDB01]]
+|===
+|ID            |<<TDB01>>
+|Anwendungsfall|<<DashBoard>>
+|Erwartung    a|Der {glossar_boss} nutzt die Seite
+|Event        a|Der {glossar_boss} wählt in der Navigationsleiste "Dashboard"
+|Ergebnis     a|Es wird eine Seite mit diversen Informationen über den Campingplatz angezeigt
+|===
+
 
 == Glossar
 
