@@ -659,33 +659,31 @@ Für jeden Dialog:
 == Datenmodell
 
 === Überblick: Klassendiagramm
-UML-Analyseklassendiagramm
-
 [[AnalyseKlassenDiagramm]]
 image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm1.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
 
 === Klassen und Enumerationen
-Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
 
 [options="header" cols="1,3"]
 |===
 |Klasse/Enumeration |Beschreibung
-|Campingplatz       |beinhaltet alles            
+|{glossar_company_name} +
+(_Campingplatz_)    |beinhaltet alles            
 |{glossar_user} +
 (_User_)            | kann sich Plätze anschauen
 |{glossar_customer} +
-(_Customer_)           | kann Pläte reservieren
-|Registirerter Nutzer +
-(_Registered User_)   | um customer zu werden, muss sich der User registrieren und wird im System als Registered User mit geringsten privilegien angelegt
-|Cart               | Stellplätze müssen im Warenkorb liegen, um reserviert zu werden
+(_Customer_)        | kann Pläte reservieren
+|Einkaufswagen + 
+(_Cart_)            | Stellplätze müssen im Warenkorb liegen, um reserviert zu werden
 |{glossar_reserve} +
-(_Reservation_)        |eine Reservierung hat ein An- und Abreise-Datum und einen Status
+(_Reservation_)     |eine Reservierung hat ein An- und Abreise-Datum und einen Status
 |Status             | findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)
 |Item               |neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden
 |Inventory          |enthält alle Items
-|Catalog            |enthält alle verfügbaren bzw. ausgewählte Items
+|{glossar_catalog} +
+(_Catalog_)         |enthält alle verfügbaren bzw. ausgewählte Items
 |{glossar_boss} +
-(_Boss_)               |hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen
+(_Boss_)            |hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen
 |{glossar_employee} +
 (_Employee_)        |hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen
 |===
