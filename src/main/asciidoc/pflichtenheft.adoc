@@ -619,20 +619,21 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
+[cols="1h, 4"]
 |===
-|Klasse/Enumeration |Beschreibung |
-|Campingplatz |beinhaltet alles            |
-|User| kann sich Plätze anschauen|
-|Customer| kann Pläte reservieren|
-|Registered User| um customer zu werden, muss sich der User registrieren und wird im System als Registered User mit geringsten privilegien angelegt|
-|Cart| Stellplätze müssen im Warenkorb liegen, um reserviert zu werden|
-|Reservation|eine Reservierung hat ein An- und Abreise-Datum und einen Status|
-|Status| findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)|
-|Item|neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden|
-|Inventory|enthält alle Items|
-|Catalog|enthält alle verfügbaren bzw. ausgewählte Items|
-|Boss|hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen|
-|Employee|hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen|
+|Klasse/Enumeration |Beschreibung 
+|Campingplatz |beinhaltet alles            
+|User| kann sich Plätze anschauen
+|Customer| kann Pläte reservieren
+um customer zu werden, muss sich der User registrieren.
+|Cart| Stellplätze müssen im Warenkorb liegen, um reserviert zu werden
+|Reservation|eine Reservierung hat ein An- und Abreise-Datum und einen Status
+|Status| findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)
+|Item|neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden
+|Inventory|enthält alle Items
+|Catalog|enthält alle verfügbaren bzw. ausgewählte Items
+|Boss|hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen
+|Employee|hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen
 |===
 
 == Akzeptanztestfälle
