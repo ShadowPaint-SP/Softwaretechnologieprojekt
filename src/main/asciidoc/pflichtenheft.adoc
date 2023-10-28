@@ -402,7 +402,7 @@ _Logout_:
 |Authentifizierung
 a|
 Die {glossar_website} muss in allen {glossar_user} zugängliche Teile, authentifizierten {glossar_employee} zugängliche Teile, authentifizierten{glossar_employee} zugängliche Teile, und {glossar_boss} zugängliche Teile unterteilt werden können.
-Wenn ein Benutzer im System vorhanden ist (<<AccountManagement, registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
+Wenn ein Benutzer im System vorhanden ist (<<AccountManagement,registrierter Benutzer>>), muss er in der Lage sein, sich zu authentifizieren (Login), indem er die
 folgenden Informationen angibt:
 
 * Benutzername
@@ -812,7 +812,7 @@ anschließend drückt er erneut "Anmelden"
 |ID            |<<TAE01>>
 |Anwendungsfall|<<KundenEinchecken>>
 |Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
-|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Event        a|{glossar_employee} markiert die <<PlatzReservieren,Reservierung>> vom {glossar_customer} als wahrgenommen
 |Ergebnis     a|
 - Es wird eine Bestätigung angezeigt, dass der {glossar_customer} eingecheckt hat
 |===
@@ -825,7 +825,7 @@ anschließend drückt er erneut "Anmelden"
 |ID            |<<TAE02>>
 |Anwendungsfall|<<KundenEinchecken>>
 |Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
-|Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
+|Event        a|{glossar_employee} markiert die<<PlatzReservieren,Reservierung>> vom {glossar_customer} als wahrgenommen
 |Ergebnis     a|
 - Es wird ein Fehler angezeigt weil der vom kunden reservierte {glossar_plot} nicht mehr vorhanden ist
 |===
@@ -848,7 +848,7 @@ anschließend drückt er erneut "Anmelden"
 [[TSR01]]
 |===
 |ID            |<<TSR01>>
-|Anwendungsfall|<<SportgeraeteRückgabe>>
+|Anwendungsfall|<<SportgeraeteRueckgabe>>
 |Erwartung    a|Ein {glossar_customer} gibt einem {glossar_employee} das Sportgerät
 |Event        a|Der {glossar_employee} markiert das Sportgerät als verfügbar
 |Ergebnis     a|Das Sportgerät wird auf der {glossar_website} wieder als verfügbar angezeigt
