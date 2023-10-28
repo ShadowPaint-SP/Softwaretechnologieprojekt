@@ -667,22 +667,27 @@ image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm1.png[top-level ar
 === Klassen und Enumerationen
 Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
 
-// See http://asciidoctor.org/docs/user-manual/#tables
-[options="header"]
+[options="header" cols="1,3"]
 |===
-|Klasse/Enumeration |Beschreibung |
-|Campingplatz |beinhaltet alles            |
-|User| kann sich Plätze anschauen|
-|Customer| kann Pläte reservieren|
-|Registered User| um customer zu werden, muss sich der User registrieren und wird im System als Registered User mit geringsten privilegien angelegt|
-|Cart| Stellplätze müssen im Warenkorb liegen, um reserviert zu werden|
-|Reservation|eine Reservierung hat ein An- und Abreise-Datum und einen Status|
-|Status| findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)|
-|Item|neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden|
-|Inventory|enthält alle Items|
-|Catalog|enthält alle verfügbaren bzw. ausgewählte Items|
-|Boss|hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen|
-|Employee|hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen|
+|Klasse/Enumeration |Beschreibung
+|Campingplatz       |beinhaltet alles            
+|{glossar_user} +
+(_User_)            | kann sich Plätze anschauen
+|{glossar_customer} +
+(_Customer_)           | kann Pläte reservieren
+|Registirerter Nutzer +
+(_Registered User_)   | um customer zu werden, muss sich der User registrieren und wird im System als Registered User mit geringsten privilegien angelegt
+|Cart               | Stellplätze müssen im Warenkorb liegen, um reserviert zu werden
+|{glossar_reserve} +
+(_Reservation_)        |eine Reservierung hat ein An- und Abreise-Datum und einen Status
+|Status             | findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)
+|Item               |neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden
+|Inventory          |enthält alle Items
+|Catalog            |enthält alle verfügbaren bzw. ausgewählte Items
+|{glossar_boss} +
+(_Boss_)               |hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen
+|{glossar_employee} +
+(_Employee_)        |hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen
 |===
 
 == Akzeptanztestfälle
