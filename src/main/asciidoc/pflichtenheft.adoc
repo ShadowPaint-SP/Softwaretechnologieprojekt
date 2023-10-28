@@ -671,6 +671,7 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 // Account Management
 // Registrierung funktioniert
 [cols="1h, 4"]
+[[TAM01]]
 |===
 |ID            |<<TAM01>>
 |Anwendungsfall|<<AccountManagement>>
@@ -689,6 +690,7 @@ anschließend drückt er erneut "Anmelden"
 
 // Registrierung schlägt fehl
 [cols="1h, 4"]
+[[TAM02]]
 |===
 |ID            |<<TAM02>>
 |Anwendungsfall|<<AccountManagement>>
@@ -705,6 +707,7 @@ anschließend drückt er erneut "Anmelden"
 
 // Nutzer loggt sich ein
 [cols="1h, 4"]
+[[TAM03]]
 |===
 |ID            |<<TAM03>>
 |Anwendungsfall|<<AccountManagement>>
@@ -717,6 +720,7 @@ anschließend drückt er erneut "Anmelden"
 
 // Kunde loggt sich aus
 [cols="1h, 4"]
+[[TAM04]]
 |===
 |ID            |<<TAM04>>
 |Anwendungsfall|<<AccountManagement>>
@@ -731,6 +735,7 @@ anschließend drückt er erneut "Anmelden"
 // Platz Katalog
 // Platzkatalog wird aufgerufen
 [cols="1h, 4"]
+[[TPK01]]
 |===
 |ID            |<<TPK01>>
 |Anwendungsfall|<<PlatzKatalog>>
@@ -743,6 +748,7 @@ anschließend drückt er erneut "Anmelden"
 // Platz Reservierung
 // Platzreservierung geht durch
 [cols="1h, 4"]
+[[TPR01]]
 |===
 |ID            |<<TPR01>>
 |Anwendungsfall|<<PlatzReservieren>>
@@ -755,6 +761,7 @@ anschließend drückt er erneut "Anmelden"
 
 // Platzreservierung schlägt fehl
 [cols="1h, 4"]
+[[TPR02]]
 |===
 |ID            |<<TPR02>>
 |Anwendungsfall|<<PlatzReservieren>>
@@ -767,6 +774,7 @@ anschließend drückt er erneut "Anmelden"
 
 // Sportgeräte Katalog 
 [cols="1h, 4"]
+[[TSK01]]
 |===
 |ID            |<<TSK01>>
 |Anwendungsfall|<<SportgeräteKatalog>>
@@ -779,6 +787,7 @@ anschließend drückt er erneut "Anmelden"
 // Kunden Einchecken
 // Einchecken funktioniert
 [cols="1h, 4"]
+[[TAE01]]
 |===
 |ID            |<<TAE01>>
 |Anwendungsfall|<<KundenEinchecken>>
@@ -791,18 +800,20 @@ anschließend drückt er erneut "Anmelden"
 // Einchecken schlägt fehl
 // das wird ja in der Aufgabenstellung erwähnt aber ich weiß nicht wie es je dazu kommen könnte
 [cols="1h, 4"]
+[[TAE02]]
 |===
 |ID            |<<TAE02>>
 |Anwendungsfall|<<KundenEinchecken>>
 |Erwartung    a|Der {glossar_customer} ist am Campingplatz und interagiert mit einem {glossar_employee}
 |Event        a|{glossar_employee} markiert die <<PlatzReservieren, Reservierung>> vom {glossar_customer} als wahrgenommen
 |Ergebnis     a|
-- Es wird ein Fehler angezeigt weil der vom kunden reservierte {glossar_plot} nichtmehr vorhanden ist
+- Es wird ein Fehler angezeigt weil der vom kunden reservierte {glossar_plot} nicht mehr vorhanden ist
 |===
 
 
 // Sportgeräte Ausleihe
 [cols="1h, 4"]
+[[TSA01]]
 |===
 |ID            |<<TSA01>>
 |Anwendungsfall|<<SportgeräteAusleihe>>
@@ -814,6 +825,7 @@ anschließend drückt er erneut "Anmelden"
 
 // Sportgeräte Rückgabe
 [cols="1h, 4"]
+[[TSR01]]
 |===
 |ID            |<<TSR01>>
 |Anwendungsfall|<<SportgeräteRückgabe>>
@@ -826,6 +838,7 @@ anschließend drückt er erneut "Anmelden"
 // Daten Anpassen
 // Stellplatz Information ändern
 [cols="1h, 4"]
+[[TDA01]]
 |===
 |ID            |<<TDA01>>
 |Anwendungsfall|<<DatenAnpassen>>
@@ -840,6 +853,7 @@ Anschließend drückt er auf "Informationen aktualisieren"
 
 // Stellplatz hinzufügen funktioniert
 [cols="1h, 4"]
+[[TDA02]]
 |===
 |ID            |<<TDA02>>
 |Anwendungsfall|<<DatenAnpassen>>
@@ -850,6 +864,7 @@ Anschließend drückt er auf "Informationen aktualisieren"
 
 // Stellplatz hinzufügen schlägt fehl
 [cols="1h, 4"]
+[[TDA03]]
 |===
 |ID            |<<TDA03>>
 |Anwendungsfall|<<DatenAnpassen>>
@@ -860,16 +875,18 @@ Anschließend drückt er auf "Informationen aktualisieren"
 
 // Stellplatz entfernen
 [cols="1h, 4"]
+[[TDA04]]
 |===
 |ID            |<<TDA04>>
 |Anwendungsfall|<<DatenAnpassen>>
 |Erwartung    a|Ein {glossar_employee} nutzt die Seite
 |Event        a|Der {glossar_employee} drückt bei einem {glossar_plot} auf entfernen
-|Ergebnis     a|Der {glossar_plot} wird aus dem {glossar_system} entfernt und ist nichtmehr vorhanden
+|Ergebnis     a|Der {glossar_plot} wird aus dem {glossar_system} entfernt und ist nicht mehr vorhanden
 |===
 
 // Sportgerät Information ändern
 [cols="1h, 4"]
+[[TDA11]]
 |===
 |ID            |<<TDA11>>
 |Anwendungsfall|<<DatenAnpassen>>
@@ -884,6 +901,7 @@ Anschließend drückt er auf "Informationen aktualisieren"
 
 // Sportgerät hinzufügen funktioniert
 [cols="1h, 4"]
+[[TDA12]]
 |===
 |ID            |<<TDA12>>
 |Anwendungsfall|<<DatenAnpassen>>
@@ -894,6 +912,7 @@ Anschließend drückt er auf "Informationen aktualisieren"
 
 // Sportgerät hinzufügen schlägt fehl
 [cols="1h, 4"]
+[[TDA13]]
 |===
 |ID            |<<TDA13>>
 |Anwendungsfall|<<DatenAnpassen>>
@@ -904,17 +923,19 @@ Anschließend drückt er auf "Informationen aktualisieren"
 
 // Sportgerät entfernen
 [cols="1h, 4"]
+[[TDA14]]
 |===
 |ID            |<<TDA14>>
 |Anwendungsfall|<<DatenAnpassen>>
 |Erwartung    a|Ein {glossar_employee} nutzt die Seite
 |Event        a|Der {glossar_employee} drückt bei einem Sportgerät auf entfernen
-|Ergebnis     a|Das Sportgerät wird aus dem {glossar_system} entfernt und ist nichtmehr vorhanden
+|Ergebnis     a|Das Sportgerät wird aus dem {glossar_system} entfernt und ist nicht mehr vorhanden
 |===
 
 
 // DashBoard
 [cols="1h, 4"]
+[[TDB01]]
 |===
 |ID            |<<TDB01>>
 |Anwendungsfall|<<DashBoard>>
