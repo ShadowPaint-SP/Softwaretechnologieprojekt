@@ -516,13 +516,6 @@ Das {glossar_system} muss dem {glossar_boss} die Möglichkeit bieten nützliche 
 |===
 
 
-=== Muss-Kriterien
-Was das zu erstellende Programm auf alle Fälle leisten muss.
-
-=== Kann-Kriterien
-Anforderungen, die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
-
-
 == Nicht-Funktionale Anforderungen
 
 === Qualitätsziele
