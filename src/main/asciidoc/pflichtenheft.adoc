@@ -252,7 +252,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<PlatzKatalog>>**
-|Done?                      |False
 |Beschreibung               |Jeder {glossar_user} der {glossar_website} soll in der Lage sein den vollen {glossar_catalog} der verfügbaren Stell{glossar_plots} zu sehen.
 |Akteure                    |{glossar_user}
 |Trigger                    |{glossar_user} möchte sich die Auswahl an {glossar_plots} ansehen.
@@ -268,7 +267,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<PlatzReservieren>>**
-|Done?                      |False
 |Beschreibung               |Jeder {glossar_customer} der {glossar_website} soll in der Lage sein den die im {glossar_catalog} angezeigten Stell{glossar_plots} zu <<{base_reserve}, reservieren>>.
 |Akteure                    |{glossar_customer}
 |Trigger                    |{glossar_customer} möchte einen Platz <<{base_reserve}, reservieren>>.
@@ -283,7 +281,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<SportgeraeteKatalog>>**
-|Done?                      |False
 |Beschreibung               |Jeder Nutzer der {glossar_website} soll in der Lage sein den vollen {glossar_catalog} der verfügbaren Sportgeräte zu sehen.
 |Akteure                    |{glossar_user}
 |Trigger                    |Nutzer möchte sich die Auswahl an Sportgeräten ansehen.
@@ -299,7 +296,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<KundenEinchecken>>**
-|Done?                      |False
 |Beschreibung               |Jeder {glossar_customer} wird bei seiner Ankunft von Mitarbeitern offiziell eingecheckt und erhält den gewünschten Stell{base_plot} zugewiesen.
 |Akteure                    |{glossar_employee}
 |Trigger                    |{glossar_customer} trifft physisch beim {campsite} ein.
@@ -315,7 +311,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<SportgeraeteAusleihe>>**
-|Done?                      |False
 |Beschreibung               |Um seinen {glossar_customer}n den Aufenthalt noch abwechslungsreicher zu gestalten, verleiht der Betreiber von Below-The-Sun auch Sportgeräte.
 |Akteure                    |{glossar_employee}
 |Trigger                    |{glossar_customer} leiht sich physisch ein Sportgerät aus.
@@ -330,7 +325,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<SportgeraeteRueckgabe>>**
-|Done?                      |False
 |Beschreibung               |Ausgeliehene Sportgeräte können auch zurückgegeben werden.
 |Akteure                    |{glossar_employee}
 |Trigger                    |{glossar_customer} gibt physisch ein Sportgerät zurück.
@@ -345,7 +339,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<DatenAnpassen>>**
-|Done?                      |False
 |Beschreibung               |{glossar_employee} sollen Stell{glossar_plots}, Sportgeräte und Preise variabel konfigurieren können.
 |Akteure                    |{glossar_employee}
 |Trigger                    |{glossar_employee} möchte etwas anpassen.
@@ -366,7 +359,6 @@ _Logout_:
 [cols="1h, 3"]
 |===
 |Name                       |**<<DashBoard>>**
-|Done?                      |False
 |Beschreibung               |der Besitzer des Campingplatzes möchte eine Übersichtsfunktion in die Software integriert haben.
 |Akteure                    |{glossar_boss}
 |Trigger                    |{glossar_boss} möchte sich einen Überblick über seinen {campsite} verschaffen.
