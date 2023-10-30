@@ -50,10 +50,16 @@
 == __{project_name}__
 
 [options="header"]
-[cols="1, 1, 1, 1, 4"]
+[cols="1, 1, 1, 4, 4"]
 |===
 |Version | Status      | Bearbeitungsdatum   | Autoren(en) |  Vermerk
 |0.1     | In Arbeit   | 10.10.2021          | Autor       | Initiale Version
+|1.0     | Abgeschlossen   | 30.10.2021          |  Arsenev, Daniel +
+Ponizil, Vincent +
+Stegner, Armin +
+Müller, Jannes +
+Voigtmann, Richard  +
+Fiedler, Tom| Finale Version
 |===
 
 
@@ -118,9 +124,6 @@ der endgültigen Abreise.
 
 
 == Produktnutzung
-In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
-Zusätzlich kurze Einleitung für fachfremde Personen.
-
 Das System wird als Webanwendung für die Planung und Buchung von Campingplätzen und für die Vermietung von Sportgeräten durch die Benutzer der Website (die potenziellen Kunden des Campingplatzes) genutzt. Es wird auch von den Mitarbeitern des {campsite}es zur Verwaltung der Reservierungen und der Stellplätze verwendet.
 
 Die Software sollte über einen Browser zugänglich sein (Google Chrome, Version 118.0.5993.89).
@@ -595,7 +598,7 @@ image::./projektbezogene_dateien/images/gui-dashboard.png[Landing page, 100%, 10
 
 === Überblick: Klassendiagramm
 [[AnalyseKlassenDiagramm]]
-image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm1.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
+image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
 
 === Klassen und Enumerationen
 
@@ -625,8 +628,8 @@ image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm1.png[top-level ar
 (_Parking SLot_)     |Ein Parkplatz welcher gebucht werden kann
 |Auto Parkplatz + 
 (_Car Slot_)        |Ein Parkplatz groß genug für ein Auto
-|Motorad Parkplatz + 
-(_Motorcycle Slot_) |Ein Parkplatz groß genug für ein Motorad
+|Motorrad Parkplatz +
+(_Motorcycle Slot_) |Ein Parkplatz groß genug für ein Motorrad
 |Camper Parkplatz +
 (_Camper Slot_)     |Ein Parkplatz groß genug für einen Camper
 |Inventory          |enthält alle Items
@@ -746,7 +749,7 @@ anschließend drückt er erneut "Anmelden".
 |ID            |<<TSK01>>
 |Anwendungsfall|<<SportgeraeteKatalog>>
 |Erwartung    a|Ein {glossar_user} nutzt die Seite.
-|Event        a|{glossar_user} wählt in der Navigationsleiste "Sportgerätverleih".
+|Event        a|{glossar_user} wählt in der Navigationsleiste "Sportgeräteverleih".
 |Ergebnis     a|
 - Er bekommt eine Liste mit allen Sportgeräten angezeigt
 |===
