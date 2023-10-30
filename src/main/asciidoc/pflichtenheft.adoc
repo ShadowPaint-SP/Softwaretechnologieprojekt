@@ -516,13 +516,6 @@ Das {glossar_system} muss dem {glossar_boss} die Möglichkeit bieten nützliche 
 |===
 
 
-=== Muss-Kriterien
-Was das zu erstellende Programm auf alle Fälle leisten muss.
-
-=== Kann-Kriterien
-Anforderungen, die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
-
-
 == Nicht-Funktionale Anforderungen
 
 === Qualitätsziele
@@ -601,31 +594,38 @@ image::./projektbezogene_dateien/images/gui-dashboard.png[Landing page, 100%, 10
 == Datenmodell
 
 === Überblick: Klassendiagramm
-UML-Analyseklassendiagramm
-
 [[AnalyseKlassenDiagramm]]
 image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm1.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
 
 === Klassen und Enumerationen
-Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
 
-// See http://asciidoctor.org/docs/user-manual/#tables
-[options="header"]
-[cols="1h, 4"]
+[options="header" cols="1,3"]
 |===
-|Klasse/Enumeration |Beschreibung 
-|Campingplatz |beinhaltet alles            
-|User| kann sich Plätze anschauen
-|Customer| kann Pläte reservieren
-um customer zu werden, muss sich der User registrieren.
-|Cart| Stellplätze müssen im Warenkorb liegen, um reserviert zu werden
-|Reservation|eine Reservierung hat ein An- und Abreise-Datum und einen Status
-|Status| findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)
-|Item|neben Stellplätzen können auch die Optionen Sportgeräte und Parkplätze gebucht werden
-|Inventory|enthält alle Items
-|Catalog|enthält alle verfügbaren bzw. ausgewählte Items
-|Boss|hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen
-|Employee|hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen
+|Klasse/Enumeration |Beschreibung
+|{glossar_company_name} +
+(_Campingplatz_)    |beinhaltet alles            
+|{glossar_user} +
+(_User_)            | kann sich Plätze anschauen
+|{glossar_customer} +
+(_Customer_)        | kann Pläte reservieren
+|{glossar_employee} +
+(_Employee_)        |hat keinen Zugriff auf das Dashboard, aber auf alles Andere. Er kann auch buchungen für Kunden erstellen, Reservierungen als ARRIVED markieren, oder Reservierungen löschen
+|{glossar_boss} +
+(_Boss_)            |hat alle Zugriffsrechte: im Dashboard kann er seine Umsätze und Buchungen überwachen
+|Einkaufswagen + 
+(_Cart_)            |Stellplätze müssen im Warenkorb liegen, um reserviert zu werden
+|{glossar_reserve} +
+(_Reservation_)     |eine Reservierung hat ein An- und Abreise-Datum und einen Status
+|Status             |findet am Anreisetag kein Check-in statt (ARRIVED) wird die Reservierung ungültig (CANCELLED)
+|Stell{glossar_plot} +
+(_Camping Slot_)    |Ein Stellplatz welcher gebucht werden kann
+|Sportgerät +
+(_Sportitem_)       |Ein Sportgerät welches ausgeliehen werden kann
+|Parkplatz +
+(_Parking Lot_)    |Ein Parkplatz welcher gebucht werden kann
+|Inventory          |enthält alle Items
+|{glossar_catalog} +
+(_Catalog_)         |enthält alle verfügbaren bzw. ausgewählte Items
 |===
 
 == Akzeptanztestfälle
