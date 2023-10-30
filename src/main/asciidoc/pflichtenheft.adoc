@@ -789,7 +789,7 @@ anschließend drückt er erneut "Anmelden".
 |Erwartung    a|Ein {glossar_customer} leiht Physisch bei einem {glossar_employee} das Sportgerät.
 |Event        a|Der {glossar_employee} markiert das Sportgerät als ausgeliehen.
 |Ergebnis     a|
-- Das Sportgerät word auf der {glossar_website} als ausgeliehen angezeigt
+- Das Sportgerät wird auf der {glossar_website} als ausgeliehen angezeigt
 |===
 
 
