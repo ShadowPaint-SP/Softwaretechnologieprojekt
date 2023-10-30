@@ -180,12 +180,12 @@ a|
 === Kontextdiagramm
 
 [[context_diagram]]
-image::./projektbezogene_dateien/images/context.png[context diagram, 100%, 100%, pdfwidth=100%, title= "Kontextdiagramm des {project_name} in UML", align=center]
+image::./models/analysis/context.png[context diagram, 100%, 100%, pdfwidth=100%, title= "Kontextdiagramm des {project_name} in UML", align=center]
 
 === Top-Level-Architektur
 
 [[TLA]]
-image::./projektbezogene_dateien/images/top-level.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architektur des {project_name} in UML", align=center]
+image::./models/analysis/top-level.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Top Level Architektur des {project_name} in UML", align=center]
 
 
 == Anwendungsfälle
@@ -214,7 +214,7 @@ Akteure, die weiter unten in der Tabelle sind, besitzen alle Rechte über ihnen.
 === Überblick Anwendungsfalldiagramm
 
 [[use_case]]
-image::./projektbezogene_dateien/images/useCaseDiagram.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Anwendungsfalldiagramm des {project_name} in UML", align=center]
+image::./models/analysis/useCaseDiagram.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "Anwendungsfalldiagramm des {project_name} in UML", align=center]
 
 
 === Anwendungsfallbeschreibungen
@@ -570,35 +570,35 @@ Die Passwörter der Nutzer dürfen nur als Hash-Werte gespeichert werden, um Die
 == GUI Prototyp
 
 [[home_image]]
-image::./projektbezogene_dateien/images/gui-home.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Empfangsseite vom {project_name}", align=center]
+image::./models/analysis/gui-home.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Empfangsseite vom {project_name}", align=center]
 
 [[home_reservation]]
-image::./projektbezogene_dateien/images/gui-reservierung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsseite vom {project_name}", align=center]
+image::./models/analysis/gui-reservierung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsseite vom {project_name}", align=center]
 
 [[home_reservation2]]
-image::./projektbezogene_dateien/images/gui-reservierung2.png[Landing page, 100%, 100%, pdfwidth=100%, title= "gefilterte Reservierungsseite vom {project_name}", align=center]
+image::./models/analysis/gui-reservierung2.png[Landing page, 100%, 100%, pdfwidth=100%, title= "gefilterte Reservierungsseite vom {project_name}", align=center]
 
 [[home_reservation-approved]]
-image::./projektbezogene_dateien/images/gui-reservierungsbestätigung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsbestätigung vom {project_name}", align=center]
+image::./models/analysis/gui-reservierungsbestätigung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Reservierungsbestätigung vom {project_name}", align=center]
 
 [[home_logIn]]
-image::./projektbezogene_dateien/images/gui-logIn.png[Landing page, 100%, 100%, pdfwidth=100%, title= "LogIn-Seite vom {project_name}", align=center]
+image::./models/analysis/gui-logIn.png[Landing page, 100%, 100%, pdfwidth=100%, title= "LogIn-Seite vom {project_name}", align=center]
 
 [[home_Anmeldung]]
-image::./projektbezogene_dateien/images/gui-anmeldung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Anmeldungsseite vom {project_name}", align=center]
+image::./models/analysis/gui-anmeldung.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Anmeldungsseite vom {project_name}", align=center]
 
 [[home_sportgeraeteverleih]]
-image::./projektbezogene_dateien/images/gui-sportgeräteverleih.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Seite zum Ausleih von Sportgeräten vom {project_name}", align=center]
+image::./models/analysis/gui-sportgeräteverleih.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Seite zum Ausleih von Sportgeräten vom {project_name}", align=center]
 
 [[home_dashboard]]
-image::./projektbezogene_dateien/images/gui-dashboard.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Dashboard vom {project_name}", align=center]
+image::./models/analysis/gui-dashboard.png[Landing page, 100%, 100%, pdfwidth=100%, title= "Dashboard vom {project_name}", align=center]
 
 
 == Datenmodell
 
 === Überblick: Klassendiagramm
 [[AnalyseKlassenDiagramm]]
-image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
+image::./models/analysis/AnalyseKlassenDiagramm.png[top-level architecture, 100%, 100%, pdfwidth=100%, title= "AnalyseKlassenDiagramm des {project_name} in UML", align=center]
 
 === Klassen und Enumerationen
 
