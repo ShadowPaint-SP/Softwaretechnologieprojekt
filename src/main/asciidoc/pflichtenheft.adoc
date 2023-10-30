@@ -224,7 +224,7 @@ image::./models/analysis/useCaseDiagram.png[top-level architecture, 100%, 100%, 
 [cols="1h, 3"]
 |===
 |Name                      |**<<AccountManagement>>**
-|Beschreibung               |Ein benutzer soll sich auf der Webseite einen Account erstellen, dort einloggen und auch ausloggen können.
+|Beschreibung               |Ein Benutzer soll sich auf der Webseite einen Account erstellen, dort einloggen und auch ausloggen können.
 |Akteure                   |{glossar_user}, {glossar_customer}
 |Trigger                   |{glossar_user}/{glossar_customer} möchte sich registrieren/einloggen, um einen {base_plot} zu <<{base_reserve}, reservieren>> oder möchte sich ausloggen.
 |Vorbedingungen           a|
