@@ -87,7 +87,7 @@ die Software jedoch komplett selbst umsetzen.
 
 Das wichtigste dabei ist natürlich die Verwaltung und Vergabe von Stellplätzen (_Plot_). +
 **{glossar_company_name}** hat eine gewisse Anzahl von verschieden dimensionierten Stellplätzen.
-An einigen ist direkt ein Parkplatz (_Attachment_) für Auto, Motorrad oder Campingwagen angegliedert.
+An einigen ist direkt ein Parkplatz (_Attatchment_) für Auto, Motorrad oder Campingwagen angegliedert.
 Alle Kombinationen sind hier denkbar. +
 Das Vorreservieren der Stellplätze soll möglich sein, die Reservierungen werden aber am Morgen nach dem geplanten Anreisetermin
 gelöscht und der Platz steht anderen Campern wieder zur Verfügung. Jeder Kunde (_Costumer_) wird bei seiner Ankunft
@@ -624,8 +624,8 @@ image::./models/analysis/AnalyseKlassenDiagramm.png[top-level architecture, 100%
 (_Camping Slot_)    |Ein Stellplatz welcher gebucht werden kann
 |Sportgerät +
 (_Sportitem_)       |Ein Sportgerät welches ausgeliehen werden kann
-|Parkplatz +
-(_Parking SLot_)     |Ein Parkplatz welcher gebucht werden kann
+|Attatchment +
+(_Attatchment_)     |Ein Attatchment welches dazu gebucht werden kann
 |Auto Parkplatz + 
 (_Car Slot_)        |Ein Parkplatz groß genug für ein Auto
 |Motorrad Parkplatz +
