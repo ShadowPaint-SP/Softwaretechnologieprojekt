@@ -622,7 +622,13 @@ image::./projektbezogene_dateien/images/AnalyseKlassenDiagramm1.png[top-level ar
 |Sportgerät +
 (_Sportitem_)       |Ein Sportgerät welches ausgeliehen werden kann
 |Parkplatz +
-(_Parking Lot_)    |Ein Parkplatz welcher gebucht werden kann
+(_Parking SLot_)     |Ein Parkplatz welcher gebucht werden kann
+|Auto Parkplatz + 
+(_Car Slot_)        |Ein Parkplatz groß genug für ein Auto
+|Motorad Parkplatz + 
+(_Motorcycle Slot_) |Ein Parkplatz groß genug für ein Motorad
+|Camper Parkplatz +
+(_Camper Slot_)     |Ein Parkplatz groß genug für einen Camper
 |Inventory          |enthält alle Items
 |{glossar_catalog} +
 (_Catalog_)         |enthält alle verfügbaren bzw. ausgewählte Items
