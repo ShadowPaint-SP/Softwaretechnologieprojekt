@@ -2,7 +2,7 @@
 
 Treffen am 06.11.2023
 
-Ort:      Online Meeting +
+Ort:      SLUB 0.40 +
 Beginn:   14:50 Uhr +
 Ende:     16:20 Uhr
 
@@ -10,21 +10,26 @@ __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-30.10.2023, 14.50 Uhr, SLUB 0.40
+13.11.2023, 14.50 Uhr, SLUB 0.42
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
 
 - Richard Karl Fuchs (Betreuer, Kunde)
-- Tom Fiedler (vorläufig Scrum-Master)
+- Tom Fiedler (Scrum-Master)
 - Daniel Arsenev
-- Vincent Ponizil
+- Vincent Ponizil (online)
 - Armin Stegner
 - Jannes Müller
 - Irina Drumeva
 - Richard Voigtmann
 
 == Bemerkungen
+Neue Pair Kombination: +
+Daniel - Richard +
+Tom - Irina
+
+
 
 == Retrospektive des letzten Sprints
 *Issue referenziert die Issue ID von GitHub*
@@ -34,13 +39,14 @@ __Teilnehmer:__
 [option="headers"]
 |===
 |Issue |Aufgabe |Status |Bemerkung
-|…     |…       |…      |…
+| Basic Scaffolding #20    | Basis Struktur    |Closed | Übernommen aus dem Videoshop
+| Webseiten anzeige #23 | Grobes Aussehen|Closed|mit SemanticUI
 |===
 
 
 == Aktueller Stand
-Anmerkungen und Kritik zum aktuellen Stand der Software, den Diagrammen und den
-Dokumenten.
+- keine Entwickler Dokumentation
+- Kann-Kriterium->JavaScript
 
 == Planung des nächsten Sprints
 *Issue referenziert die Issue ID von GitHub*
@@ -48,7 +54,13 @@ Dokumenten.
 // See http://asciidoctor.org/docs/user-manual/=tables
 [option="headers"]
 |===
-|Issue |Titel |Beschreibung |Verantwortlicher |Status
-|…     |…     |…            |…                |…
+|Issue |Beschreibung |Verantwortlicher |Status
+|Webseite anzeigen (Plot Katalog)   |…            |Daniel            |…
+|registration||Jannes|
+|Inventory||Armin, Vincent|
+|
+Reservierung Bestätigung||Armin, Vincent|
+|Website anzeigen (Warenkorb)||Armin, Vincent|
+|Reservierungen in einen Warenkorb||Armin, Vincent|
 |===
 

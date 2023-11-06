@@ -27,6 +27,10 @@ __Teilnehmer:__
 
 == Bemerkungen
 Kunde/Betreuer beantwortet Fragen +
-Disskussion
+Diskussion und Wissensaustausch zwischen Teilnehmer +
+Aufteilung Pflichtenheft: +
+Jannes Design Website +
+Daniel Anwendungsfälle +
+Armin+Vincent UML
 
 
