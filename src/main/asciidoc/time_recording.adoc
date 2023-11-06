@@ -6,19 +6,19 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 // See http://asciidoctor.org/docs/user-manual/#tables
 [option="headers"]
 |===
-|Woche |Armin |Vincent |Irina |Richard |Jannes |Daniel |Shengzhe | Tom || Meetings
-|1     |240   |120     |120   |180     |100    |40     |…        |20   ||40
-|2     |240   |180     |120   |170     |240    |120    |…        |120  ||90
-|3     |180   |360     |…     |200     |…      |360    |…        |120  ||90
-|4     |…     |240     |…     |…       |…      |510    |…        |…    ||90
-|5     |…     |…       |…     |…       |…      |…      |…        |…    ||
-|6     |…     |…       |…     |…       |…      |…      |…        |…    ||
-|7     |…     |…       |…     |…       |…      |…      |…        |…    ||
-|8     |…     |…       |…     |…       |…      |…      |…        |…    ||
-|9     |…     |…       |…     |…       |…      |…      |…        |…    ||
-|10    |…     |…       |…     |…       |…      |…      |…        |…    ||
-|11    |…     |…       |…     |…       |…      |…      |…        |…    ||
-|12    |…     |…       |…     |…       |…      |…      |…        |…    ||
+|Woche |Armin |Vincent |Irina |Richard |Jannes |Daniel | Tom | Meetings
+|1     |240   |120     |120   |180     |100    |40     |20   |40
+|2     |240   |180     |120   |170     |240    |120    |120  |90
+|3     |180   |360     |…     |200     |…      |360    |120  |90
+|4     |240   |240     |…     |20      |…      |510    |20   |90
+|5     |…     |…       |…     |…       |…      |…      |…    |90
+|6     |…     |…       |…     |…       |…      |…      |…    |
+|7     |…     |…       |…     |…       |…      |…      |…    |
+|8     |…     |…       |…     |…       |…      |…      |…    |
+|9     |…     |…       |…     |…       |…      |…      |…    |
+|10    |…     |…       |…     |…       |…      |…      |…    |
+|11    |…     |…       |…     |…       |…      |…      |…    |
+|12    |…     |…       |…     |…       |…      |…      |…    |
 |===
 
 Bitte tragen Sie am Ende des Praktikums noch folgende weitere Werte ein:
