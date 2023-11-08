@@ -1,0 +1,62 @@
+= Protokoll Gruppe 06
+
+Treffen am 13.11.2023
+
+Ort:      SLUB 0.66 +
+Beginn:   14:50 Uhr +
+Ende:     16:20 Uhr
+
+__Schriftführer:__
+Tom Fiedler
+
+*Nächstes Treffen:* +
+20.11.2023, 14.50 Uhr, ---
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Richard Karl Fuchs (Betreuer, Kunde)
+- Tom Fiedler (Scrum-Master)
+- Daniel Arsenev
+- Vincent Ponizil (online)
+- Armin Stegner
+- Jannes Müller
+- Irina Drumeva
+- Richard Voigtmann
+
+== Bemerkungen
+
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+| Basic Scaffolding #20    | Basis Struktur    |Closed | Übernommen aus dem Videoshop
+| Webseiten anzeige #23 | Grobes Aussehen|Closed|mit SemanticUI
+|===
+
+
+== Aktueller Stand
+- keine Entwickler Dokumentation
+- Kann-Kriterium->JavaScript
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Beschreibung |Verantwortlicher |Status
+|Webseite anzeigen (Plot Katalog)|Was Kunden sehen|Daniel|In Arbeit
+|registration|Registrierung von Kunden|Jannes|In Arbeit
+|Inventory|Hauptfunktion des Shops|Armin, Vincent|In Arbeit
+|Reservierung Bestätigung|Hauptfunktion des Shops|Armin, Vincent|In Arbeit
+|Website anzeigen (Warenkorb)|Hauptfunktion des Shops|Armin, Vincent|In Arbeit
+|Reservierungen in einen Warenkorb|Hauptfunktion des Shops|Armin, Vincent| In Arbeit
+|sportgeraete|Alles was Sportgeräte betrifft|Irina, Tom|In Planung
+|===
+
