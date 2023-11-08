@@ -61,6 +61,6 @@ Tom - Irina
 |
 Reservierung Bestätigung||Armin, Vincent|
 |Website anzeigen (Warenkorb)||Armin, Vincent|
-|Reservierungen in einen Warenkorb||Armin, Vincent|
+|Reservierungen in einen Warenkorb||Armin, Vincent| In Arbeit
 |===
 
