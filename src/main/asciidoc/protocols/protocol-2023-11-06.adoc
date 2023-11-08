@@ -55,12 +55,12 @@ Tom - Irina
 [option="headers"]
 |===
 |Issue |Beschreibung |Verantwortlicher |Status
-|Webseite anzeigen (Plot Katalog)   |…            |Daniel            |…
-|registration||Jannes|
-|Inventory||Armin, Vincent|
-|
-Reservierung Bestätigung||Armin, Vincent|
-|Website anzeigen (Warenkorb)||Armin, Vincent|
-|Reservierungen in einen Warenkorb||Armin, Vincent| In Arbeit
+|Webseite anzeigen (Plot Katalog)|Was Kunden sehen|Daniel|In Arbeit
+|registration|Registrierung von Kunden|Jannes|In Arbeit
+|Inventory|Hauptfunktion des Shops|Armin, Vincent|In Arbeit
+|Reservierung Bestätigung|Hauptfunktion des Shops|Armin, Vincent|In Arbeit
+|Website anzeigen (Warenkorb)|Hauptfunktion des Shops|Armin, Vincent|In Arbeit
+|Reservierungen in einen Warenkorb|Hauptfunktion des Shops|Armin, Vincent| In Arbeit
+|sportgeraete|Alles was Sportgeräte betrifft|Irina, Tom|In Planung
 |===
 
