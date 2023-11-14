@@ -1,16 +1,16 @@
 = Protokoll Gruppe 06
 
-Treffen am 13.11.2023
+Treffen am 20.11.2023
 
-Ort:      SLUB 0.66 +
+Ort:      SLUB 0.46 +
 Beginn:   14:50 Uhr +
-Ende:     16:45 Uhr
+Ende:     16:20 Uhr
 
 __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-20.11.2023, 14.50 Uhr, SLUB 0.46
+27.11.2023, 14.50 Uhr, ---
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
@@ -25,7 +25,7 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
-kurze Präsentation von thymeleaf und diversen Datenbanken
+
 
 == Retrospektive des letzten Sprints
 *Issue referenziert die Issue ID von GitHub*
