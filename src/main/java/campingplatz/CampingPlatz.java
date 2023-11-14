@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package kickstart;
+package campingplatz;
 
 import org.salespointframework.EnableSalespoint;
 import org.springframework.boot.SpringApplication;
@@ -27,29 +27,29 @@ import org.springframework.security.web.SecurityFilterChain;
  * The main application class.
  */
 @EnableSalespoint
-public class Application {
+public class CampingPlatz {
 
-	/**
-	 * The main application method
-	 * 
-	 * @param args application arguments
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    /**
+     * The main application method
+     * 
+     * @param args application arguments
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(CampingPlatz.class, args);
+    }
 
-	@Configuration
-	static class WebSecurityConfiguration {
+    @Configuration
+    static class WebSecurityConfiguration {
 
-		@Bean
-		SecurityFilterChain videoShopSecurity(HttpSecurity http) throws Exception {
+        @Bean
+        SecurityFilterChain videoShopSecurity(HttpSecurity http) throws Exception {
 
-			return http
-					.headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin))
-					.csrf(csrf -> csrf.disable())
-					.formLogin(login -> login.loginProcessingUrl("/login"))
-					.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
-					.build();
-		}
-	}
+            return http
+                    .headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin))
+                    .csrf(csrf -> csrf.disable())
+                    .formLogin(login -> login.loginProcessingUrl("/login"))
+                    .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
+                    .build();
+        }
+    }
 }
