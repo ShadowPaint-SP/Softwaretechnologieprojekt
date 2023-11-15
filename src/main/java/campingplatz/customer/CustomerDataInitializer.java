@@ -1,18 +1,3 @@
-/*
-q * Copyright 2017-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package campingplatz.customer;
 
 import org.salespointframework.core.DataInitializer;
@@ -27,17 +12,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-/**
- * Initializes default user accounts and customers. The following are created:
- * <ul>
- * <li>An admin user named "boss".</li>
- * <li>The customers "hans", "dextermorgan", "earlhickey", "mclovinfogell"
- * backed by user accounts with the same
- * name.</li>
- * </ul>
- *
- * @author Oliver Gierke
- */
+
 @Component
 @Order(10)
 class CustomerDataInitializer implements DataInitializer {
@@ -64,11 +39,7 @@ class CustomerDataInitializer implements DataInitializer {
         this.customerManagement = customerManagement;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.salespointframework.core.DataInitializer#initialize()
-     */
+
     @Override
     public void initialize() {
 
@@ -82,7 +53,7 @@ class CustomerDataInitializer implements DataInitializer {
         userAccountManagement.create("boss", UnencryptedPassword.of("123"), Role.of("BOSS"));
 
         var password = "123";
-
+		// TODO: realistische und viel wichtiger eigene Daten initialisieren
         List.of(//
                 new RegistrationForm("hans", password, "wurst", ""),
                 new RegistrationForm("dextermorgan", password, "Miami-Dade County", ""),
