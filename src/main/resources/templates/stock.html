@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=#{stock.title})}">
+    <head>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th th:text="#{cart.movieTitle}">Titel</th>
+                    <th th:text="#{cart.count}">Anzahl</th>
+                </tr>
+                </thead>
+                <tbody th:remove="all-but-first">
+                <tr th:each=" item : ${stock}">
+                    <td th:text="${item.product.name}">Last Action Hero</td>
+                    <td th:text="${{item.quantity}}">9000</td>
+                </tr>
+                <tr>
+                    <td>Last Action Hero</td>
+                    <td>9000</td>
+                </tr>
+                <tr>
+                    <td>Last Action Hero</td>
+                    <td>9000</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </body>
+</html>

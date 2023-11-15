@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Sportgeräte)}">
+    <head>
+    </head>
+    <body>
+    <header>
+        <h1>Verleih von Sportgeraete</h1>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+    <section layout:fragment="content">
+        <div class="ui link cards" th:remove="all-but-first">
+            <div class="ui card" th:each="equipment : ${catalog}">
+                <div class="content">
+                    <a class="header" th:href="@{/equipment/{id}(id=${equipment.id})}" th:text="${equipment.category.toString()}">Sport Category</a>
+                </div>
+                <div class="content">
+                    <div class="description" th:text="'Leihgebühr: '+${{equipment.priceString}}"> 9.99 €</div>
+                </div>
+                <div class="content">
+                    <a class="description" th:href="@{/equipment/{id}(id=${equipment.id})}" th:text="${equipment.availability.toString()} +': '+ ${equipment.amountInteger} "></a>
+                    <span>&nbsp; </span>
+                    <span>&nbsp; </span>
+                    <div class="description" th:if="${equipment.availability == T(campingplatz.equip.SportsEquipment$Status).UNAVAILABLE}"
+                         th:text="'Nicht verfügbar von: ' + ${equipment.StartDate} + ' bis ' + ${equipment.EndDate}">Nicht verfügbar: </div>
+                    <!--<button th:class="${equipment.availability == T(campingplatz.equip.SportsEquipment$Status).UNAVAILABLE} ? 'ui red button' : 'ui primary button'">Buchen</button>-->
+                </div>
+                <div class="extra content" th:text="${equipment.name}">null</div>
+            </div>
+        </div>
+    </section>
+    </body>
+</html>
