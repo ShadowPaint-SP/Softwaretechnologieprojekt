@@ -1,18 +1,3 @@
-/*
- * Copyright 2013-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package campingplatz.plots;
 
 import org.javamoney.moneta.Money;
@@ -31,7 +16,7 @@ import static org.salespointframework.core.Currencies.EURO;
 public interface PlotCatalog extends Catalog<Plot> {
 
     default List<Plot> filter(SiteState query) {
-        // we just use filter, instead of specilized database queries.
+        // we just use filter, instead of specialized database queries.
         // the number of plots in the catalog is not big enough for it to matter
         return findAll().filter(plot -> {
             boolean isMatch = true;
