@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.format.DateTimeFormatter;
@@ -33,12 +32,9 @@ class PlotCatalogController {
 
         var filteredPlots = plotCatalog.filter(query);
         var reservedPlotIds = reservationRepository.findPlotsReservedBetween(
-			          query.getDefaultedArrival(), query.getDefaultedDeparture()
-		    );
+                query.getDefaultedArrival(), query.getDefaultedDeparture());
         var partitionedPlots = filteredPlots.stream().collect(Collectors.partitioningBy(
-                plot -> !reservedPlotIds.contains(plot))
-        );
-
+                plot -> !reservedPlotIds.contains(plot)));
 
         var reservations = reservationRepository.findReservationsBetween(firstDay, lastDay);
         var availabilityTable = Utils.constructAvailabilityTable(firstDay, lastDay, filteredPlots, reservations);
