@@ -19,7 +19,6 @@ import lombok.Setter;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 @EqualsAndHashCode
 public class Reservation implements Priced {
@@ -28,48 +27,49 @@ public class Reservation implements Priced {
     private @Id UUID id;
 
     @ManyToOne
-	@Getter @Setter
+    @Getter
+    @Setter
     private UserAccount user;
 
-	@ManyToOne
-    @Getter @Setter
-	private Plot plot;
+    @ManyToOne
+    @Getter
+    @Setter
+    private Plot plot;
 
-
-    @Getter @Setter
+    @Getter
+    @Setter
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate arrival;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate departure;
-
-
-    public Reservation(UserAccount user, Plot plot, LocalDate arrival, LocalDate departure) {
-
-		this.id = UUID.randomUUID();
-
-        this.user = user;
-		this.plot = plot;
-
-        this.arrival = arrival;
-        this.departure = departure; // set this.days
-    }
 
     public Reservation() {
 
     }
 
+    public Reservation(UserAccount user, Plot plot, LocalDate arrival, LocalDate departure) {
+
+        this.id = UUID.randomUUID();
+
+        this.user = user;
+        this.plot = plot;
+
+        this.arrival = arrival;
+        this.departure = departure; // set this.days
+    }
+
     @Override
     public MonetaryAmount getPrice() {
-		var days = getDays();
-		var price = plot.getPrice();
+        var days = getDays();
+        var price = plot.getPrice();
 
-		return price.multiply(days);
-	}
+        return price.multiply(days);
+    }
 
-
-	public long getDays(){
-		return ChronoUnit.DAYS.between(this.arrival, this.departure);
-	}
+    public long getDays() {
+        return ChronoUnit.DAYS.between(this.arrival, this.departure);
+    }
 }

@@ -11,7 +11,12 @@ import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -34,7 +39,8 @@ class ReservationController {
     }
 
     @PostMapping("/cart/{plot}")
-    String addReservation(Model model, @LoggedIn UserAccount user, @PathVariable Plot plot, @Valid PlotCatalog.SiteState state, @ModelAttribute("cart") Cart<Reservation> cart) {
+    String addReservation(Model model, @LoggedIn UserAccount user, @PathVariable Plot plot,
+            @Valid PlotCatalog.SiteState state, @ModelAttribute("cart") Cart<Reservation> cart) {
 
         var reservation = new Reservation(user, plot, state.getArrival(), state.getDeparture());
         cart.add(reservation);
@@ -42,13 +48,8 @@ class ReservationController {
         return "redirect:/cart";
     }
 
-    @GetMapping("/cart")
-    String cart(Model model) {
-        return "cart";
-    }
-
     @PostMapping("/checkout")
-    String reservate( Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") Cart<Reservation> cart ) {
+    String reservate(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") Cart<Reservation> cart) {
 
         reservations.saveAll(cart);
         cart.clear();
@@ -57,9 +58,9 @@ class ReservationController {
     }
 
     @PostMapping("updateTimePeriod")
-    String updateArrival( Model model, @ModelAttribute("cart") Cart<Reservation> cart, @RequestParam("id") UUID reservationID,
-		 @RequestParam("arrival") LocalDate arrival, @RequestParam("departure") LocalDate departure
-	){
+    String updateArrival(Model model, @ModelAttribute("cart") Cart<Reservation> cart,
+            @RequestParam("id") UUID reservationID,
+            @RequestParam("arrival") LocalDate arrival, @RequestParam("departure") LocalDate departure) {
 
         for (Reservation product : cart) {
             if (product.getId().equals(reservationID)) {
@@ -70,12 +71,14 @@ class ReservationController {
         return "redirect:/cart";
     }
 
-
-
+    @GetMapping("/cart")
+    String cart(Model model) {
+        return "cart";
+    }
 
     @GetMapping("/orders")
     String orders(Model model, @LoggedIn UserAccount user) {
-		var userReservations = reservations.findByUserId(user.getId());
+        var userReservations = reservations.findByUserId(user.getId());
         model.addAttribute("ordersCompleted", userReservations);
         return "orders";
     }
