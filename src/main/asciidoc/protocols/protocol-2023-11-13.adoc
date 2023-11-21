@@ -28,26 +28,9 @@ __Teilnehmer:__
 kurze Präsentation von thymeleaf und diversen Datenbanken
 
 == Retrospektive des letzten Sprints
-*Issue referenziert die Issue ID von GitHub*
-// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
-
-// See http://asciidoctor.org/docs/user-manual/=tables
-[option="headers"]
-|===
-|Issue |Aufgabe |Status |Bemerkung
-
-|===
-
-
-== Aktueller Stand
-- vereinzelte Sequenzdiagramme fehlen
+Fertigstellung Prototyp
 
 == Planung des nächsten Sprints
-*Issue referenziert die Issue ID von GitHub*
-
-// See http://asciidoctor.org/docs/user-manual/=tables
-[option="headers"]
-|===
-
+einfügen von Basis Funktionen
 |===
 
