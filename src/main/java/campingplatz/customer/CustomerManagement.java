@@ -47,15 +47,11 @@ public class CustomerManagement {
         Assert.notNull(form, "Registration form must not be null!");
 
         var password = UnencryptedPassword.of(form.getPassword());
-        if (form.isDauercamper().equals("ja")) {
-            var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_dauercamper);
-            return customers.save(new Customer(userAccount, form.getAddress()));
 
-        } else {
-            var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_DC);
-            return customers.save(new Customer(userAccount, form.getAddress()));
+        var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_DC);
+        return customers.save(new Customer(userAccount));
 
-        }
+        
 
     }
 
