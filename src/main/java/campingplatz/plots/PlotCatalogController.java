@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
+@SessionAttributes("cart")
 class PlotCatalogController {
 
     PlotCatalog plotCatalog;
