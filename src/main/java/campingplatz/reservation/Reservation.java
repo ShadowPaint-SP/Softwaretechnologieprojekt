@@ -58,7 +58,7 @@ public class Reservation implements Priced {
         this.plot = plot;
 
         this.arrival = arrival;
-        this.departure = departure; // set this.days
+        this.departure = departure;
     }
 
     @Override
@@ -71,5 +71,47 @@ public class Reservation implements Priced {
 
     public long getDays() {
         return ChronoUnit.DAYS.between(this.arrival, this.departure);
+    }
+
+    /**
+     * return true, if this reservation is bordering
+     * or overlapping with the given reservation
+     */
+    public boolean neighbors(Reservation with) {
+
+        if (!this.getPlot().getId().equals(with.getPlot().getId())) {
+            return false;
+        }
+
+        var firstArrival = this.getArrival();
+        var secondArrival = with.getArrival();
+        var firstDeparture = this.getDeparture().plusDays(1);
+        var secondDeparture = with.getDeparture().plusDays(1);
+
+        var a = !firstArrival.isBefore(secondArrival) && !firstArrival.isAfter(secondDeparture);
+        var b = !firstDeparture.isBefore(secondArrival) && !firstDeparture.isAfter(secondDeparture);
+        var c = firstArrival.isBefore(secondArrival) && firstDeparture.isAfter(secondDeparture);
+        return a || b || c;
+    }
+
+    /**
+     * return true, if this reservation is
+     * overlapping with the given reservation
+     */
+    public boolean intersects(Reservation with) {
+
+        if (!this.getPlot().getId().equals(with.getPlot().getId())) {
+            return false;
+        }
+
+        var firstArrival = this.getArrival();
+        var secondArrival = with.getArrival();
+        var firstDeparture = this.getDeparture();
+        var secondDeparture = with.getDeparture();
+
+        var a = !firstArrival.isBefore(secondArrival) && !firstArrival.isAfter(secondDeparture);
+        var b = !firstDeparture.isBefore(secondArrival) && !firstDeparture.isAfter(secondDeparture);
+        var c = firstArrival.isBefore(secondArrival) && firstDeparture.isAfter(secondDeparture);
+        return a || b || c;
     }
 }
