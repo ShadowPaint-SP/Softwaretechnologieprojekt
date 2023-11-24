@@ -39,3 +39,6 @@ Desktop.ini
 # Misc
 hs_err_*.log
 ~$*
+
+# Tailwindcss
+node_modules

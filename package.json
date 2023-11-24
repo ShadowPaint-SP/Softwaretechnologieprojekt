@@ -1,0 +1,15 @@
+{
+  "name": "swt23w06",
+  "version": "1.0.0",
+  "description": "image:https://github.com/st-tu-dresden-praktikum/swt23w06/workflows/CI%20build/badge.svg[\"CI Build\", link=\"https://github.com/st-tu-dresden-praktikum/swt23w06/actions\"]\r image:https://img.shields.io/badge/SonarQube-checked-blue?logo=sonarqube[\"SonarQube status\", link=\"https://st-lab-ci.inf.tu-dresden.de/sonarqube/\"]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}

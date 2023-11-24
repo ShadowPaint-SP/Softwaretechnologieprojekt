@@ -48,16 +48,16 @@ img.thumbnail {
 	color: #1b1c1d !important;
 }
 
-body {
+/*body {
 	color: #000000;
 	background: #fff;
 	font: 100% system-ui;
 }
 a {
 	color: black;
-}
+}*/
 
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
 	body {
 		color: #eee;
 		background: #000000;
@@ -111,4 +111,4 @@ a {
 	}
 
 
-}
+}*/
