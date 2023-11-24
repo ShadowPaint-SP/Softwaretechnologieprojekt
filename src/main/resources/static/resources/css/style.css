@@ -56,47 +56,63 @@ img.thumbnail {
 }
 
 
-.plot-day-selector.free {
+.plot-catalog-field.free + .plot-catalog-field .vormittag,
+.plot-catalog-field.free .nachmittag {
 	background-color: #FFFFFF;
 }
 
-.plot-day-selector.free-highlighted {
+.plot-catalog-field.free-highlighted + .plot-catalog-field .vormittag,
+.plot-catalog-field.free-highlighted .nachmittag{
 	background-color: #E0F4FF;
 }
 
-.plot-day-selector.free-selected {
+.plot-catalog-field.free-selected + .plot-catalog-field .vormittag,
+.plot-catalog-field.free-selected .nachmittag{
 	background-color: #39A7FF;
 }
 
-.plot-day-selector.reserved-others {
+.plot-catalog-field.reserved-others + .plot-catalog-field .vormittag,
+.plot-catalog-field.reserved-others .nachmittag {
 	background-color: #FFD28F;
 }
 
-.plot-day-selector.reserved-self {
+.plot-catalog-field.reserved-self + .plot-catalog-field .vormittag,
+.plot-catalog-field.reserved-self .nachmittag{
 	background-color: #D2DE32;
 }
 
-.plot-day-selector.free :hover {
+.plot-catalog-field.free:hover + .plot-catalog-field .vormittag,
+.plot-catalog-field.free:hover .nachmittag {
 	background-color: #39A7FF;
 }
 
 
 /* operation on all .plot-day-selector.free-highlighted within a tr,
  if it contains a .plot-select-all, that is hovered over */
-.plot-day-selector.free-highlighted :hover,
+.plot-catalog-field.free-highlighted:hover .nachmittag,
 tr:has(.plot-select-all:hover) .plot-day-selector.free-highlighted {
 	background-color: #39A7FF
 }
 
 
 
-.plot-day-selector.free-selected :hover {
-	background-color: #E0F4FF;
+td {
+	border-spacing: 4px;
 }
 
 
+.ui.table #divider:not(:last-child) td {
+	/*border-bottom: 4px solid rgba(34,36,38,.15);*/
+	border-bottom: 4px solid white;
+}
 
+.vormittag {
+	height: 35%;
+}
 
+.nachmittag {
+	height: 65%;
+}
 
 .cart-icon {
 	width: 48px;

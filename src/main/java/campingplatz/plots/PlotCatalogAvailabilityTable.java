@@ -169,7 +169,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			FieldType prev = null;
 			for (var elem : entry.getValue()) {
 
-				var isCollapsed = elem.value == 3 || elem.value == 4;
+				var isCollapsed = false;
 				if (!isCollapsed || !elem.equals(prev)) {
 					var fields = new Fields(elem, index, 0);
 					collapsedRow.add(fields);

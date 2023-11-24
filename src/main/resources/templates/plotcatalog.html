@@ -100,7 +100,7 @@
                 </thead>
                 <!-- The body of the table -->
                 <tbody>
-                    <tr th:each="plot, stat : ${allPlots.get(availablePlotsTable)}">
+                    <tr th:each="plot, stat : ${allPlots.get(availablePlotsTable)}" id="divider">
                         <td class="four wide ui items" style="width:28%">
                             <div class="ui item">
                                 <div class="ui small image" style="display: inline-block">
@@ -117,10 +117,12 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="one wide" style="width:4%"></td>
-                        <td class="two wide center aligned" th:each="fields : ${availabilityTable.get(plot)}" th:colspan="${fields.amount}"  style="position: relative; width:8%">
-                            <button th:type="${fields.type.clickability}" th:formaction="'/plots/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}" th:class="'plot-day-selector '+#{${fields.type.css}}">
-                                <div class="plot-day-lable">
+                        <td class="" style="width:4%"></td>
+                        <td th:class="'center aligned plot-catalog-field '+#{${fields.type.css}}" th:each="fields : ${availabilityTable.get(plot)}" th:colspan="${fields.amount}"  style="position: relative; width:8%">
+                            <button th:type="${fields.type.clickability}" th:formaction="'/plots/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}" th:class="plot-day-selector">
+                                <div class="vormittag">
+                                </div>
+                                <div class="plot-day-lable nachmittag">
                                     <text th:text="#{${fields.type.label}}"></text>
                                 </div>
                             </button>
