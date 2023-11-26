@@ -1,6 +1,6 @@
 package campingplatz.plots;
 
-public class Variables {
+public class Config { //TODO Strom Wasser für normale Plots
 	private static double electricityCosts = 0.29; //per kWh in Euro
 	private static double waterCosts = 2.59; //per m^3 in Euro
 
@@ -9,7 +9,7 @@ public class Variables {
 	}
 
 	public static void setElectricityCosts(float electricityCosts) {
-		Variables.electricityCosts = electricityCosts;
+		Config.electricityCosts = electricityCosts;
 	}
 
 	public static double getWaterCosts() {
@@ -17,6 +17,6 @@ public class Variables {
 	}
 
 	public static void setWaterCosts(int waterCosts) {
-		Variables.waterCosts = waterCosts;
+		Config.waterCosts = waterCosts;
 	}
 }

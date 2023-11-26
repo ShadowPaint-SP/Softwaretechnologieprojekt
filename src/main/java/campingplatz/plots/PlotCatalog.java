@@ -2,6 +2,8 @@ package campingplatz.plots;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Catalog;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.util.Streamable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,7 +16,12 @@ import static org.salespointframework.core.Currencies.EURO;
  *
  */
 public interface PlotCatalog extends Catalog<Plot> {
+	static final Sort DEFAULT_SORT = Sort.sort(Plot.class).by(Plot::getName).descending();
+	Streamable<Plot> findByType(Plot.ParkingLot lotType, Sort sort);
 
+	default Streamable<Plot> findByType(Plot.ParkingLot type) {
+		return findByType(type, DEFAULT_SORT);
+	}
     default List<Plot> filter(SiteState query) {
         // we just use filter, instead of specialized database queries.
         // the number of plots in the catalog is not big enough for it to matter

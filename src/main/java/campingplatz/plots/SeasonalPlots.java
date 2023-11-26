@@ -1,6 +1,5 @@
 package campingplatz.plots;
 
-import campingplatz.customer.Customer;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,12 +16,12 @@ public class SeasonalPlots extends Plot {
 	private double waterMeter;
 
 	@Getter @Setter
-	private Customer permanentCamper;
+	private String permanentCamper;	//Change to Customer
 
 	@Getter @Setter
 	private PaymentMethod paymentMethod;
 
-	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, Customer permanentCamper, PaymentMethod paymentMethod) {
+	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, String permanentCamper, PaymentMethod paymentMethod) {
 		super(name, size, price, parking);
 		this.electricityMeter = electricityMeter;
 		this.waterMeter = waterMeter;
@@ -36,13 +35,13 @@ public class SeasonalPlots extends Plot {
 	public double setElectricityMeter(double electricityMeter) { //returns the electricity costs for this time period
 		double electricity = electricityMeter - this.electricityMeter;
 		this.electricityMeter = electricityMeter;
-		return Math.ceil(electricity*Variables.getElectricityCosts()*100)/100;
+		return Math.ceil(electricity* Config.getElectricityCosts()*100)/100;
 	}
 
 	public double setWaterMeter(double waterMeter) {  //returns the water costs for this time period
 		double water = waterMeter - this.waterMeter;
 		this.waterMeter = waterMeter;
-		return Math.ceil(water*Variables.getWaterCosts()*100)/100;
+		return Math.ceil(water* Config.getWaterCosts()*100)/100;
 	}
 
 	public enum PaymentMethod {

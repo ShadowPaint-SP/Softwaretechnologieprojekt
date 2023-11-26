@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.format.DateTimeFormatter;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Controller
@@ -71,5 +72,19 @@ class PlotCatalogController {
 
         return setupCatalog(model, query);
     }
+
+	@PostMapping("/seasonalplots")
+	String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
+		//Todo filter implementieren
+		//var filteredPlots = plotCatalog.findByType(Plot.ParkingLot.SEASONAL_CAMPING).filter((Predicate<? super Plot>) query);
+		model.addAttribute("allSeasonalPlots", plotCatalog.findByType(Plot.ParkingLot.SEASONAL_CAMPING));
+		model.addAttribute("searchQuery", query);
+		return "plotcatalog";
+	}
+
+	@PostMapping("/seasonalplots")
+	String seasonalFilter(Model model, @Valid PlotCatalog.SiteState query) {
+		return setupCatalog(model, query);
+	}
 
 }
