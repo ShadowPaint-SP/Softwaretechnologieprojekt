@@ -21,8 +21,8 @@ public class SeasonalPlots extends Plot {
 	@Getter @Setter
 	private PaymentMethod paymentMethod;
 
-	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, String permanentCamper, PaymentMethod paymentMethod) {
-		super(name, size, price, parking);
+	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, PlotType plotType, double electricityMeter, double waterMeter, String permanentCamper, PaymentMethod paymentMethod) {
+		super(name, size, price, parking, plotType);
 		this.electricityMeter = electricityMeter;
 		this.waterMeter = waterMeter;
 		this.permanentCamper = permanentCamper;

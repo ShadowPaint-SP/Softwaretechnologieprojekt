@@ -16,13 +16,16 @@ public class Plot extends Product {
 	@Getter @Setter
     private ParkingLot parking;
 
-    public Plot(String name, Double size, Money price, ParkingLot parking) {
+	@Getter @Setter
+	private PlotType type;
+
+    public Plot(String name, Double size, Money price, ParkingLot parking, PlotType type) {
 
         super(name, price);
 
         this.size = size;
         this.parking = parking;
-
+		this.type = type;
     }
 
     @SuppressWarnings({ "unused", "deprecation" })
@@ -41,14 +44,15 @@ public class Plot extends Product {
     }
 
 
-
+	public enum PlotType{
+		NONE, SEASONAL
+	}
 
     public enum ParkingLot {
         NONE(0, "catalog.parking.no"),
         BIKE_PARKING(1, "catalog.parking.bike"),
         CAR_PARKING(2, "catalog.parking.car"),
-        CAMPER_PARKING(3, "catalog.parking.camper"),
-		SEASONAL_CAMPING(4, "catalog.seasonalParking");
+        CAMPER_PARKING(3, "catalog.parking.camper");
 
         public final Integer size;
         public final String label;

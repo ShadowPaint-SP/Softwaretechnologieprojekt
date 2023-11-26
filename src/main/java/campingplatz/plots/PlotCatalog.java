@@ -17,9 +17,9 @@ import static org.salespointframework.core.Currencies.EURO;
  */
 public interface PlotCatalog extends Catalog<Plot> {
 	static final Sort DEFAULT_SORT = Sort.sort(Plot.class).by(Plot::getName).descending();
-	Streamable<Plot> findByType(Plot.ParkingLot lotType, Sort sort);
+	Streamable<Plot> findByType(Plot.PlotType lotType, Sort sort);
 
-	default Streamable<Plot> findByType(Plot.ParkingLot type) {
+	default Streamable<Plot> findByType(Plot.PlotType type) {
 		return findByType(type, DEFAULT_SORT);
 	}
     default List<Plot> filter(SiteState query) {
