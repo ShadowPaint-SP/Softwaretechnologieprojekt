@@ -27,5 +27,6 @@ class PlotCatalogDataInitializer implements DataInitializer {
         plotCatalog.save(new Plot("5. Platz", 200.0, Money.of(15, EURO), Plot.ParkingLot.CAMPER_PARKING));
         plotCatalog.save(new Plot("6. Platz", 300.0, Money.of(40, EURO), Plot.ParkingLot.CAR_PARKING));
         plotCatalog.save(new Plot("7. Platz", 200.0, Money.of(40, EURO), Plot.ParkingLot.CAMPER_PARKING));
+		plotCatalog.save(new SeasonalPlots("1. Saison Plot", ))
     }
 }

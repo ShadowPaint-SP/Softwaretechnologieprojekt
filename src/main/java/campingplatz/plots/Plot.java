@@ -47,7 +47,8 @@ public class Plot extends Product {
         NONE(0, "catalog.parking.no"),
         BIKE_PARKING(1, "catalog.parking.bike"),
         CAR_PARKING(2, "catalog.parking.car"),
-        CAMPER_PARKING(3, "catalog.parking.camper");
+        CAMPER_PARKING(3, "catalog.parking.camper"),
+		SEASONAL_PARKING(4, "catalog.seasonalParking");
 
         public final Integer size;
         public final String label;
