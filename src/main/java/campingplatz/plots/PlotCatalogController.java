@@ -74,17 +74,9 @@ class PlotCatalogController {
 
 	@GetMapping("/seasonalplots")
 	String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
-		//Todo filter implementieren
-		//var filteredPlots = plotCatalog.findByType(Plot.ParkingLot.SEASONAL_CAMPING).filter((Predicate<? super Plot>) query);
 		var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
 		model.addAttribute("allSeasonalPlots", x);
 		model.addAttribute("searchQuery", query);
 		return "seasonalplotcatalog";
 	}
-
-	/*@PostMapping("/seasonalplots")
-	String seasonalFilter(Model model, @Valid PlotCatalog.SiteState query) {
-		return setupCatalog(model, query);
-	}*/
-
 }
