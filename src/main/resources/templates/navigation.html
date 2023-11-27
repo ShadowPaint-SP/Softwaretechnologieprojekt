@@ -8,8 +8,6 @@
             <div class="ui menu">
                 <div class="left menu">
                     <a class="item" href="plotcatalog.html" th:href="@{/plots}" th:text="#{nav.plots}">Platzreservierung</a>
-                    <a class="item" href="plotcatalog.html" th:href="@{/equipment}" th:text="#{nav.equipment}">Sportgeräteverleih</a>
-
                     <a class="item" href="customers.html" th:href="@{/dashboard}" sec:authorize="hasRole('BOSS')"
                        th:text="#{nav.dashboard}">Dashboard</a>
                 </div>
