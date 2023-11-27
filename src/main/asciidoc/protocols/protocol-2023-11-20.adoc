@@ -21,33 +21,18 @@ __Teilnehmer:__
 - Vincent Ponizil
 - Armin Stegner
 - Jannes Müller
-- Irina Drumeva
+- Irina Drumeva (online)
 - Richard Voigtmann
 
 == Bemerkungen
+Betreuer/Kunde beantwortet Fragen zu Sportgeräten, Dauercampern und Reservierungsauswahl und informierte über den Präsentationstermin.
 
 
 == Retrospektive des letzten Sprints
-*Issue referenziert die Issue ID von GitHub*
-// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
-
-// See http://asciidoctor.org/docs/user-manual/=tables
-[option="headers"]
-|===
-|Issue |Aufgabe |Status |Bemerkung
-
-|===
-
-
-== Aktueller Stand
-- vereinzelte Sequenzdiagramme fehlen
+Stellplatzkatalog hinzugefügt 
 
 == Planung des nächsten Sprints
-*Issue referenziert die Issue ID von GitHub*
-
-// See http://asciidoctor.org/docs/user-manual/=tables
-[option="headers"]
-|===
+einfügen der Basis-Funktionen
 
 |===
 
