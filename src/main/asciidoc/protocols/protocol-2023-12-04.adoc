@@ -1,0 +1,36 @@
+= Protokoll Gruppe 06
+
+Treffen am 04.12.2023
+
+Ort:      SLUB 0.66 +
+Beginn:   14:50 Uhr +
+Ende:     16:20 Uhr
+
+__Schriftführer:__
+Tom Fiedler
+
+*Nächstes Treffen:* +
+11.12.2023, 14.50 Uhr, ---
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Richard Karl Fuchs (Betreuer, Kunde)
+- Tom Fiedler (Scrum-Master)
+- Daniel Arsenev
+- Vincent Ponizil
+- Armin Stegner
+- Jannes Müller
+- Irina Drumeva
+- Richard Voigtmann
+
+== Bemerkungen
+
+
+== Retrospektive des letzten Sprints
+
+== Planung des nächsten Sprints
+
+
+|===
+
