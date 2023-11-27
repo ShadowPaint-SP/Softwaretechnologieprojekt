@@ -25,11 +25,20 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
-
+reflektieren der Präsentation. +
+weitere Fragen zu Reservations +
+weitere Fragen zu Sportgeräten +
 
 == Retrospektive des letzten Sprints
+nüschts...
 
 == Planung des nächsten Sprints
+Basisfunktionalitäten: +
+Reservierungen tätigen +
+Sportgeräte buchen +
+Dashboard Gesamtbuchungen anzeigen
+
+Tests
 
 |===
 
