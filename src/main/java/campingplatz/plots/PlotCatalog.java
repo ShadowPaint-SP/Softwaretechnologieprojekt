@@ -25,7 +25,8 @@ public interface PlotCatalog extends Catalog<Plot> {
     default List<Plot> filter(SiteState query) {
         // we just use filter, instead of specialized database queries.
         // the number of plots in the catalog is not big enough for it to matter
-        return findAll().filter(plot -> {
+        // TODO it might cause problems when called for SeasonalPlots
+        return findByType(Plot.PlotType.NONE).filter(plot -> {
             boolean isMatch = true;
 
             var priceMin = query.getPriceMin();
