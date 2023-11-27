@@ -39,3 +39,4 @@ Desktop.ini
 # Misc
 hs_err_*.log
 ~$*
+node_modules

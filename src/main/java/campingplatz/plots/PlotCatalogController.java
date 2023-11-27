@@ -1,17 +1,22 @@
 package campingplatz.plots;
 
+import campingplatz.reservation.Reservation;
+import campingplatz.reservation.ReservationCart;
 import campingplatz.reservation.ReservationRepository;
-import campingplatz.utils.Utils;
 import jakarta.validation.Valid;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.web.LoggedIn;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
+@SessionAttributes("cart")
 class PlotCatalogController {
 
     PlotCatalog plotCatalog;
@@ -22,22 +27,32 @@ class PlotCatalogController {
         this.reservationRepository = reservationRepository;
     }
 
-    @GetMapping("/plots") // consider renaming the query argument and attribute to state
-    String setupCatalog(Model model, @Valid PlotCatalog.SiteState query) {
+    @ModelAttribute("cart")
+    ReservationCart initializeCart() {
+        return new ReservationCart();
+    }
 
-        var firstDay = query.getDefaultedFirstWeekDate();
-        var lastDay = firstDay.plusDays(7);
-        var rawWeekDates = firstDay.datesUntil(lastDay);
+    @GetMapping("/plots") // consider renaming the query argument and attribute to state
+    String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
+            @ModelAttribute("cart") ReservationCart reservationCart) {
+
+        var firstWeekDate = query.getDefaultedFirstWeekDate();
+        var lastWeekDay = firstWeekDate.plusDays(7);
+        var rawWeekDates = firstWeekDate.datesUntil(lastWeekDay);
         var formatedWeekDates = rawWeekDates.map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM"))).toList();
 
         var filteredPlots = plotCatalog.filter(query);
-        var reservedPlotIds = reservationRepository.findPlotsReservedBetween(
+        var reservedPlots = reservationRepository.findPlotsReservedBetween(
                 query.getDefaultedArrival(), query.getDefaultedDeparture());
         var partitionedPlots = filteredPlots.stream().collect(Collectors.partitioningBy(
-                plot -> !reservedPlotIds.contains(plot)));
+                plot -> !reservedPlots.contains(plot)));
 
-        var reservations = reservationRepository.findReservationsBetween(firstDay, lastDay);
-        var availabilityTable = Utils.constructAvailabilityTable(firstDay, lastDay, filteredPlots, reservations);
+        var reservations = reservationRepository.findReservationsBetween(firstWeekDate, lastWeekDay);
+        var availabilityTable = new PlotCatalogAvailabilityTable(firstWeekDate, lastWeekDay, filteredPlots)
+                .addReservations(user, reservations)
+                .addHighlights(query, reservedPlots)
+                .addSelections(reservationCart)
+                .collapse();
 
         model.addAttribute("allPlots", partitionedPlots);
         model.addAttribute("availabilityTable", availabilityTable);
@@ -47,31 +62,64 @@ class PlotCatalogController {
         return "plotcatalog";
     }
 
-    @PostMapping("/plots")
-    String filter(Model model, @Valid PlotCatalog.SiteState query) {
-        return setupCatalog(model, query);
+    @PostMapping("/plots/filter")
+    String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
+            @ModelAttribute("cart") ReservationCart reservationCart) {
+        return setupCatalog(model, user, query, reservationCart);
     }
 
     @PostMapping("/plots/next-week")
-    String nextWeek(Model model, @Valid PlotCatalog.SiteState query) {
+    String nextWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
+            @ModelAttribute("cart") ReservationCart reservationCart) {
 
         var firstWeekday = query.getDefaultedFirstWeekDate();
         var firstWeekdayNextWeek = firstWeekday.plusWeeks(1);
         query.setFirstWeekDate(firstWeekdayNextWeek);
 
-        return setupCatalog(model, query);
+        return setupCatalog(model, user, query, reservationCart);
     }
 
     @PostMapping("/plots/prev-week")
-    String prevWeek(Model model, @Valid PlotCatalog.SiteState query) {
+    String prevWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
+            @ModelAttribute("cart") ReservationCart reservationCart) {
 
         var firstWeekday = query.getDefaultedFirstWeekDate();
         var firstWeekdayNextWeek = firstWeekday.minusWeeks(1);
         query.setFirstWeekDate(firstWeekdayNextWeek);
 
-        return setupCatalog(model, query);
+        return setupCatalog(model, user, query, reservationCart);
     }
 
+    @PostMapping("/plots/select/{plot}")
+    @PreAuthorize("isAuthenticated()")
+    String addReservationRange(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
+            @PathVariable Plot plot, @ModelAttribute("cart") ReservationCart reservationCart) {
+
+        var reservation = new Reservation(user, plot, query.getArrival(), query.getDeparture());
+        reservationCart.add(reservation);
+
+        return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
+    }
+
+    @PostMapping("/plots/select/{plot}/{index}")
+    @PreAuthorize("isAuthenticated()")
+    String addReservationDay(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
+            @PathVariable("plot") Plot plot, @PathVariable("index") Integer index,
+            @ModelAttribute("cart") ReservationCart reservationCart) {
+
+        var day = query.getDefaultedFirstWeekDate().plusDays(index);
+        var reservation = new Reservation(user, plot, day, day);
+
+        if (reservationCart.intersecting(reservation).isEmpty()) {
+            reservationCart.add(reservation);
+        } else {
+            reservationCart.remove(reservation);
+        }
+
+        return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
+    }
+
+  
 	@GetMapping("/seasonalplots")
 	String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
 		//Todo filter implementieren
@@ -81,10 +129,4 @@ class PlotCatalogController {
 		model.addAttribute("searchQuery", query);
 		return "seasonalplotcatalog";
 	}
-
-	/*@PostMapping("/seasonalplots")
-	String seasonalFilter(Model model, @Valid PlotCatalog.SiteState query) {
-		return setupCatalog(model, query);
-	}*/
-
 }
