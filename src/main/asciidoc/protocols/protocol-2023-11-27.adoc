@@ -2,7 +2,7 @@
 
 Treffen am 27.11.2023
 
-Ort:      --- +
+Ort:      SLUB 0.66 +
 Beginn:   14:50 Uhr +
 Ende:     16:20 Uhr
 
@@ -10,7 +10,7 @@ __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-04.12.2023, 14.50 Uhr, ---
+04.12.2023, 14.50 Uhr, SLUB 0.66
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
