@@ -119,10 +119,8 @@
                         </td>
                         <td class="" style="width:4%"></td>
                         <td th:class="'center aligned plot-catalog-field '+#{${fields.type.css}}" th:each="fields : ${availabilityTable.get(plot)}" th:colspan="${fields.amount}"  style="position: relative; width:8%">
-                            <button th:type="${fields.type.clickability}" th:formaction="'/plots/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}" th:class="plot-day-selector">
-                                <div class="vormittag">
-                                </div>
-                                <div class="plot-day-lable nachmittag">
+                            <button th:type="${fields.type.clickability}" th:formaction="'/plots/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}" th:class="plot-catalog-field">
+                                <div class="plot-day-lable">
                                     <text th:text="#{${fields.type.label}}"></text>
                                 </div>
                             </button>
