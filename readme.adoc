@@ -42,3 +42,7 @@ The repository follows the standard Maven project layout. Nearly all artifacts a
 == How to package the application?
 
 * Run `./mvnw clean package`. The packaged application (a JAR in `target/`) can be run with `java -jar $jarName`.
+
+== Tailwind css
+
+* `npx tailwindcss -i ./src/main/resources/static/css/input.css -o ./src/main/resources/static/css/output.css --watch`

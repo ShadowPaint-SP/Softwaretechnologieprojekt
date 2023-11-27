@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
 public class Utils {
 
     // hide constructor
@@ -56,6 +59,12 @@ public class Utils {
 
         return availabilityTable;
 
+    }
+
+    @GetMapping("/contents/test")
+    public String showTestPage(Model model) {
+        model.addAttribute("currentFragment", "test");
+        return "contetns/test";
     }
 
 }
