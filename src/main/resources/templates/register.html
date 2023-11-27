@@ -31,14 +31,14 @@
                         nicht leer sein.</p>
                 </div>
 
-                <div class="field">
-                    <!-- <input type="checkbox" id="dauercamper" name="dauercamper" th:field="*{dauercamper}"/> -->
+                <!-- <div class="field">
+                    <input type="checkbox" id="dauercamper" name="dauercamper" th:field="*{dauercamper}"/>
                     <label for="scales">Wollen Sie sich als Dauercamper registrieren?</label>
                     <input type="checkbox" id="dauercamper" name="dauercamper" value="ja" label for="scales">   ja</label>
                     <input type="checkbox" id="dauercamper" name="dauercamper" value="nein" label for="scales">nein</label>
-                    <!-- <input type="checkbox" name="checkbox2" th:field="*{Camper}" value="value2"> nein -->
+                    <input type="checkbox" name="checkbox2" th:field="*{Camper}" value="value2"> nein
                                     
-                </div>
+                </div> -->
 
                 <!-- <div class="field">
                     <label th:text="#{register.password2}" for="password2">Passwort</label>
@@ -48,13 +48,13 @@
                         nicht leer sein.</p>
                 </div> -->
 
-                <div class="field">
+                <!-- <div class="field">
                     <label th:text="#{register.address}" for="address">Straße</label>
                     <input id="address" name="address" th:field="*{address}" th:errorclass="fieldError" type="text"
                            required="required"/><br/>
                     <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Die Adresse darf
                         nicht leer sein.</p>
-                </div>
+                </div> -->
 
                 <button type="submit" class="ui button" th:text="#{register.submit}">Registrieren</button>
             </form>

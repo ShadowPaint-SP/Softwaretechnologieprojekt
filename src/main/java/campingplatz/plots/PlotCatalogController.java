@@ -118,4 +118,13 @@ class PlotCatalogController {
 
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
+
+  
+	@GetMapping("/seasonalplots")
+	String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
+		var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
+		model.addAttribute("allSeasonalPlots", x);
+		model.addAttribute("searchQuery", query);
+		return "seasonalplotcatalog";
+	}
 }
