@@ -1,0 +1,21 @@
+prompt:
+{"campingtent at a lake with campers", "campingsite in forest", "campingsite in forest with campers"} 
+
+concat 
+
+{", best quality, 4k, 8k, ultra highres, raw photo in hdr, sharp focus, intricate texture, skin imperfections, photograph of, shot on Canon R6 with 35mm F4"}
+
+Negative prompt:
+{EasyNegative, worst quality, low qualtity, normal quality, bad anatomy, bad art, deformed}
+
+resolution:
+1600x900
+
+model:
+sd_xl_base_1.0
+
+sampling methode:
+DPM++ 2M SDE Karras
+
+37 sampling steps
+
