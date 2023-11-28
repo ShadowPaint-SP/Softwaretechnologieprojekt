@@ -1,5 +1,7 @@
 package campingplatz.reservation;
 
+import campingplatz.plots.Plot;
+import campingplatz.utils.Cart;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,8 +29,8 @@ class ReservationController {
     }
 
     @ModelAttribute("cart")
-    ReservationCart initializeCart() {
-        return new ReservationCart();
+    Cart<Plot> initializeCart() {
+        return new Cart<Plot>();
     }
 
     @GetMapping("/cart")
@@ -38,27 +40,16 @@ class ReservationController {
 
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
-            @ModelAttribute("cart") ReservationCart reservationCart) {
+            @ModelAttribute("cart") Cart<Plot> reservationCart) {
 
-        reservations.saveAll(reservationCart);
+		// TODO
+
+        // reservations.saveAll(reservationCart);
         reservationCart.clear();
 
         return "redirect:/";
     }
 
-    @PostMapping("updateTimePeriod")
-    String updateArrival(Model model, @ModelAttribute("cart") ReservationCart reservationCart,
-            @RequestParam("id") UUID reservationID,
-            @RequestParam("arrival") LocalDate arrival, @RequestParam("departure") LocalDate departure) {
-
-        for (Reservation product : reservationCart) {
-            if (product.getId().equals(reservationID)) {
-                product.setArrival(arrival);
-                product.setDeparture(departure);
-            }
-        }
-        return "redirect:/cart";
-    }
 
     @GetMapping("/orders")
     String orders(Model model, @LoggedIn UserAccount user) {

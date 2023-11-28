@@ -27,7 +27,7 @@ class ReservationDataInitializer implements DataInitializer {
     @Override
     public void initialize() {
         var userAccount = customerManagement.findAll().stream().findFirst().get().getUserAccount();
-        var currentDay = LocalDate.now();
+        var currentDay = LocalDate.now().atStartOfDay();
 
         var plot1 = plotCatalog.findByName("1. Platz").stream().findFirst().get();
         var arrival1 = currentDay.plusDays(5);

@@ -20,7 +20,7 @@
                 <tbody th:remove="all-but-first">
                 <tr th:each="item : ${ordersCompleted} ">
                     <td th:text="${item.plot.name}">Name</td>
-                    <td th:text="${item.arrival}">YYYY-MM-DD</td>
+                    <td th:text="${item.begin}">YYYY-MM-DD</td>
                     <td th:text="${item.days}">number</td>
                     <td th:text="${item.price}">10 Euro</td>
                 </tr>

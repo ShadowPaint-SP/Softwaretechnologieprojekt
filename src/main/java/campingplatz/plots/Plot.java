@@ -1,14 +1,18 @@
 package campingplatz.plots;
 
+import campingplatz.reservation.Reservable;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.salespointframework.catalog.Product;
 import org.javamoney.moneta.Money;
 
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
+
 
 @Entity
-public class Plot extends Product {
+public class Plot extends Reservable {
 
 	@Getter @Setter
     private Double size; // in square meters
@@ -28,6 +32,12 @@ public class Plot extends Product {
     @SuppressWarnings({ "unused", "deprecation" })
     public Plot() {
 	}
+
+	// Overrides the function from Reservable
+	public static ChronoUnit getIntervallUnit(){
+		return ChronoUnit.DAYS;
+	}
+
 
     // a second getter for in inherited field price. returns a formatted String
     public String getPriceString() {

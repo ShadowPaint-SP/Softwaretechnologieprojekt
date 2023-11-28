@@ -27,10 +27,10 @@
                             <input type="hidden" name="id" th:value="${item.id}">
                         <td th:text="${item.plot.name}">Name</td>
                         <td>
-                            <input type="date" name="arrival" th:value="${item.arrival}" th:max="${item.departure}" onchange="this.form.submit()">
+                            <input type="date" name="arrival" th:value="${item.begin}" th:max="${item.end}" onchange="this.form.submit()">
                         </td>
                         <td>
-                            <input type="date" name="departure" th:value="${item.departure}" th:min="${item.arrival}" onchange="this.form.submit()">
+                            <input type="date" name="departure" th:value="${item.end}" th:min="${item.begin}" onchange="this.form.submit()">
                         </td>
                         <td th:text="${item.days}">number</td>
                         <td th:text="${item.price}">10 Euro</td>
