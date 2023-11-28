@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout.html}"
->
-	<head></head>
-	<body>
-		<main layout:fragment="input" class="flex flex-auto mx-auto justify-center">
-			<div class="bg-center">
-				<h1 class="text-3xl font-bold">This is our Landingpage</h1>
-			</div>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
 
+<head></head>
 
-			<!-- You can open the modal using ID.showModal() method -->
-			<button class="btn" onclick="my_modal_3.showModal()">open modal</button>
-			<dialog id="my_modal_3" class="modal">
-				<div class="modal-box">
-					<form method="dialog">
-						<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-					</form>
-					<div th:insert="static/login :: login"></div>
-				</div>
-			</dialog>
-		</main>
-	</body>
+<body>
+    <main layout:fragment="input" class="flex flex-auto mx-auto justify-center">
+
+        <div class="hero min-h-screen"
+            style="background-image: url(https://i.vimeocdn.com/video/1747325385-7161cad87d48c2f860177afd6bb936b02157f7d2d89e2d14553a35645c3a18c5-d_640x360.jpg);">
+            <div class="hero-overlay bg-opacity-60"></div>
+            <div class="hero-content text-center text-neutral-content">
+                <div class="max-w-md">
+                    <h1 class="mb-5 text-5xl font-bold">Hello there</h1>
+                    <p class="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                        exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+
 </html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{register.title})}">
+
+<head> </head>
+
+<body>
+    <main layout:fragment="input">
+        <div class="hero min-h-screen bg-base-200">
+            <div class="hero-content flex-col lg:flex-row-reverse">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-5xl font-bold" th:text="#{register.userdata}">
+                        Register now!
+                    </h1>
+                    <p class="py-6">
+                        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+                        excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+                        et a id nisi.
+                    </p>
+                </div>
+
+                <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <form class="card-body" id="form" th:action="@{/register}" th:object="${registrationForm}"
+                        method="post" role="form">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text" th:text="#{register.name}">Name</span>
+                            </label>
+                            <input id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text"
+                                placeholder="Password" class="input input-bordered focus:outline-accent" required />
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Der Name darf nicht leer sein.
+                            </p>
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text" th:text="#{register.password}">Password</span>
+                            </label>
+                            <input id="password" name="password" th:field="*{password}" th:errorclass="fieldError"
+                                type="password" placeholder="password" class="input input-bordered focus:outline-accent"
+                                required />
+                            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf
+                                nicht leer sein.</p>
+                        </div>
+                        <!--<div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Wollen Sie sich als Dauercamper registrieren?</span>
+                            </label>
+                            <input type="checkbox" id="dauercamper" name="dauercamper" value="ja" label> ja</label>
+                            <input type="checkbox" id="dauercamper" name="dauercamper" value="nein" label>nein</label>
+                        </div>-->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text" th:text="#{register.address}">Address</span>
+                            </label>
+                            <input id="address" name="address" th:field="*{address}" th:errorclass="fieldError"
+                                type="text" class="input input-bordered focus:outline-accent" required />
+                            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Die Adresse darf
+                                nicht leer sein.</p>
+                        </div>
+                        <div class="form-control mt-6">
+                            <button class="btn btn-accent" type="submit" th:text="#{register.submit}">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
