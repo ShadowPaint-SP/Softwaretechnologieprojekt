@@ -10,7 +10,7 @@
         <a class="btn btn-ghost no-animation text-xl" th:text="#{home.title}" href="/">Campingplatz</a>
 
         <a href="plotcatalog.html" th:href="@{/plots}" th:text="#{nav.plots}">Plotreservation</a>
-        <a href="customers.html" th:href="@{/dashboard}" sec:authorize="hasRole('BOSS')"
+        <a href="dashboard.html" th:href="@{/dashboard}" sec:authorize="hasRole('BOSS')"
           th:text="#{nav.dashboard}">Dashboard</a>
         <a href="plotcatalog.html" sec:authorize="hasAnyRole('BOSS','CUSTOMER')" th:href="@{/orders}"
           th:text="#{nav.orders}">Orders</a>
