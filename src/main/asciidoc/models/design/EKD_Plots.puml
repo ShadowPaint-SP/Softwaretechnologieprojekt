@@ -1,0 +1,34 @@
+@startuml
+skinparam classAttributeIconSize 0
+'https://plantuml.com/sequence-diagram
+
+class Plot {
+-size : Double
+--
++Plot(name: String, size: Double, price: Money, parking: ParkingLot)
++ Plot
++getPriceString(): String
++getParking():ParkingLot
++getSize():Double
++getSizeString(): String
+
+}
+
+enum ParkingLot<<enumeration>>{
+NONE
+BIKE_PARKING
+CAR_PARKING
+CAMPER_PARKING
+--
++size: Integer
++label: String
+--
+-ParkingLot(size: Integer, label: String)
+}
+
+
+Plot --> "1" ParkingLot
+
+
+
+@enduml
