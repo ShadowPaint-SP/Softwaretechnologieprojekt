@@ -1,7 +1,8 @@
 @startuml
 skinparam classAttributeIconSize 0
+skinparam linetype ortho
 'https://plantuml.com/sequence-diagram
-
+package campingplatz.plots {
 class Plot {
 -size : Double
 --
@@ -25,10 +26,42 @@ CAMPER_PARKING
 --
 -ParkingLot(size: Integer, label: String)
 }
+class PlotCatalogController{
++PlotCatalogController(plotCatalog: PlotCatalog, reservationRepository: ReservationRepository)
++setupCatalog(model: Model, query: PlotCatalog.SiteState): String
++filter(model: Model, query: PlotCatalog.SiteState): String
++nextWeek(model:Model, query: PlotCatalog.SiteState): String
++prevWeek(model:Model, query: PlotCatalog.SiteState): String
++detail(plot:Plot, model:Model): String
+}
+interface PlotCatalog{
++filter(query: SiteState): List<Plot>
+}
+interface SiteState {
++getArrival(): LocalDate
++getDepature(): LocalDate
+...
+
+}
+}
+package campingplatz.utils {
+class Utils
+}
+package salespoint {
+interface Catalog <T extends Product>
+}
 
 
-Plot --> "1" ParkingLot
+Plot --> "1" ParkingLot : -parking
+ParkingLot --+ Plot
+PlotCatalogController --> "1" PlotCatalog : +plotCatalog
+PlotCatalog ..> SiteState : <<use>>
+SiteState --+ PlotCatalog
+PlotCatalogController ..> Utils : <<use>>
+PlotCatalog ..> Catalog : <<bind>>
 
 
+
+PlotCatalogController ..> Plot : <<use>>
 
 @enduml
