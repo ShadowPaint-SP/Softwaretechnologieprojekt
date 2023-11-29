@@ -10,9 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DashboardController {
 
-	@GetMapping("/dashboard")
-	String dashboard(Model model) {
-		return "contents/dashboard";
+	@GetMapping("/management/customer")
+	String customer(Model model) {
+		return "dashboards/customer_mamangement";
+	}
+
+	@GetMapping("/management/plots")
+	String plots(Model model) {
+		return "dashboards/plot_mamangement";
+	}
+
+	@GetMapping("/management/sportsequipment")
+	String sportsequipment(Model model) {
+		return "dashboards/sportsequipment_mamangement";
 	}
 
 }

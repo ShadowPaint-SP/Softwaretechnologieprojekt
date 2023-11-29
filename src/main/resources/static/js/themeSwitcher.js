@@ -10,4 +10,5 @@ document.addEventListener('DOMContentLoaded', function () {
 			htmlElement.setAttribute('data-theme', 'light');
 		}
 	})
+
 });

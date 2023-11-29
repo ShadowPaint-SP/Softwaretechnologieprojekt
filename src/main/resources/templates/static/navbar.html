@@ -4,18 +4,54 @@
 <head></head>
 
 <body>
-  <nav class="border-b-[1px] border-b-neutral-500" th:fragment="navbar">
-    <div class="navbar container mx-auto md:flex md:justify-between md:items-center">
-      <div class="flex-1">
-        <a class="btn btn-ghost no-animation text-xl" th:text="#{home.title}" href="/">Campingplatz</a>
-
-        <a href="plotcatalog.html" th:href="@{/plots}" th:text="#{nav.plots}">Plotreservation</a>
-        <a href="dashboard.html" th:href="@{/dashboard}" sec:authorize="hasRole('BOSS')"
-          th:text="#{nav.dashboard}">Dashboard</a>
-        <a href="plotcatalog.html" sec:authorize="hasAnyRole('BOSS','CUSTOMER')" th:href="@{/orders}"
-          th:text="#{nav.orders}">Orders</a>
+  <nav class="border-b-[1px] border-b-neutral-500 z-50" th:fragment="navbar">
+    <div class="navbar bg-base-100 container mx-auto md:flex md:justify-between md:items-center">
+      <div class="navbar-start">
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </div>
+          <ul class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a href="plotcatalog.html" th:href="@{/plots}" th:text="#{nav.plots}">Plotreservation</a></li>
+            <li>
+              <a th:text="#{nav.dashboard}">Dashboard</a>
+              <ul class="p-2">
+                <li><a href="../dashboards/customer_mamangement.html" th:href="@{/management/customer}"
+                    sec:authorize="hasRole('BOSS')" th:text="#{nav.c_management}">Customer management</a></li>
+                <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
+                    sec:authorize="hasRole('BOSS')" th:text="#{nav.p_management}">Plot management</a></li>
+                <li><a href="../dashboards/sportsequipment_mamangement.html" th:href="@{/management/sportsequipment}"
+                    sec:authorize="hasRole('BOSS')" th:text="#{nav.s_management}">Sportsequipment management</a></li>
+              </ul>
+            </li>
+            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="plotcatalog.html" th:href="@{/orders}"
+                th:text="#{nav.orders}">Orders</a></li>
+          </ul>
+        </div>
+        <a class="btn btn-ghost no-animation text-xl" href="/" th:text="#{home.title}">Campingplatz</a>
       </div>
-      <div class="flex-none">
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 z-50">
+          <li><a href="plotcatalog.html" th:href="@{/plots}" th:text="#{nav.plots}">Plotreservation</a></li>
+          <li>
+            <details>
+              <summary th:text="#{nav.dashboard}">Dashboard</summary>
+              <ul class="p-2">
+                <li><a href="../dashboards/customer_mamangement.html" th:href="@{/management/customer}"
+                    sec:authorize="hasRole('BOSS')" th:text="#{nav.c_management}">Customer management</a></li>
+                <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
+                    sec:authorize="hasRole('BOSS')" th:text="#{nav.p_management}">Plot management</a></li>
+                <li><a href="../dashboards/sportsequipment_mamangement.html" th:href="@{/management/sportsequipment}"
+                    sec:authorize="hasRole('BOSS')" th:text="#{nav.s_management}">Sportsequipment management</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+      <div class="navbar-end">
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <div class="indicator">
@@ -27,13 +63,12 @@
               <!--<span class="badge badge-sm indicator-item">8</span>-->
             </div>
           </div>
-          <div tabindex="0"
-            class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow dark:shadow-secondary">
+          <div tabindex="0" class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
             <div class="card-body">
-              <span class="font-bold text-lg">8 Items</span>
-              <span class="text-info">Subtotal: $XXX</span>
+              <span class="font-bold text-lg" th:text="nav.cart.items">8 Items</span>
+              <span class="text-info" th:text="nav.cart.total">Subtotal: $XXX</span>
               <div class="card-actions">
-                <a href="/cart" class="btn btn-primary btn-block">View cart</a>
+                <a href="/cart" class="btn btn-primary btn-block" th:text="nav.cart">View cart</a>
               </div>
             </div>
           </div>
@@ -59,15 +94,14 @@
               </div>
             </div>
           </div>
-          <ul
-            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow dark:shadow-secondary bg-base-100 rounded-box w-52">
-
-            <li>
-              <div sec:authorize="!hasAnyRole('BOSS','CUSTOMER')">
-                <button type="submit">
-                  <a href="/static/register.html" th:href="@{/register}" th:text="#{nav.register}">Registrierung</a>
-                </button>
-              </div>
+          <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="plotcatalog.html" th:href="@{/orders}"
+                th:text="#{nav.orders}">Orders</a>
+            </li>
+            <li sec:authorize="!hasAnyRole('BOSS','CUSTOMER')">
+              <button type="submit">
+                <a href="/static/register.html" th:href="@{/register}" th:text="#{nav.register}">Registrierung</a>
+              </button>
             </li>
             <li sec:authorize="!isAuthenticated()" class="content-stretch">
               <button class="text-primary" onclick="my_modal_3.showModal()" th:href="@{/login}" th:text="#{nav.login}">

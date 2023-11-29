@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	data-theme="light"
->
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" data-theme="light">
 
-		<script th:src="@{/webjars/jquery/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<script th:src="@{/js/themeSwitcher.js}"></script>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-		<link th:href="@{/css/output.css}" rel="stylesheet" href="../static/css/output.css" type="text/css">
-		<!--<link th:href="@{/css/style.css}" rel="stylesheet" href="../static/css/style.css" type="text/css"/>-->
-		
-		<title th:text="${#strings.isEmpty(title)} ? #{home.title} : ${title}">Campingplatz</title>
-	</head>
-	<body>
-		<nav th:replace="static/navbar :: navbar"></nav>
-		<main layout:fragment="input"></main>
-		<footer th:replace="static/footer :: footer"></footer>
-		<dialog id="my_modal_3" class="modal" th:insert="static/login :: login"></dialog>
-	</body>
+	<script th:src="@{/webjars/jquery/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script th:src="@{/js/themeSwitcher.js}"></script>
+	<script th:src="@{/js/dashboard.js}"></script>
+
+	<link th:href="@{/css/output.css}" rel="stylesheet" href="../static/css/output.css" type="text/css">
+	<!--<link th:href="@{/css/style.css}" rel="stylesheet" href="../static/css/style.css" type="text/css"/>-->
+
+	<title th:text="${#strings.isEmpty(title)} ? #{home.title} : ${title}">Campingplatz</title>
+</head>
+
+<body>
+	<nav th:replace="static/navbar :: navbar"></nav>
+	<main layout:fragment="input"></main>
+	<footer th:replace="static/footer :: footer"></footer>
+	<dialog id="my_modal_3" class="modal" th:insert="static/login :: login"></dialog>
+
+</body>
+
 </html>
