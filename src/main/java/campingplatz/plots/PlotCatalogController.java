@@ -1,5 +1,6 @@
 package campingplatz.plots;
 
+import campingplatz.reservation.PlotReservation;
 import campingplatz.reservation.ReservationEntry;
 import campingplatz.reservation.ReservationRepository;
 import campingplatz.utils.Cart;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 class PlotCatalogController {
 
     PlotCatalog plotCatalog;
-    ReservationRepository reservationRepository;
+    ReservationRepository<Plot, PlotReservation> reservationRepository;
 
     PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository reservationRepository) {
         this.plotCatalog = plotCatalog;
@@ -43,13 +44,13 @@ class PlotCatalogController {
 
         var filteredPlots = plotCatalog.filter(query);
         var reservedPlots = reservationRepository.findPlotsReservedBetween(
-                query.getDefaultedArrival(), query.getDefaultedDeparture());
+                query.getDefaultedArrival().atStartOfDay(), query.getDefaultedDeparture().atStartOfDay());
         var partitionedPlots = filteredPlots.stream().collect(Collectors.partitioningBy(
                 plot -> !reservedPlots.contains(plot)));
 
-        var reservations = reservationRepository.findReservationsBetween(firstWeekDate, lastWeekDay);
+        var reservations = reservationRepository.findReservationsBetween(firstWeekDate.atStartOfDay(), lastWeekDay.atStartOfDay());
         var availabilityTable = new PlotCatalogAvailabilityTable(firstWeekDate, lastWeekDay, filteredPlots)
-                .addReservations(user, reservations)
+                // .addReservations(user, reservations)
                 .addHighlights(query, reservedPlots)
                 .addSelections(reservationCart)
                 .collapse();
@@ -96,12 +97,10 @@ class PlotCatalogController {
             @PathVariable Plot plot, @ModelAttribute("cart") Cart<Plot> reservationCart) {
 
 
-		//TODO
-
 		var arrival = query.getArrival().atStartOfDay();
 		var departure = query.getDeparture().atStartOfDay();
-        // var reservation = new Reservation(user, plot, arrival, departure);
-        // reservationCart.add(reservation);
+        var reservation = new PlotReservation(user, plot, arrival, departure);
+        reservationCart.add(reservation);
 
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
@@ -115,7 +114,7 @@ class PlotCatalogController {
         var day = query.getDefaultedFirstWeekDate().plusDays(index).atStartOfDay();
         var reservation = new ReservationEntry<Plot>(plot, day);
 
-        if (reservationCart.contains(reservation)) {
+        if (!reservationCart.contains(reservation)) {
             reservationCart.add(reservation);
         } else {
             reservationCart.remove(reservation);

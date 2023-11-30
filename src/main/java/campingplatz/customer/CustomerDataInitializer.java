@@ -53,12 +53,11 @@ class CustomerDataInitializer implements DataInitializer {
         userAccountManagement.create("boss", UnencryptedPassword.of("123"), Role.of("BOSS"));
 
         var password = "123";
-		// TODO: realistische und viel wichtiger eigene Daten initialisieren
-        List.of(//
-                new RegistrationForm("hans", password, "wurst", ""),
-                new RegistrationForm("dextermorgan", password, "Miami-Dade County", ""),
-                new RegistrationForm("earlhickey", password, "Camden County - Motel", ""),
-                new RegistrationForm("mclovinfogell", password, "Los Angeles", ""))
-                .forEach(customerManagement::createCustomer);
+        List.of(
+			    new RegistrationForm("meister", password, "Dresden", ""),
+                new RegistrationForm("hans", password, "Dresden", ""),
+                new RegistrationForm("dextermorgan", password, "USA", "")
+
+		).forEach(customerManagement::createCustomer);
     }
 }

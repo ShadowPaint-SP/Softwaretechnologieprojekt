@@ -1,6 +1,7 @@
 package campingplatz.plots;
 
-import campingplatz.reservation.Reservable;
+
+import campingplatz.utils.StaticOverride;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.time.temporal.TemporalAmount;
 
 
 @Entity
-public class Plot extends Reservable {
+public class Plot extends Product {
 
 	@Getter @Setter
     private Double size; // in square meters
@@ -33,10 +34,6 @@ public class Plot extends Reservable {
     public Plot() {
 	}
 
-	// Overrides the function from Reservable
-	public static ChronoUnit getIntervallUnit(){
-		return ChronoUnit.DAYS;
-	}
 
 
     // a second getter for in inherited field price. returns a formatted String

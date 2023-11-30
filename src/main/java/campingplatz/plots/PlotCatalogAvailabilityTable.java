@@ -1,5 +1,6 @@
 package campingplatz.plots;
 
+import campingplatz.reservation.PlotReservation;
 import campingplatz.reservation.Reservation;
 import campingplatz.utils.Cart;
 import lombok.AllArgsConstructor;
@@ -76,7 +77,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	}
 
 	/** Marks all the periods in which the plot is reserved as such in the table */
-	public PlotCatalogAvailabilityTable addReservations(Optional<UserAccount> user, List<Reservation> reservations) {
+	public PlotCatalogAvailabilityTable addReservations(Optional<UserAccount> user, List<PlotReservation> reservations) {
 		// fill the table with reservation information
 		for (var reservation : reservations) {
 

@@ -1,8 +1,9 @@
 package campingplatz.utils;
 
-import campingplatz.reservation.Reservable;
+
 import campingplatz.reservation.Reservation;
 import campingplatz.reservation.ReservationEntry;
+import com.google.common.reflect.TypeToken;
 import one.util.streamex.StreamEx;
 import org.javamoney.moneta.Money;
 
@@ -12,9 +13,11 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -30,10 +33,10 @@ import static org.salespointframework.core.Currencies.EURO;
  * The function getReservations recombines the individual ReservationEntries
  * back into Reservations
  */
-public class Cart<T extends Reservable> extends ArrayList<ReservationEntry<T>> implements Priced {
+public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> implements Priced {
 
 
-	public List<Reservation<T>> getReservations(UserAccount user){
+	public <R extends Reservation<T>> List<R> getReservationsOfUser(Class<R> cls, UserAccount user){
 
 		// sort the cart by the name of its elements first and date second.
 		sort(Utils::compareReservationEntries);
@@ -50,7 +53,7 @@ public class Cart<T extends Reservable> extends ArrayList<ReservationEntry<T>> i
 				return false;
 			}
 
-			var intervall = Duration.of(1, T.getIntervalUnit());
+			var intervall = Duration.of(1, Reservation.getIntervalUnit());
 			var firstTime = first.getTime().plus(intervall);
 			var secondTime = second.getTime();
 			var sameReservation = !firstTime.isAfter(secondTime);
@@ -64,13 +67,17 @@ public class Cart<T extends Reservable> extends ArrayList<ReservationEntry<T>> i
 			var firstElement = list.get(0);
 			var lastElement = list.get(list.size() - 1);
 
-			return new Reservation<>(
-				user,
-				firstElement.getProduct(),
-				firstElement.getTime(),
-				lastElement.getTime()
-			);
+			TypeToken<R> typeToken = new TypeToken<R>(getClass()) {};
+			Class<? super R> rawType = typeToken.getRawType();
 
+
+			R reservation = Utils.createInstance(cls);
+			reservation.setUser(user);
+			reservation.setProduct(firstElement.getProduct());
+			reservation.setBegin(firstElement.getTime());
+			reservation.setEnd(lastElement.getTime());
+
+			return reservation;
 		});
 
 		// collect from stream into ArrayList
@@ -79,15 +86,31 @@ public class Cart<T extends Reservable> extends ArrayList<ReservationEntry<T>> i
 
 
 	// convenience function, for adding whole Reservations into the Cart at once
-	public boolean add(Reservation<T> ReservationEntry) {
-		return false;
+	public boolean add(Reservation<T> reservation) {
+
+		var prod = reservation.getProduct();
+		var begin = reservation.getBegin();
+		var end = reservation.getEnd();
+
+		var len = begin.until(end, reservation.getIntervalUnit());
+		for (int i = 0; i < len; i++){
+			var time = begin.plus(i, reservation.getIntervalUnit());
+			var reservationEntry = new ReservationEntry<>(prod, time);
+			this.add(reservationEntry);
+		}
+
+		return true;
 	}
 
+	@Override
+	public Iterator<ReservationEntry<T>> iterator() {
+		return super.iterator();
+	}
 
-
-
-
-
+	@Override
+	public int size() {
+		return super.size();
+	}
 
 	@Override
 	public MonetaryAmount getPrice() {

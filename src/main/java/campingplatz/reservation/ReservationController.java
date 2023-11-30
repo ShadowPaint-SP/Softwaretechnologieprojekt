@@ -10,22 +10,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
-import java.util.UUID;
+import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
 @SessionAttributes("cart")
 class ReservationController {
 
-    private final ReservationRepository reservations;
+    private final ReservationRepository<Plot, PlotReservation> reservationRepository;
 
-    ReservationController(ReservationRepository reservations) {
+    ReservationController(ReservationRepository<Plot, PlotReservation> reservationRepository) {
 
-        this.reservations = reservations;
+        this.reservationRepository = reservationRepository;
     }
 
     @ModelAttribute("cart")
@@ -34,7 +32,9 @@ class ReservationController {
     }
 
     @GetMapping("/cart")
-    String cart(Model model) {
+    String cart(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") Cart<Plot> reservationCart) {
+		var reservations = reservationCart.getReservationsOfUser(PlotReservation.class,userAccount);
+		model.addAttribute("reservations", reservations);
         return "cart";
     }
 
@@ -42,9 +42,8 @@ class ReservationController {
     String reservate(Model model, @LoggedIn UserAccount userAccount,
             @ModelAttribute("cart") Cart<Plot> reservationCart) {
 
-		// TODO
-
-        // reservations.saveAll(reservationCart);
+		var reservations = reservationCart.getReservationsOfUser(PlotReservation.class, userAccount);
+		reservationRepository.saveAll(reservations);
         reservationCart.clear();
 
         return "redirect:/";
@@ -53,7 +52,7 @@ class ReservationController {
 
     @GetMapping("/orders")
     String orders(Model model, @LoggedIn UserAccount user) {
-        var userReservations = reservations.findByUserId(user.getId());
+        var userReservations = reservationRepository.findByUserId(user.getId());
         model.addAttribute("ordersCompleted", userReservations);
         return "orders";
     }

@@ -22,17 +22,17 @@
                     </thead>
                     <tbody th:remove="all-but-first">
 
-                    <tr th:each="item : ${cart} ">
+                    <tr th:each="item : ${reservations} ">
                         <form class="ui form" method="post" th:action="@{/updateTimePeriod}">
                             <input type="hidden" name="id" th:value="${item.id}">
-                        <td th:text="${item.plot.name}">Name</td>
+                        <td th:text="${item.product.name}">Name</td>
                         <td>
-                            <input type="date" name="arrival" th:value="${item.begin}" th:max="${item.end}" onchange="this.form.submit()">
+                            <input type="datetime-local" name="arrival" th:value="${item.begin}" th:max="${item.end}" onchange="this.form.submit()" readonly>
                         </td>
                         <td>
-                            <input type="date" name="departure" th:value="${item.end}" th:min="${item.begin}" onchange="this.form.submit()">
+                            <input type="datetime-local" name="departure" th:value="${item.end}" th:min="${item.begin}" onchange="this.form.submit()" readonly>
                         </td>
-                        <td th:text="${item.days}">number</td>
+                        <td th:text="${item.duration}">number</td>
                         <td th:text="${item.price}">10 Euro</td>
                         </form>
                     </tr>

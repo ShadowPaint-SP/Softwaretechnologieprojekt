@@ -65,7 +65,6 @@
 		</dependency>
 
 		<!-- utility for working with streams -->
-		<!-- https://mvnrepository.com/artifact/one.util/streamex -->
 		<dependency>
 			<groupId>one.util</groupId>
 			<artifactId>streamex</artifactId>

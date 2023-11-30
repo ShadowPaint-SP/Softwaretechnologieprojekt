@@ -1,28 +1,38 @@
 package campingplatz.reservation;
 
+import campingplatz.plots.Plot;
 import campingplatz.utils.Priced;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.UUID;
 import javax.money.MonetaryAmount;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
+/**
+ * The Base class of all Reservations.
+ * Create more Reservations by inheriting from this class
+ * and specifying the Type of the reservation. Keep in mind,
+ * that this is done, because a JPA Entity cannot be generic
+ *
+ * */
 @Entity
 @EqualsAndHashCode
-public class Reservation<T extends Reservable> implements Priced {
+public class Reservation<T extends Product> implements Priced {
 
-    @Getter
-    private @Id UUID id;
+    @Getter @Id
+    public UUID id;
 
 
     @Getter
@@ -47,10 +57,11 @@ public class Reservation<T extends Reservable> implements Priced {
     private LocalDateTime end;
 
     public Reservation() {
-
-    }
+	}
 
     public Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end) {
+
+		this.id = UUID.randomUUID();
 
         this.user = user;
         this.product = product;
@@ -59,42 +70,29 @@ public class Reservation<T extends Reservable> implements Priced {
         this.end = end;
     }
 
+
+
     @Override
     public MonetaryAmount getPrice() {
         var price = product.getPrice();
         return price.multiply(duration());
     }
 
+	// meant to be overridden
+	public static ChronoUnit getIntervalUnit(){
+		return ChronoUnit.DAYS;
+	}
+
     /**
 	 * Get the duration between begin and end. The unit of the duration
 	 * is determined by the getern value of {@link Reservable.getIntervalUnit}
 	 * */
 	public long duration() {
-        var units =  T.getIntervalUnit();
+        var units = getIntervalUnit();
 		return units.between(begin, end);
     }
 
-
-
-
-    /**
-     * return true, if this reservation is overlapping with the given reservation
-	 * might remove it.
-     */
-    public boolean intersects(Reservation with) {
-
-        if (!this.getProduct().getId().equals(with.getProduct().getId())) {
-            return false;
-        }
-
-        var firstArrival = this.getBegin();
-        var secondArrival = with.getBegin();
-        var firstDeparture = this.getEnd();
-        var secondDeparture = with.getEnd();
-
-        var a = !firstArrival.isBefore(secondArrival) && !firstArrival.isAfter(secondDeparture);
-        var b = !firstDeparture.isBefore(secondArrival) && !firstDeparture.isAfter(secondDeparture);
-        var c = firstArrival.isBefore(secondArrival) && firstDeparture.isAfter(secondDeparture);
-        return a || b || c;
-    }
 }
+
+
+

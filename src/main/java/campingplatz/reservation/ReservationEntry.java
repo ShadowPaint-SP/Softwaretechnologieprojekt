@@ -19,7 +19,7 @@ import java.util.UUID;
 
 
 @EqualsAndHashCode
-public class ReservationEntry<T extends Reservable> {
+public class ReservationEntry<T extends Product> {
 
     @ManyToOne
     @Getter
