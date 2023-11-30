@@ -19,8 +19,7 @@ public class PlotReservation extends Reservation<Plot> {
 
 	}
 
-	@StaticOverride
-	public static ChronoUnit getIntervalUnit(){
+	public ChronoUnit getIntervalUnit(){
 		return ChronoUnit.DAYS;
 	}
 }

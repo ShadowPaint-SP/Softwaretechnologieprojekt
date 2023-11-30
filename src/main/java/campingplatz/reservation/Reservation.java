@@ -77,8 +77,8 @@ public class Reservation<T extends Product> implements Priced {
     }
 
 	// meant to be overridden
-	public static ChronoUnit getIntervalUnit(){
-		return ChronoUnit.DAYS;
+	public ChronoUnit getIntervalUnit(){
+		return null;
 	}
 
     /**

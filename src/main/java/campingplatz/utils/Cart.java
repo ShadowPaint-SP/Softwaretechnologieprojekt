@@ -53,7 +53,8 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 				return false;
 			}
 
-			var intervall = Duration.of(1, Reservation.getIntervalUnit());
+			R reservation = Utils.createInstance(cls);
+			var intervall = Duration.of(1, reservation.getIntervalUnit());
 			var firstTime = first.getTime().plus(intervall);
 			var secondTime = second.getTime();
 			var sameReservation = !firstTime.isAfter(secondTime);
