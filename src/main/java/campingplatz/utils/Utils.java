@@ -1,14 +1,8 @@
 package campingplatz.utils;
 
 import campingplatz.reservation.ReservationEntry;
-import com.google.common.reflect.TypeResolver;
-import com.google.common.reflect.TypeToken;
 import org.salespointframework.catalog.Product;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 public class Utils {
 

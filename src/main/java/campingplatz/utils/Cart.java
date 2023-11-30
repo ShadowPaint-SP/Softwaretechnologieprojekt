@@ -36,6 +36,7 @@ import static org.salespointframework.core.Currencies.EURO;
 public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> implements Priced {
 
 
+	// TODO: does not workt correctly
 	public <R extends Reservation<T>> List<R> getReservationsOfUser(Class<R> cls, UserAccount user){
 
 		// sort the cart by the name of its elements first and date second.
@@ -84,7 +85,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-
+	// TODO: does not workt correctly
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(Reservation<T> reservation) {
 

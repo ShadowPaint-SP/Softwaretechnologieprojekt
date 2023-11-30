@@ -1,7 +1,6 @@
 package campingplatz.plots;
 
 import campingplatz.reservation.PlotReservation;
-import campingplatz.reservation.Reservation;
 import campingplatz.utils.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

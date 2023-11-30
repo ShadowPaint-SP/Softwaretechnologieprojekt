@@ -1,11 +1,9 @@
 package campingplatz.reservation;
 
-import campingplatz.plots.Plot;
 import campingplatz.utils.Priced;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.UUID;
 import javax.money.MonetaryAmount;
 

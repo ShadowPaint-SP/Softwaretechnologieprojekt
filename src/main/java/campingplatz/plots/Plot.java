@@ -1,15 +1,14 @@
 package campingplatz.plots;
 
 
-import campingplatz.utils.StaticOverride;
+
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.salespointframework.catalog.Product;
 import org.javamoney.moneta.Money;
 
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
+
 
 
 @Entity
