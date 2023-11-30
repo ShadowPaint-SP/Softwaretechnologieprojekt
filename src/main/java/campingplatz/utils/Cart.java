@@ -3,7 +3,6 @@ package campingplatz.utils;
 
 import campingplatz.reservation.Reservation;
 import campingplatz.reservation.ReservationEntry;
-import com.google.common.reflect.TypeToken;
 import one.util.streamex.StreamEx;
 import org.javamoney.moneta.Money;
 
@@ -67,10 +66,6 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 		var reservations = groupedReservationEntries.map(list -> {
 			var firstElement = list.get(0);
 			var lastElement = list.get(list.size() - 1);
-
-			TypeToken<R> typeToken = new TypeToken<R>(getClass()) {};
-			Class<? super R> rawType = typeToken.getRawType();
-
 
 			R reservation = Utils.createInstance(cls);
 			reservation.setUser(user);
