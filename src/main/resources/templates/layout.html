@@ -15,10 +15,10 @@
 </head>
 
 <body>
-	<nav th:replace="static/navbar :: navbar"></nav>
+	<nav th:replace="~{static/navbar :: navbar}"></nav>
 	<main layout:fragment="input" class="min-h-screen"></main>
-	<footer th:replace="static/footer :: footer"></footer>
-	<dialog id="my_modal_3" class="modal" th:insert="static/login :: login"></dialog>
+	<footer th:replace="~{static/footer :: footer}"></footer>
+	<dialog id="my_modal_3" class="modal" th:insert="~{static/login :: login}"></dialog>
 
 </body>
 

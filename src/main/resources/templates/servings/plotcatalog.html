@@ -130,8 +130,8 @@
                     </table>
                 </div>
                 <!-- The inclusion of the table fragment -->
-                <div th:replace=" servings/plotcatalog :: plot_table (availablePlotsTable=true)"></div> <br>
-                <div th:replace=" servings/plotcatalog :: plot_table (availablePlotsTable=false)"></div> <br>
+                <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=true)}"></div> <br>
+                <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=false)}"></div> <br>
             </form>
         </div>
     </main>
