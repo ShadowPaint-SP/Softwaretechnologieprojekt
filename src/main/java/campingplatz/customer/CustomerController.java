@@ -27,9 +27,8 @@ class CustomerController {
         // form.validate(result);
 
         if (result.hasErrors()) {
-            return "register";
+            return "static/register";
         }
-
 
         // Falls alles in Ordnung ist legen wir einen Customer an
         customerManagement.createCustomer(form);
@@ -39,7 +38,7 @@ class CustomerController {
 
     @GetMapping("/register")
     String register(Model model, RegistrationForm form) {
-        return "register";
+        return "static/register";
     }
 
 }

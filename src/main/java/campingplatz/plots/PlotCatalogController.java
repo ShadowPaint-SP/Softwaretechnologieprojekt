@@ -59,7 +59,7 @@ class PlotCatalogController {
         model.addAttribute("searchQuery", query);
         model.addAttribute("weekDates", formatedWeekDates);
 
-        return "plotcatalog";
+        return "servings/plotcatalog";
     }
 
     @PostMapping("/plots/filter")
