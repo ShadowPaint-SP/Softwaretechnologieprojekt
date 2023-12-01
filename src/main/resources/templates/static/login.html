@@ -16,23 +16,24 @@
                 <div class="flex justify-center mx-auto">
                     <img class="w-auto h-7 sm:h-8" src="" alt="">
                 </div>
-                <h3 class="mt-3 text-xl font-medium text-center">Welcome Back</h3>
-                <p class="mt-1 text-center">Login or create account</p>
+                <h3 class="mt-3 text-xl font-medium text-center" th:text="login.message">Welcome Back</h3>
+                <p class="mt-1 text-center" th:text="login.info">Login or create account</p>
 
                 <form role="form" th:action="@{/conf/login}" method="post">
                     <div class="w-full mt-4">
                         <input class="input input-bordered focus:outline-accent w-full" type="text"
-                            th:placeholder="#{login.username}" aria-label="Username" id="username" name="username"
-                            autofocus="autofocus" />
+                            th:placeholder="#{login-register.username}" aria-label="Username" id="username"
+                            name="username" autofocus="autofocus" />
                     </div>
 
                     <div class="w-full mt-4">
                         <input class="input input-bordered focus:outline-accent w-full" type="password"
-                            th:placeholder="#{login.password}" aria-label="Password" id="password" name="password" />
+                            th:placeholder="#{login-register.password}" aria-label="Password" id="password"
+                            name="password" />
                     </div>
 
                     <div class="flex items-center justify-between mt-4">
-                        <a href="#" class="text-sm disabled">Forget Password?</a>
+                        <a href="#" class="text-sm disabled" th:text="login.forget">Forget Password?</a>
 
                         <button class="btn btn-accent" type="submit" th:text="#{login.login}">
                             Sign In
@@ -41,9 +42,11 @@
                 </form>
             </div>
             <div class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700">
-                <span class="text-sm text-gray-600 dark:text-gray-200">Don't have an account? </span>
+                <span class="text-sm text-gray-600 dark:text-gray-200" th:text="login.noaccount">Don't have an account?
+                </span>
 
-                <a href="/register" class="mx-2 text-sm font-bold text-accent hover:underline">Register</a>
+                <a href="/register" class="mx-2 text-sm font-bold text-accent hover:underline"
+                    th:text="register">Register</a>
             </div>
         </div>
     </div>
