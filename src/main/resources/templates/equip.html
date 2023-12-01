@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragement="content">
+    <table>
+<tr th:each="item : ${items}">
+    <td th:text="${item.name}"></td>
+</tr>
+    </table>
+</section>
+</body>
+</html>

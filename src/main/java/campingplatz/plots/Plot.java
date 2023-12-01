@@ -16,6 +16,8 @@ public class Plot extends Product {
 	@Getter @Setter
     private ParkingLot parking;
 
+
+
     public Plot(String name, Double size, Money price, ParkingLot parking) {
 
         super(name, price);
