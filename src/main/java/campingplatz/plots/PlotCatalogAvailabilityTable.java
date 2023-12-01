@@ -90,7 +90,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, reservation.getArrival())));
-			int endIndex = (int) Math.min(length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
+			int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				if (user.isEmpty() || reservation.getUser() != user.get()) {
