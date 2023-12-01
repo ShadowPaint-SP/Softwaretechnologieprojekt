@@ -1,8 +1,10 @@
 package campingplatz.equip;
 
+import campingplatz.customer.Customer;
 import jakarta.persistence.Entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 @Entity
@@ -10,6 +12,7 @@ import org.salespointframework.catalog.Product;
 public class SportItem extends Product {
 	@Getter
 	private String name;
+
 	@SuppressWarnings({ "unused", "deprecation" })
 	public SportItem(){}
 
