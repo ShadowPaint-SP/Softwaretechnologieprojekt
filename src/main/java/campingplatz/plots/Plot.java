@@ -6,18 +6,20 @@ import lombok.Setter;
 import org.salespointframework.catalog.Product;
 import org.javamoney.moneta.Money;
 
-
 @Entity
 public class Plot extends Product {
 
-	@Getter @Setter
+    @Getter
+    @Setter
     private Double size; // in square meters
 
-	@Getter @Setter
+    @Getter
+    @Setter
     private ParkingLot parking;
 
-	@Getter @Setter
-	private PlotType type;
+    @Getter
+    @Setter
+    private PlotType type;
 
     public Plot(String name, Double size, Money price, ParkingLot parking, PlotType type) {
 
@@ -25,28 +27,26 @@ public class Plot extends Product {
 
         this.size = size;
         this.parking = parking;
-		this.type = type;
+        this.type = type;
     }
 
     @SuppressWarnings({ "unused", "deprecation" })
     public Plot() {
-	}
+    }
 
     // a second getter for in inherited field price. returns a formatted String
     public String getPriceString() {
         return getPrice().getNumber().toString() + " Euro";
     }
 
-
-	// a second getter for size. returns a formatted String
+    // a second getter for size. returns a formatted String
     public String getSizeString() {
         return getSize() + " m²";
     }
 
-
-	public enum PlotType{
-		NONE, SEASONAL
-	}
+    public enum PlotType {
+        NONE, SEASONAL
+    }
 
     public enum ParkingLot {
         NONE(0, "catalog.parking.no"),
@@ -57,7 +57,7 @@ public class Plot extends Product {
         public final Integer size;
         public final String label;
 
-		ParkingLot(Integer size, String label) {
+        ParkingLot(Integer size, String label) {
             this.size = size;
             this.label = label;
         }
