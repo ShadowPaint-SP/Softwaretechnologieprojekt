@@ -45,7 +45,7 @@ class ReservationController {
         var reservation = new Reservation(user, plot, state.getArrival(), state.getDeparture());
         cart.add(reservation);
 
-        return "redirect:/cart";
+        return "redirect:/servings/cart";
     }
 
     @PostMapping("/checkout")
@@ -68,18 +68,18 @@ class ReservationController {
                 product.setDeparture(departure);
             }
         }
-        return "redirect:/cart";
+        return "redirect:/servings/cart";
     }
 
     @GetMapping("/cart")
     String cart(Model model) {
-        return "cart";
+        return "servings/cart";
     }
 
     @GetMapping("/orders")
     String orders(Model model, @LoggedIn UserAccount user) {
         var userReservations = reservations.findByUserId(user.getId());
         model.addAttribute("ordersCompleted", userReservations);
-        return "orders";
+        return "servings/orders";
     }
 }

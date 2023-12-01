@@ -10,14 +10,13 @@
 	<script th:src="@{/js/dashboard.js}"></script>
 
 	<link th:href="@{/css/output.css}" rel="stylesheet" href="../static/css/output.css" type="text/css">
-	<!--<link th:href="@{/css/style.css}" rel="stylesheet" href="../static/css/style.css" type="text/css"/>-->
 
 	<title th:text="${#strings.isEmpty(title)} ? #{home.title} : ${title}">Campingplatz</title>
 </head>
 
 <body>
 	<nav th:replace="static/navbar :: navbar"></nav>
-	<main layout:fragment="input"></main>
+	<main layout:fragment="input" class="min-h-screen"></main>
 	<footer th:replace="static/footer :: footer"></footer>
 	<dialog id="my_modal_3" class="modal" th:insert="static/login :: login"></dialog>
 

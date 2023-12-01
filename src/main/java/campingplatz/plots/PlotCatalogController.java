@@ -3,6 +3,8 @@ package campingplatz.plots;
 import campingplatz.reservation.ReservationRepository;
 import campingplatz.utils.Utils;
 import jakarta.validation.Valid;
+
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,4 +74,10 @@ class PlotCatalogController {
         return setupCatalog(model, query);
     }
 
+    @GetMapping("/management/plots")
+    String plots(Model model) {
+        Streamable<Plot> all = plotCatalog.findAll();
+        model.addAttribute("Plots", all);
+        return "dashboards/plot_management";
+    }
 }

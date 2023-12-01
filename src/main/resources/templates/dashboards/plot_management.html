@@ -5,7 +5,28 @@
 
 <body>
 	<main layout:fragment="input">
-
+		<div class="overflow-x-auto">
+			<table class="table table-zebra">
+				<!-- head -->
+				<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Preis</th>
+						<th>Favorite Color</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- row 1 -->
+					<tr th:each="plot : ${Plots}" class="hover">
+						<th>1</th>
+						<td th:text="${plot.toString}">Cy Ganderton</td>
+						<td th:text="${plot.getPriceString}">Quality Control Specialist</td>
+						<td>Blue</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</main>
 </body>
 
