@@ -20,6 +20,7 @@ public class SportItemCatalogController {
 	SportItemCatalogController(SportItemCatalog itemCatalog){
 		this.itemCatalog = itemCatalog;
 	}
+
 	@GetMapping("/equip")
 	String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user){
 

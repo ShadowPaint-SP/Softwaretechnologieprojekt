@@ -9,8 +9,6 @@ import org.salespointframework.catalog.Product;
 @Entity
 @EqualsAndHashCode
 public class SportItem extends Product {
-	@Getter
-	private String name;
 
 	@SuppressWarnings({ "unused", "deprecation" })
 	public SportItem(){}
