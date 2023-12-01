@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
+
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -119,12 +121,18 @@ class PlotCatalogController {
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
 
-  
-	@GetMapping("/seasonalplots")
-	String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
-		var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
-		model.addAttribute("allSeasonalPlots", x);
-		model.addAttribute("searchQuery", query);
-		return "seasonalplotcatalog";
-	}
+    @GetMapping("/seasonalplots")
+    String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
+        var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
+        model.addAttribute("allSeasonalPlots", x);
+        model.addAttribute("searchQuery", query);
+        return "seasonalplotcatalog";
+    }
+
+    @GetMapping("/management/plots")
+    String plots(Model model) {
+        Streamable<Plot> all = plotCatalog.findAll();
+        model.addAttribute("Plots", all);
+        return "dashboards/plot_management";
+    }
 }

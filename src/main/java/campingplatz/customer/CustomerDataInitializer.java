@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-
 @Component
 @Order(10)
 class CustomerDataInitializer implements DataInitializer {
@@ -39,7 +38,6 @@ class CustomerDataInitializer implements DataInitializer {
         this.customerManagement = customerManagement;
     }
 
-
     @Override
     public void initialize() {
 
@@ -53,8 +51,6 @@ class CustomerDataInitializer implements DataInitializer {
         userAccountManagement.create("boss", UnencryptedPassword.of("123"), Role.of("BOSS"));
 
         var password = "123";
-		// TODO: realistische und viel wichtiger eigene Daten initialisieren
-        // TODO: brauchen wir noch das dauercamper Attribut?
         List.of(//
                 new RegistrationForm("hans", password),
                 new RegistrationForm("dextermorgan", password),
