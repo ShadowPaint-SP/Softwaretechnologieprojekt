@@ -54,6 +54,7 @@ class CustomerDataInitializer implements DataInitializer {
 
         var password = "123";
 		// TODO: realistische und viel wichtiger eigene Daten initialisieren
+        // TODO: brauchen wir noch das dauercamper Attribut?
         List.of(//
                 new RegistrationForm("hans", password),
                 new RegistrationForm("dextermorgan", password),

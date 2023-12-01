@@ -1,6 +1,6 @@
 = Protokoll Gruppe 06
 
-Treffen am 27.11.2023
+Treffen am 04.12.2023
 
 Ort:      SLUB 0.66 +
 Beginn:   14:50 Uhr +
@@ -10,7 +10,7 @@ __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-04.12.2023, 14.50 Uhr, SLUB 0.66
+11.12.2023, 14.50 Uhr, ---
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
@@ -25,20 +25,12 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
-reflektieren der Präsentation. +
-weitere Fragen zu Reservations +
-weitere Fragen zu Sportgeräten +
+
 
 == Retrospektive des letzten Sprints
-nüschts...
 
 == Planung des nächsten Sprints
-Basisfunktionalitäten: +
-Reservierungen tätigen +
-Sportgeräte buchen +
-Dashboard Gesamtbuchungen anzeigen
 
-Tests
 
 |===
 
