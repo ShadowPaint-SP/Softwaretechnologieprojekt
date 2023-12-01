@@ -79,15 +79,4 @@ class SportItemTest {
 		assertEquals(name, sportItem.getName());
 	}
 
-	@Test
-	@DisplayName("Test Equals und hashCode Methods")
-	public void SportItemEqualsAndHashCodeTest(){
-		SportItem s1 = new SportItem("Ball1", Money.of(10,EURO), "Bälle");
-
-		SportItem s2 = new SportItem("Ball1", Money.of(10,EURO), "Bälle");
-
-		assertEquals(s1,s2);
-
-		assertEquals(s1.hashCode(),s2.hashCode());
-	}
 }

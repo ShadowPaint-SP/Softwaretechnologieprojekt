@@ -7,7 +7,6 @@ import lombok.Getter;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 @Entity
-@EqualsAndHashCode
 public class SportItem extends Product {
 
 	@SuppressWarnings({ "unused", "deprecation" })
