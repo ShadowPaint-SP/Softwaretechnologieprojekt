@@ -1,5 +1,6 @@
 package campingplatz.utils;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ public class DashboardController {
 	// }
 
 	@GetMapping("/management/sportsequipment")
+	@PreAuthorize("hasRole('BOSS')")
 	String sportsequipment(Model model) {
 		return "dashboards/sportsequipment_mamangement";
 	}
