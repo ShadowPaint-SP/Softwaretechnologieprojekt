@@ -2,16 +2,10 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{cart.title})}">
 
-<head>
-    <title>Verfügbare Plätze</title>
-</head>
+<head></head>
 
 <body>
-    <header>
-        <h1> Platz Katalog</h1>
-    </header>
-    <nav th:include="navigation :: navigation"></nav>
-    <section layout:fragment="content">
+    <main layout:fragment="input">
         <!-- warping everything in a form. this way all state the site hold is submitted at once and nothing is lost -->
         <form class="ui form" method="post" action="/plots#filter">
             <a id="filter"></a>
@@ -80,12 +74,12 @@
                 <!-- if preventing the fragment beging rendered, without beging explicitly included -->
                 <table class="ui item equal width table">
 
-                    <tbody th:each="plot : ${allSeasonalPlots}">
+                    <tbody th:each="plot, iStat : ${allSeasonalPlots}">
                         <tr>
                             <td class="ui items">
                                 <div class="ui item">
                                     <div class="ui small image" style="display: inline-block">
-                                        <img src="/resources/img/placeholder.png" />
+                                        <img th:src="'/img/camp ('+${iStat.count} +').png'" />
                                     </div>
                                     <div class="content" style="display:inline-block; width:40px">
                                         <div class="header" th:text="${plot.name}">null</div>
@@ -112,7 +106,7 @@
 
 
         </form>
-    </section>
+    </main>
 </body>
 
 </html>

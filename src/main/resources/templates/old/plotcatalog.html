@@ -100,12 +100,12 @@
                             </tr>
                         </thead>
                         <!-- The body of the table -->
-                        <tbody th:each="plot : ${allPlots.get(availablePlotsTable)}">
+                        <tbody th:each="plot, iStat : ${allPlots.get(availablePlotsTable)}">
                             <tr>
                                 <td class="ui items">
                                     <div class="ui item">
                                         <div class="ui small image" style="display: inline-block">
-                                            <img src="/img/placeholder.png" />
+                                            <img th:src="'/img/camp ('+${iStat.count} +').png'" />
                                         </div>
                                         <div class="content" style="display:inline-block; width:40px">
                                             <div class="header" th:text="${plot.name}">null</div>
@@ -131,8 +131,8 @@
                     </table>
                 </div>
                 <!-- The inclusion of the table fragment -->
-                <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=true)}"></div> <br>
-                <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=false)}"></div> <br>
+                <div th:replace="~{old/plotcatalog :: plot_table (availablePlotsTable=true)}"></div> <br>
+                <div th:replace="~{old/plotcatalog :: plot_table (availablePlotsTable=false)}"></div> <br>
             </form>
         </div>
     </main>

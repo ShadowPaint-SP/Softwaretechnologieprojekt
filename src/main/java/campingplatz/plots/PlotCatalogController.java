@@ -61,7 +61,7 @@ class PlotCatalogController {
         model.addAttribute("searchQuery", query);
         model.addAttribute("weekDates", formatedWeekDates);
 
-        return "servings/plotcatalog";
+        return "old/plotcatalog";
     }
 
     @PostMapping("/plotcatalog/filter")
@@ -126,7 +126,7 @@ class PlotCatalogController {
         var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
         model.addAttribute("allSeasonalPlots", x);
         model.addAttribute("searchQuery", query);
-        return "seasonalplotcatalog";
+        return "old//seasonalplotcatalog";
     }
 
     @GetMapping("/management/plots")
