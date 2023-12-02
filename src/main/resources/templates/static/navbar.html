@@ -15,10 +15,12 @@
             </svg>
           </div>
           <ul class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a href="../servings/plotcatalog.html" th:href="@{/plotcatalog}"
-                th:text="#{nav.plotcatalog}">Plotreservation</a></li>
+            <li><a href="../old/plotcatalog.html" th:href="@{/plotcatalog}" th:text="#{nav.plotcatalog}">Plotcatalog</a>
+            </li>
+            <li><a href="../old/seasonalplotcatalog.html" th:href="@{/seasonalplots}"
+                th:text="#{nav.seasonalplotcatalog}">Seasonalplotcatalog</a></li>
             <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportequipmentcatalog}"
-                th:text="#{nav.sportsequipmentcatalog}">Plotreservation</a></li>
+                th:text="#{nav.sportsequipmentcatalog}">Sportsequipmentcatalog</a></li>
             <li sec:authorize="hasRole('BOSS')">
               <a th:text="#{nav.dashboard}">Dashboard</a>
               <ul class="p-2">
@@ -38,10 +40,12 @@
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1 z-50">
-          <li><a href="../servings/plotcatalog.html" th:href="@{/plotcatalog}"
-              th:text="#{nav.plotcatalog}">Plotreservation</a></li>
+          <li><a href="../old/plotcatalog.html" th:href="@{/plotcatalog}" th:text="#{nav.plotcatalog}">Plotcatalog</a>
+          </li>
+          <li><a href="../old/seasonalplotcatalog.html" th:href="@{/seasonalplots}"
+              th:text="#{nav.seasonalplotcatalog}">Seasonalplotcatalog</a></li>
           <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportequipmentcatalog}"
-              th:text="#{nav.sportsequipmentcatalog}">Plotreservation</a></li>
+              th:text="#{nav.sportsequipmentcatalog}">Sportsequipmentcatalog</a></li>
           <li sec:authorize="hasRole('BOSS')">
             <details>
               <summary th:text="#{nav.dashboard}">Dashboard</summary>
