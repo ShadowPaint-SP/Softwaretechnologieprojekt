@@ -15,16 +15,19 @@
             </svg>
           </div>
           <ul class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a href="plotcatalog.html" th:href="@{/plots}" th:text="#{nav.plots}">Plotreservation</a></li>
-            <li>
+            <li><a href="../servings/plotcatalog.html" th:href="@{/plotcatalog}"
+                th:text="#{nav.plotcatalog}">Plotreservation</a></li>
+            <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportequipmentcatalog}"
+                th:text="#{nav.sportsequipmentcatalog}">Plotreservation</a></li>
+            <li sec:authorize="hasRole('BOSS')">
               <a th:text="#{nav.dashboard}">Dashboard</a>
               <ul class="p-2">
                 <li><a href="../dashboards/customer_mamangement.html" th:href="@{/management/customer}"
-                    sec:authorize="hasRole('BOSS')" th:text="#{nav.c_management}">Customer management</a></li>
+                    th:text="#{nav.c_management}">Customer management</a></li>
                 <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
-                    sec:authorize="hasRole('BOSS')" th:text="#{nav.p_management}">Plot management</a></li>
+                    th:text="#{nav.p_management}">Plot management</a></li>
                 <li><a href="../dashboards/sportsequipment_mamangement.html" th:href="@{/management/sportsequipment}"
-                    sec:authorize="hasRole('BOSS')" th:text="#{nav.s_management}">Sportsequipment management</a></li>
+                    th:text="#{nav.s_management}">Sportsequipment management</a></li>
               </ul>
             </li>
             <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/plotcatalog.html"
@@ -35,7 +38,10 @@
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1 z-50">
-          <li><a href="../servings/plotcatalog.html" th:href="@{/plots}" th:text="#{nav.plots}">Plotreservation</a></li>
+          <li><a href="../servings/plotcatalog.html" th:href="@{/plotcatalog}"
+              th:text="#{nav.plotcatalog}">Plotreservation</a></li>
+          <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportequipmentcatalog}"
+              th:text="#{nav.sportsequipmentcatalog}">Plotreservation</a></li>
           <li sec:authorize="hasRole('BOSS')">
             <details>
               <summary th:text="#{nav.dashboard}">Dashboard</summary>

@@ -25,8 +25,8 @@
 						<td>Blue</td>
 					</tr>-->
 					<!-- row 2 -->
-					<tr th:each="customer : ${Customers}" class="hover">
-						<th>2</th>
+					<tr th:each="customer, iStat : ${Customers}" class="hover">
+						<th th:text="${iStat.count}">2</th>
 						<td>Hart Hagerty</td>
 						<td th:text="${customer.getUserAccount}"></td>
 						<td>Purple</td>

@@ -34,7 +34,7 @@ class PlotCatalogController {
         return new ReservationCart();
     }
 
-    @GetMapping("/plots") // consider renaming the query argument and attribute to state
+    @GetMapping("/plotcatalog") // consider renaming the query argument and attribute to state
     String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
 
@@ -64,13 +64,13 @@ class PlotCatalogController {
         return "servings/plotcatalog";
     }
 
-    @PostMapping("/plots/filter")
+    @PostMapping("/plotcatalog/filter")
     String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
         return setupCatalog(model, user, query, reservationCart);
     }
 
-    @PostMapping("/plots/next-week")
+    @PostMapping("/plotcatalog/next-week")
     String nextWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
 
@@ -81,7 +81,7 @@ class PlotCatalogController {
         return setupCatalog(model, user, query, reservationCart);
     }
 
-    @PostMapping("/plots/prev-week")
+    @PostMapping("/plotcatalog/prev-week")
     String prevWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
 
@@ -92,7 +92,7 @@ class PlotCatalogController {
         return setupCatalog(model, user, query, reservationCart);
     }
 
-    @PostMapping("/plots/select/{plot}")
+    @PostMapping("/plotcatalog/select/{plot}")
     @PreAuthorize("isAuthenticated()")
     String addReservationRange(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
             @PathVariable Plot plot, @ModelAttribute("cart") ReservationCart reservationCart) {
@@ -103,7 +103,7 @@ class PlotCatalogController {
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
 
-    @PostMapping("/plots/select/{plot}/{index}")
+    @PostMapping("/plotcatalog/select/{plot}/{index}")
     @PreAuthorize("isAuthenticated()")
     String addReservationDay(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
             @PathVariable("plot") Plot plot, @PathVariable("index") Integer index,

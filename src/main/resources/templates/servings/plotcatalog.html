@@ -7,7 +7,7 @@
 <body>
     <main layout:fragment="input">
         <div>
-            <form class="ui form" method="post" action="/plots#filter">
+            <form class="ui form" method="post" action="/plotcatalog#filter">
                 <a id="filter"></a>
 
                 <!-- Search Panel -->
@@ -89,13 +89,14 @@
                                     <h2 th:if="${availablePlotsTable}" th:text="#{catalog.plots.available}"></h2>
                                     <h2 th:if="${!availablePlotsTable}" th:text="#{catalog.plots.reserved}"></h2>
                                 </th>
-                                <th class="right aligned"><button type="submit" formaction="/plots/prev-week#filter">
+                                <th class="right aligned"><button type="submit"
+                                        formaction="/plotcatalog/prev-week#filter">
                                         << /button>
                                 </th>
                                 <th class="center aligned" th:each="date, stat : ${weekDates}"
                                     th:utext=" #{'weekday.'+${stat.index}} + '<br/>' + ${date}">
                                 <th class="left aligned"><button type="submit"
-                                        formaction="/plots/next-week#filter">></button></th>
+                                        formaction="/plotcatalog/next-week#filter">></button></th>
                             </tr>
                         </thead>
                         <!-- The body of the table -->

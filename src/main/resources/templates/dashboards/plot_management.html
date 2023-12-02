@@ -18,8 +18,8 @@
 				</thead>
 				<tbody>
 					<!-- row 1 -->
-					<tr th:each="plot : ${Plots}" class="hover">
-						<th>1</th>
+					<tr th:each="plot, iStat : ${Plots}" class="hover">
+						<th th:text="${iStat.count}">1</th>
 						<td th:text="${plot.toString}">Cy Ganderton</td>
 						<td th:text="${plot.getPriceString}">Quality Control Specialist</td>
 						<td>Blue</td>

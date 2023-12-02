@@ -15,18 +15,18 @@ public class SportItemCatalogController {
 
 	private SportItemCatalog itemCatalog;
 
-	SportItemCatalogController(SportItemCatalog itemCatalog){
+	SportItemCatalogController(SportItemCatalog itemCatalog) {
 		this.itemCatalog = itemCatalog;
 	}
 
-	@GetMapping("/equip")
-	String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user){
+	@GetMapping("/sportequipmentcatalog")
+	String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user) {
 
 		List<SportItem> listo = this.itemCatalog.findAll().stream().collect(Collectors.toList());
 
 		model.addAttribute("items", listo);
 
-		return "equip";
+		return "servings/sportequipmentcatalog";
 	}
 
 }
