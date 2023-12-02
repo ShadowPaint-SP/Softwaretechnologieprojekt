@@ -33,9 +33,9 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
     private Customer() {
     }
 
-    public Customer(UserAccount userAccount, String address) {
+    public Customer(UserAccount userAccount) {
         this.userAccount = userAccount;
-        this.address = address;
+    
     }
 
     /*

@@ -64,7 +64,7 @@ class ReservationIntegrationTests {
 	@WithMockUser(username = "hans", roles = "CUSTOMER")
 	void executeReservation() throws Exception {
 
-		mvc.perform(get("/plots")) //
+		mvc.perform(get("/plotcatalog")) //
 				.andExpect(status().isOk()) //
 				.andExpect(model().attributeExists("allPlots"));
 

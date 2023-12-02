@@ -1,17 +1,13 @@
+:doctype: book
 image:https://github.com/st-tu-dresden-praktikum/swt23w06/workflows/CI%20build/badge.svg["CI Build", link="https://github.com/st-tu-dresden-praktikum/swt23w06/actions"]
 image:https://img.shields.io/badge/SonarQube-checked-blue?logo=sonarqube["SonarQube status", link="https://st-lab-ci.inf.tu-dresden.de/sonarqube/"]
-
 // Hi there! We've already included some generally useful information in here.
 // Feel free to edit the first section to add a short description of your task and your project.
 
-= Kickstart
+= Campingplatz (Below The Sun)
 
-The kickstart module is a template project to bootstrap the Java project in the Software Engineering lab.
-Each group's repository is initialized with this template.
-It contains the following features:
-
-* a skeleton Java 17 web application based on Spring Boot and Salespoint framework (see `src/main/java` and `src/test/java`)
-* Asciidoc documentation templates in `src/main/asciidoc`
+Projekt Modul Software Technologie Projekt
+Aufgabe ist es eine Web Application für einen Campingplatz zu bauen
 
 == Important documents in this repo
 
@@ -19,20 +15,6 @@ It contains the following features:
 * link:src/main/asciidoc/time_recording.adoc[Time recording (Zeiterfassung)]
 * link:src/main/asciidoc/pflichtenheft.adoc[Requirements specification (Pflichtenheft)]
 * link:src/main/asciidoc/developer_documentation.adoc[Developer documentation (Entwicklerdokumentation)]
-
-== The repository layout
-
-The repository follows the standard Maven project layout. Nearly all artifacts are stored in a subdirectory of `src/`:
-
-  src/
-  ├── main/
-  │   ├── asciidoc/   -- Documentation of the development process and application (Asciidoc format)
-  │   ├── java/       -- Main source code of the application, separated into packages
-  │   └── resources/  -- Static assets (images, stylesheets), Thymeleaf templates, etc.
-  └── test/
-      └── java/       -- Source code of JUnit tests is stored separately
-
-**Pro tip:** In GitHub, press *t* and a "fuzzy file finder" will appear, making it easy to navigate to a file.
 
 == How to run the application?
 
@@ -42,3 +24,7 @@ The repository follows the standard Maven project layout. Nearly all artifacts a
 == How to package the application?
 
 * Run `./mvnw clean package`. The packaged application (a JAR in `target/`) can be run with `java -jar $jarName`.
+
+== Tailwind css
+
+* `npx tailwindcss -i ./src/main/resources/static/css/input.css -o ./src/main/resources/static/css/output.css --watch`

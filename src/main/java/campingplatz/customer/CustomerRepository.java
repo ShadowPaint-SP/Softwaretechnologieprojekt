@@ -4,7 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.util.Streamable;
 import campingplatz.customer.Customer.CustomerIdentifier;
 
-
 interface CustomerRepository extends CrudRepository<Customer, CustomerIdentifier> {
 
     /**
