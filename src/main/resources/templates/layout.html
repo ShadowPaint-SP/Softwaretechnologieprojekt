@@ -4,13 +4,8 @@
 
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-
 	<script th:src="@{/webjars/jquery/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script th:src="@{/js/themeSwitcher.js}"></script>
-	<script th:src="@{/js/dashboard.js}"></script>
-
 	<link th:href="@{/css/output.css}" rel="stylesheet" href="../static/css/output.css" type="text/css">
-
 	<title th:text="${#strings.isEmpty(title)} ? #{home.title} : ${title}">Campingplatz</title>
 </head>
 
@@ -21,5 +16,6 @@
 	<dialog id="my_modal_3" class="modal" th:insert="~{static/login :: login}"></dialog>
 
 </body>
+<script th:src="@{/js/themeSwitcher.js}" src="../static/js/themeSwitcher.js"></script>
 
 </html>
