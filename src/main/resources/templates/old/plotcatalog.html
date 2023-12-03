@@ -123,7 +123,7 @@
                                 <!--<div th:if="${available}">frei</div>
                                 <div th:unless="${available}">NICHT</div>-->
                                 <button th:type="${fields.type.clickability}"
-                                    th:formaction="'/plots/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}"
+                                    th:formaction="'/plotcatalog/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}"
                                     th:class="plot-catalog-field">
                                     <div class="plot-day-lable">
                                         <text th:text="#{${fields.type.label}}"></text>
