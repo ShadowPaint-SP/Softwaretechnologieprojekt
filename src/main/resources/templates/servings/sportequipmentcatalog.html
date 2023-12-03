@@ -13,12 +13,16 @@
                 <thead>
                     <tr>
                         <th th:text="#{sport.name}"></th>
+                        <th th:text="#{sport.rental_fee}"></th>
+                        <th th:text="#{sport.deposit}"></th>
                         <th th:text="#{sport.amount}"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="item, iStat : ${items}" class="hover">
-                        <th th:text="${item.name}"></th>
+                        <td th:text="${item.name}"></td>
+                        <td th:text="${item.price}"></td>
+                        <td th:text="${item.deposit}"></td>
                         <td th:text="${item.amount}"></td>
                     </tr>
                 </tbody>
