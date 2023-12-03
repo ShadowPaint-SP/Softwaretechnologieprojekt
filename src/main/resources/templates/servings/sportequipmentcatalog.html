@@ -12,18 +12,14 @@
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Job</th>
-                        <th>Favorite Color</th>
+                        <th th:text="#{sport.name}"></th>
+                        <th th:text="#{sport.amount}"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="item, iStat : ${items}" class="hover">
-                        <th th:text="${iStat.count}">1</th>
-                        <td th:text="${item.name}">Cy Ganderton</td>
-                        <td>Quality Control Specialist</td>
-                        <td>Blue</td>
+                        <th th:text="${item.name}"></th>
+                        <td th:text="${item.amount}"></td>
                     </tr>
                 </tbody>
             </table>
