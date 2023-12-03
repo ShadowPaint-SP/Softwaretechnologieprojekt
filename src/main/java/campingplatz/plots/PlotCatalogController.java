@@ -126,7 +126,7 @@ class PlotCatalogController {
         var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
         model.addAttribute("allSeasonalPlots", x);
         model.addAttribute("searchQuery", query);
-        return "old//seasonalplotcatalog";
+        return "old/seasonalplotcatalog";
     }
 
     @GetMapping("/management/plots")
