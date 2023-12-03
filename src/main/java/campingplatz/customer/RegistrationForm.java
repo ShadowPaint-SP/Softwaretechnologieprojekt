@@ -20,11 +20,11 @@ class RegistrationForm {
     public String getPassword() {
         return password;
     }
-    
+
     public void validate(Errors errors) {
-        if (name.equals("")&&password.equals("")) {
-			errors.rejectValue("password", "Benutzername und Passwort dürfen nicht leer sein.");
-		}
+        if (name.equals("") && password.equals("")) {
+            errors.rejectValue("password", "Benutzername und Passwort dürfen nicht leer sein.");
+        }
 
     }
 }

@@ -49,7 +49,7 @@
                             <input type="checkbox" id="dauercamper" name="dauercamper" value="ja" label> ja</label>
                             <input type="checkbox" id="dauercamper" name="dauercamper" value="nein" label>nein</label>
                         </div>-->
-                        <div class="form-control">
+                        <!--<div class="form-control">
                             <label class="label">
                                 <span class="label-text" th:text="#{register.address}">Address</span>
                             </label>
@@ -58,7 +58,7 @@
                                 class="input input-bordered focus:outline-accent" required />
                             <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Die Adresse darf
                                 nicht leer sein.</p>
-                        </div>
+                        </div>-->
                         <div class="form-control mt-6">
                             <button class="btn btn-accent" type="submit" th:text="#{register.submit}">Register</button>
                         </div>
