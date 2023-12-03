@@ -31,11 +31,6 @@ class ReservationController {
         return new ReservationCart();
     }
 
-    @GetMapping("/cart")
-    String cart(Model model) {
-        return "cart";
-    }
-
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
             @ModelAttribute("cart") ReservationCart reservationCart) {
@@ -57,13 +52,18 @@ class ReservationController {
                 product.setDeparture(departure);
             }
         }
-        return "redirect:/cart";
+        return "redirect:/servings/cart";
+    }
+
+    @GetMapping("/cart")
+    String cart(Model model) {
+        return "servings/cart";
     }
 
     @GetMapping("/orders")
     String orders(Model model, @LoggedIn UserAccount user) {
         var userReservations = reservations.findByUserId(user.getId());
         model.addAttribute("ordersCompleted", userReservations);
-        return "orders";
+        return "servings/orders";
     }
 }

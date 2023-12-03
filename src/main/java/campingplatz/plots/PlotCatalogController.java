@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
+
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +34,7 @@ class PlotCatalogController {
         return new ReservationCart();
     }
 
-    @GetMapping("/plots") // consider renaming the query argument and attribute to state
+    @GetMapping("/plotcatalog") // consider renaming the query argument and attribute to state
     String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
 
@@ -59,16 +61,16 @@ class PlotCatalogController {
         model.addAttribute("searchQuery", query);
         model.addAttribute("weekDates", formatedWeekDates);
 
-        return "plotcatalog";
+        return "old/plotcatalog";
     }
 
-    @PostMapping("/plots/filter")
+    @PostMapping("/plotcatalog/filter")
     String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
         return setupCatalog(model, user, query, reservationCart);
     }
 
-    @PostMapping("/plots/next-week")
+    @PostMapping("/plotcatalog/next-week")
     String nextWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
 
@@ -79,7 +81,7 @@ class PlotCatalogController {
         return setupCatalog(model, user, query, reservationCart);
     }
 
-    @PostMapping("/plots/prev-week")
+    @PostMapping("/plotcatalog/prev-week")
     String prevWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
             @ModelAttribute("cart") ReservationCart reservationCart) {
 
@@ -90,7 +92,7 @@ class PlotCatalogController {
         return setupCatalog(model, user, query, reservationCart);
     }
 
-    @PostMapping("/plots/select/{plot}")
+    @PostMapping("/plotcatalog/select/{plot}")
     @PreAuthorize("isAuthenticated()")
     String addReservationRange(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
             @PathVariable Plot plot, @ModelAttribute("cart") ReservationCart reservationCart) {
@@ -101,7 +103,7 @@ class PlotCatalogController {
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
 
-    @PostMapping("/plots/select/{plot}/{index}")
+    @PostMapping("/plotcatalog/select/{plot}/{index}")
     @PreAuthorize("isAuthenticated()")
     String addReservationDay(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
             @PathVariable("plot") Plot plot, @PathVariable("index") Integer index,
@@ -117,5 +119,20 @@ class PlotCatalogController {
         }
 
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
+    }
+
+    @GetMapping("/seasonalplots")
+    String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
+        var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
+        model.addAttribute("allSeasonalPlots", x);
+        model.addAttribute("searchQuery", query);
+        return "old/seasonalplotcatalog";
+    }
+
+    @GetMapping("/management/plots")
+    String plots(Model model) {
+        Streamable<Plot> all = plotCatalog.findAll();
+        model.addAttribute("Plots", all);
+        return "dashboards/plot_management";
     }
 }

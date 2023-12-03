@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 public class CustomerManagement {
 
     public static final Role CUSTOMER_ROLE_DC = Role.of("CUSTOMER");
-    public static final Role CUSTOMER_ROLE_dauercamper = Role.of("Dauercamper");
 
     private final CustomerRepository customers;
     private final UserAccountManagement userAccounts;
@@ -47,15 +46,11 @@ public class CustomerManagement {
         Assert.notNull(form, "Registration form must not be null!");
 
         var password = UnencryptedPassword.of(form.getPassword());
-        if (form.isDauercamper().equals("ja")) {
-            var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_dauercamper);
-            return customers.save(new Customer(userAccount, form.getAddress()));
 
-        } else {
-            var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_DC);
-            return customers.save(new Customer(userAccount, form.getAddress()));
+        var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_DC);
+        return customers.save(new Customer(userAccount));
 
-        }
+        
 
     }
 

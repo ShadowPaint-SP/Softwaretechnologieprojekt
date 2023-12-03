@@ -9,7 +9,13 @@ import org.salespointframework.useraccount.UserAccount;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Optional;
 
 /**
  * Represents the mapping from a given plot, to the seven elements of its
@@ -90,7 +96,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, reservation.getArrival())));
-			int endIndex = (int) Math.min(length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
+			int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				if (user.isEmpty() || reservation.getUser() != user.get()) {
@@ -116,7 +122,8 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, query.getDefaultedArrival())));
-			int endIndex = (int) Math.min(length - 1, (ChronoUnit.DAYS.between(firstDay, query.getDefaultedDeparture())));
+			int endIndex = (int) Math.min((long) length - 1,
+					(ChronoUnit.DAYS.between(firstDay, query.getDefaultedDeparture())));
 
 			var row = entry.getValue();
 
@@ -147,7 +154,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, reservation.getArrival())));
-			int endIndex = (int) Math.min(length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
+			int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				row[i] = FieldType.FREE_SELECTED;
