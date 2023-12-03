@@ -52,12 +52,12 @@ class ReservationController {
                 product.setDeparture(departure);
             }
         }
-        return "redirect:/cart";
+        return "redirect:/servings/cart";
     }
 
     @GetMapping("/cart")
     String cart(Model model) {
-        return "cart";
+        return "servings/cart";
     }
 
     @GetMapping("/orders")

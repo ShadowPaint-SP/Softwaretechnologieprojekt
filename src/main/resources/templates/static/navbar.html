@@ -32,8 +32,8 @@
                     th:text="#{nav.s_management}">Sportsequipment management</a></li>
               </ul>
             </li>
-            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/plotcatalog.html"
-                th:href="@{/orders}" th:text="#{nav.orders}">Orders</a></li>
+            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/orders.html" th:href="@{/orders}"
+                th:text="#{nav.orders}">Orders</a></li>
           </ul>
         </div>
         <a class="btn btn-ghost no-animation text-xl" href="/" th:text="#{home.title}">Campingplatz</a>
