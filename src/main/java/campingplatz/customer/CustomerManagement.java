@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 public class CustomerManagement {
 
     public static final Role CUSTOMER_ROLE_DC = Role.of("CUSTOMER");
-    public static final Role CUSTOMER_ROLE_dauercamper = Role.of("Dauercamper");
 
     private final CustomerRepository customers;
     private final UserAccountManagement userAccounts;

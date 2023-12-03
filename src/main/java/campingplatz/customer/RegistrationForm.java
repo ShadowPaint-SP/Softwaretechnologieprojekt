@@ -22,6 +22,9 @@ class RegistrationForm {
     }
     
     public void validate(Errors errors) {
-        // Complex validation goes here
+        if (name.equals("")&&password.equals("")) {
+			errors.rejectValue("password", "Benutzername und Passwort dürfen nicht leer sein.");
+		}
+
     }
 }
