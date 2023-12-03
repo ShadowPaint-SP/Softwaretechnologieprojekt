@@ -1,7 +1,6 @@
 package campingplatz.equip;
 
 import jakarta.persistence.Entity;
-import lombok.EqualsAndHashCode;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
