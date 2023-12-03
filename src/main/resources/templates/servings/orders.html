@@ -17,8 +17,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="item : ${ordersCompleted}" class="hover">
-                        <th>1</th>
+                    <tr th:each="item, iStat : ${ordersCompleted}" class="hover">
+                        <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.plot.name}">Cy Ganderton</td>
                         <td th:text="${item.arrival}">Quality Control Specialist</td>
                         <td th:text="${item.days}">Quality Control Specialist</td>

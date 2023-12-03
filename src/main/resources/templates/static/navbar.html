@@ -32,8 +32,8 @@
                     th:text="#{nav.s_management}">Sportsequipment management</a></li>
               </ul>
             </li>
-            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/plotcatalog.html"
-                th:href="@{/orders}" th:text="#{nav.orders}">Orders</a></li>
+            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/orders.html" th:href="@{/orders}"
+                th:text="#{nav.orders}">Orders</a></li>
           </ul>
         </div>
         <a class="btn btn-ghost no-animation text-xl" href="/" th:text="#{home.title}">Campingplatz</a>
@@ -78,7 +78,7 @@
               <span class="font-bold text-lg" th:text="nav.cart.items">8 Items</span>
               <span class="text-info" th:text="nav.cart.total">Subtotal: $XXX</span>
               <div class="card-actions">
-                <a href="../servings/cart" class="btn btn-primary btn-block" th:text="nav.cart">View cart</a>
+                <a href="/cart" class="btn btn-primary btn-block" th:text="nav.cart">View cart</a>
               </div>
             </div>
           </div>
