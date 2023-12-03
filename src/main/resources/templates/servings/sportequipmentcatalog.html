@@ -16,6 +16,7 @@
                         <th th:text="#{sport.rental_fee}"></th>
                         <th th:text="#{sport.deposit}"></th>
                         <th th:text="#{sport.amount}"></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,8 @@
                         <td th:text="${item.price}"></td>
                         <td th:text="${item.deposit}"></td>
                         <td th:text="${item.amount}"></td>
+                        <td><button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${item.id}"
+                                    th:text="#{sport.book}"></button></td>
                     </tr>
                 </tbody>
             </table>

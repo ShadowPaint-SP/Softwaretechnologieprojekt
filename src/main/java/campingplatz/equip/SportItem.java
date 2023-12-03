@@ -20,8 +20,6 @@ public class SportItem extends Product {
 
 	@SuppressWarnings({ "unused", "deprecation" })
 	public SportItem() {
-		this.amount = 0;
-		this.deposit = Money.of(0, EURO);
 	}
 	//rental_fee, price = Leihgebühr | deposit = Kaution
 	public SportItem(String name, Money price, Money deposit, String category) {

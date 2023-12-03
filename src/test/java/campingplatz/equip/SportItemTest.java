@@ -21,27 +21,27 @@ class SportItemTest {
 	public void SportItemConstructorTest(){
 		// Test eigentlich javamoney.Money und ist daher unnötig
 		try {
-			new SportItem("Fußball", null,"Ball");
+			new SportItem("Fußball", null,Money.of(10,EURO),"Ball");
 			fail("Should have Failed");
 		} catch (AssertionFailedError | IllegalArgumentException ignored){
 
 		}
 		try {
-			new SportItem(null, Money.of(10,EURO), "lol");
+			new SportItem(null, Money.of(10,EURO),Money.of(10,EURO), "lol");
 			fail("Should have Failed");
 		} catch (IllegalArgumentException ignored){
 
 		}
 
 		try {
-			new SportItem("", Money.of(10,EURO), "lol");
+			new SportItem("", Money.of(10,EURO),Money.of(10,EURO), "lol");
 			fail("Should have Failed");
 		} catch (IllegalArgumentException ignored){
 
 		}
 
 		try {
-			new SportItem("Ball", Money.of(10,EURO), null);
+			new SportItem("Ball", Money.of(10,EURO),Money.of(10,EURO), null);
 			fail("Should have Failed");
 		} catch (IllegalArgumentException ignored){
 
@@ -49,7 +49,7 @@ class SportItemTest {
 
 
 		try {
-			new SportItem("Ball", Money.of(10,EURO), "");
+			new SportItem("Ball", Money.of(10,EURO),Money.of(10,EURO), "");
 			fail("Should have Failed");
 		} catch (IllegalArgumentException ignored){
 
@@ -65,7 +65,7 @@ class SportItemTest {
 	public void SportItemGetNameTest(){
 		String name = "schlumi";
 
-		SportItem sportItem = new SportItem(name, Money.of(10, EURO), "lol");
+		SportItem sportItem = new SportItem(name, Money.of(10, EURO),Money.of(10,EURO), "lol");
 
 		assertEquals(name, sportItem.getName());
 	}
