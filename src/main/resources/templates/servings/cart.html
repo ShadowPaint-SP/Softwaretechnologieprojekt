@@ -18,8 +18,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="item : ${cart}" class="hover">
-                        <th>1</th>
+                    <tr th:each="item, iStat : ${cart}" class="hover">
+                        <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.plot.name}">Cy Ganderton</td>
                         <td th:text="${item.arrival}">Quality Control Specialist</td>
                         <td th:value="${item.departure}">Quality Control Specialist</td>
@@ -29,6 +29,19 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="card w-96 bg-neutral text-neutral-content container mx-auto mt-10">
+            <div class="card-body items-center text-center">
+                <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
+                <div class="badge badge-lg badge-secondary" th:text="${{cart.price}}">987,654</div>
+                <div class="card-actions justify-end">
+                    <form method="post" th:action="@{/checkout}">
+                        <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </main>
 </body>
 
