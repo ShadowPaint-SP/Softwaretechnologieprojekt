@@ -136,7 +136,19 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	/** Marks the periods between of reservations in the cart as selected */
 	public PlotCatalogAvailabilityTable addSelections(Cart<Plot> reservationCart) {
 
-		// TODO
+		for (var field : reservationCart){
+			var time = field.getTime();
+			var plot = field.getProduct();
+
+			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.atStartOfDay())){
+				continue;
+			}
+
+			int index = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, time)));
+
+			var row = this.get(plot);
+			row[index] = FieldType.FREE_SELECTED;
+		}
 
 		return this;
 	}

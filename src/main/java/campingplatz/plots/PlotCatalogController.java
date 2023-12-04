@@ -50,7 +50,7 @@ class PlotCatalogController {
 
         var reservations = reservationRepository.findReservationsBetween(firstWeekDate.atStartOfDay(), lastWeekDay.atStartOfDay());
         var availabilityTable = new PlotCatalogAvailabilityTable(firstWeekDate, lastWeekDay, filteredPlots)
-                // .addReservations(user, reservations)
+                .addReservations(user, reservations)
                 .addHighlights(query, reservedPlots)
                 .addSelections(reservationCart)
                 .collapse();

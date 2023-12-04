@@ -55,6 +55,7 @@ public class Reservation<T extends Product> implements Priced {
     private LocalDateTime end;
 
     public Reservation() {
+		this.id = UUID.randomUUID();
 	}
 
     public Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end) {

@@ -39,7 +39,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 	public <R extends Reservation<T>> List<R> getReservationsOfUser(Class<R> cls, UserAccount user){
 
 		// sort the cart by the name of its elements first and date second.
-		sort(Utils::compareReservationEntries);
+		this.sort(ReservationEntry::compareTo);
 
 		// groups all consecutive ReservationEntries belonging to the same reservation together
 		// if two entries have differing products, they can not be of the same reservation
@@ -57,7 +57,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 			var intervall = Duration.of(1, reservation.getIntervalUnit());
 			var firstTime = first.getTime().plus(intervall);
 			var secondTime = second.getTime();
-			var sameReservation = !firstTime.isAfter(secondTime);
+			var sameReservation = !firstTime.isBefore(secondTime);
 
 			return sameReservation;
 
@@ -81,7 +81,6 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-	// TODO: does not workt correctly
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(Reservation<T> reservation) {
 
@@ -89,7 +88,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 		var begin = reservation.getBegin();
 		var end = reservation.getEnd();
 
-		var len = begin.until(end, reservation.getIntervalUnit());
+		var len = begin.until(end, reservation.getIntervalUnit()) + 1;
 		for (int i = 0; i < len; i++){
 			var time = begin.plus(i, reservation.getIntervalUnit());
 			var reservationEntry = new ReservationEntry<>(prod, time);

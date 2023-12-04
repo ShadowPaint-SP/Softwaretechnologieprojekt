@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 
 @EqualsAndHashCode
-public class ReservationEntry<T extends Product> {
+public class ReservationEntry<T extends Product> implements Comparable<ReservationEntry<T>> {
 
     @ManyToOne
     @Getter
@@ -35,4 +35,21 @@ public class ReservationEntry<T extends Product> {
         this.product = product;
         this.time = time;
     }
+
+
+	public int compareTo(ReservationEntry<T> second) {
+		var firstName = this.getProduct().getName();
+		var secondName = second.getProduct().getName();
+		var nameComparison = firstName.compareTo(secondName);
+
+		if (nameComparison != 0){
+			return nameComparison;
+		}
+
+		var firstDate = this.getTime();
+		var secondDate = second.getTime();
+
+		return firstDate.compareTo(secondDate);
+	}
+
 }

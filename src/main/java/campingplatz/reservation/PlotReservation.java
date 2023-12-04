@@ -1,7 +1,6 @@
 package campingplatz.reservation;
 
 import campingplatz.plots.Plot;
-import campingplatz.utils.StaticOverride;
 import jakarta.persistence.Entity;
 import org.salespointframework.useraccount.UserAccount;
 
