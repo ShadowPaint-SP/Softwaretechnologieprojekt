@@ -16,7 +16,6 @@ public class SportItem extends DetailedProduct {
 	@Setter
 	private Money deposit;
 
-	@SuppressWarnings({ "deprecation" })
 	public SportItem() {
 	}
 
@@ -36,13 +35,13 @@ public class SportItem extends DetailedProduct {
 	}
 
 	public SportItem(String name,
-					 Money rental_fee,
-					 Money deposit,
-					 String category,
-					 int amount,
-					 String image_path,
-					 String description) {
-		super(name, rental_fee,image_path,description);
+			Money rental_fee,
+			Money deposit,
+			String category,
+			int amount,
+			String image_path,
+			String description) {
+		super(name, rental_fee, image_path, description);
 		this.addCategory(category);
 		this.amount = amount;
 		this.deposit = deposit;

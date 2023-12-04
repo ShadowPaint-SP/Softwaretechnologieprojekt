@@ -12,16 +12,18 @@ public class DetailedProduct extends Product {
 	@Setter
 	private String desc;
 
-	@SuppressWarnings({ "unused", "deprecation" })
-	public DetailedProduct(){}
-	public DetailedProduct(String name, Money price){
+	@SuppressWarnings({ "deprecation" })
+	public DetailedProduct() {
+	}
+
+	public DetailedProduct(String name, Money price) {
 		super(name, price);
 		// TODO placeholder path einfügen
 		this.imagePath = "";
 		this.desc = "";
 	}
 
-	public DetailedProduct(String name, Money price, String image_path, String description){
+	public DetailedProduct(String name, Money price, String image_path, String description) {
 		super(name, price);
 		this.imagePath = image_path;
 		this.desc = description;
