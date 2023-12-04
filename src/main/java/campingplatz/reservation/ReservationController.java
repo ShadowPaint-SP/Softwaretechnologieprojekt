@@ -22,9 +22,9 @@ import java.util.UUID;
 @SessionAttributes("cart")
 class ReservationController {
 
-    private final ReservationRepository<Plot, PlotReservation> reservationRepository;
+    private final ReservationRepository<Plot> reservationRepository;
 
-    ReservationController(ReservationRepository<Plot, PlotReservation> reservationRepository) {
+    ReservationController(ReservationRepository<Plot> reservationRepository) {
 
         this.reservationRepository = reservationRepository;
     }

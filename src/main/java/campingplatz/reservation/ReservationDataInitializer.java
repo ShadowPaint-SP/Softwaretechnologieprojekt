@@ -12,12 +12,12 @@ import java.time.LocalDate;
 @Component
 @Order(30)
 class ReservationDataInitializer implements DataInitializer {
-    private final ReservationRepository<Plot, PlotReservation> reservationRepository;
+    private final ReservationRepository<Plot> reservationRepository;
     private final CustomerManagement customerManagement;
     private final PlotCatalog plotCatalog;
 
     ReservationDataInitializer(
-            ReservationRepository<Plot, PlotReservation> reservationRepository,
+            ReservationRepository<Plot> reservationRepository,
             CustomerManagement customerManagement,
             PlotCatalog plotCatalog) {
         this.reservationRepository = reservationRepository;

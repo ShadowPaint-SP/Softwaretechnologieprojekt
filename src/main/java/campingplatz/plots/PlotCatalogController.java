@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 class PlotCatalogController {
 
     PlotCatalog plotCatalog;
-    ReservationRepository<Plot, PlotReservation> reservationRepository;
+    ReservationRepository<Plot> reservationRepository;
 
     PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository reservationRepository) {
         this.plotCatalog = plotCatalog;

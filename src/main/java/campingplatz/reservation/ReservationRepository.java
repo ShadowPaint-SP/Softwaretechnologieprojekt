@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public interface ReservationRepository<U extends Product, T> extends CrudRepository<Reservation<U>, UUID> {
+public interface ReservationRepository<U extends Product> extends CrudRepository<Reservation<U>, UUID> {
 
     /**
      * Redeclare this function to make it apparent it exists
