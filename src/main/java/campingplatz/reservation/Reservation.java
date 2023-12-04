@@ -17,32 +17,30 @@ import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 /**
  * The Base class of all Reservations.
  * Create more Reservations by inheriting from this class
  * and specifying the Type of the reservation. Keep in mind,
  * that this is done, because a JPA Entity cannot be generic
  *
- * */
+ */
 @Entity
 @EqualsAndHashCode
 public class Reservation<T extends Product> implements Priced {
 
-    @Getter @Id
+    @Getter
+    @Id
     public UUID id;
-
 
     @Getter
     @Setter
-	@ManyToOne
+    @ManyToOne
     private UserAccount user;
 
     @Getter
     @Setter
-	@ManyToOne
+    @ManyToOne
     private T product;
-
 
     @Getter
     @Setter
@@ -55,12 +53,12 @@ public class Reservation<T extends Product> implements Priced {
     private LocalDateTime end;
 
     public Reservation() {
-		this.id = UUID.randomUUID();
-	}
+        this.id = UUID.randomUUID();
+    }
 
     public Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end) {
 
-		this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID();
 
         this.user = user;
         this.product = product;
@@ -69,29 +67,24 @@ public class Reservation<T extends Product> implements Priced {
         this.end = end;
     }
 
-
-
     @Override
     public MonetaryAmount getPrice() {
         var price = product.getPrice();
         return price.multiply(duration());
     }
 
-	// meant to be overridden
-	public ChronoUnit getIntervalUnit(){
-		return null;
-	}
+    // meant to be overridden
+    public ChronoUnit getIntervalUnit() {
+        return null;
+    }
 
     /**
-	 * Get the duration between begin and end. The unit of the duration
-	 * is determined by the getern value of {@link Reservable.getIntervalUnit}
-	 * */
-	public long duration() {
+     * Get the duration between begin and end. The unit of the duration
+     * is determined by the getern value of {@link Reservable.getIntervalUnit}
+     */
+    public long duration() {
         var units = getIntervalUnit();
-		return units.between(begin, end);
+        return units.between(begin, end);
     }
 
 }
-
-
-

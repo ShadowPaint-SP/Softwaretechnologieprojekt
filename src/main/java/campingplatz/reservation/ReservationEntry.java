@@ -1,6 +1,5 @@
 package campingplatz.reservation;
 
-
 import jakarta.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,10 +8,7 @@ import org.salespointframework.catalog.Product;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import java.time.LocalDateTime;
-
-
 
 @EqualsAndHashCode
 public class ReservationEntry<T extends Product> implements Comparable<ReservationEntry<T>> {
@@ -36,20 +32,19 @@ public class ReservationEntry<T extends Product> implements Comparable<Reservati
         this.time = time;
     }
 
+    public int compareTo(ReservationEntry<T> second) {
+        var firstName = this.getProduct().getName();
+        var secondName = second.getProduct().getName();
+        var nameComparison = firstName.compareTo(secondName);
 
-	public int compareTo(ReservationEntry<T> second) {
-		var firstName = this.getProduct().getName();
-		var secondName = second.getProduct().getName();
-		var nameComparison = firstName.compareTo(secondName);
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
 
-		if (nameComparison != 0){
-			return nameComparison;
-		}
+        var firstDate = this.getTime();
+        var secondDate = second.getTime();
 
-		var firstDate = this.getTime();
-		var secondDate = second.getTime();
-
-		return firstDate.compareTo(secondDate);
-	}
+        return firstDate.compareTo(secondDate);
+    }
 
 }

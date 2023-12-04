@@ -18,7 +18,7 @@ public class PlotReservation extends Reservation<Plot> {
 
 	}
 
-	public ChronoUnit getIntervalUnit(){
+	public ChronoUnit getIntervalUnit() {
 		return ChronoUnit.DAYS;
 	}
 }

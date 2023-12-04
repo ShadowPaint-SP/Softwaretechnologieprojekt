@@ -16,10 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.salespointframework.core.Currencies.EURO;
 
 public class ReservationUnitTests {
-	private Reservation reservation;
-	private Reservation reservationBordering;
-	private Reservation reservationOverlapping;
-	private Reservation reservationOtherPlot;
+	private PlotReservation reservation;
 
 	@Mock
 	private UserAccount customer;
@@ -34,10 +31,8 @@ public class ReservationUnitTests {
 		when(plot1.getPrice()).thenReturn(Money.of(20, EURO));
 		when(plot1.getId()).thenReturn(Product.ProductIdentifier.of("1"));
 		when(plot1.getId()).thenReturn(Product.ProductIdentifier.of("2"));
-		reservation = new Reservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(), LocalDate.of(2023, 11, 10).atStartOfDay());
-		reservationBordering = new Reservation(customer, plot1, LocalDate.of(2023, 11, 11).atStartOfDay(), LocalDate.of(2023, 11, 20).atStartOfDay());
-		reservationOverlapping = new Reservation(customer, plot1, LocalDate.of(2023, 11, 10).atStartOfDay(), LocalDate.of(2023, 11, 20).atStartOfDay());
-		reservationOtherPlot = new Reservation(customer, plot2, LocalDate.of(2023, 11, 15).atStartOfDay(), LocalDate.of(2023, 11, 20).atStartOfDay());
+		reservation = new PlotReservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(),
+				LocalDate.of(2023, 11, 10).atStartOfDay());
 	}
 
 	@AfterEach
@@ -46,7 +41,8 @@ public class ReservationUnitTests {
 
 	@Test
 	void init_Reservation() {
-		new Reservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(), LocalDate.of(2023, 11, 10).atStartOfDay());
+		new PlotReservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(),
+				LocalDate.of(2023, 11, 10).atStartOfDay());
 	}
 
 	@Test
@@ -61,6 +57,5 @@ public class ReservationUnitTests {
 				plot1.getPrice().multiply(ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10))),
 				"reservation.getPrice rechnet den Falschen Preis aus");
 	}
-
 
 }

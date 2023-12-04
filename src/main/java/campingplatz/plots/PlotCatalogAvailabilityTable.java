@@ -1,6 +1,5 @@
 package campingplatz.plots;
 
-import campingplatz.reservation.PlotReservation;
 import campingplatz.reservation.Reservation;
 import campingplatz.utils.Cart;
 import lombok.AllArgsConstructor;
@@ -83,7 +82,8 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	}
 
 	/** Marks all the periods in which the plot is reserved as such in the table */
-	public PlotCatalogAvailabilityTable addReservations(Optional<UserAccount> user, List<Reservation<Plot>> reservations) {
+	public PlotCatalogAvailabilityTable addReservations(Optional<UserAccount> user,
+			List<Reservation<Plot>> reservations) {
 		// fill the table with reservation information
 		for (var reservation : reservations) {
 
@@ -97,7 +97,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, reservation.getBegin())));
-			int endIndex = (int) Math.min(length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getEnd())));
+			int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getEnd())));
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				if (user.isEmpty() || reservation.getUser() != user.get()) {
@@ -144,11 +144,11 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	/** Marks the periods between of reservations in the cart as selected */
 	public PlotCatalogAvailabilityTable addSelections(Cart<Plot> reservationCart) {
 
-		for (var field : reservationCart){
+		for (var field : reservationCart) {
 			var time = field.getTime();
 			var plot = field.getProduct();
 
-			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.atStartOfDay())){
+			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.atStartOfDay())) {
 				continue;
 			}
 
