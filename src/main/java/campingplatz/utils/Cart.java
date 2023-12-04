@@ -34,9 +34,14 @@ import static org.salespointframework.core.Currencies.EURO;
  */
 public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> implements Priced {
 
+	Class<? extends Reservation<T>> reservationType;
 
-	// TODO: does not workt correctly
-	public <R extends Reservation<T>> List<R> getReservationsOfUser(Class<R> cls, UserAccount user){
+
+	public Cart(Class<? extends Reservation<T>> reservationType){
+		this.reservationType = reservationType;
+	}
+
+	public List<Reservation<T>> getReservationsOfUser(UserAccount user){
 
 		// sort the cart by the name of its elements first and date second.
 		this.sort(ReservationEntry::compareTo);
@@ -53,7 +58,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 				return false;
 			}
 
-			R reservation = Utils.createInstance(cls);
+			Reservation<T> reservation = Utils.createInstance(reservationType);
 			var intervall = Duration.of(1, reservation.getIntervalUnit());
 			var firstTime = first.getTime().plus(intervall);
 			var secondTime = second.getTime();
@@ -68,7 +73,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 			var firstElement = list.get(0);
 			var lastElement = list.get(list.size() - 1);
 
-			R reservation = Utils.createInstance(cls);
+			Reservation<T> reservation = Utils.createInstance(reservationType);
 			reservation.setUser(user);
 			reservation.setProduct(firstElement.getProduct());
 			reservation.setBegin(firstElement.getTime());
@@ -109,11 +114,14 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 	}
 
 	@Override
-	public MonetaryAmount getPrice() {
-		MonetaryAmount accumulator = Money.of(0, EURO);
-		for (var reservationEntry : this) {
-			accumulator = accumulator.add(reservationEntry.getProduct().getPrice());
+	public  MonetaryAmount getPrice() {
+		var reservations = getReservationsOfUser(null);
+
+		MonetaryAmount acuumulator = Money.of(0, EURO);
+		for (var reservation : reservations){
+			acuumulator.add(reservation.getPrice());
 		}
-		return accumulator;
+
+		return acuumulator;
 	}
 }

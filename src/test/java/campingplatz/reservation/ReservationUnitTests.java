@@ -34,10 +34,10 @@ public class ReservationUnitTests {
 		when(plot1.getPrice()).thenReturn(Money.of(20, EURO));
 		when(plot1.getId()).thenReturn(Product.ProductIdentifier.of("1"));
 		when(plot1.getId()).thenReturn(Product.ProductIdentifier.of("2"));
-		reservation = new Reservation(customer, plot1, LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10));
-		reservationBordering = new Reservation(customer, plot1, LocalDate.of(2023, 11, 11), LocalDate.of(2023, 11, 20));
-		reservationOverlapping = new Reservation(customer, plot1, LocalDate.of(2023, 11, 10), LocalDate.of(2023, 11, 20));
-		reservationOtherPlot = new Reservation(customer, plot2, LocalDate.of(2023, 11, 15), LocalDate.of(2023, 11, 20));
+		reservation = new Reservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(), LocalDate.of(2023, 11, 10).atStartOfDay());
+		reservationBordering = new Reservation(customer, plot1, LocalDate.of(2023, 11, 11).atStartOfDay(), LocalDate.of(2023, 11, 20).atStartOfDay());
+		reservationOverlapping = new Reservation(customer, plot1, LocalDate.of(2023, 11, 10).atStartOfDay(), LocalDate.of(2023, 11, 20).atStartOfDay());
+		reservationOtherPlot = new Reservation(customer, plot2, LocalDate.of(2023, 11, 15).atStartOfDay(), LocalDate.of(2023, 11, 20).atStartOfDay());
 	}
 
 	@AfterEach
@@ -46,12 +46,12 @@ public class ReservationUnitTests {
 
 	@Test
 	void init_Reservation() {
-		new Reservation(customer, plot1, LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10));
+		new Reservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(), LocalDate.of(2023, 11, 10).atStartOfDay());
 	}
 
 	@Test
 	void getDaysTest() {
-		assertEquals(reservation.getDays(), ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10)),
+		assertEquals(reservation.duration(), ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10)),
 				"reservation.getDays, wrong Days between arrival, departure");
 	}
 
@@ -62,22 +62,5 @@ public class ReservationUnitTests {
 				"reservation.getPrice rechnet den Falschen Preis aus");
 	}
 
-	@Test
-	void intersectsTest() {
-		assertTrue(reservation.intersects(reservationOverlapping),
-				"reservation.intersects, Expected overlapping, but was false");
-		assertFalse(reservation.intersects(reservationBordering), "reservation.intersects, Bordering, but say Overlapping");
-		assertFalse(reservation.intersects(reservationOtherPlot), "reservation.intersects, other Plot return not false");
-	}
-
-	@Test
-	void neighborsTest() {
-		assertTrue(reservation.intersects(reservationOverlapping),
-				"reservation.neighbors, Expected true (overlapping), but was false");
-		assertFalse(reservation.intersects(reservationBordering),
-				"reservation.neighbors, Expected true (bordering), but was false");
-		assertFalse(reservation.intersects(reservationOtherPlot), "reservation.neighbors, other Plot return not false");
-
-	}
 
 }

@@ -31,12 +31,12 @@ class ReservationController {
 
     @ModelAttribute("cart")
     Cart<Plot> initializeCart() {
-        return new Cart<Plot>();
+        return new Cart<Plot>(PlotReservation.class);
     }
 
     @GetMapping("/cart")
     String cart(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") Cart<Plot> reservationCart) {
-		var reservations = reservationCart.getReservationsOfUser(PlotReservation.class,userAccount);
+		var reservations = reservationCart.getReservationsOfUser(userAccount);
 		model.addAttribute("reservations", reservations);
         return "servings/cart";
     }
@@ -45,7 +45,7 @@ class ReservationController {
     String reservate(Model model, @LoggedIn UserAccount userAccount,
             @ModelAttribute("cart") Cart<Plot> reservationCart) {
 
-		var reservations = reservationCart.getReservationsOfUser(PlotReservation.class, userAccount);
+		List<Reservation<Plot>> reservations = reservationCart.getReservationsOfUser(userAccount);
 		reservationRepository.saveAll(reservations);
         reservationCart.clear();
 

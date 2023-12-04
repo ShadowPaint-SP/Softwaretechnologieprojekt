@@ -3,6 +3,7 @@ package campingplatz.reservation;
 import java.util.List;
 import javax.money.MonetaryAmount;
 
+import campingplatz.utils.Cart;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import org.salespointframework.useraccount.UserAccount;
 import campingplatz.plots.Plot;
 
 public class ReservationCartTests {
-	private ReservationCart cart;
+	private Cart<Plot> cart;
 	private Reservation reservation1;
 	private Reservation reservation2;
 
@@ -39,16 +40,16 @@ public class ReservationCartTests {
 		when(plot1.getId()).thenReturn(Product.ProductIdentifier.of("1"));
 		when(plot2.getId()).thenReturn(Product.ProductIdentifier.of("2"));
 
-		cart = new ReservationCart();
-		reservation1 = new Reservation(user, plot1, LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10));
+		cart = new Cart<Plot>(PlotReservation.class);
+		reservation1 = new PlotReservation(user, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(), LocalDate.of(2023, 11, 10).atStartOfDay());
 		cart.add(reservation1);
-		reservation2 = new Reservation(user, plot2, LocalDate.of(2023, 11, 11), LocalDate.of(2023, 11, 20));
+		reservation2 = new PlotReservation(user, plot2, LocalDate.of(2023, 11, 11).atStartOfDay(), LocalDate.of(2023, 11, 20).atStartOfDay());
 		cart.add(reservation2);
 	}
 
 	@Test
 	void testAdd() {
-		Reservation reservation = new Reservation(user, plot2, LocalDate.of(2023, 12, 1), LocalDate.of(2023, 12, 10));
+		Reservation reservation = new Reservation(user, plot2, LocalDate.of(2023, 12, 1).atStartOfDay(), LocalDate.of(2023, 12, 10).atStartOfDay());
 		cart.add(reservation);
 		assertTrue(cart.contains(reservation));
 	}
@@ -59,21 +60,6 @@ public class ReservationCartTests {
 		assertFalse(cart.contains(reservation1));
 	}
 
-	@Test
-	void testNeighboring() {
-		Reservation reservation = new Reservation(user, plot1, LocalDate.of(2023, 11, 11), LocalDate.of(2023, 11, 20));
-		cart.add(reservation);
-		List<Reservation> neighboring = cart.neighboring(reservation1);
-		assertTrue(neighboring.contains(reservation));
-	}
-
-	@Test
-	void testIntersecting() {
-		Reservation reservation = new Reservation(user, plot2, LocalDate.of(2023, 11, 11), LocalDate.of(2023, 11, 15));
-		List<Reservation> intersecting = cart.intersecting(reservation);
-		assertFalse(intersecting.contains(reservation1));
-		assertTrue(intersecting.contains(reservation2));
-	}
 
 	@Test
 	void testGetPrice() {
