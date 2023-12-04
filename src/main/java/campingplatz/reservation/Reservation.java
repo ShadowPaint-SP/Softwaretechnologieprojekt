@@ -20,9 +20,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * The Base class of all Reservations.
+ * <p>
  * Create more Reservations by inheriting from this class
  * and specifying the Type of the reservation. Keep in mind,
  * that this is done, because a JPA Entity cannot be generic
+ * Because of that, you should not add any extensions to this
+ * class, the ReservationRepository will just return a regular
+ * Reservation anyway
  *
  * */
 @Entity
