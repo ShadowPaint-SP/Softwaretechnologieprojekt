@@ -25,7 +25,7 @@ class PlotCatalogController {
     PlotCatalog plotCatalog;
     ReservationRepository<Plot> reservationRepository;
 
-    PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository<Plot, PlotReservation> reservationRepository) {
+    PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository<Plot> reservationRepository) {
         this.plotCatalog = plotCatalog;
         this.reservationRepository = reservationRepository;
     }
