@@ -16,7 +16,7 @@ public class SportItem extends DetailedProduct {
 	@Setter
 	private Money deposit;
 
-	@SuppressWarnings({ "unused" })
+	@SuppressWarnings({ "deprecation" })
 	public SportItem() {
 	}
 

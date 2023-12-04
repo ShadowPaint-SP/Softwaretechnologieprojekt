@@ -51,7 +51,8 @@ class CustomerDataInitializer implements DataInitializer {
         userAccountManagement.create("boss", UnencryptedPassword.of("123"), Role.of("BOSS"));
 
         var password = "123";
-        List.of(//
+        List.of(
+                new RegistrationForm("meister", password),
                 new RegistrationForm("hans", password),
                 new RegistrationForm("dextermorgan", password),
                 new RegistrationForm("earlhickey", password),

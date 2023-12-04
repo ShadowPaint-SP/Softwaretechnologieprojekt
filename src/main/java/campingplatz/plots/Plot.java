@@ -18,20 +18,16 @@ public class Plot extends DetailedProduct {
     @Setter
     private ParkingLot parking;
 
-    @Getter
-    @Setter
-    private PlotType type;
-
-    public Plot(String name, Double size, Money price, ParkingLot parking, PlotType type) {
+    public Plot(String name, Double size, Money price, ParkingLot parking) {
 
         super(name, price);
 
         this.size = size;
         this.parking = parking;
-        this.type = type;
+
     }
 
-    @SuppressWarnings({ "unused"})
+    @SuppressWarnings({ "deprecation" })
     public Plot() {
     }
 
@@ -43,10 +39,6 @@ public class Plot extends DetailedProduct {
     // a second getter for size. returns a formatted String
     public String getSizeString() {
         return getSize() + " m²";
-    }
-
-    public enum PlotType {
-        NONE, SEASONAL
     }
 
     public enum ParkingLot {
