@@ -6,18 +6,17 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
-import org.salespointframework.catalog.Product;
 
+@Getter
 @Entity
 public class SportItem extends DetailedProduct {
-	@Getter
+
 	@Setter
 	private int amount;
-	@Getter
 	@Setter
 	private Money deposit;
 
-	@SuppressWarnings({ "unused", "deprecation" })
+	@SuppressWarnings({ "unused" })
 	public SportItem() {
 	}
 
@@ -36,7 +35,13 @@ public class SportItem extends DetailedProduct {
 		this.deposit = deposit;
 	}
 
-	public SportItem(String name, Money rental_fee, Money deposit, String category, int amount, String image_path, String description) {
+	public SportItem(String name,
+					 Money rental_fee,
+					 Money deposit,
+					 String category,
+					 int amount,
+					 String image_path,
+					 String description) {
 		super(name, rental_fee,image_path,description);
 		this.addCategory(category);
 		this.amount = amount;

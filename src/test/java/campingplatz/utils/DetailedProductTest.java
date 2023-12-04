@@ -14,6 +14,15 @@ class DetailedProductTest {
 	void setUp(){
 		this.detailedProduct = new DetailedProduct("Name", Money.of(10, EURO));
 	}
+
+	@Test
+	void DetailedProductConstructorTest(){
+		assertDoesNotThrow( () -> {
+			 new DetailedProduct("TestName",
+				Money.of(10, EURO), "path_to_image", "description");
+		},"Constructor Failed");
+	}
+
 	@Test
 	void getAndSetImagePath() {
 		String image_path = "sample/path";
