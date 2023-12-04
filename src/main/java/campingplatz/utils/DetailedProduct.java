@@ -5,11 +5,10 @@ import lombok.Setter;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 
+@Getter
 public class DetailedProduct extends Product {
-	@Getter
 	@Setter
 	private String image_path;
-	@Getter
 	@Setter
 	private String desc;
 
