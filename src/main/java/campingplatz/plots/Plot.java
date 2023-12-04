@@ -1,5 +1,6 @@
 package campingplatz.plots;
 
+import campingplatz.utils.DetailedProduct;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,7 @@ import org.salespointframework.catalog.Product;
 import org.javamoney.moneta.Money;
 
 @Entity
-public class Plot extends Product {
+public class Plot extends DetailedProduct {
 
     @Getter
     @Setter
