@@ -10,12 +10,12 @@ import java.time.temporal.ChronoUnit;
 @Entity
 public class PlotReservation extends Reservation<Plot> {
 
-	public PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure) {
-		super(userAccount, plot, arrival, departure);
+	public PlotReservation() {
+		super();
 	}
 
-	public PlotReservation() {
-
+	public PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure) {
+		super(userAccount, plot, arrival, departure);
 	}
 
 	public ChronoUnit getIntervalUnit() {
