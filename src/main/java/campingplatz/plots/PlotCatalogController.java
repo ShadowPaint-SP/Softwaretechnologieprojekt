@@ -25,7 +25,7 @@ class PlotCatalogController {
     PlotCatalog plotCatalog;
     ReservationRepository<Plot> reservationRepository;
 
-    PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository reservationRepository) {
+    PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository<Plot> reservationRepository) {
         this.plotCatalog = plotCatalog;
         this.reservationRepository = reservationRepository;
     }
@@ -50,7 +50,8 @@ class PlotCatalogController {
         var partitionedPlots = filteredPlots.stream().collect(Collectors.partitioningBy(
                 plot -> !reservedPlots.contains(plot)));
 
-        var reservations = reservationRepository.findReservationsBetween(firstWeekDate.atStartOfDay(), lastWeekDay.atStartOfDay());
+        var reservations = reservationRepository.findReservationsBetween(firstWeekDate.atStartOfDay(),
+                lastWeekDay.atStartOfDay());
         var availabilityTable = new PlotCatalogAvailabilityTable(firstWeekDate, lastWeekDay, filteredPlots)
                 .addReservations(user, reservations)
                 .addHighlights(query, reservedPlots)
@@ -98,9 +99,8 @@ class PlotCatalogController {
     String addReservationRange(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
             @PathVariable Plot plot, @ModelAttribute("cart") Cart<Plot> reservationCart) {
 
-
-		var arrival = query.getArrival().atStartOfDay();
-		var departure = query.getDeparture().atStartOfDay();
+        var arrival = query.getArrival().atStartOfDay();
+        var departure = query.getDeparture().atStartOfDay();
         var reservation = new PlotReservation(user, plot, arrival, departure);
         reservationCart.add(reservation);
 
@@ -125,14 +125,16 @@ class PlotCatalogController {
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
 
-	/*
-    @GetMapping("/seasonalplots")
-    String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
-        var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
-        model.addAttribute("allSeasonalPlots", x);
-        model.addAttribute("searchQuery", query);
-        return "old/seasonalplotcatalog";
-    }*/
+    /*
+     * @GetMapping("/seasonalplots")
+     * String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query)
+     * {
+     * var x = plotCatalog.findByType(Plot.PlotType.SEASONAL);
+     * model.addAttribute("allSeasonalPlots", x);
+     * model.addAttribute("searchQuery", query);
+     * return "old/seasonalplotcatalog";
+     * }
+     */
 
     @GetMapping("/management/plots")
     String plots(Model model) {

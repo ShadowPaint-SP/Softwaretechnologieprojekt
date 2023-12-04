@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-
 @Component
 @Order(10)
 class CustomerDataInitializer implements DataInitializer {
@@ -39,7 +38,6 @@ class CustomerDataInitializer implements DataInitializer {
         this.customerManagement = customerManagement;
     }
 
-
     @Override
     public void initialize() {
 
@@ -54,7 +52,7 @@ class CustomerDataInitializer implements DataInitializer {
 
         var password = "123";
         List.of(
-			    new RegistrationForm("meister", password),
+                new RegistrationForm("meister", password),
                 new RegistrationForm("hans", password),
                 new RegistrationForm("dextermorgan", password),
                 new RegistrationForm("earlhickey", password),

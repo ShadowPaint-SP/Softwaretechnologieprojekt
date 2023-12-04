@@ -1,6 +1,5 @@
 package campingplatz.utils;
 
-
 import campingplatz.reservation.Reservation;
 import campingplatz.reservation.ReservationEntry;
 import one.util.streamex.StreamEx;
@@ -10,7 +9,6 @@ import javax.money.MonetaryAmount;
 
 import java.time.Duration;
 import java.util.ArrayList;
-
 
 import java.util.Iterator;
 import java.util.List;
@@ -36,25 +34,27 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 
 	Class<? extends Reservation<T>> reservationType;
 
-
-	public Cart(Class<? extends Reservation<T>> reservationType){
+	public Cart(Class<? extends Reservation<T>> reservationType) {
 		this.reservationType = reservationType;
 	}
 
-	public List<Reservation<T>> getReservationsOfUser(UserAccount user){
+	public List<Reservation<T>> getReservationsOfUser(UserAccount user) {
 
 		// sort the cart by the name of its elements first and date second.
 		this.sort(ReservationEntry::compareTo);
 
-		// groups all consecutive ReservationEntries belonging to the same reservation together
-		// if two entries have differing products, they can not be of the same reservation
-		// if the two times are more than smallestunit apart, they can not be of the same reservation
+		// groups all consecutive ReservationEntries belonging to the same reservation
+		// together
+		// if two entries have differing products, they can not be of the same
+		// reservation
+		// if the two times are more than smallestunit apart, they can not be of the
+		// same reservation
 		var stream = StreamEx.of(this.stream());
 		var groupedReservationEntries = stream.groupRuns((first, second) -> {
 			var firstName = first.getProduct().getName();
 			var secondName = second.getProduct().getName();
 			var equalNames = firstName.equals(secondName);
-			if (!equalNames){
+			if (!equalNames) {
 				return false;
 			}
 
@@ -94,7 +94,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 		var end = reservation.getEnd();
 
 		var len = begin.until(end, reservation.getIntervalUnit()) + 1;
-		for (int i = 0; i < len; i++){
+		for (int i = 0; i < len; i++) {
 			var time = begin.plus(i, reservation.getIntervalUnit());
 			var reservationEntry = new ReservationEntry<>(prod, time);
 			this.add(reservationEntry);
@@ -114,11 +114,11 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 	}
 
 	@Override
-	public  MonetaryAmount getPrice() {
+	public MonetaryAmount getPrice() {
 		var reservations = getReservationsOfUser(null);
 
 		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var reservation : reservations){
+		for (var reservation : reservations) {
 			acuumulator.add(reservation.getPrice());
 		}
 

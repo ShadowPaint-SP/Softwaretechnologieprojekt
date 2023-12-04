@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 
-
 @Entity
 public class SeasonalPlots extends Plot {
 
@@ -15,13 +14,16 @@ public class SeasonalPlots extends Plot {
 	@Getter
 	private double waterMeter;
 
-	@Getter @Setter
-	private String permanentCamper;	//Change to Customer
+	@Getter
+	@Setter
+	private String permanentCamper; // Change to Customer
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	private PaymentMethod paymentMethod;
 
-	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, String permanentCamper, PaymentMethod paymentMethod) {
+	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter,
+			double waterMeter, String permanentCamper, PaymentMethod paymentMethod) {
 		super(name, size, price, parking);
 		this.electricityMeter = electricityMeter;
 		this.waterMeter = waterMeter;
@@ -32,16 +34,16 @@ public class SeasonalPlots extends Plot {
 	public SeasonalPlots() {
 	}
 
-	public double setElectricityMeter(double electricityMeter) { //returns the electricity costs for this time period
+	public double setElectricityMeter(double electricityMeter) { // returns the electricity costs for this time period
 		double electricity = electricityMeter - this.electricityMeter;
 		this.electricityMeter = electricityMeter;
-		return Math.ceil(electricity* Config.getElectricityCosts()*100)/100;
+		return Math.ceil(electricity * Config.getElectricityCosts() * 100) / 100;
 	}
 
-	public double setWaterMeter(double waterMeter) {  //returns the water costs for this time period
+	public double setWaterMeter(double waterMeter) { // returns the water costs for this time period
 		double water = waterMeter - this.waterMeter;
 		this.waterMeter = waterMeter;
-		return Math.ceil(water* Config.getWaterCosts()*100)/100;
+		return Math.ceil(water * Config.getWaterCosts() * 100) / 100;
 	}
 
 	public enum PaymentMethod {

@@ -29,13 +29,12 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
     @OneToOne //
     private UserAccount userAccount;
 
-	@SuppressWarnings({ "unused", "deprecation" })
     public Customer() {
     }
 
     public Customer(UserAccount userAccount) {
         this.userAccount = userAccount;
-    
+
     }
 
     @Override
@@ -59,7 +58,7 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
     public static final class CustomerIdentifier implements Identifier, Serializable {
 
         private static final long serialVersionUID = 7740660930809051850L;
-        private final @SuppressWarnings("unused") UUID identifier;
+        private final UUID identifier;
 
         /**
          * Creates a new unique identifier for {@link Customer}s.
@@ -77,8 +76,7 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
             this.identifier = identifier;
         }
 
-
-		/*
+        /*
          * (non-Javadoc)
          * 
          * @see java.lang.Object#hashCode()
@@ -93,7 +91,6 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
 
             return result;
         }
-
 
         @Override
         public boolean equals(Object obj) {

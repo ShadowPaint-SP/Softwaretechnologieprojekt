@@ -13,11 +13,12 @@ public class PlotReservation extends Reservation<Plot> {
 	public PlotReservation() {
 		super();
 	}
+
 	public PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure) {
 		super(userAccount, plot, arrival, departure);
 	}
 
-	public ChronoUnit getIntervalUnit(){
+	public ChronoUnit getIntervalUnit() {
 		return ChronoUnit.DAYS;
 	}
 }
