@@ -18,8 +18,7 @@ public class DetailedProduct extends Product {
 
 	public DetailedProduct(String name, Money price) {
 		super(name, price);
-		// TODO placeholder path einfügen
-		this.imagePath = "";
+		this.imagePath = "/img/placeholder.png";
 		this.desc = "";
 	}
 
