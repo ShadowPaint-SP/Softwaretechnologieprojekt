@@ -8,7 +8,7 @@ import org.salespointframework.catalog.Product;
 @Getter
 public class DetailedProduct extends Product {
 	@Setter
-	private String image_path;
+	private String imagePath;
 	@Setter
 	private String desc;
 
@@ -17,13 +17,13 @@ public class DetailedProduct extends Product {
 	public DetailedProduct(String name, Money price){
 		super(name, price);
 		// TODO placeholder path einfügen
-		this.image_path = "";
+		this.imagePath = "";
 		this.desc = "";
 	}
 
 	public DetailedProduct(String name, Money price, String image_path, String description){
 		super(name, price);
-		this.image_path = image_path;
+		this.imagePath = image_path;
 		this.desc = description;
 	}
 }
