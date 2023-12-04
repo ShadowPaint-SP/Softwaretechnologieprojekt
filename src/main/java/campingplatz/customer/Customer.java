@@ -29,8 +29,8 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
     @OneToOne //
     private UserAccount userAccount;
 
-    @SuppressWarnings("unused")
-    private Customer() {
+	@SuppressWarnings({ "unused", "deprecation" })
+    public Customer() {
     }
 
     public Customer(UserAccount userAccount) {
@@ -38,11 +38,6 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
     
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.data.domain.Persistable#getId()
-     */
     @Override
     public CustomerIdentifier getId() {
         return id;
@@ -82,7 +77,8 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
             this.identifier = identifier;
         }
 
-        /*
+
+		/*
          * (non-Javadoc)
          * 
          * @see java.lang.Object#hashCode()
@@ -98,11 +94,7 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
             return result;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
+
         @Override
         public boolean equals(Object obj) {
 

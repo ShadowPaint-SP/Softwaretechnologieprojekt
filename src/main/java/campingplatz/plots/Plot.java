@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.salespointframework.catalog.Product;
 import org.javamoney.moneta.Money;
 
+
 @Entity
 public class Plot extends Product {
 
@@ -17,17 +18,13 @@ public class Plot extends Product {
     @Setter
     private ParkingLot parking;
 
-    @Getter
-    @Setter
-    private PlotType type;
-
     public Plot(String name, Double size, Money price, ParkingLot parking, PlotType type) {
 
         super(name, price);
 
         this.size = size;
         this.parking = parking;
-        this.type = type;
+
     }
 
     @SuppressWarnings({ "unused", "deprecation" })
@@ -44,9 +41,8 @@ public class Plot extends Product {
         return getSize() + " m²";
     }
 
-    public enum PlotType {
-        NONE, SEASONAL
-    }
+
+
 
     public enum ParkingLot {
         NONE(0, "catalog.parking.no"),

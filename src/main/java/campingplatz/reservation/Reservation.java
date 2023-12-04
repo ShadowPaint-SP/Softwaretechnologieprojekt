@@ -1,117 +1,97 @@
 package campingplatz.reservation;
 
 import campingplatz.utils.Priced;
-import campingplatz.plots.Plot;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import javax.money.MonetaryAmount;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-import jakarta.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-
 import lombok.Setter;
+
+import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
+/**
+ * The Base class of all Reservations.
+ * Create more Reservations by inheriting from this class
+ * and specifying the Type of the reservation. Keep in mind,
+ * that this is done, because a JPA Entity cannot be generic
+ *
+ * */
 @Entity
 @EqualsAndHashCode
-public class Reservation implements Priced {
+public class Reservation<T extends Product> implements Priced {
 
-    @Getter
-    private @Id UUID id;
+    @Getter @Id
+    public UUID id;
 
-    @ManyToOne
+
     @Getter
     @Setter
+	@ManyToOne
     private UserAccount user;
 
-    @ManyToOne
     @Getter
     @Setter
-    private Plot plot;
+	@ManyToOne
+    private T product;
+
 
     @Getter
     @Setter
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate arrival;
+    private LocalDateTime begin;
 
     @Getter
     @Setter
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate departure;
+    private LocalDateTime end;
 
     public Reservation() {
+		this.id = UUID.randomUUID();
+	}
 
-    }
+    public Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end) {
 
-    public Reservation(UserAccount user, Plot plot, LocalDate arrival, LocalDate departure) {
-
-        this.id = UUID.randomUUID();
+		this.id = UUID.randomUUID();
 
         this.user = user;
-        this.plot = plot;
+        this.product = product;
 
-        this.arrival = arrival;
-        this.departure = departure;
+        this.begin = begin;
+        this.end = end;
     }
+
+
 
     @Override
     public MonetaryAmount getPrice() {
-        var days = getDays();
-        var price = plot.getPrice();
-
-        return price.multiply(days);
+        var price = product.getPrice();
+        return price.multiply(duration());
     }
 
-    public long getDays() {
-        return ChronoUnit.DAYS.between(this.arrival, this.departure);
-    }
+	// meant to be overridden
+	public ChronoUnit getIntervalUnit(){
+		return null;
+	}
 
     /**
-     * return true, if this reservation is bordering
-     * or overlapping with the given reservation
-     */
-    public boolean neighbors(Reservation with) {
-
-        if (!this.getPlot().getId().equals(with.getPlot().getId())) {
-            return false;
-        }
-
-        var firstArrival = this.getArrival();
-        var secondArrival = with.getArrival();
-        var firstDeparture = this.getDeparture().plusDays(1);
-        var secondDeparture = with.getDeparture().plusDays(1);
-
-        var a = !firstArrival.isBefore(secondArrival) && !firstArrival.isAfter(secondDeparture);
-        var b = !firstDeparture.isBefore(secondArrival) && !firstDeparture.isAfter(secondDeparture);
-        var c = firstArrival.isBefore(secondArrival) && firstDeparture.isAfter(secondDeparture);
-        return a || b || c;
+	 * Get the duration between begin and end. The unit of the duration
+	 * is determined by the getern value of {@link Reservable.getIntervalUnit}
+	 * */
+	public long duration() {
+        var units = getIntervalUnit();
+		return units.between(begin, end);
     }
 
-    /**
-     * return true, if this reservation is
-     * overlapping with the given reservation
-     */
-    public boolean intersects(Reservation with) {
-
-        if (!this.getPlot().getId().equals(with.getPlot().getId())) {
-            return false;
-        }
-
-        var firstArrival = this.getArrival();
-        var secondArrival = with.getArrival();
-        var firstDeparture = this.getDeparture();
-        var secondDeparture = with.getDeparture();
-
-        var a = !firstArrival.isBefore(secondArrival) && !firstArrival.isAfter(secondDeparture);
-        var b = !firstDeparture.isBefore(secondArrival) && !firstDeparture.isAfter(secondDeparture);
-        var c = firstArrival.isBefore(secondArrival) && firstDeparture.isAfter(secondDeparture);
-        return a || b || c;
-    }
 }
+
+
+

@@ -20,7 +20,7 @@
 		<groupId>de.tudresden.inf.st.lab</groupId>
 		<artifactId>st-lab-parent</artifactId>
 		<version>4.0.0</version>
-		<relativePath />
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -60,12 +60,14 @@
 			<version>3.6.0</version>
 		</dependency>
 
+		<!-- junit for tesing -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<version>5.9.3</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- mocks for testing -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -73,6 +75,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- utility for working with streams -->
+		<dependency>
+			<groupId>one.util</groupId>
+			<artifactId>streamex</artifactId>
+			<version>0.8.2</version>
+		</dependency>
 
 	</dependencies>
 	<repositories>

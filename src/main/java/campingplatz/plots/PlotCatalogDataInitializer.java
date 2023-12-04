@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+
 @Component
 @Order(20)
 class PlotCatalogDataInitializer implements DataInitializer {
