@@ -1,0 +1,34 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+interface campingplatz.utils.Priced
+
+
+
+package campingplatz.reservation{
+    class PlotReservation{
+    }
+    class Reservation<T extends Product>{
+    }
+    class ReservationController{
+    }
+    class ReservationDataInitializer{
+    }
+    class ReservationEntry<T extends Product>{
+    }
+    interface ReservationRepository<U extends Product>{
+    }
+
+}
+
+PlotReservation --|> Reservation: <<bind T->Plot>>
+
+Reservation ..|> Priced
+
+@enduml
