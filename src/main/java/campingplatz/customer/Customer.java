@@ -4,12 +4,17 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
 import org.jmolecules.ddd.types.Identifier;
 import org.salespointframework.core.AbstractAggregateRoot;
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import campingplatz.customer.Customer.CustomerIdentifier;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 // Salespoint bietet nur eine UserAccount Verwaltung, für weitere Attribute sollte eine extra
@@ -106,4 +111,29 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
             return this.identifier.equals(that.identifier);
         }
     }
+
+
+
+	public static enum Roles {
+		NONE(Role.of("")),
+		CUSTOMER(Role.of("CUSTOMER")),
+		EMPLOYEE(Role.of("CUSTOMER"), Role.of("EMPLOYEE")),
+		BOSS(Role.of("CUSTOMER"), Role.of("EMPLOYEE"), Role.of("BOSS"));
+
+		private List<Role> roles;
+
+		Roles(Role... roles){
+			this.roles = Arrays.stream(roles).toList();
+		}
+
+		public List<Role> getValue(){
+			return roles;
+		}
+
+		public Role getrole(){
+			return roles.get(roles.size() - 1);
+		}
+
+
+	}
 }

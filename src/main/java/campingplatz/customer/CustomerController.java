@@ -2,6 +2,7 @@ package campingplatz.customer;
 
 import jakarta.validation.Valid;
 
+import org.salespointframework.useraccount.Password;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ class CustomerController {
         }
 
         // Falls alles in Ordnung ist legen wir einen Customer an
-        customerManagement.createCustomer(form);
+        customerManagement.create(form.getName(), Password.UnencryptedPassword.of(form.getPassword()), Customer.Roles.CUSTOMER.getValue());
 
         return "redirect:/";
     }

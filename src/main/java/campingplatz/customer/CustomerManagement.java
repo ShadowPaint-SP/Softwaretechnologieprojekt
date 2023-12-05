@@ -1,5 +1,6 @@
 package campingplatz.customer;
 
+import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Password.UnencryptedPassword;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccountManagement;
@@ -8,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CustomerManagement {
-
-    public static final Role CUSTOMER_ROLE_DC = Role.of("CUSTOMER");
 
     private final CustomerRepository customers;
     private final UserAccountManagement userAccounts;
@@ -41,13 +42,8 @@ public class CustomerManagement {
      * @param form must not be {@literal null}.
      * @return the new {@link Customer} instance.
      */
-    public Customer createCustomer(RegistrationForm form) {
-
-        Assert.notNull(form, "Registration form must not be null!");
-
-        var password = UnencryptedPassword.of(form.getPassword());
-
-        var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_DC);
+    public Customer create(String username, UnencryptedPassword password, List<Role> roles) {
+        var userAccount = userAccounts.create(username, password, roles);
         return customers.save(new Customer(userAccount));
 
     }

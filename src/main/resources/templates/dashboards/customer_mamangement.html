@@ -12,8 +12,7 @@
 					<tr>
 						<th></th>
 						<th>Name</th>
-						<th>Job</th>
-						<th>Favorite Color</th>
+						<th>Role</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,9 +26,8 @@
 					<!-- row 2 -->
 					<tr th:each="customer, iStat : ${Customers}" class="hover">
 						<th th:text="${iStat.count}">2</th>
-						<td>Hart Hagerty</td>
-						<td th:text="${customer.getUserAccount}"></td>
-						<td>Purple</td>
+						<td th:text="${customer.getUserAccount.username}"></td>
+						<td th:value="${customer.getUserAccount().getRoles().iterator().next()}"></td>
 					</tr>
 					<!-- row 3 -->
 					<!--<tr>

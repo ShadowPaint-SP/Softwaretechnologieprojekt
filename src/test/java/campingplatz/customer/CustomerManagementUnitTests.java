@@ -25,12 +25,12 @@ class CustomerManagementUnitTests {
 		CustomerManagement customerManagement = new CustomerManagement(repository, userAccountManager);
 
 		RegistrationForm form = new RegistrationForm("name", "password");
-		Customer customer = customerManagement.createCustomer(form);
+		Customer customer = customerManagement.create(form.getName(), UnencryptedPassword.of(form.getPassword()), Customer.Roles.CUSTOMER.getValue());
 
 		verify(userAccountManager, times(1)) //
 				.create(eq(form.getName()), //
 						eq(UnencryptedPassword.of(form.getPassword())), //
-						eq(CustomerManagement.CUSTOMER_ROLE_DC));
+						eq(Customer.Roles.CUSTOMER.getValue()));
 
 		assertThat(customer.getUserAccount()).isNotNull();
 	}

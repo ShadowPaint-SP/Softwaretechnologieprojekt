@@ -48,15 +48,15 @@ class CustomerDataInitializer implements DataInitializer {
 
         LOG.info("Creating default users and customers.");
 
-        userAccountManagement.create("boss", UnencryptedPassword.of("123"), Role.of("BOSS"));
+		var password = "123";
 
-        var password = "123";
-        List.of(
-                new RegistrationForm("meister", password),
-                new RegistrationForm("hans", password),
-                new RegistrationForm("dextermorgan", password),
-                new RegistrationForm("earlhickey", password),
-                new RegistrationForm("mclovinfogell", password))
-                .forEach(customerManagement::createCustomer);
+		customerManagement.create("meister", UnencryptedPassword.of(password), Customer.Roles.EMPLOYEE.getValue());
+		customerManagement.create("boss", UnencryptedPassword.of(password), Customer.Roles.BOSS.getValue());
+		customerManagement.create("hans", UnencryptedPassword.of(password), Customer.Roles.CUSTOMER.getValue());
+		customerManagement.create("jürgen", UnencryptedPassword.of(password), Customer.Roles.CUSTOMER.getValue());
+		customerManagement.create("westphal", UnencryptedPassword.of(password), Customer.Roles.EMPLOYEE.getValue());
+		customerManagement.create("dextermorgan", UnencryptedPassword.of(password), Customer.Roles.CUSTOMER.getValue());
+
+
     }
 }
