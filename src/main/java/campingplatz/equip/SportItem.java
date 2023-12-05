@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
-import org.salespointframework.catalog.Product;
 
 import java.time.LocalTime;
 
@@ -13,13 +12,10 @@ import java.time.LocalTime;
 @Entity
 public class SportItem extends DetailedProduct {
 
-import java.time.LocalTime;
-
-@Entity
-public class SportItem extends Product {
 	@Getter
 	@Setter
 	private int amount;
+
 	@Setter
 	private Money deposit;
 

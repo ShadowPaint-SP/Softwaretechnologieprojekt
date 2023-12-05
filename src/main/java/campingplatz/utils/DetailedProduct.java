@@ -27,4 +27,5 @@ public class DetailedProduct extends Product {
 		this.imagePath = image_path;
 		this.desc = description;
 	}
+
 }
