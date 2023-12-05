@@ -4,6 +4,8 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
+
 import static org.salespointframework.core.Currencies.EURO;
 
 @Component
@@ -22,5 +24,11 @@ public class SportItemCatalogDataInitializer implements DataInitializer {
 		sportItemCatalog.save(new SportItem("Tischtennisgarnituren", Money.of(2, EURO), Money.of(100, EURO), "Tischtennis", 2));
 		sportItemCatalog.save(new SportItem("Volleyball", Money.of(0.5, EURO), Money.of(14, EURO), "Volleyball", 6));
 		sportItemCatalog.save(new SportItem("Volleyballnetz", Money.of(2, EURO), Money.of(25, EURO), "Volleyball", 3));
+
+
+		sportItemCatalog.findAll().forEach(item -> {
+			item.setStartTime(LocalTime.of(10, 0));
+			item.setEndTime(LocalTime.of(12, 0));
+		});
 	}
 }

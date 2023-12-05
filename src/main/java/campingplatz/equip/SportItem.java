@@ -1,20 +1,31 @@
 package campingplatz.equip;
 
 import jakarta.persistence.Entity;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
+
+import java.time.LocalTime;
 
 @Entity
 public class SportItem extends Product {
 	@Getter
 	@Setter
 	private int amount;
+
 	@Getter
 	@Setter
 	private Money deposit;
+
+	@Getter
+	@Setter
+	private LocalTime startTime;
+
+	@Getter
+	@Setter
+	private LocalTime endTime;
+
 
 	@SuppressWarnings({ "unused", "deprecation" })
 	public SportItem() {
@@ -34,5 +45,11 @@ public class SportItem extends Product {
 		this.amount = amount;
 		this.deposit = deposit;
 	}
+
+	public int getDepositInt(){
+		return deposit.getNumber().intValue();
+	}
+
+
 
 }
