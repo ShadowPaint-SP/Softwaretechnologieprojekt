@@ -1,76 +1,78 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{dashboard.title})}">
-
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=#{dashboard.title})}" >
 <head></head>
-
 <body>
+
 	<main layout:fragment="input">
+
+        <form th:action="@{/addSportItem}" method="post">
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" required/>
+
+            <label for="price">Price: </label>
+            <input type="number" id="price" name="price" step="0.1" required/>
+            <td th:if="${item != null}" th:text="${item.price != null ? item.price.getNumber() : ''}"></td>
+
+            <label for="deposit">Deposit: </label>
+            <input type="number" id="deposit" name="deposit"  required/>
+            <td th:if="${item != null}" th:text="${item.deposit != null ? item.deposit.getNumber() : ''}"></td>
+
+            <label for="category">Category: </label>
+            <input type="text" id="category" name="category" required/>
+
+
+            <label for="amount">Amount: </label>
+            <input type="number" id="amount" name="amount" min="1" required/>
+
+            <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}"/>
+
+            <button class="btn btn-primary" type="submit">Add New SportItem</button>
+        </form>
+
+        <form th:action="@{/changeSportItemAmount}" method="post">
+            <label for="nameItem">Name: </label>
+            <input type="text" id="nameItem" name="nameItem" required/>
+
+            <label for="amountItem">Amount: </label>
+            <input type="number" id="amountItem" name="amountItem" min="1" required/>
+
+            <input type="hidden" id="equip_id" name="equip_id" th:value="${item != null ? item.id : ''}"/>
+
+            <button class="btn btn-primary" type="submit">Change Amount</button>
+        </form>
+
+
+
+        <form th:action="@{/deleteSportItem}" method="post">
+            <label for="name">Name: </label>
+            <input type="text" id="itemName" name="itemName" required/>
+
+            <input type="hidden" id="id" name="id" th:value="${item != null ? item.id : ''}"/>
+
+            <button class="btn btn-primary" type="submit">Delete SportItem</button>
+        </form>
+
 		<div class="overflow-x-auto">
-            <form th:action="@{/addSportItem}" method="post">
-                <label for="name">Name: </label>
-                <input type="text" id="name" name="name" required/>
-
-                <label for="price">Price: </label>
-                <input type="number" id="price" name="price" step="0.1" required/>
-                <td th:if="${item != null}" th:text="${item.price != null ? item.price.getNumber() : ''}"></td>
-
-                <label for="deposit">Deposit: </label>
-                <input type="number" id="deposit" name="deposit"  required/>
-                <td th:if="${item != null}" th:text="${item.deposit != null ? item.deposit.getNumber() : ''}"></td>
-
-                <label for="category">Category: </label>
-                <input type="text" id="category" name="category" required/>
-
-
-                <label for="amount">Amount: </label>
-                <input type="number" id="amount" name="amount" min="1" required/>
-
-                <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}"/>
-
-                <button class="btn btn-primary" type="submit">Add New SportItem</button>
-            </form>
-
-            <p>&nbsp;</p>
-
-            <p>&nbsp;</p>
-
-            <table class="table table-zebra">
-                <thead>
-                <tr>
-                    <th th:text="#{sport.name}"></th>
-                    <th th:text="#{sport.rental_fee}"></th>
-                    <th th:text="#{sport.deposit}"></th>
-                    <th th:text="#{sport.amount}"></th>
-                    <th th:text="#{sport.amount_to_reserve}"></th>
-                    <th th:text="#{sport.start_time}"></th>
-                    <th th:text="#{sport.end_time}"></th>
-
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item, iStat : ${items}" class="hover">
-                    <td th:text="${item.name}"></td>
-                    <td th:text="${item.price}"></td>
-                    <td th:text="${item.deposit}"></td>
-                    <td th:text="${item.amount}"></td>
-                    <td><input type="number" id="quantity" name="amount" min="1" max="${item.amount}" /></td>
-                    <td>
-                        <label for="startTime">Start time: </label>
-                        <input type="time" id="startTime" min="10:00" max="22:00" required/>
-                    </td>
-                    <td>
-                        <label for="endTime"> End time: </label>
-                        <input type="time" id="endTime" min="10:00" max="22:00" required/>
-                    </td>
-
-                    <td><button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${item.id}"
-                                th:text="#{sport.book}"></button></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
+			<table class="table table-zebra">
+				<thead>
+					<tr>
+						<th th:text="#{sport.name}"></th>
+						<th th:text="#{sport.rental_fee}"></th>
+						<th th:text="#{sport.deposit}"></th>
+						<th th:text="#{sport.amount}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item, iStat : ${items}" class="hover">
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.price}"></td>
+						<td th:text="${item.deposit}"></td>
+                        <td th:text="${item.amount}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</main>
 </body>
-
 </html>

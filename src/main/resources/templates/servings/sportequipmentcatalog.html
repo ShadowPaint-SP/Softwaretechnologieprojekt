@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout.html(title=#{sportequip.title})}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=#{sportequip.title})}">
 
 <head></head>
 
 <body>
-    <main layout:fragment="input">
-        <div class="overflow-x-auto">
-            <table class="table table-zebra">
-                <!-- head -->
-                <thead>
-                    <tr>
-                        <th th:text="#{sport.name}"></th>
-                        <th th:text="#{sport.rental_fee}"></th>
-                        <th th:text="#{sport.deposit}"></th>
-                        <th th:text="#{sport.amount}"></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="item, iStat : ${items}" class="hover">
-                        <td th:text="${item.name}"></td>
-                        <td th:text="${item.price}"></td>
-                        <td th:text="${item.deposit}"></td>
-                        <td th:text="${item.amount}"></td>
-                        <td><button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${item.id}"
-                                    th:text="#{sport.book}"></button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
+   <div class="container">
+       <section layout:fragment="input">
+           <div class="ui link cards" th:remove="all-but-first">
+               <div class="ui card" th:each="item, iStat : ${items}">
+                   <div class="content">
+                       <a th:href="@{/item/{id}(id=${item.id})}">
+                           <img class="ui image" th:src="${item.imagePath}" alt="Sport Item Image"/>
+                       </a>
+                       <p>&nbsp;</p>
+                       <p>&nbsp;</p>
+                   </div>
+               </div>
+           </div>
+       </section>
+   </div>
 </body>
 
 </html>
+
+
+
