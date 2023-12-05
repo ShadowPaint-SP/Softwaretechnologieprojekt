@@ -2,7 +2,6 @@ package campingplatz.equip;
 
 import campingplatz.utils.DetailedProduct;
 import jakarta.persistence.Entity;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
@@ -11,22 +10,27 @@ import org.javamoney.moneta.Money;
 @Entity
 public class SportItem extends DetailedProduct {
 
+
 	@Setter
 	private int amount;
+
 	@Setter
 	private Money deposit;
 
+
+	@SuppressWarnings({ "unused" })
 	public SportItem() {
 	}
 
 	// rental_fee, price = Leihgebühr | deposit = Kaution
+
+
 	public SportItem(String name, Money price, Money deposit, String category) {
 		super(name, price);
 		this.addCategory(category);
 		this.amount = 0;
 		this.deposit = deposit;
 	}
-
 	public SportItem(String name, Money rental_fee, Money deposit, String category, int amount) {
 		super(name, rental_fee);
 		this.addCategory(category);
@@ -34,13 +38,7 @@ public class SportItem extends DetailedProduct {
 		this.deposit = deposit;
 	}
 
-	public SportItem(String name,
-			Money rental_fee,
-			Money deposit,
-			String category,
-			int amount,
-			String image_path,
-			String description) {
+	public SportItem(String name, Money rental_fee, Money deposit, String category, int amount, String image_path, String description) {
 		super(name, rental_fee, image_path, description);
 		this.addCategory(category);
 		this.amount = amount;
