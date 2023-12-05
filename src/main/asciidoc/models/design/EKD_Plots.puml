@@ -1,6 +1,10 @@
 @startuml
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
+
+'hide circle
+hide empty fields
+hide empty methods
 'https://plantuml.com/sequence-diagram
 package campingplatz.plots {
 class Plot {
@@ -40,7 +44,7 @@ interface PlotCatalog{
 interface SiteState {
 +getArrival(): LocalDate
 +getDepature(): LocalDate
-...
+
 
 }
 }
