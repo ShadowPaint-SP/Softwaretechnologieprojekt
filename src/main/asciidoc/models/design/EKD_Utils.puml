@@ -1,0 +1,113 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+
+package org.springframework.security.access.prepost{
+interface PreAuthorize
+}
+package org.springframework.stereotype {
+interface Controller
+}
+
+package org.springframework.ui {
+interface Model
+}
+
+package org.springframework.web.bind.annotation {
+interface GetMapping
+}
+
+package org.salespointframework.useraccount {
+class UserAccount
+}
+
+package org.salespointframework.catalog {
+class Product
+}
+
+package org.salespointframework.core {
+interface Currencies
+}
+
+package javax.money {
+interface MonetaryAmount
+}
+
+package java.util {
+class ArrayList
+interface Iterator
+interface List
+}
+
+package java.util.stream{
+class Collectors
+}
+
+package campingplatz.reservation{
+class Reservation
+class ReservationEntry
+}
+
+package org.javamoney.moneta {
+class Money
+}
+
+package one.util.streamex {
+class StreamEx
+}
+
+package campingplatz.utils {
+    class DetailedProduct extends org.salespointframework.catalog.Product{
+    -imagePath: String
+    -desc: String
+    +DetailedProduct(String name, Money price, String imagePath, String description)
+    +getImagePath(): String
+    +setImagePath(): void
+    +getDesc(): String
+    +setDesc(): void
+    }
+    class Cart<T extends Product> extends java.util.ArrayList implements Priced{
+    +reservationType: Class<? extends Reservation<T>>
+    +getReservationOfUser(UserAccount user): List<Reservation<T>>
+    +add(Reservation<T> reservation): boolean
+    +iterator(): Iterator<ReservationEntry<T>>
+    +size(): int
+    +getPrice(): MonetaryAmount
+    }
+    interface Priced{
+    +gerPriced(): MonetaryAmount
+    }
+    class Utils{
+    -Utils()
+    +{static} createInstance(Class<T> cls): <T> T
+    }
+    class DashboardController{
+    +sportsequipment(Model model): String
+    }
+
+}
+
+Cart ..> Reservation: <<use>>
+Cart ..> ReservationEntry: <<use>>
+Cart ..> MonetaryAmount: <<use>>
+Cart ..> Iterator: <<use>>
+Cart ..> List: <<use>>
+Cart ..> Collectors: <<use>>
+Cart ..> UserAccount: <<use>>
+Cart ..> Currencies: <<use>>
+Cart ..> StreamEx: <<use>>
+Cart ..> Money: <<use>>
+
+Priced ..> MonetaryAmount: <<use>>
+
+DetailedProduct ..> Money: <<use>>
+
+DashboardController ..> Model: <<use>>
+DashboardController ..> Controller: <<use>>
+DashboardController ..> PreAuthorize: <<use>>
+DashboardController ..> GetMapping: <<use>>
+
+@enduml

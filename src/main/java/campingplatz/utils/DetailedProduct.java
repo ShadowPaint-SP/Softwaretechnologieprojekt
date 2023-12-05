@@ -22,9 +22,9 @@ public class DetailedProduct extends Product {
 		this.desc = "";
 	}
 
-	public DetailedProduct(String name, Money price, String image_path, String description) {
+	public DetailedProduct(String name, Money price, String imagePath, String description) {
 		super(name, price);
-		this.imagePath = image_path;
+		this.imagePath = imagePath;
 		this.desc = description;
 	}
 

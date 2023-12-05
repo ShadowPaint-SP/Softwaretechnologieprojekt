@@ -7,14 +7,14 @@ hide empty fields
 hide empty methods
 'https://plantuml.com/sequence-diagram
 package campingplatz.plots {
-class Plot {
--size : Double
+class Plot extends DetailedProduct {
+-size: Double
+-parking: ParkingLot
 --
 +Plot(name: String, size: Double, price: Money, parking: ParkingLot)
-+ Plot
 +getPriceString(): String
-+getParking():ParkingLot
-+getSize():Double
++getParking(): ParkingLot
++getSize(): Double
 +getSizeString(): String
 
 }
@@ -28,7 +28,7 @@ CAMPER_PARKING
 +size: Integer
 +label: String
 --
--ParkingLot(size: Integer, label: String)
++ParkingLot(size: Integer, label: String)
 }
 class PlotCatalogController{
 +PlotCatalogController(plotCatalog: PlotCatalog, reservationRepository: ReservationRepository)
