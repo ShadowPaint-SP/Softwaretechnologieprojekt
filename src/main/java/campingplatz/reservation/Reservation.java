@@ -32,7 +32,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @EqualsAndHashCode
-public class Reservation<T extends Product> implements Priced {
+public abstract class Reservation<T extends Product> implements Priced {
 
     @Getter
     @Id
@@ -80,9 +80,7 @@ public class Reservation<T extends Product> implements Priced {
     }
 
     // meant to be overridden
-    public ChronoUnit getIntervalUnit() {
-        return null;
-    }
+    public abstract ChronoUnit getIntervalUnit();
 
     /**
      * Get the duration between begin and end. The unit of the duration
