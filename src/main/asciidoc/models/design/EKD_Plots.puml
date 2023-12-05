@@ -4,6 +4,27 @@ hide empty methods
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+interface org.salespointframework.catalog.Catalog<T extends Product>
+
+class java.util.HashMap<K, V>
+
+package campingplatz{
+    class utils.DetailedProduct
+    class utils.Cart
+    package reservation
+}
+'class campingplatz.utils.DetailedProduct
+
+package jakarta
+
+package org{
+    package springframework
+    package salespointframework
+    interface salespointframework.core.DataInitializer
+}
 
 package campingplatz.plots {
     class Config{
@@ -117,5 +138,31 @@ package campingplatz.plots {
     }
 }
 
+Plot --|> DetailedProduct
+ParkingLot --+ Plot
+Plot ..> jakarta: <<use>>
+
+PlotCatalog --|> Catalog: <<bind T->Plot>>
+SiteState --+ PlotCatalog
+PlotCatalog ..> salespointframework: <<use>>
+PlotCatalog ..> springframework: <<use>>
+
+PlotCatalogAvailabilityTable --|> HashMap: <<bind K, V->Plot, PlotCatalogAvailabilityTable.FieldType[]>>
+FieldType --+ PlotCatalogAvailabilityTable
+Fields --+ PlotCatalogAvailabilityTable
+PlotCatalogAvailabilityTable ..> reservation: <<use>>
+PlotCatalogAvailabilityTable ..> Cart: <<use>>
+PlotCatalogAvailabilityTable ..> salespointframework: <<use>>
+
+PlotCatalogController ..> reservation
+PlotCatalogController ..> salespointframework: <<use>>
+PlotCatalogController ..> springframework: <<use>>
+
+PlotCatalogDataInitializer ..|> DataInitializer
+PlotCatalogController ..> springframework: <<use>>
+
+SeasonalPlots --|> Plot
+
+PaymentMethod --+ SeasonalPlots
 
 @enduml

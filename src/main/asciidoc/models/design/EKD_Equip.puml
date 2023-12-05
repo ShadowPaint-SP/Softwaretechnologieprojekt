@@ -4,32 +4,18 @@ hide empty methods
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 skinparam BackgroundColor #FEFEFE
-
-'skinparam packageStyle Frame
+allowmixing
+skinparam packageStyle Frame
 
 class campingplatz.utils.DetailedProduct
 
-interface jakarta.persistence.Entity
-
-class org.javamoney.moneta.Money
-
-interface org.salespointframework.catalog.Catalog<T extends Product>
-class org.salespointframework.catalog.Product
-class org.salespointframework.useraccount.UserAccount
-interface org.salespointframework.useraccount.web.LoggedIn
-interface org.salespointframework.core.DataInitializer
-
-interface org.springframework.stereotype.Controller
-interface org.springframework.stereotype.Component
-interface org.springframework.ui.Model
-interface org.springframework.web.bind.annotation.GetMapping
-interface org.springframework.web.bind.annotation.PostMapping
-interface org.springframework.web.bind.annotation.RequestParam
-
-interface java.util.List
-class java.util.Optional
-class java.util.stream.Collectors
-
+package org{
+    package springframework
+    package salespointframework{
+        interface catalog.Catalog<T extends Product>
+        interface core.DataInitializer
+    }
+}
 
 package campingplatz.equip {
     class SportItem{
@@ -57,27 +43,16 @@ package campingplatz.equip {
 
 }
 
-SportItem ..> Money: <<use>>
-SportItem ..> Entity: <<use>>
-SportItem -up-|> DetailedProduct
+SportItem -right-|> DetailedProduct
 
-SportItemCatalog ..|> Catalog
+SportItemCatalog .right.|> Catalog: <<bind T->SportItem>>
+
+SportItemCatalogController ..> springframework: <<use>>
+SportItemCatalogController ..> salespointframework: <<use>>
+SportItemCatalogController ..> SportItemCatalog: <<use>>
 
 SportItemCatalogDataInitializer ..|> DataInitializer
-SportItemCatalogDataInitializer ..> Component: <<use>>
-SportItemCatalogDataInitializer ..> Money: <<use>>
+SportItemCatalogDataInitializer ..> SportItemCatalog: <<use>>
 
-SportItemCatalogController ..> Money: <<use>>
-SportItemCatalogController ..> Product: <<use>>
-SportItemCatalogController ..> UserAccount: <<use>>
-SportItemCatalogController ..> LoggedIn: <<use>>
-SportItemCatalogController ..> Controller: <<use>>
-SportItemCatalogController ..> Model: <<use>>
-SportItemCatalogController ..> GetMapping: <<use>>
-SportItemCatalogController ..> PostMapping: <<use>>
-SportItemCatalogController ..> RequestParam: <<use>>
 
-SportItemCatalogController ..> List: <<use>>
-SportItemCatalogController ..> Optional: <<use>>
-SportItemCatalogController ..> Collectors: <<use>>
 @enduml

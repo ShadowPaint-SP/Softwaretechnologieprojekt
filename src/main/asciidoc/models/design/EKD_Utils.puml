@@ -4,61 +4,19 @@ hide empty methods
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
 
-'allowmixing
-
-package org.springframework.security.access.prepost{
-interface PreAuthorize
-}
-package org.springframework.stereotype {
-interface Controller
+package campingplatz{
+    package reservation
 }
 
-package org.springframework.ui {
-interface Model
-}
 
-package org.springframework.web.bind.annotation {
-interface GetMapping
-}
-
-package org.salespointframework.useraccount {
-class UserAccount
-}
-
-package org.salespointframework.catalog {
-class Product
-}
-
-package org.salespointframework.core {
-interface Currencies
-}
-
-package javax.money {
-interface MonetaryAmount
-}
-
-package java.util {
-class ArrayList
-interface Iterator
-interface List
-}
-
-package java.util.stream{
-class Collectors
-}
-
-package campingplatz.reservation{
-class Reservation
-class ReservationEntry
-}
-
-package org.javamoney.moneta {
-class Money
-}
-
-package one.util.streamex {
-class StreamEx
+package org{
+    package springframework
+    package salespointframework{
+    class catalog.Product
+    }
 }
 
 package campingplatz.utils {
@@ -92,29 +50,13 @@ package campingplatz.utils {
 
 }
 
-Cart ..> Reservation: <<use>>
-Cart ..> ReservationEntry: <<use>>
-Cart ..> MonetaryAmount: <<use>>
-Cart ..> Iterator: <<use>>
-Cart ..> List: <<use>>
-Cart ..> Collectors: <<use>>
-Cart ..> UserAccount: <<use>>
-Cart ..> Currencies: <<use>>
-Cart ..> StreamEx: <<use>>
-Cart ..> Money: <<use>>
-Cart --|> ArrayList
+Cart --|> java.util.ArrayList
 Cart ..|> Priced
+Cart ..> salespointframework: <<use>>
+Cart ..> reservation: <<use>>
 
-Priced ..> MonetaryAmount: <<use>>
+DashboardController ..> springframework: <<use>>
 
-DetailedProduct ..> Money: <<use>>
 DetailedProduct --|> Product
-
-DashboardController ..> Model: <<use>>
-DashboardController ..> Controller: <<use>>
-DashboardController ..> PreAuthorize: <<use>>
-DashboardController ..> GetMapping: <<use>>
-
-'campingplatz -- org
 
 @enduml
