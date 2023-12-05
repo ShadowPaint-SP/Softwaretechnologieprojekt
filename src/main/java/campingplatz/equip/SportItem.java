@@ -1,5 +1,6 @@
 package campingplatz.equip;
 
+import campingplatz.utils.DetailedProduct;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,13 +9,17 @@ import org.salespointframework.catalog.Product;
 
 import java.time.LocalTime;
 
+@Getter
+@Entity
+public class SportItem extends DetailedProduct {
+
+import java.time.LocalTime;
+
 @Entity
 public class SportItem extends Product {
 	@Getter
 	@Setter
 	private int amount;
-
-	@Getter
 	@Setter
 	private Money deposit;
 
@@ -46,10 +51,17 @@ public class SportItem extends Product {
 		this.deposit = deposit;
 	}
 
-	public int getDepositInt(){
-		return deposit.getNumber().intValue();
+	public SportItem(String name,
+			Money rental_fee,
+			Money deposit,
+			String category,
+			int amount,
+			String image_path,
+			String description) {
+		super(name, rental_fee, image_path, description);
+		this.addCategory(category);
+		this.amount = amount;
+		this.deposit = deposit;
 	}
-
-
 
 }

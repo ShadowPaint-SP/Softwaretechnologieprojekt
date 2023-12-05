@@ -50,8 +50,6 @@ public class CustomerManagement {
         var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_DC);
         return customers.save(new Customer(userAccount));
 
-        
-
     }
 
     /**
