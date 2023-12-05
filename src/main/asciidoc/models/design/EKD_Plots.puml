@@ -144,25 +144,32 @@ Plot ..> jakarta: <<use>>
 
 PlotCatalog --|> Catalog: <<bind T->Plot>>
 SiteState --+ PlotCatalog
-PlotCatalog ..> salespointframework: <<use>>
-PlotCatalog ..> springframework: <<use>>
 
 PlotCatalogAvailabilityTable --|> HashMap: <<bind K, V->Plot, PlotCatalogAvailabilityTable.FieldType[]>>
 FieldType --+ PlotCatalogAvailabilityTable
 Fields --+ PlotCatalogAvailabilityTable
 PlotCatalogAvailabilityTable ..> reservation: <<use>>
 PlotCatalogAvailabilityTable ..> Cart: <<use>>
-PlotCatalogAvailabilityTable ..> salespointframework: <<use>>
 
 PlotCatalogController ..> reservation
-PlotCatalogController ..> salespointframework: <<use>>
-PlotCatalogController ..> springframework: <<use>>
 
 PlotCatalogDataInitializer ..|> DataInitializer
-PlotCatalogController ..> springframework: <<use>>
 
 SeasonalPlots --|> Plot
 
 PaymentMethod --+ SeasonalPlots
+'layout tests
+PlotCatalogDataInitializer ..> springframework: <<use>>
+PlotCatalogController .. (PlotCatalogDataInitializer, springframework)
+PlotCatalog .. (PlotCatalogDataInitializer, springframework)
+'PlotCatalogController ..> springframework: <<use>>
+'PlotCatalog ..> springframework: <<use>>
+
+PlotCatalogController ..> salespointframework: <<use>>
+PlotCatalogAvailabilityTable .. (PlotCatalogController, salespointframework)
+PlotCatalog .. (PlotCatalogController, salespointframework)
+'PlotCatalogAvailabilityTable ..> salespointframework: <<use>>
+'PlotCatalog ..> salespointframework: <<use>>
+
 
 @enduml
