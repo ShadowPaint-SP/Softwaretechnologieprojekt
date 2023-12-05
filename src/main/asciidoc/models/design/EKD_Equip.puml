@@ -1,0 +1,83 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+
+'skinparam packageStyle Frame
+
+class campingplatz.utils.DetailedProduct
+
+interface jakarta.persistence.Entity
+
+class org.javamoney.moneta.Money
+
+interface org.salespointframework.catalog.Catalog<T extends Product>
+class org.salespointframework.catalog.Product
+class org.salespointframework.useraccount.UserAccount
+interface org.salespointframework.useraccount.web.LoggedIn
+interface org.salespointframework.core.DataInitializer
+
+interface org.springframework.stereotype.Controller
+interface org.springframework.stereotype.Component
+interface org.springframework.ui.Model
+interface org.springframework.web.bind.annotation.GetMapping
+interface org.springframework.web.bind.annotation.PostMapping
+interface org.springframework.web.bind.annotation.RequestParam
+
+interface java.util.List
+class java.util.Optional
+class java.util.stream.Collectors
+
+
+package campingplatz.equip {
+    class SportItem{
+    -amount: int
+    -deposit: Money
+    +SportItem(String name, Money rentalFee, Money deposit, String category, int amount, String imagePath, String description)
+    +getAmount(): int
+    +setAmount(int value): void
+    +getDeposit(): Money
+    +setDeposit(Money value): void
+    }
+    interface SportItemCatalog{
+    }
+    class SportItemCatalogController{
+    -itemCatalog: SportItemCatalog
+    +SportItemCatalogController(SportItemCatalog itemCatalog)
+    +setupCatalog(Model model, Optional<UserAccount> user): String
+    +addSportItem(String name, double price, double deposit, int amount, Product.ProductIdentifier itemId): String
+    }
+    class SportItemCatalogDataInitializer{
+    -sportItemCatalog: SportItemCatalog
+    +SportItemCatalogDataInitializer(SportItemCatalog sportItemCatalog)
+    +initialize(): void
+    }
+
+}
+
+SportItem ..> Money: <<use>>
+SportItem ..> Entity: <<use>>
+SportItem -up-|> DetailedProduct
+
+SportItemCatalog ..|> Catalog
+
+SportItemCatalogDataInitializer ..|> DataInitializer
+SportItemCatalogDataInitializer ..> Component: <<use>>
+SportItemCatalogDataInitializer ..> Money: <<use>>
+
+SportItemCatalogController ..> Money: <<use>>
+SportItemCatalogController ..> Product: <<use>>
+SportItemCatalogController ..> UserAccount: <<use>>
+SportItemCatalogController ..> LoggedIn: <<use>>
+SportItemCatalogController ..> Controller: <<use>>
+SportItemCatalogController ..> Model: <<use>>
+SportItemCatalogController ..> GetMapping: <<use>>
+SportItemCatalogController ..> PostMapping: <<use>>
+SportItemCatalogController ..> RequestParam: <<use>>
+
+SportItemCatalogController ..> List: <<use>>
+SportItemCatalogController ..> Optional: <<use>>
+SportItemCatalogController ..> Collectors: <<use>>
+@enduml

@@ -5,6 +5,8 @@ skinparam classAttributeIconSize 0
 skinparam linetype ortho
 skinparam BackgroundColor #FEFEFE
 
+'allowmixing
+
 package org.springframework.security.access.prepost{
 interface PreAuthorize
 }
@@ -60,16 +62,16 @@ class StreamEx
 }
 
 package campingplatz.utils {
-    class DetailedProduct extends org.salespointframework.catalog.Product{
+    class DetailedProduct{
     -imagePath: String
     -desc: String
     +DetailedProduct(String name, Money price, String imagePath, String description)
     +getImagePath(): String
-    +setImagePath(): void
+    +setImagePath(String value): void
     +getDesc(): String
-    +setDesc(): void
+    +setDesc(String value): void
     }
-    class Cart<T extends Product> extends java.util.ArrayList implements Priced{
+    class Cart<T extends Product>{
     +reservationType: Class<? extends Reservation<T>>
     +getReservationOfUser(UserAccount user): List<Reservation<T>>
     +add(Reservation<T> reservation): boolean
@@ -100,14 +102,19 @@ Cart ..> UserAccount: <<use>>
 Cart ..> Currencies: <<use>>
 Cart ..> StreamEx: <<use>>
 Cart ..> Money: <<use>>
+Cart --|> ArrayList
+Cart ..|> Priced
 
 Priced ..> MonetaryAmount: <<use>>
 
 DetailedProduct ..> Money: <<use>>
+DetailedProduct --|> Product
 
 DashboardController ..> Model: <<use>>
 DashboardController ..> Controller: <<use>>
 DashboardController ..> PreAuthorize: <<use>>
 DashboardController ..> GetMapping: <<use>>
+
+'campingplatz -- org
 
 @enduml

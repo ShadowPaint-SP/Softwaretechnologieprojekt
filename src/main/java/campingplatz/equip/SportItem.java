@@ -22,7 +22,7 @@ public class SportItem extends DetailedProduct {
 	public SportItem() {
 	}
 
-	// rental_fee, price = Leihgebühr | deposit = Kaution
+	// rentalFee, price = Leihgebühr | deposit = Kaution
 
 
 	public SportItem(String name, Money price, Money deposit, String category) {
@@ -31,15 +31,15 @@ public class SportItem extends DetailedProduct {
 		this.amount = 0;
 		this.deposit = deposit;
 	}
-	public SportItem(String name, Money rental_fee, Money deposit, String category, int amount) {
-		super(name, rental_fee);
+	public SportItem(String name, Money rentalFee, Money deposit, String category, int amount) {
+		super(name, rentalFee);
 		this.addCategory(category);
 		this.amount = amount;
 		this.deposit = deposit;
 	}
 
-	public SportItem(String name, Money rental_fee, Money deposit, String category, int amount, String image_path, String description) {
-		super(name, rental_fee, image_path, description);
+	public SportItem(String name, Money rentalFee, Money deposit, String category, int amount, String imagePath, String description) {
+		super(name, rentalFee, imagePath, description);
 		this.addCategory(category);
 		this.amount = amount;
 		this.deposit = deposit;
