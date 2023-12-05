@@ -1,16 +1,12 @@
 package campingplatz.customer;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.jmolecules.ddd.types.Identifier;
 import org.salespointframework.core.AbstractAggregateRoot;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
-import campingplatz.customer.Customer.CustomerIdentifier;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -22,11 +18,12 @@ import java.util.UUID;
 // Um den Customer in die Datenbank zu bekommen, schreiben wir ein CustomerRepository.
 
 @Entity
-public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
+public class Customer {
 
-    private @EmbeddedId CustomerIdentifier id = new CustomerIdentifier();
+    private @Id UUID id = UUID.randomUUID();
 
-    private String address;
+    @Getter @Setter
+	private String address;
 
     // Jedem Customer ist genau ein UserAccount zugeordnet, um später über den
     // UserAccount an den
@@ -42,98 +39,63 @@ public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
 
     }
 
-    @Override
-    public CustomerIdentifier getId() {
+    public UUID getId() {
         return id;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public String getUsername(){
+		return userAccount.getUsername();
+	}
 
     public UserAccount getUserAccount() {
         return userAccount;
     }
 
-    @Embeddable
-    public static final class CustomerIdentifier implements Identifier, Serializable {
+	public Role getRole(){
+		var roles = userAccount.getRoles().toList();
+		return roles.get(0);
+	}
+	public void setRole(Role r){
+		// delete all existing roles
+		var roles = userAccount.getRoles().toList();
+		for (var role : roles){
+			userAccount.remove(role);
+		}
 
-        private static final long serialVersionUID = 7740660930809051850L;
-        private final UUID identifier;
+		// add the wanted role
+		userAccount.add(r);
+	}
 
-        /**
-         * Creates a new unique identifier for {@link Customer}s.
-         */
-        CustomerIdentifier() {
-            this(UUID.randomUUID());
-        }
-
-        /**
-         * Only needed for property editor, shouldn't be used otherwise.
-         *
-         * @param identifier The string representation of the identifier.
-         */
-        CustomerIdentifier(UUID identifier) {
-            this.identifier = identifier;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
-
-            final int prime = 31;
-            int result = 1;
-
-            result = prime * result + (identifier == null ? 0 : identifier.hashCode());
-
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-
-            if (obj == this) {
-                return true;
-            }
-
-            if (!(obj instanceof CustomerIdentifier that)) {
-                return false;
-            }
-
-            return this.identifier.equals(that.identifier);
-        }
-    }
 
 
 
 	public static enum Roles {
 		NONE(Role.of("")),
 		CUSTOMER(Role.of("CUSTOMER")),
-		EMPLOYEE(Role.of("CUSTOMER"), Role.of("EMPLOYEE")),
-		BOSS(Role.of("CUSTOMER"), Role.of("EMPLOYEE"), Role.of("BOSS"));
+		EMPLOYEE( Role.of("EMPLOYEE")),
+		BOSS(Role.of("BOSS"));
 
-		private List<Role> roles;
+		private Role role;
 
-		Roles(Role... roles){
-			this.roles = Arrays.stream(roles).toList();
+		Roles(Role role){
+			this.role = role;
 		}
 
-		public List<Role> getValue(){
-			return roles;
-		}
-
-		public Role getrole(){
-			return roles.get(roles.size() - 1);
+		public Role getValue(){
+			return role;
 		}
 
 
+		public static Role fromNumber(Integer i){
+			return switch (i) {
+				case 0 -> NONE.getValue();
+				case 1 -> CUSTOMER.getValue();
+				case 2 -> EMPLOYEE.getValue();
+				case 3 -> BOSS.getValue();
+				default -> NONE.getValue();
+			};
+
+		}
 	}
+
 }

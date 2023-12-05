@@ -44,10 +44,4 @@ class CustomerController {
         return "static/register";
     }
 
-    @GetMapping("/management/customer")
-    String customer(Model model) {
-        Streamable<Customer> all = customerManagement.findAll();
-        model.addAttribute("Customers", all);
-        return "dashboards/customer_mamangement";
-    }
 }

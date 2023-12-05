@@ -16,26 +16,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- row 1 -->
-					<!--<tr>
-						<th>1</th>
-						<td>Cy Ganderton</td>
-						<td>Quality Control Specialist</td>
-						<td>Blue</td>
-					</tr>-->
+
 					<!-- row 2 -->
 					<tr th:each="customer, iStat : ${Customers}" class="hover">
 						<th th:text="${iStat.count}">2</th>
-						<td th:text="${customer.getUserAccount.username}"></td>
-						<td th:value="${customer.getUserAccount().getRoles().iterator().next()}"></td>
+						<td th:text="${customer.username}"></td>
+						<td>
+							<form method="post" action="/management/customer/updateRoles">
+								<input type="hidden" name="customerUUID" th:value="${customer.id}">
+								<select onchange="this.form.submit()" name="role" th:disabled="${customer.role.name=='BOSS'}">
+									<option value="0" th:selected="${customer.role.name=='CUSTOMER'}" th:text="#{roles.customer}"></option>
+									<option value="1" th:selected="${customer.role.name=='EMPLOYEE'}" th:text="#{roles.employee}"></option>
+									<option value="2" th:selected="${customer.role.name=='BOSS'}" th:text="#{roles.boss}" disabled></option>
+								</select>
+							</form>
+						</td>
 					</tr>
-					<!-- row 3 -->
-					<!--<tr>
-						<th>3</th>
-						<td>Brice Swyre</td>
-						<td>Tax Accountant</td>
-						<td>Red</td>
-					</tr>-->
+
+
+
 				</tbody>
 			</table>
 		</div>

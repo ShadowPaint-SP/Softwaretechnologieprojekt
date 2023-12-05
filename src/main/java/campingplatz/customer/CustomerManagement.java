@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -42,7 +44,7 @@ public class CustomerManagement {
      * @param form must not be {@literal null}.
      * @return the new {@link Customer} instance.
      */
-    public Customer create(String username, UnencryptedPassword password, List<Role> roles) {
+    public Customer create(String username, UnencryptedPassword password, Role roles) {
         var userAccount = userAccounts.create(username, password, roles);
         return customers.save(new Customer(userAccount));
 
@@ -56,4 +58,14 @@ public class CustomerManagement {
     public Streamable<Customer> findAll() {
         return customers.findAll();
     }
+
+
+	/**
+	 * Returns the {@link Customer}s with the given UUID.
+	 *
+	 * @return a {@link Customer} entity.
+	 */
+	public Optional<Customer> findByUUID(UUID id) {
+		return customers.findById(id);
+	}
 }
