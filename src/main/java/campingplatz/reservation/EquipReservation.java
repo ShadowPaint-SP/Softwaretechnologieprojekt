@@ -14,11 +14,11 @@ public class EquipReservation extends Reservation<SportItem> {
 		super();
 	}
 
-	public EquipReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure) {
-		super(userAccount, sportItem, arrival, departure);
+	public EquipReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime startTime, LocalDateTime endTime) {
+		super(userAccount, sportItem, startTime, endTime);
 	}
 
 	public ChronoUnit getIntervalUnit() {
-		return ChronoUnit.DAYS;
+		return ChronoUnit.HOURS;
 	}
 }
