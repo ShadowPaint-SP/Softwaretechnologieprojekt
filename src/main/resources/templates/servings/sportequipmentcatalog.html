@@ -12,9 +12,9 @@
                <div class="ui card" th:each="item, iStat : ${items}">
                    <div class="content">
                        <a th:href="@{/item/{id}(id=${item.id})}">
-                           <img class="ui image" th:src="${item.imagePath}" alt="Sport Item Image"/>
+                           <img class="h-32 w-32" th:src="${item.imagePath}" />
                        </a>
-                       <p>&nbsp;</p>
+                       <p th:text="${item.desc}">&nbsp;test</p>
                        <p>&nbsp;</p>
                    </div>
                </div>
