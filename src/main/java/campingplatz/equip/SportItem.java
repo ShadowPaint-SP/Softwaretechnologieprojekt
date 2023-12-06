@@ -6,15 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 
+@Setter
 @Getter
 @Entity
 public class SportItem extends DetailedProduct {
 
 
-	@Setter
 	private int amount;
 
-	@Setter
 	private Money deposit;
 
 
@@ -24,13 +23,14 @@ public class SportItem extends DetailedProduct {
 
 	// rentalFee, price = Leihgebühr | deposit = Kaution
 
-
+	//deletion needs new Test
 	public SportItem(String name, Money price, Money deposit, String category) {
 		super(name, price);
 		this.addCategory(category);
 		this.amount = 0;
 		this.deposit = deposit;
 	}
+	//deletion needs new Test
 	public SportItem(String name, Money rentalFee, Money deposit, String category, int amount) {
 		super(name, rentalFee);
 		this.addCategory(category);
