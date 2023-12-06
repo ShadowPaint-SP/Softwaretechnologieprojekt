@@ -1,7 +1,7 @@
 package campingplatz.plots;
 
 import campingplatz.reservation.Reservation;
-import campingplatz.reservation.ReservationCart;
+import campingplatz.utils.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,13 @@ import org.salespointframework.useraccount.UserAccount;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Optional;
 
 /**
  * Represents the mapping from a given plot, to the seven elements of its
@@ -76,12 +82,13 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	}
 
 	/** Marks all the periods in which the plot is reserved as such in the table */
-	public PlotCatalogAvailabilityTable addReservations(Optional<UserAccount> user, List<Reservation> reservations) {
+	public PlotCatalogAvailabilityTable addReservations(Optional<UserAccount> user,
+			List<Reservation<Plot>> reservations) {
 		// fill the table with reservation information
 		for (var reservation : reservations) {
 
 			// get the row, corresponding to the plotId of the current reservation
-			var row = this.get(reservation.getPlot());
+			var row = this.get(reservation.getProduct());
 			if (row == null) {
 				continue;
 			}
@@ -89,8 +96,8 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			// calculate begin and end index.
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
-			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, reservation.getArrival())));
-			int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
+			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, reservation.getBegin())));
+			int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getEnd())));
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				if (user.isEmpty() || reservation.getUser() != user.get()) {
@@ -116,7 +123,8 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, query.getDefaultedArrival())));
-			int endIndex = (int) Math.min(length - 1, (ChronoUnit.DAYS.between(firstDay, query.getDefaultedDeparture())));
+			int endIndex = (int) Math.min((long) length - 1,
+					(ChronoUnit.DAYS.between(firstDay, query.getDefaultedDeparture())));
 
 			var row = entry.getValue();
 
@@ -134,25 +142,20 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	}
 
 	/** Marks the periods between of reservations in the cart as selected */
-	public PlotCatalogAvailabilityTable addSelections(ReservationCart reservationCart) {
-		// fill the table with selections
-		for (var reservation : reservationCart) {
-			// get the row, corresponding to the plotId of the current reservation
-			var row = this.get(reservation.getPlot());
-			if (row == null) {
+	public PlotCatalogAvailabilityTable addSelections(Cart<Plot> reservationCart) {
+
+		for (var field : reservationCart) {
+			var time = field.getTime();
+			var plot = field.getProduct();
+
+			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.atStartOfDay())) {
 				continue;
 			}
 
-			// calculate begin and end index.
-			// we do this, because we need numbers relative to zero
-			// for indexing into an array
-			int beginIndex = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, reservation.getArrival())));
-			int endIndex = (int) Math.min(length - 1, (ChronoUnit.DAYS.between(firstDay, reservation.getDeparture())));
+			int index = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, time)));
 
-			for (int i = beginIndex; i <= endIndex; i++) {
-				row[i] = FieldType.FREE_SELECTED;
-
-			}
+			var row = this.get(plot);
+			row[index] = FieldType.FREE_SELECTED;
 		}
 
 		return this;

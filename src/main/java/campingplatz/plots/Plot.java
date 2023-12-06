@@ -1,13 +1,13 @@
 package campingplatz.plots;
 
+import campingplatz.utils.DetailedProduct;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
-import org.salespointframework.catalog.Product;
 import org.javamoney.moneta.Money;
 
 @Entity
-public class Plot extends Product {
+public class Plot extends DetailedProduct {
 
     @Getter
     @Setter
@@ -17,20 +17,15 @@ public class Plot extends Product {
     @Setter
     private ParkingLot parking;
 
-    @Getter
-    @Setter
-    private PlotType type;
-
-    public Plot(String name, Double size, Money price, ParkingLot parking, PlotType type) {
+    public Plot(String name, Double size, Money price, ParkingLot parking) {
 
         super(name, price);
 
         this.size = size;
         this.parking = parking;
-        this.type = type;
+
     }
 
-    @SuppressWarnings({ "unused", "deprecation" })
     public Plot() {
     }
 
@@ -42,10 +37,6 @@ public class Plot extends Product {
     // a second getter for size. returns a formatted String
     public String getSizeString() {
         return getSize() + " m²";
-    }
-
-    public enum PlotType {
-        NONE, SEASONAL
     }
 
     public enum ParkingLot {

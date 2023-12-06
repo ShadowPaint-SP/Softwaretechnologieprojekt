@@ -2,7 +2,7 @@
 
 Treffen am 04.12.2023
 
-Ort:      SLUB 0.66 +
+Ort:      --- +
 Beginn:   14:50 Uhr +
 Ende:     16:20 Uhr
 
@@ -25,14 +25,9 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
-Milestone passed
 
 == Retrospektive des letzten Sprints
-große UI Überarbeitung +
-große Konzeptänderung im Backend
 
 == Planung des nächsten Sprints
-Der Rest der noch fehlt
-
 |===
 

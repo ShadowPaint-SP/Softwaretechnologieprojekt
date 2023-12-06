@@ -1,28 +1,26 @@
 package campingplatz.equip;
 
+import campingplatz.utils.DetailedProduct;
 import jakarta.persistence.Entity;
-import lombok.EqualsAndHashCode;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
-import org.salespointframework.catalog.Product;
 
+@Getter
 @Entity
-@EqualsAndHashCode(callSuper = false)
-public class SportItem extends Product {
-	@Getter
+public class SportItem extends DetailedProduct {
+
 	@Setter
 	private int amount;
-	@Getter
+
 	@Setter
 	private Money deposit;
 
-	@SuppressWarnings({ "unused", "deprecation" })
 	public SportItem() {
 	}
 
-	// rental_fee, price = Leihgebühr | deposit = Kaution
+	// rentalFee, price = Leihgebühr | deposit = Kaution
+
 	public SportItem(String name, Money price, Money deposit, String category) {
 		super(name, price);
 		this.addCategory(category);
@@ -30,8 +28,16 @@ public class SportItem extends Product {
 		this.deposit = deposit;
 	}
 
-	public SportItem(String name, Money rental_fee, Money deposit, String category, int amount) {
-		super(name, rental_fee);
+	public SportItem(String name, Money rentalFee, Money deposit, String category, int amount) {
+		super(name, rentalFee);
+		this.addCategory(category);
+		this.amount = amount;
+		this.deposit = deposit;
+	}
+
+	public SportItem(String name, Money rentalFee, Money deposit, String category, int amount, String imagePath,
+			String description) {
+		super(name, rentalFee, imagePath, description);
 		this.addCategory(category);
 		this.amount = amount;
 		this.deposit = deposit;
