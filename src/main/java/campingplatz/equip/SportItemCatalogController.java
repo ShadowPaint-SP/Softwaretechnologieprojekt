@@ -106,7 +106,10 @@ public class SportItemCatalogController {
 
 		SportItem item = itemCatalog.findByName(name).stream().findFirst().orElse(null);
 		if(item==null) {
-			itemCatalog.save(new SportItem(name, Money.of(price, EURO), Money.of(deposit, EURO), category, amount));
+			itemCatalog.save(new SportItem(name, Money.of(price, EURO), Money.of(deposit, EURO), category, amount,
+				"",
+				""));
+			// TODO please add
 		}
 		return "redirect:/management/sportsequipment";
 	}
