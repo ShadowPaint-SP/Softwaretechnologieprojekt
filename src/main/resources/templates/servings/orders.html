@@ -19,10 +19,10 @@
                 <tbody>
                     <tr th:each="item, iStat : ${ordersCompleted}" class="hover">
                         <th th:text="${iStat.count}">1</th>
-                        <td th:text="${item.plot.name}">Cy Ganderton</td>
-                        <td th:text="${item.arrival}">Quality Control Specialist</td>
-                        <td th:text="${item.days}">Quality Control Specialist</td>
-                        <td th:text="${item.price}">Blue</td>
+                        <td th:text="${item.plot.name}">name</td>
+                        <td th:text="${item.arrival}">arrival</td>
+                        <td th:text="${item.days}">days</td>
+                        <td th:text="${item.price}">price</td>
                     </tr>
                 </tbody>
             </table>
