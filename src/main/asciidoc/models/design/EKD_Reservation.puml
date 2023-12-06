@@ -1,0 +1,120 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+interface campingplatz.utils.Priced
+class campingplatz.utils.Cart
+
+package campingplatz{
+    class plots.Plot
+    class equip.SportItem
+}
+
+interface java.lang.Comparable<T>
+
+package org{
+    package salespointframework{
+    interface DataInitializer{}
+    }
+    package springframework{
+    interface data.repository.CrudRepository<T, ID>
+    }
+}
+
+package campingplatz.reservation{
+    class PlotReservation{
+    +PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure)
+    +getIntervalUnit(): ChronoUnit
+    }
+    class Reservation<T extends Product>{
+    +id: UUID
+    -user: UserAccount
+    -product: T
+    -begin: LocalDateTime
+    -end: LocalDateTime
+    +Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end)
+    +getPrice(): MonetaryAmount
+    +getIntervalUnit(): ChronoUnit
+    +duration(): long
+    +getId(): UUID
+    +getUser(): UserAccount
+    +setUser(UserAccount value): void
+    +getProduct(): T
+    +setProduct(T value): void
+    +getBegin(): LocalDateTime
+    +setBegin(LocalDateTime value): void
+    +getEnd(): LocalDateTime
+    +setEnd(LocalDateTime value): void
+    }
+    class ReservationController{
+    -reservationRepository: ReservationRepository<Plot>
+    +initializeCart(): Cart<Plot>
+    +cart(Model model, UserAccount userAccount, Cart<Plot> reservationCart): String
+    +reservate(Model model, UserAccount userAccount, Cart<Plot> reservationCart): String
+    +orders(Model model, UserAccount user): String
+    }
+    class ReservationDataInitializer{
+    -reservationRepository: ReservationRepository<Plot>
+    -customerManagement: CustomerManagement
+    -plotCatalog: PlotCatalog
+    +ReservationDataInitializer(ReservationRepository<Plot> reservationRepository, CustomerManagement customerManagement, PlotCatalog plotCatalog)
+    +initialize(): void
+    }
+    class ReservationEntry<T extends Product>{
+    -product: T
+    -time: LocalDateTime
+    +ReservationEntry(T product, LocalDateTime time)
+    +compareTo(ReservationEntry<T> second): int
+    +getProduct(): T
+    +setProduct(T value): void
+    +getTime(): LocalDateTime
+    +setTime(LocalDateTime value): void
+    }
+    interface ReservationRepository<U extends Product>{
+    +findAll(): List<Reservation<U>>
+    +findByUserId(UserAccount.UserAccountIdentifier id): List<Reservation<U>>
+    +findReservationsBetween(LocalDateTime arrival, LocalDateTime departure): List<Reservation<U>>
+    +findPlotsReservedBetween(LocalDateTime arrival, LocalDateTime departure): Set<U>
+    +productIsReservedIn(U product, LocalDateTime arrival, LocalDateTime departure): Boolean
+    +productIsAvailableIn(U product, LocalDateTime arrival, LocalDateTime departure): Boolean
+    }
+    class SportItemReservation{
+    +SportItemReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure)
+    +getIntervalUnit(): ChronoUnit
+    }
+}
+
+PlotReservation --|> Reservation: <<bind T->Plot>>
+PlotReservation ..> Plot: <<use>>
+
+SportItemReservation --|> Reservation: <<bind T->SportItem>>
+SportItemReservation ..> SportItem: <<use>>
+
+Reservation ..|> Priced
+Reservation ..> salespointframework: <<use>>
+Reservation ..> springframework: <<use>>
+
+ReservationController ..> salespointframework: <<use>>
+ReservationController ..> springframework: <<use>>
+
+ReservationController ..> ReservationRepository: <<bind U->Plot>>
+ReservationController ..> Cart: <<bind T->Plot>>
+
+ReservationDataInitializer ..|> DataInitializer
+ReservationDataInitializer ..> springframework: <<use>>
+ReservationDataInitializer ..> salespointframework: <<use>>
+
+ReservationEntry ..|> Comparable: <<bind T->ReservationEntry<T>>>
+ReservationEntry ..> springframework: <<use>>
+ReservationEntry ..> salespointframework: <<use>>
+
+ReservationRepository ..|> CrudRepository
+ReservationRepository ..> springframework: <<use>>
+ReservationRepository ..> salespointframework: <<use>>
+
+@enduml
