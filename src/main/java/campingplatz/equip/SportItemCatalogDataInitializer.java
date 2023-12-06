@@ -17,16 +17,28 @@ public class SportItemCatalogDataInitializer implements DataInitializer {
 	@Override
 	public void initialize() {
 		sportItemCatalog.save(new SportItem("Fußball", Money.of(0.5, EURO),
-			Money.of(16, EURO), "Ball", 10));
+			Money.of(16, EURO), "Ball", 10,
+			"/img/equip/football.png",
+			"Fußball macht Spaß"));
 		sportItemCatalog.save(new SportItem("Basketball", Money.of(0.5, EURO),
-			Money.of(20, EURO), "Ball", 8));
+			Money.of(20, EURO), "Ball", 8,
+			"/img/equip/basketball.png",
+			"Basketball macht Spaß"));
 		sportItemCatalog.save(new SportItem("Federballset", Money.of(1, EURO),
-			Money.of(30, EURO), "Federball", 3));
+			Money.of(30, EURO), "Federball", 3,
+			"/img/equip/badminton.png",
+			"Federballset macht Spaß"));
 		sportItemCatalog.save(new SportItem("Tischtennisgarnituren", Money.of(2, EURO),
-			Money.of(100, EURO), "Tischtennis", 2));
+			Money.of(100, EURO), "Tischtennis", 2,
+			"/img/equip/table_tennis.png",
+			"Tischtennis macht Spaß"));
 		sportItemCatalog.save(new SportItem("Volleyball", Money.of(0.5, EURO),
-			Money.of(14, EURO), "Volleyball", 6));
+			Money.of(14, EURO), "Volleyball", 6,
+			"/img/equip/volleyball.png",
+			"Volleyball macht Spaß"));
 		sportItemCatalog.save(new SportItem("Volleyballnetz", Money.of(2, EURO),
-			Money.of(25, EURO), "Volleyball", 3));
+			Money.of(25, EURO), "Volleyball", 3,
+			"/img/equip/volleyball_net.png",
+			"Volleyball macht Spaß"));
 	}
 }

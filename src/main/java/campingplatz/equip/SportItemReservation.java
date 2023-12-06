@@ -1,6 +1,6 @@
-package campingplatz.reservation;
+package campingplatz.equip;
 
-import campingplatz.equip.SportItem;
+import campingplatz.reservation.Reservation;
 import org.salespointframework.useraccount.UserAccount;
 
 import java.time.LocalDateTime;
