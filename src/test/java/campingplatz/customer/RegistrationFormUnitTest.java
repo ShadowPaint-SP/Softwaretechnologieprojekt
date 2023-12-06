@@ -11,7 +11,7 @@ class RegistrationFormUnitTest {
 
     @Test
     void testConstructorAndGetters() {
-        
+
         String name = "Max";
         String password = "123";
 
@@ -23,7 +23,7 @@ class RegistrationFormUnitTest {
 
     @Test
     void testValidate() {
-        
+
         String validName = "Max";
         String validPassword = "123";
         RegistrationForm validForm = new RegistrationForm(validName, validPassword);
@@ -38,8 +38,8 @@ class RegistrationFormUnitTest {
         validForm.validate(validErrors);
         invalidForm.validate(invalidErrors);
 
-        assertFalse(validErrors.hasErrors()); 
+        assertFalse(validErrors.hasErrors());
 
-        assertTrue(invalidErrors.hasErrors()); 
+        assertTrue(invalidErrors.hasErrors());
     }
 }

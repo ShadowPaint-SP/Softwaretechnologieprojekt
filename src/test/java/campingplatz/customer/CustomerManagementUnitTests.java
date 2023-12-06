@@ -12,7 +12,7 @@ import org.salespointframework.useraccount.UserAccountManagement;
 
 class CustomerManagementUnitTests {
 
-	@Test 
+	@Test
 	void createsUserAccountWhenCreatingACustomer() {
 
 		CustomerRepository repository = mock(CustomerRepository.class);

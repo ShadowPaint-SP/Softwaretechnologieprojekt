@@ -85,7 +85,7 @@ class SportItemTest {
 	@Test
 	@DisplayName("Test setDeposit()")
 	public void SportItemSetDepositTest() {
-		Money depo  = Money.of(10,EURO);
+		Money depo = Money.of(10, EURO);
 
 		SportItem sportItem = new SportItem("S", Money.of(10, EURO), depo, "lol");
 		sportItem.setDeposit(depo);
@@ -97,7 +97,7 @@ class SportItemTest {
 	@DisplayName("Test getAmount()")
 	public void SportItemGetAmountTest() {
 		int amount = 15;
-		SportItem sportItem = new SportItem("S", Money.of(10, EURO), Money.of(10, EURO), "lol",amount);
+		SportItem sportItem = new SportItem("S", Money.of(10, EURO), Money.of(10, EURO), "lol", amount);
 
 		assertEquals(amount, sportItem.getAmount());
 	}
