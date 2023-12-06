@@ -4,6 +4,7 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.salespointframework.core.Currencies.EURO;
-
 
 @Controller
 public class SportItemCatalogController {
@@ -36,13 +36,12 @@ public class SportItemCatalogController {
 		return "servings/sportequipmentcatalog";
 	}
 
-
 	@PostMapping("/addSportItem")
 	public String addSportItem(@RequestParam String name,
-							   @RequestParam double price,
-							   @RequestParam double deposit,
-							   @RequestParam int amount,
-							   @RequestParam(required = false) Product.ProductIdentifier itemId) {
+			@RequestParam double price,
+			@RequestParam double deposit,
+			@RequestParam int amount,
+			@RequestParam(required = false) Product.ProductIdentifier itemId) {
 
 		if (itemId != null) {
 
@@ -56,7 +55,12 @@ public class SportItemCatalogController {
 			itemCatalog.save(newItem);
 		}
 
+		return "redirect:/sportequipmentcatalog";
+	}
 
-		return "redirect:/sportequipmentcatalog";}
+	@GetMapping("/management/sportsequipment")
+	@PreAuthorize("hasRole('BOSS')")
+	String sportsequipment(Model model) {
+		return "dashboards/sportsequipment_mamangement";
+	}
 }
-
