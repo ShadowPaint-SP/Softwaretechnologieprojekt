@@ -38,7 +38,7 @@ class CustomerManagementIntegrationTests {
 
 	}
 	@Test
-	@WithMockUser(username = "jannes@mail.de", roles = "CUSTOMER")
+	@WithMockUser(username = "jannes@mail.de")
 	void TAM01Rights() throws Exception {
 		//entspricht TAM01 aus dem Pflichtenheft
 		mvc.perform(get("/cart"))
@@ -72,4 +72,33 @@ class CustomerManagementIntegrationTests {
 			andExpect(model().attribute("errorMessage", "User with this email already exists!"));
 
 	}
+
+	@Test
+	void TAM03Login() throws Exception {
+		//entspricht TAM03 aus dem Pflichtenheft, funktioniert nur mit TAM02Register()
+		mvc.perform(post("/login")
+				.param("password", "1823h7og1")
+				.param("username", "joerg@mail.de"))
+			.andExpectAll(
+				status().is3xxRedirection(),
+				redirectedUrl("/"));
+
+
+	}
+	@Test
+	@WithMockUser(username = "joerg@mail.de")
+	void TAM03Rights() throws Exception {
+		//entspricht TAM03 aus dem Pflichtenheft, funktioniert nur mit TAM02Register()
+		mvc.perform(get("/cart"))
+			.andExpect(status().isOk());
+
+		mvc.perform(get("/orders"))
+			.andExpect(status().isOk());
+
+		mvc.perform(get("/management/reservation"))
+			.andExpect(status().is4xxClientError());
+
+
+	}
+
 }
