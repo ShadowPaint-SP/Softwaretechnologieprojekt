@@ -17,9 +17,9 @@ public class Plot extends DetailedProduct {
     @Setter
     private ParkingLot parking;
 
-    public Plot(String name, Double size, Money price, ParkingLot parking) {
+    public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
 
-        super(name, price);
+        super(name, price, imagePath, description);
 
         this.size = size;
         this.parking = parking;
