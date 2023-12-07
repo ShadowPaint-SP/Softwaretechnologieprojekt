@@ -23,23 +23,33 @@ class CustomerController {
     }
 
     @PostMapping("/register")
-    String registerNew(@Valid RegistrationForm form, Errors result) {
+    String registerNew(@Valid RegistrationForm form, Errors result, Model model) {
 
         // boolean checkbox1 = form.isDauercamper();
         // form.validate(result);
 
-        if (result.hasErrors()) {
+        // if (result.hasErrors()) {
+        // return "static/register";
+        // }
+        try {
+            customerManagement.create(form.getEmail(),
+                    Password.UnencryptedPassword.of(form.getPassword()),
+                    Customer.Roles.CUSTOMER.getValue(),
+                    form.getName(),
+                    form.getLast());
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", "User with this email already exists!");
             return "static/register";
         }
 
-        // Falls alles in Ordnung ist legen wir einen Customer an
-        customerManagement.create(form.getEmail(),
-                Password.UnencryptedPassword.of(form.getPassword()),
-                Customer.Roles.CUSTOMER.getValue(),
-                form.getName(),
-                form.getLast());
+        //// Falls alles in Ordnung ist legen wir einen Customer an
+        // customerManagement.create(form.getEmail(),
+        // Password.UnencryptedPassword.of(form.getPassword()),
+        // Customer.Roles.CUSTOMER.getValue(),
+        // form.getName(),
+        // form.getLast());
 
-        return "redirect:/";
+        return "redirect:/default/login";
     }
 
     @GetMapping("/register")
