@@ -10,17 +10,18 @@ import static org.salespointframework.core.Currencies.EURO;
 class DetailedProductTest {
 
 	private DetailedProduct detailedProduct;
+
 	@BeforeEach
-	void setUp(){
+	void setUp() {
 		this.detailedProduct = new DetailedProduct("Name", Money.of(10, EURO));
 	}
 
 	@Test
-	void DetailedProductConstructorTest(){
-		assertDoesNotThrow( () -> {
-			 new DetailedProduct("TestName",
-				Money.of(10, EURO), "path_to_image", "description");
-		},"Constructor Failed");
+	void DetailedProductConstructorTest() {
+		assertDoesNotThrow(() -> {
+			new DetailedProduct("TestName",
+					Money.of(10, EURO), "path_to_image", "description");
+		}, "Constructor Failed");
 	}
 
 	@Test
@@ -38,6 +39,5 @@ class DetailedProductTest {
 
 		assertEquals(desc, this.detailedProduct.getDesc());
 	}
-
 
 }

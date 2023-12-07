@@ -1,13 +1,13 @@
-package campingplatz.equip;
+// package campingplatz.equip;
 
-import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.BeforeEach;
 
-public class SportItemCatalogControllerTest {
+// public class SportItemCatalogControllerTest {
 
-	private SportItemCatalogController controller;
-	private SportItemCatalog itemCatalog;
+// private SportItemCatalogController controller;
+// private SportItemCatalog itemCatalog;
 
-	@BeforeEach
-	void setUp() {
-	}
-}
+// @BeforeEach
+// void setUp() {
+// }
+// }

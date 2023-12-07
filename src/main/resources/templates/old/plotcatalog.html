@@ -50,15 +50,15 @@
                 </div>
 
                 <div class="stat place-items-center">
-                    <div class="stat-title">Größe</div>
+                    <div class="stat-title">Größe in Quadratmeter</div>
                     <div class="stat-actions">
                         <div>
                             <input class="input" type="number" name="sizeMin" th:value="${searchQuery.sizeMin}"
-                                th:placeholder="#{catalog.ranges.from}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.from-size}" onchange="this.form.submit()">
                         </div>
                         <div>
                             <input class="input" type="number" name="sizeMax" th:value="${searchQuery.sizeMax}"
-                                th:placeholder="#{catalog.ranges.to}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.to-size}" onchange="this.form.submit()">
                         </div>
                     </div>
                 </div>
@@ -68,11 +68,11 @@
                     <div class="stat-actions">
                         <div>
                             <input class="input" type="number" name="priceMin" th:value="${searchQuery.priceMin}"
-                                th:placeholder="#{catalog.ranges.from}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.from-price}" onchange="this.form.submit()">
                         </div>
                         <div>
                             <input class="input" type="number" name="priceMax" th:value="${searchQuery.priceMax}"
-                                th:placeholder="#{catalog.ranges.to}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.to-price}" onchange="this.form.submit()">
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         <tr>
                             <th class="flex">
                                 <div>
-                                    <img class="h-32 w-32" th:src="'/img/camp ('+${iStat.count} +').png'" />
+                                    <img class="h-32 w-32" th:src="'/img/camp_1_1/camp ('+${iStat.count} +').png'" />
                                 </div>
                                 <div>
                                     <div th:text="${plot.name}">Plotname</div>

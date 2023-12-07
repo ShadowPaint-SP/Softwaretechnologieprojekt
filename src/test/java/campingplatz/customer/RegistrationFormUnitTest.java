@@ -11,7 +11,7 @@ class RegistrationFormUnitTest {
 
     @Test
     void testConstructorAndGetters() {
-
+        
         String name = "Max";
         String last = "Musterman";
         String password = "123";
@@ -26,7 +26,7 @@ class RegistrationFormUnitTest {
 
     @Test
     void testValidate() {
-
+        
         String validName = "Max";
         String validLast = "Musterman";
         String validPassword = "123";

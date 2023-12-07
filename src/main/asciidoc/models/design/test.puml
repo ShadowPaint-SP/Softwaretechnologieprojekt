@@ -1,0 +1,31 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+rectangle A
+rectangle B
+rectangle C
+rectangle D
+rectangle E
+rectangle F
+
+A -r- B
+B -r- C
+D -r- E
+E -r- F
+A -d-- D
+
+B --> E
+
+(E, B) -r- A
+
+
+
+@enduml
+
+@enduml

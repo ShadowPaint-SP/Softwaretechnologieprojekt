@@ -1,0 +1,58 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+class campingplatz.utils.DetailedProduct
+
+package org{
+    package springframework
+    package salespointframework{
+        interface catalog.Catalog<T extends Product>
+        interface core.DataInitializer
+    }
+}
+
+package campingplatz.equip {
+    class SportItem{
+    -amount: int
+    -deposit: Money
+    +SportItem(String name, Money rentalFee, Money deposit, String category, int amount, String imagePath, String description)
+    +getAmount(): int
+    +setAmount(int value): void
+    +getDeposit(): Money
+    +setDeposit(Money value): void
+    }
+    interface SportItemCatalog{
+    }
+    class SportItemCatalogController{
+    -itemCatalog: SportItemCatalog
+    +SportItemCatalogController(SportItemCatalog itemCatalog)
+    +setupCatalog(Model model, Optional<UserAccount> user): String
+    +addSportItem(String name, double price, double deposit, int amount, Product.ProductIdentifier itemId): String
+    }
+    class SportItemCatalogDataInitializer{
+    -sportItemCatalog: SportItemCatalog
+    +SportItemCatalogDataInitializer(SportItemCatalog sportItemCatalog)
+    +initialize(): void
+    }
+
+}
+
+SportItem -right-|> DetailedProduct
+
+SportItemCatalog .right.|> Catalog: <<bind T->SportItem>>
+
+SportItemCatalogController ..> springframework: <<use>>
+SportItemCatalogController ..> salespointframework: <<use>>
+SportItemCatalogController ..> SportItemCatalog: <<use>>
+
+SportItemCatalogDataInitializer ..|> DataInitializer
+SportItemCatalogDataInitializer ..> SportItemCatalog: <<use>>
+
+
+@enduml

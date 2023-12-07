@@ -19,20 +19,20 @@ class ReservationIntegrationTests {
 	@Autowired
 	MockMvc mvc;
 
-	@Test // #75
+	@Test
 	void preventsPublicAccessForCart() throws Exception {
 
-		mvc.perform(get("/cart")) //
-				.andExpect(status().isFound()) //
-				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));//
+		mvc.perform(get("/cart"))
+				.andExpect(status().isFound())
+				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
-	@Test // #75
+	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void cartIsAccessibleForAdmin() throws Exception {
 
-		mvc.perform(get("/cart")) //
-				.andExpect(status().isOk()) //
+		mvc.perform(get("/cart"))
+				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("cart"));
 	}
 
@@ -40,8 +40,8 @@ class ReservationIntegrationTests {
 	@WithMockUser(username = "hans", roles = "CUSTOMER")
 	void cartIsAccessibleForCustomer() throws Exception {
 
-		mvc.perform(get("/cart")) //
-				.andExpect(status().isOk()) //
+		mvc.perform(get("/cart"))
+				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("cart"));
 	}
 
@@ -49,8 +49,8 @@ class ReservationIntegrationTests {
 	@WithMockUser(username = "hans", roles = "CUSTOMER")
 	void executeReservation() throws Exception {
 
-		mvc.perform(get("/plotcatalog")) //
-				.andExpect(status().isOk()) //
+		mvc.perform(get("/plotcatalog"))
+				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("allPlots"));
 
 	}

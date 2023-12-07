@@ -1,0 +1,62 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+package campingplatz{
+    package reservation
+}
+
+
+package org{
+    package springframework
+    package salespointframework{
+    class catalog.Product
+    }
+}
+
+package campingplatz.utils {
+    class DetailedProduct{
+    -imagePath: String
+    -desc: String
+    +DetailedProduct(String name, Money price, String imagePath, String description)
+    +getImagePath(): String
+    +setImagePath(String value): void
+    +getDesc(): String
+    +setDesc(String value): void
+    }
+    class Cart<T extends Product>{
+    +reservationType: Class<? extends Reservation<T>>
+    +getReservationOfUser(UserAccount user): List<Reservation<T>>
+    +add(Reservation<T> reservation): boolean
+    +iterator(): Iterator<ReservationEntry<T>>
+    +size(): int
+    +getPrice(): MonetaryAmount
+    }
+    interface Priced{
+    +gerPriced(): MonetaryAmount
+    }
+    class Utils{
+    -Utils()
+    +{static} createInstance(Class<T> cls): <T> T
+    }
+    class DashboardController{
+    +sportsequipment(Model model): String
+    }
+
+}
+
+Cart --|> java.util.ArrayList
+Cart ..|> Priced
+Cart ..> salespointframework: <<use>>
+Cart ..> reservation: <<use>>
+
+DashboardController ..> springframework: <<use>>
+
+DetailedProduct --|> Product
+
+@enduml
