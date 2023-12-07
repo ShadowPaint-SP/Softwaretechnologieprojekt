@@ -44,7 +44,9 @@ public class CustomerManagement {
      */
     public Customer create(String email, UnencryptedPassword password, Role roles, String firstname, String lastname) {
         var userAccount = userAccounts.create(email, password, roles);
-        return customers.save(new Customer(userAccount, firstname, lastname));
+		userAccount.setFirstname(firstname);
+		userAccount.setLastname(lastname);
+		return customers.save(new Customer(userAccount));
 
     }
 

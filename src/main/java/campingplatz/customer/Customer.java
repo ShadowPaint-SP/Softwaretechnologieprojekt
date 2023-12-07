@@ -17,23 +17,18 @@ public class Customer {
 
 	private @Id UUID id = UUID.randomUUID();
 
-	@Getter
-	@Setter
-	private String firstname, lastname;
 
-	// Jedem Customer ist genau ein UserAccount zugeordnet, um später über den
-	// UserAccount an den
-	// Customer zu kommen, speichern wir den hier
-	@OneToOne //
+	/*
+	* Every Customer has a User Account.
+	* */
+	@OneToOne
 	private UserAccount userAccount;
 
 	public Customer() {
 	}
 
-	public Customer(UserAccount userAccount, String firstname, String lastname) {
+	public Customer(UserAccount userAccount) {
 		this.userAccount = userAccount;
-		this.firstname = firstname;
-		this.lastname = lastname;
 	}
 
 	public UUID getId() {
