@@ -19,7 +19,7 @@ public class Customer {
 
 	@Getter
 	@Setter
-	private String address;
+	private String firstname, lastname;
 
 	// Jedem Customer ist genau ein UserAccount zugeordnet, um später über den
 	// UserAccount an den
@@ -30,9 +30,10 @@ public class Customer {
 	public Customer() {
 	}
 
-	public Customer(UserAccount userAccount) {
+	public Customer(UserAccount userAccount, String firstname, String lastname) {
 		this.userAccount = userAccount;
-
+		this.firstname = firstname;
+		this.lastname = lastname;
 	}
 
 	public UUID getId() {

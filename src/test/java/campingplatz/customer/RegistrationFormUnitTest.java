@@ -15,8 +15,9 @@ class RegistrationFormUnitTest {
         String name = "Max";
         String last = "Musterman";
         String password = "123";
+        String email = "maxmusterman@mail.de";
 
-        RegistrationForm form = new RegistrationForm(name, last, password);
+        RegistrationForm form = new RegistrationForm(name, last, password, email);
 
         assertEquals(name, form.getName());
         assertEquals(last, form.getLast());
@@ -29,12 +30,14 @@ class RegistrationFormUnitTest {
         String validName = "Max";
         String validLast = "Musterman";
         String validPassword = "123";
-        RegistrationForm validForm = new RegistrationForm(validName, validLast, validPassword);
+        String validEmail = "maxmusterman@mail.de";
+        RegistrationForm validForm = new RegistrationForm(validName, validLast, validPassword, validEmail);
 
         String invalidName = "";
         String invalidLast = "";
         String invalidPassword = "";
-        RegistrationForm invalidForm = new RegistrationForm(invalidName, invalidLast, invalidPassword);
+        String invalidEmail = "";
+        RegistrationForm invalidForm = new RegistrationForm(invalidName, invalidLast, invalidPassword, invalidEmail);
 
         Errors validErrors = new BeanPropertyBindingResult(validForm, "validForm");
         Errors invalidErrors = new BeanPropertyBindingResult(invalidForm, "invalidForm");

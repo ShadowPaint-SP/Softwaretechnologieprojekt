@@ -42,9 +42,9 @@ public class CustomerManagement {
      * @param form must not be {@literal null}.
      * @return the new {@link Customer} instance.
      */
-    public Customer create(String username, UnencryptedPassword password, Role roles) {
-        var userAccount = userAccounts.create(username, password, roles);
-        return customers.save(new Customer(userAccount));
+    public Customer create(String email, UnencryptedPassword password, Role roles, String firstname, String lastname) {
+        var userAccount = userAccounts.create(email, password, roles);
+        return customers.save(new Customer(userAccount, firstname, lastname));
 
     }
 

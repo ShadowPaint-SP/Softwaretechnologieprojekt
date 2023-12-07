@@ -7,17 +7,14 @@ import org.springframework.validation.Errors;
 
 class RegistrationForm {
     @Getter
-    private final @NotEmpty String name, last, password;
+    private final @NotEmpty String name, last, password, email;
 
-    public RegistrationForm(String name, String last, String password) {
+    public RegistrationForm(String name, String last, String password, String email) {
 
         this.name = name;
         this.last = last;
         this.password = password;
-    }
-
-    public String getFullName() {
-        return name + " " + last;
+        this.email = email;
     }
 
     public void validate(Errors errors) {

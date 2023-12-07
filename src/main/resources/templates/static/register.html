@@ -43,6 +43,14 @@
                                 th:placeholder="#{login-register.password}"
                                 class="input input-bordered focus:outline-accent" required />
                         </div>
+                        <div class="label pb-0">
+                            <span class="label-text-alt">think of an email</span>
+                        </div>
+                        <div class="form-control">
+                            <input id="email" th:field="*{email}" th:errorclass="fieldError" type="email"
+                                th:placeholder="#{login-register.email}"
+                                class="input input-bordered focus:outline-accent" required />
+                        </div>
 
                         <div class="form-control mt-6">
                             <button class="btn btn-accent" type="submit" th:text="#{register.submit}">Register</button>

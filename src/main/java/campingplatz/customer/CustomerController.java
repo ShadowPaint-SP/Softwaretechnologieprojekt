@@ -31,12 +31,13 @@ class CustomerController {
         if (result.hasErrors()) {
             return "static/register";
         }
-        System.out.println(form.getFullName());
 
         // Falls alles in Ordnung ist legen wir einen Customer an
-        customerManagement.create(form.getFullName(),
+        customerManagement.create(form.getEmail(),
                 Password.UnencryptedPassword.of(form.getPassword()),
-                Customer.Roles.CUSTOMER.getValue());
+                Customer.Roles.CUSTOMER.getValue(),
+                form.getName(),
+                form.getLast());
 
         return "redirect:/";
     }
