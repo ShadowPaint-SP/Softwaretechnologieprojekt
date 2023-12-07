@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{dashboard.title})}">
+
+<head></head>
+
+<body>
+	<main layout:fragment="input">
+		<div class="overflow-x-auto">
+			<table class="table table-zebra">
+				<!-- head -->
+				<thead>
+					<tr>
+						<th></th>
+						<th>Status</th>
+						<th>First Name</th>
+						<th>Second Name</th>
+						<th>Plot</th>
+						<th>Arrival</th>
+						<th>Departure</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<!-- row 2 -->
+					<tr th:each="reservation, iStat : ${reservations}" class="hover">
+						<th th:text="${iStat.count}"></th>
+						<th>
+							<form method="post" action="/management/reservation/updateReservation">
+								<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
+								<select onchange="this.form.submit()" name="stateValue" class="select select-bordered select-xs w-full max-w-xs">
+									<option value="0" th:selected="${reservation.state.value == 0}" th:text="#{reservation.status.not_taken}"></option>
+									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}"> </option>
+								</select>
+							</form>
+						</th>
+						<td th:text="${reservation.user.firstname}"></td>
+						<td th:text="${reservation.user.lastname}"></td>
+						<td th:text="${reservation.product.name}"></td>
+						<td th:text="${reservation.begin}"></td>
+						<td th:text="${reservation.end}"></td>
+						<td th:text="${reservation.price}"></td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</main>
+</body>
+
+</html>

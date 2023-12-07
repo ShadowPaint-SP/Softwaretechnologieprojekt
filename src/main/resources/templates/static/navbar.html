@@ -24,12 +24,12 @@
             <li sec:authorize="hasRole('BOSS')">
               <a th:text="#{nav.dashboard}">Dashboard</a>
               <ul class="p-2">
-                <li><a href="../dashboards/customer_mamangement.html" th:href="@{/management/customer}"
-                    th:text="#{nav.c_management}">Customer management</a></li>
+                <li><a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
+                       th:text="#{nav.c_management}">Customer management</a></li>
                 <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
                     th:text="#{nav.p_management}">Plot management</a></li>
-                <li><a href="../dashboards/sportsequipment_mamangement.html" th:href="@{/management/sportsequipment}"
-                    th:text="#{nav.s_management}">Sportsequipment management</a></li>
+                <li><a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
+                       th:text="#{nav.s_management}">Sportsequipment management</a></li>
               </ul>
             </li>
             <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/orders.html" th:href="@{/orders}"
@@ -46,23 +46,33 @@
               th:text="#{nav.seasonalplotcatalog}">Seasonalplotcatalog</a></li>
           <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportequipmentcatalog}"
               th:text="#{nav.sportsequipmentcatalog}">Sportsequipmentcatalog</a></li>
-          <li sec:authorize="hasRole('BOSS')">
+          <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
             <details>
               <summary th:text="#{nav.dashboard}">Dashboard</summary>
               <ul class="p-2">
-                <li><a href="../dashboards/customer_mamangement.html" th:href="@{/management/customer}"
-                    th:text="#{nav.dashboard.c}">Customer management</a></li>
-                <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
-                    th:text="#{nav.dashboard.p}">Plot management</a></li>
-                <li><a href="../dashboards/sportsequipment_mamangement.html" th:href="@{/management/sportsequipment}"
-                    th:text="#{nav.dashboard.s}">Sportsequipment management</a></li>
+                <li sec:authorize="hasRole('BOSS')">
+                  <a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
+                     th:text="#{nav.dashboard.c}">Customer management</a>
+                </li>
+                <li sec:authorize="hasRole('BOSS')">
+                  <a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
+                    th:text="#{nav.dashboard.p}">Plot management</a>
+                </li>
+                <li sec:authorize="hasRole('BOSS')">
+                  <a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
+                     th:text="#{nav.dashboard.s}">Sportsequipment management</a>
+                </li>
+                <li>
+                  <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
+                     th:text="#{nav.dashboard.r}">Reservations management</a>
+                </li>
               </ul>
             </details>
           </li>
         </ul>
       </div>
       <div class="navbar-end">
-        <div class="dropdown dropdown-end" sec:authorize="hasAnyRole('BOSS','CUSTOMER')">
+        <div class="dropdown dropdown-end" sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE','CUSTOMER')">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"

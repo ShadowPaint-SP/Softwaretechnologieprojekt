@@ -1,7 +1,5 @@
-package campingplatz.dashboards;
+package campingplatz.customer;
 
-import campingplatz.customer.Customer;
-import campingplatz.customer.CustomerManagement;
 import jakarta.validation.Valid;
 import org.springframework.data.util.Streamable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,11 +14,11 @@ import java.util.UUID;
  * DashboardController
  */
 @Controller
-public class DashboardController {
+public class CustomerDashboardController {
 
 	CustomerManagement customerManagement;
 
-	DashboardController(CustomerManagement customerManagement) {
+	CustomerDashboardController(CustomerManagement customerManagement) {
 		this.customerManagement = customerManagement;
 	}
 
@@ -29,7 +27,7 @@ public class DashboardController {
 	String customer(Model model) {
 		Streamable<Customer> all = customerManagement.findAll();
 		model.addAttribute("Customers", all);
-		return "dashboards/customer_mamangement";
+		return "dashboards/customer_management";
 	}
 
 	@PostMapping("/management/customer/updateRoles")
@@ -38,26 +36,21 @@ public class DashboardController {
 
 		var uuid = info.getCustomerUUID();
 		var customer = customerManagement.findByUUID(uuid).get();
-		var role = Customer.Roles.fromNumber(info.getRole());
+		var role = Customer.Roles.fromNumber(info.getRoleValue());
 
 		customer.setRole(role);
 
 		Streamable<Customer> all = customerManagement.findAll();
 		model.addAttribute("Customers", all);
-		return "dashboards/customer_mamangement";
+		return "dashboards/customer_management";
 	}
 
 	interface RoleChangeInformation {
 		UUID getCustomerUUID();
 
-		Integer getRole();
+		Integer getRoleValue();
 
 	}
 
-	@GetMapping("/management/sportsequipment")
-	@PreAuthorize("hasRole('BOSS')")
-	String sportsequipment(Model model) {
-		return "dashboards/sportsequipment_mamangement";
-	}
 
 }

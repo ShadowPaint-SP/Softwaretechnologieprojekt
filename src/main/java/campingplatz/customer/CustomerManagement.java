@@ -43,10 +43,14 @@ public class CustomerManagement {
      * @return the new {@link Customer} instance.
      */
     public Customer create(String email, UnencryptedPassword password, Role roles, String firstname, String lastname) {
-        var userAccount = userAccounts.create(email, password, roles);
+        // create an account
+		var userAccount = userAccounts.create(email, password, roles);
 		userAccount.setFirstname(firstname);
 		userAccount.setLastname(lastname);
-		return customers.save(new Customer(userAccount));
+
+		// dont forget to save
+		var modifiedAccount = userAccounts.save(userAccount);
+		return customers.save(new Customer(modifiedAccount));
 
     }
 
