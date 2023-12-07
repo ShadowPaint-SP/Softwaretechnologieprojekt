@@ -21,16 +21,20 @@ class CustomerManagementUnitTests {
 		UserAccountManagement userAccountManager = mock(UserAccountManagement.class);
 		UserAccount userAccount = mock(UserAccount.class);
 		when(userAccountManager.create(any(), any(), any(Role.class))).thenReturn(userAccount);
+		when(userAccountManager.save(any())).then(i -> i.getArgument(0));
 
 		CustomerManagement customerManagement = new CustomerManagement(repository, userAccountManager);
 
-		RegistrationForm form = new RegistrationForm("name", "password");
-		Customer customer = customerManagement.createCustomer(form);
+		RegistrationForm form = new RegistrationForm("name", "last", "password", "email");
+		Customer customer = customerManagement.create(form.getEmail(), UnencryptedPassword.of(form.getPassword()),
+				Customer.Roles.CUSTOMER.getValue(),
+				form.getName(),
+				form.getLast());
 
-		verify(userAccountManager, times(1)) //
-				.create(eq(form.getName()), //
-						eq(UnencryptedPassword.of(form.getPassword())), //
-						eq(CustomerManagement.CUSTOMER_ROLE_DC));
+		verify(userAccountManager, times(1))
+				.create(eq(form.getEmail()),
+						eq(UnencryptedPassword.of(form.getPassword())),
+						eq(Customer.Roles.CUSTOMER.getValue()));
 
 		assertThat(customer.getUserAccount()).isNotNull();
 	}

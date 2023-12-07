@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{dashboard.title})}">
+
+<head></head>
+
+<body>
+	<main layout:fragment="input">
+		<div class="overflow-x-auto">
+			<table class="table table-zebra">
+				<!-- head -->
+				<thead>
+					<tr>
+						<th></th>
+						<th th:text="#{user.firstName}"></th>
+						<th th:text="#{user.lastName}"></th>
+						<th th:text="#{user.email}"></th>
+						<th th:text="#{user.role}"></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<!-- row 2 -->
+					<tr th:each="customer, iStat : ${Customers}" class="hover">
+						<th th:text="${iStat.count}">2</th>
+						<td th:text="${customer.firstName}"></td>
+						<td th:text="${customer.lastName}"></td>
+						<td th:text="${customer.username}"></td>
+						<td>
+							<form method="post" action="/management/customer/updateRoles">
+								<input type="hidden" name="customerUUID" th:value="${customer.id}">
+								<select onchange="this.form.submit()" name="roleValue" th:disabled="${customer.role.name=='BOSS'}"
+									class="select select-bordered select-xs w-full max-w-xs">
+									<option value="0" th:selected="${customer.role.name=='CUSTOMER'}" th:text="#{user.role.customer}">
+									</option>
+									<option value="1" th:selected="${customer.role.name=='EMPLOYEE'}" th:text="#{user.role.employee}">
+									</option>
+									<option value="2" th:selected="${customer.role.name=='BOSS'}" th:text="#{user.role.boss}" disabled>
+									</option>
+								</select>
+							</form>
+						</td>
+					</tr>
+
+
+
+				</tbody>
+			</table>
+		</div>
+	</main>
+</body>
+
+</html>

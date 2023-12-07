@@ -34,8 +34,8 @@
                 <div class="stat place-items-center">
                     <div class="stat-title">Parkplatz</div>
                     <div class="stat-value text-secondary">
-                        <select class="select w-full max-w-xs" onchange="this.form.submit()">
-                            <option disabled selected>Wählen Sie Ihren benötigten Parkplatz</option>
+                        <select class="select w-full max-w-xs" name="parking" onchange="this.form.submit()">
+                            <option disabled selected>Pick The minimum size you need</option>
                             <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{catalog.parking.no}">
                             </option>
                             <option value="1" th:selected="${searchQuery.parking==1}" th:text="#{catalog.parking.bike}">

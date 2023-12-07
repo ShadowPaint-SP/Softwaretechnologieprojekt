@@ -22,7 +22,7 @@ import static org.salespointframework.core.Currencies.EURO;
  * Abstraction of a shopping cart.
  * <p>
  * The api of the Salespoint Cart is not generic, which makes it
- * especially bad for our useage. So we make our own, as a simple
+ * especially bad for our usage. So we make our own, as a simple
  * extension of ArrayList
  * <p>
  * The Cart stores Registrations by splitting them into several individual

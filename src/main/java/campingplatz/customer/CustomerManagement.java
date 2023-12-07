@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CustomerManagement {
-
-    public static final Role CUSTOMER_ROLE_DC = Role.of("CUSTOMER");
 
     private final CustomerRepository customers;
     private final UserAccountManagement userAccounts;
@@ -41,14 +42,15 @@ public class CustomerManagement {
      * @param form must not be {@literal null}.
      * @return the new {@link Customer} instance.
      */
-    public Customer createCustomer(RegistrationForm form) {
+    public Customer create(String email, UnencryptedPassword password, Role roles, String firstname, String lastname) {
+        // create an account
+		var userAccount = userAccounts.create(email, password, roles);
+		userAccount.setFirstname(firstname);
+		userAccount.setLastname(lastname);
 
-        Assert.notNull(form, "Registration form must not be null!");
-
-        var password = UnencryptedPassword.of(form.getPassword());
-
-        var userAccount = userAccounts.create(form.getName(), password, CUSTOMER_ROLE_DC);
-        return customers.save(new Customer(userAccount));
+		// dont forget to save
+		var modifiedAccount = userAccounts.save(userAccount);
+		return customers.save(new Customer(modifiedAccount));
 
     }
 
@@ -59,5 +61,14 @@ public class CustomerManagement {
      */
     public Streamable<Customer> findAll() {
         return customers.findAll();
+    }
+
+    /**
+     * Returns the {@link Customer}s with the given UUID.
+     *
+     * @return a {@link Customer} entity.
+     */
+    public Optional<Customer> findByUUID(UUID id) {
+        return customers.findById(id);
     }
 }
