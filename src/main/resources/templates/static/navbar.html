@@ -25,11 +25,11 @@
               <a th:text="#{nav.dashboard}">Dashboard</a>
               <ul class="p-2">
                 <li><a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
-                       th:text="#{nav.c_management}">Customer management</a></li>
+                    th:text="#{nav.c_management}">Customer management</a></li>
                 <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
                     th:text="#{nav.p_management}">Plot management</a></li>
                 <li><a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
-                       th:text="#{nav.s_management}">Sportsequipment management</a></li>
+                    th:text="#{nav.s_management}">Sportsequipment management</a></li>
               </ul>
             </li>
             <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/orders.html" th:href="@{/orders}"
@@ -52,7 +52,7 @@
               <ul class="p-2">
                 <li sec:authorize="hasRole('BOSS')">
                   <a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
-                     th:text="#{nav.dashboard.customers}">Customer management</a>
+                    th:text="#{nav.dashboard.customers}">Customer management</a>
                 </li>
                 <li sec:authorize="hasRole('BOSS')">
                   <a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
@@ -60,11 +60,11 @@
                 </li>
                 <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
                   <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
-                     th:text="#{nav.dashboard.reservations}">Reservations management</a>
+                    th:text="#{nav.dashboard.reservations}">Reservations management</a>
                 </li>
                 <li sec:authorize="hasRole('BOSS')">
                   <a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
-                     th:text="#{nav.dashboard.sports}">Sportsequipment management</a>
+                    th:text="#{nav.dashboard.sports}">Sportsequipment management</a>
                 </li>
               </ul>
             </details>
@@ -124,9 +124,15 @@
               </button>
             </li>
             <li sec:authorize="!isAuthenticated()" class="content-stretch">
-              <button class="text-primary" onclick="my_modal_3.showModal()" th:href="@{/login}" th:text="#{nav.login}">
+              <button id="jsOn" class="text-primary hidden" onclick="my_modal_3.showModal()" th:href="@{/login}"
+                th:text="#{nav.login}">
                 Login
               </button>
+              <noscript class="w-full flex">
+                <a href="../static/login.html" class="text-primary flex-grow" th:href="@{/login}">
+                  <p th:text="#{nav.login}">login</p>
+                </a>
+              </noscript>
             </li>
             <li sec:authorize="isAuthenticated()">
               <a th:href="@{/logout}" method="post" th:text="#{nav.logout}">Logout</a>

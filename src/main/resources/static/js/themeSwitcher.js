@@ -1,3 +1,8 @@
+
+document.getElementById("jsOn").style.display = "block";
+
+
+
 const checkbox = document.querySelector('.dark-mode-checkbox');
 
 // selected prefered theme
