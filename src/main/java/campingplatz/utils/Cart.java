@@ -119,7 +119,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 
 		MonetaryAmount acuumulator = Money.of(0, EURO);
 		for (var reservation : reservations) {
-			acuumulator.add(reservation.getPrice());
+			acuumulator = acuumulator.add(reservation.getPrice());
 		}
 
 		return acuumulator;
