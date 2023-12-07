@@ -35,7 +35,7 @@
                     <div class="stat-title">Parkplatz</div>
                     <div class="stat-value text-secondary">
                         <select class="select w-full max-w-xs" onchange="this.form.submit()">
-                            <option disabled selected>Pick The minimum size you need</option>
+                            <option disabled selected>Wählen Sie Ihren benötigten Parkplatz</option>
                             <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{catalog.parking.no}">
                             </option>
                             <option value="1" th:selected="${searchQuery.parking==1}" th:text="#{catalog.parking.bike}">
@@ -50,15 +50,15 @@
                 </div>
 
                 <div class="stat place-items-center">
-                    <div class="stat-title">Größe</div>
+                    <div class="stat-title">Größe in Quadratmeter</div>
                     <div class="stat-actions">
                         <div>
                             <input class="input" type="number" name="sizeMin" th:value="${searchQuery.sizeMin}"
-                                th:placeholder="#{catalog.ranges.from}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.from-size}" onchange="this.form.submit()">
                         </div>
                         <div>
                             <input class="input" type="number" name="sizeMax" th:value="${searchQuery.sizeMax}"
-                                th:placeholder="#{catalog.ranges.to}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.to-size}" onchange="this.form.submit()">
                         </div>
                     </div>
                 </div>
@@ -68,11 +68,11 @@
                     <div class="stat-actions">
                         <div>
                             <input class="input" type="number" name="priceMin" th:value="${searchQuery.priceMin}"
-                                th:placeholder="#{catalog.ranges.from}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.from-price}" onchange="this.form.submit()">
                         </div>
                         <div>
                             <input class="input" type="number" name="priceMax" th:value="${searchQuery.priceMax}"
-                                th:placeholder="#{catalog.ranges.to}" onchange="this.form.submit()">
+                                th:placeholder="#{catalog.ranges.to-price}" onchange="this.form.submit()">
                         </div>
                     </div>
                 </div>
