@@ -42,7 +42,7 @@ public class SportItemCatalogController {
 
 		model.addAttribute("items", listo);
 
-		return "dashboards/sportsequipment_mamangement";
+		return "dashboards/sportsequipment_management";
 	}
 	/*
 	 * @GetMapping({"/sportequipmentcatalog", "/management/sportsequipment"})
