@@ -21,6 +21,7 @@ class CustomerManagementUnitTests {
 		UserAccountManagement userAccountManager = mock(UserAccountManagement.class);
 		UserAccount userAccount = mock(UserAccount.class);
 		when(userAccountManager.create(any(), any(), any(Role.class))).thenReturn(userAccount);
+		when(userAccountManager.save(any())).then(i -> i.getArgument(0));
 
 		CustomerManagement customerManagement = new CustomerManagement(repository, userAccountManager);
 
