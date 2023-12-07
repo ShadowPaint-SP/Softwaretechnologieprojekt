@@ -11,13 +11,13 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>Status</th>
-						<th>First Name</th>
-						<th>Second Name</th>
-						<th>Plot</th>
-						<th>Arrival</th>
-						<th>Departure</th>
-						<th>Price</th>
+						<th th:text="#{reservation.status}"></th>
+						<th th:text="#{user.firstName}"></th>
+						<th th:text="#{user.lastName}"></th>
+						<th th:text="#{terms.plot}"></th>
+						<th th:text="#{reservation.plot.begin}"></th>
+						<th th:text="#{reservation.plot.end}"></th>
+						<th th:text="#{reservation.price}"></th>
 					</tr>
 				</thead>
 				<tbody>

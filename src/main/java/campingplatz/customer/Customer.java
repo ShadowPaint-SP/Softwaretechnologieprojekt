@@ -39,6 +39,14 @@ public class Customer {
 		return userAccount.getUsername();
 	}
 
+	public String getFirstName() {
+		return userAccount.getFirstname();
+	}
+
+	public String getLastName() {
+		return userAccount.getLastname();
+	}
+
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}

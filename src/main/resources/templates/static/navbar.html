@@ -52,19 +52,19 @@
               <ul class="p-2">
                 <li sec:authorize="hasRole('BOSS')">
                   <a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
-                     th:text="#{nav.dashboard.c}">Customer management</a>
+                     th:text="#{nav.dashboard.customers}">Customer management</a>
                 </li>
                 <li sec:authorize="hasRole('BOSS')">
                   <a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
-                    th:text="#{nav.dashboard.p}">Plot management</a>
+                    th:text="#{nav.dashboard.plots}">Plot management</a>
+                </li>
+                <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
+                  <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
+                     th:text="#{nav.dashboard.reservations}">Reservations management</a>
                 </li>
                 <li sec:authorize="hasRole('BOSS')">
                   <a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
-                     th:text="#{nav.dashboard.s}">Sportsequipment management</a>
-                </li>
-                <li>
-                  <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
-                     th:text="#{nav.dashboard.r}">Reservations management</a>
+                     th:text="#{nav.dashboard.sports}">Sportsequipment management</a>
                 </li>
               </ul>
             </details>
