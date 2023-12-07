@@ -1,10 +1,7 @@
 package campingplatz.reservation;
 
-import campingplatz.customer.Customer;
-import campingplatz.customer.CustomerDashboardController;
 import campingplatz.plots.Plot;
 import jakarta.validation.Valid;
-import org.springframework.data.util.Streamable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +13,6 @@ import java.util.UUID;
 
 @Controller
 public class ReservationDashboardController {
-
 
 	ReservationRepository<Plot> plotReservations;
 
@@ -31,7 +27,6 @@ public class ReservationDashboardController {
 		model.addAttribute("reservations", all);
 		return "dashboards/reservation_management";
 	}
-
 
 	@PostMapping("/management/reservation/updateReservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
@@ -52,9 +47,9 @@ public class ReservationDashboardController {
 
 	interface ReservationChangeInformation {
 		UUID getReservationUUID();
+
 		Integer getStateValue();
 
 	}
-
 
 }

@@ -28,7 +28,7 @@ class ReservationIntegrationTests {
 	}
 
 	@Test
-	@WithMockUser(username = "boss", roles = "BOSS")
+	@WithMockUser(username = "boss@mail.de", roles = "BOSS")
 	void cartIsAccessibleForAdmin() throws Exception {
 
 		mvc.perform(get("/cart"))
@@ -37,7 +37,7 @@ class ReservationIntegrationTests {
 	}
 
 	@Test
-	@WithMockUser(username = "hans", roles = "CUSTOMER")
+	@WithMockUser(username = "hans@mail.de", roles = "CUSTOMER")
 	void cartIsAccessibleForCustomer() throws Exception {
 
 		mvc.perform(get("/cart"))

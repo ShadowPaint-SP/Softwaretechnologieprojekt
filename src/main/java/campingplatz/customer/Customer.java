@@ -1,8 +1,6 @@
 package campingplatz.customer;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 
@@ -17,10 +15,9 @@ public class Customer {
 
 	private @Id UUID id = UUID.randomUUID();
 
-
 	/*
-	* Every Customer has a User Account.
-	* */
+	 * Every Customer has a User Account.
+	 */
 	@OneToOne
 	private UserAccount userAccount;
 

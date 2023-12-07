@@ -31,7 +31,7 @@ public class CampingPlatz {
         SecurityFilterChain CampingPlatzSecurity(HttpSecurity http) throws Exception {
 
             http.csrf(csrf -> csrf.disable());
-            http.formLogin(login -> login.loginProcessingUrl("/conf/login"));
+            http.formLogin(login -> login.loginProcessingUrl("/login").loginPage("/default/login"));
             http.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"));
             return http.build();
         }

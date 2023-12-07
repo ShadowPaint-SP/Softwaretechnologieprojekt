@@ -19,7 +19,7 @@
                 <h3 class="mt-3 text-xl font-medium text-center" th:text="#{login.message}">Welcome Back</h3>
                 <p class="mt-1 text-center" th:text="#{login.info}">Login or create account</p>
 
-                <form role="form" th:action="@{/conf/login}" method="post">
+                <form role="form" th:action="@{/login}" method="post">
                     <div class="w-full mt-4">
                         <input class="input input-bordered focus:outline-accent w-full" type="text"
                             th:placeholder="#{login-register.email}" aria-label="Username" id="username" name="username"

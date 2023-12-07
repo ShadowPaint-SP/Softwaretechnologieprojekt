@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.salespointframework.catalog.Product;
-import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -57,19 +56,19 @@ public abstract class Reservation<T extends Product> implements Priced {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime end;
 
-	@Getter
-	@Setter
-	private State state;
+    @Getter
+    @Setter
+    private State state;
 
     public Reservation() {
         this.id = UUID.randomUUID();
-		this.state = State.NOT_TAKEN;
+        this.state = State.NOT_TAKEN;
     }
 
     public Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end) {
 
         this.id = UUID.randomUUID();
-		this.state = State.NOT_TAKEN;
+        this.state = State.NOT_TAKEN;
 
         this.user = user;
         this.product = product;
@@ -77,7 +76,6 @@ public abstract class Reservation<T extends Product> implements Priced {
         this.begin = begin;
         this.end = end;
     }
-
 
     @Override
     public MonetaryAmount getPrice() {
@@ -97,29 +95,27 @@ public abstract class Reservation<T extends Product> implements Priced {
         return units.between(begin, end);
     }
 
+    public static enum State {
+        NOT_TAKEN(0),
+        TAKEN(1);
 
-	public static enum State {
-		NOT_TAKEN(0),
-		TAKEN(1);
+        private Integer value;
 
+        State(Integer value) {
+            this.value = value;
+        }
 
-		private Integer value;
+        public Integer getValue() {
+            return value;
+        }
 
-		State(Integer value) {
-			this.value = value;
-		}
-
-		public Integer getValue() {
-			return value;
-		}
-
-		public static State fromNumber(Integer i) {
-			return switch (i) {
-				case 0 -> NOT_TAKEN;
-				case 1 -> TAKEN;
-				default -> null;
-			};
-		}
-	}
+        public static State fromNumber(Integer i) {
+            return switch (i) {
+                case 0 -> NOT_TAKEN;
+                case 1 -> TAKEN;
+                default -> null;
+            };
+        }
+    }
 
 }
