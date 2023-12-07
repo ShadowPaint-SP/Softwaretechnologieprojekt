@@ -21,18 +21,18 @@ public class DashboardTest {
 	private MockMvc mockMvc;
 
 	@Test
-	@WithMockUser(username = "boss", roles = "BOSS")
+	@WithMockUser(username = "boss@mail.de", roles = "BOSS")
 	public void DashboardReturnSportequipmentmanagement() throws Exception {
 		mockMvc.perform(get("/management/sportsequipment")).andExpect(status().isOk());
 	}
 
 	@Test
-	@WithMockUser(username = "hans", roles = "CUSTOMER")
+	@WithMockUser(username = "hans@mail.de", roles = "CUSTOMER")
 	public void DashboardDoesntReturnSportequipmentmanagement() throws Exception {
 		mockMvc.perform(get("/management/sportsequipment")).andExpect(status().is(403));
 	}
 
-	@Test // #75
+	@Test
 	void DashboardDoesntReturnSportequipmentmanagementToRandos() throws Exception {
 		mockMvc.perform(get("/management/sportsequipment")).andExpect(status().isFound());
 	}
