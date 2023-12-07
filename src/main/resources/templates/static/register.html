@@ -12,53 +12,38 @@
                     <h1 class="text-5xl font-bold" th:text="#{register.info}">
                         Register now!
                     </h1>
-                    <p class="py-6" th:text="resgister.message">
+                    <p class="py-6">
                         Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
                         excepturi exercitationem quasi. In deleniti eaque aut repudiandae
                         et a id nisi.
                     </p>
                 </div>
 
-                <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div class="card shrink-0 w-full max-w-md shadow-2xl bg-base-100">
                     <form class="card-body" id="form" th:action="@{/register}" th:object="${registrationForm}"
                         method="post" role="form">
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text" th:text="#{register.name}">Name</span>
-                            </label>
-                            <input id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text"
-                                th:placeholder="#{login-register.username}"
-                                class="input input-bordered focus:outline-accent" required />
-                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Der Name darf nicht leer sein.
-                            </p>
+                        <div class="label pb-0">
+                            <span class="label-text-alt">What is your name?</span>
+                        </div>
+                        <div class="flex join">
+                            <input id="firstname" th:field="*{name}" th:errorclass="fieldError" type="text"
+                                th:placeholder="#{login-register.fistname}"
+                                class="input input-bordered focus:outline-accent bg-transparent join-item w-[50%]"
+                                required />
+                            <input id="lastname" th:field="*{last}" th:errorclass="fieldError" type="text"
+                                th:placeholder="#{login-register.lastname}"
+                                class="input input-bordered focus:outline-accent bg-transparent join-item w-[50%]"
+                                required />
+                        </div>
+                        <div class="label pb-0">
+                            <span class="label-text-alt">think of a password</span>
                         </div>
                         <div class="form-control">
-                            <label class="label">
-                                <span class="label-text" th:text="#{register.password}">Password</span>
-                            </label>
-                            <input id="password" name="password" th:field="*{password}" th:errorclass="fieldError"
-                                type="password" th:placeholder="#{login-register.password}"
+                            <input id="password" th:field="*{password}" th:errorclass="fieldError" type="password"
+                                th:placeholder="#{login-register.password}"
                                 class="input input-bordered focus:outline-accent" required />
-                            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf
-                                nicht leer sein.</p>
                         </div>
-                        <!--<div class="form-control">
-                            <label class="label">
-                                <span class="label-text">Wollen Sie sich als Dauercamper registrieren?</span>
-                            </label>
-                            <input type="checkbox" id="dauercamper" name="dauercamper" value="ja" label> ja</label>
-                            <input type="checkbox" id="dauercamper" name="dauercamper" value="nein" label>nein</label>
-                        </div>-->
-                        <!--<div class="form-control">
-                            <label class="label">
-                                <span class="label-text" th:text="#{register.address}">Address</span>
-                            </label>
-                            <input id="address" name="address" th:field="*{address}" th:errorclass="fieldError"
-                                type="text" th:placeholder="#{login-register.address}"
-                                class="input input-bordered focus:outline-accent" required />
-                            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Die Adresse darf
-                                nicht leer sein.</p>
-                        </div>-->
+
                         <div class="form-control mt-6">
                             <button class="btn btn-accent" type="submit" th:text="#{register.submit}">Register</button>
                         </div>

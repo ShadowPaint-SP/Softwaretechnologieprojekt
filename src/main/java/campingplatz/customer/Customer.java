@@ -3,14 +3,9 @@ package campingplatz.customer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.jmolecules.ddd.types.Identifier;
-import org.salespointframework.core.AbstractAggregateRoot;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 // Salespoint bietet nur eine UserAccount Verwaltung, für weitere Attribute sollte eine extra
@@ -20,45 +15,47 @@ import java.util.UUID;
 @Entity
 public class Customer {
 
-    private @Id UUID id = UUID.randomUUID();
+	private @Id UUID id = UUID.randomUUID();
 
-    @Getter @Setter
+	@Getter
+	@Setter
 	private String address;
 
-    // Jedem Customer ist genau ein UserAccount zugeordnet, um später über den
-    // UserAccount an den
-    // Customer zu kommen, speichern wir den hier
-    @OneToOne //
-    private UserAccount userAccount;
+	// Jedem Customer ist genau ein UserAccount zugeordnet, um später über den
+	// UserAccount an den
+	// Customer zu kommen, speichern wir den hier
+	@OneToOne //
+	private UserAccount userAccount;
 
-    public Customer() {
-    }
+	public Customer() {
+	}
 
-    public Customer(UserAccount userAccount) {
-        this.userAccount = userAccount;
+	public Customer(UserAccount userAccount) {
+		this.userAccount = userAccount;
 
-    }
+	}
 
-    public UUID getId() {
-        return id;
-    }
+	public UUID getId() {
+		return id;
+	}
 
-	public String getUsername(){
+	public String getUsername() {
 		return userAccount.getUsername();
 	}
 
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
 
-	public Role getRole(){
+	public Role getRole() {
 		var roles = userAccount.getRoles().toList();
 		return roles.get(0);
 	}
-	public void setRole(Role r){
+
+	public void setRole(Role r) {
 		// delete all existing roles
 		var roles = userAccount.getRoles().toList();
-		for (var role : roles){
+		for (var role : roles) {
 			userAccount.remove(role);
 		}
 
@@ -66,27 +63,23 @@ public class Customer {
 		userAccount.add(r);
 	}
 
-
-
-
 	public static enum Roles {
 		NONE(Role.of("")),
 		CUSTOMER(Role.of("CUSTOMER")),
-		EMPLOYEE( Role.of("EMPLOYEE")),
+		EMPLOYEE(Role.of("EMPLOYEE")),
 		BOSS(Role.of("BOSS"));
 
 		private Role role;
 
-		Roles(Role role){
+		Roles(Role role) {
 			this.role = role;
 		}
 
-		public Role getValue(){
+		public Role getValue() {
 			return role;
 		}
 
-
-		public static Role fromNumber(Integer i){
+		public static Role fromNumber(Integer i) {
 			return switch (i) {
 				case 0 -> NONE.getValue();
 				case 1 -> CUSTOMER.getValue();

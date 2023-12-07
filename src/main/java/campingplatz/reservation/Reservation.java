@@ -14,8 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.salespointframework.catalog.Product;
-import org.salespointframework.time.BusinessTime;
-import org.salespointframework.time.Interval;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
 

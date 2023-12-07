@@ -11,26 +11,30 @@ class RegistrationFormUnitTest {
 
     @Test
     void testConstructorAndGetters() {
-        
+
         String name = "Max";
+        String last = "Musterman";
         String password = "123";
 
-        RegistrationForm form = new RegistrationForm(name, password);
+        RegistrationForm form = new RegistrationForm(name, last, password);
 
         assertEquals(name, form.getName());
+        assertEquals(last, form.getLast());
         assertEquals(password, form.getPassword());
     }
 
     @Test
     void testValidate() {
-        
+
         String validName = "Max";
+        String validLast = "Musterman";
         String validPassword = "123";
-        RegistrationForm validForm = new RegistrationForm(validName, validPassword);
+        RegistrationForm validForm = new RegistrationForm(validName, validLast, validPassword);
 
         String invalidName = "";
+        String invalidLast = "";
         String invalidPassword = "";
-        RegistrationForm invalidForm = new RegistrationForm(invalidName, invalidPassword);
+        RegistrationForm invalidForm = new RegistrationForm(invalidName, invalidLast, invalidPassword);
 
         Errors validErrors = new BeanPropertyBindingResult(validForm, "validForm");
         Errors invalidErrors = new BeanPropertyBindingResult(invalidForm, "invalidForm");
@@ -38,8 +42,8 @@ class RegistrationFormUnitTest {
         validForm.validate(validErrors);
         invalidForm.validate(invalidErrors);
 
-        assertFalse(validErrors.hasErrors()); 
+        assertFalse(validErrors.hasErrors());
 
-        assertTrue(invalidErrors.hasErrors()); 
+        assertTrue(invalidErrors.hasErrors());
     }
 }

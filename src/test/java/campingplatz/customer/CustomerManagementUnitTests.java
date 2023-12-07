@@ -12,7 +12,7 @@ import org.salespointframework.useraccount.UserAccountManagement;
 
 class CustomerManagementUnitTests {
 
-	@Test 
+	@Test
 	void createsUserAccountWhenCreatingACustomer() {
 
 		CustomerRepository repository = mock(CustomerRepository.class);
@@ -24,8 +24,9 @@ class CustomerManagementUnitTests {
 
 		CustomerManagement customerManagement = new CustomerManagement(repository, userAccountManager);
 
-		RegistrationForm form = new RegistrationForm("name", "password");
-		Customer customer = customerManagement.create(form.getName(), UnencryptedPassword.of(form.getPassword()), Customer.Roles.CUSTOMER.getValue());
+		RegistrationForm form = new RegistrationForm("name", "last", "password");
+		Customer customer = customerManagement.create(form.getName(), UnencryptedPassword.of(form.getPassword()),
+				Customer.Roles.CUSTOMER.getValue());
 
 		verify(userAccountManager, times(1)) //
 				.create(eq(form.getName()), //

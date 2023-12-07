@@ -1,6 +1,5 @@
 package campingplatz.customer;
 
-import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Password.UnencryptedPassword;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccountManagement;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -59,13 +57,12 @@ public class CustomerManagement {
         return customers.findAll();
     }
 
-
-	/**
-	 * Returns the {@link Customer}s with the given UUID.
-	 *
-	 * @return a {@link Customer} entity.
-	 */
-	public Optional<Customer> findByUUID(UUID id) {
-		return customers.findById(id);
-	}
+    /**
+     * Returns the {@link Customer}s with the given UUID.
+     *
+     * @return a {@link Customer} entity.
+     */
+    public Optional<Customer> findByUUID(UUID id) {
+        return customers.findById(id);
+    }
 }

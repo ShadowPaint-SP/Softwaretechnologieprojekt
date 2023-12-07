@@ -2,15 +2,12 @@ package campingplatz.customer;
 
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Password.UnencryptedPassword;
-import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccountManagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-
-import java.util.List;
 
 @Component
 @Order(10)
@@ -48,15 +45,20 @@ class CustomerDataInitializer implements DataInitializer {
 
         LOG.info("Creating default users and customers.");
 
-		var password = "123";
+        var password = "123";
 
-		customerManagement.create("meister", UnencryptedPassword.of(password), Customer.Roles.EMPLOYEE.getValue());
-		customerManagement.create("boss", UnencryptedPassword.of(password), Customer.Roles.BOSS.getValue());
-		customerManagement.create("hans", UnencryptedPassword.of(password), Customer.Roles.CUSTOMER.getValue());
-		customerManagement.create("jürgen", UnencryptedPassword.of(password), Customer.Roles.CUSTOMER.getValue());
-		customerManagement.create("westphal", UnencryptedPassword.of(password), Customer.Roles.EMPLOYEE.getValue());
-		customerManagement.create("dextermorgan", UnencryptedPassword.of(password), Customer.Roles.CUSTOMER.getValue());
-
+        customerManagement.create("meister", UnencryptedPassword.of(password),
+                Customer.Roles.EMPLOYEE.getValue());
+        customerManagement.create("boss", UnencryptedPassword.of(password),
+                Customer.Roles.BOSS.getValue());
+        customerManagement.create("hans", UnencryptedPassword.of(password),
+                Customer.Roles.CUSTOMER.getValue());
+        customerManagement.create("jürgen", UnencryptedPassword.of(password),
+                Customer.Roles.CUSTOMER.getValue());
+        customerManagement.create("westphal", UnencryptedPassword.of(password),
+                Customer.Roles.EMPLOYEE.getValue());
+        customerManagement.create("dextermorgan", UnencryptedPassword.of(password),
+                Customer.Roles.CUSTOMER.getValue());
 
     }
 }
