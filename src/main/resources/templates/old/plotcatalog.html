@@ -124,13 +124,12 @@
                                 </div>
                             </th>
                             <td></td>
-                            <td class="hover:bg-secondary" th:each="fields : ${availabilityTable.get(plot)}">
-                                <!--<div th:if="${available}">frei</div>
-                                <div th:unless="${available}">NICHT</div>-->
+                            <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"
+                                th:each="fields : ${availabilityTable.get(plot)}">
                                 <button th:type="${fields.type.clickability}"
                                     th:formaction="'/plotcatalog/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}"
-                                    th:class="plot-catalog-field">
-                                    <div class="plot-day-lable">
+                                    class="absolute top-0 right-0 bottom-0 left-0 w-full">
+                                    <div>
                                         <text th:text="#{${fields.type.label}}"></text>
                                     </div>
                                 </button>
@@ -145,6 +144,14 @@
 
 
         </form>
+        <div class="hidden">
+            <span>Legende</span>
+            <p class="bg-green-500">selected</p>
+            <p class="bg-red-500">already reserved</p>
+            <p class="bg-yellow-600">booked by you</p>
+            <p class="bg-blue-300">selected time period</p>
+            <p class="bg-transparent">free</p>
+        </div>
     </main>
 </body>
 
