@@ -16,8 +16,8 @@
                 <div class="flex justify-center mx-auto">
                     <img class="w-auto h-7 sm:h-8" src="" alt="">
                 </div>
-                <h3 class="mt-3 text-xl font-medium text-center" th:text="login.message">Welcome Back</h3>
-                <p class="mt-1 text-center" th:text="login.info">Login or create account</p>
+                <h3 class="mt-3 text-xl font-medium text-center" th:text="#{login.message}">Welcome Back</h3>
+                <p class="mt-1 text-center" th:text="#{login.info}">Login or create account</p>
 
                 <form role="form" th:action="@{/conf/login}" method="post">
                     <div class="w-full mt-4">
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="flex items-center justify-between mt-4">
-                        <a href="#" class="text-sm disabled" th:text="login.forget">Forget Password?</a>
+                        <a href="#" class="text-sm disabled" th:text="#{login.forget}">Forget Password?</a>
 
                         <button class="btn btn-accent" type="submit" th:text="#{login.login}">
                             Sign In
@@ -42,11 +42,11 @@
                 </form>
             </div>
             <div class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700">
-                <span class="text-sm text-gray-600 dark:text-gray-200" th:text="login.noaccount">Sie haben noch keinen Account?
+                <span class="text-sm text-gray-600 dark:text-gray-200" th:text="#{login.noaccount}">Sie haben noch keinen Account?
                 </span>
 
                 <a href="/register" class="mx-2 text-sm font-bold text-accent hover:underline"
-                    th:text="register">Registrieren Sie sich</a>
+                    th:text="#{login.register}">Registrieren Sie sich</a>
             </div>
         </div>
     </div>
