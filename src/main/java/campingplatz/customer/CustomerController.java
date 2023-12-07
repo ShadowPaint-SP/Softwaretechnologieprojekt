@@ -47,4 +47,9 @@ class CustomerController {
         return "static/register";
     }
 
+    @GetMapping("/default/login")
+    public String faildloginredirect(Model model) {
+        return "static/defaultlogin";
+    }
+
 }
