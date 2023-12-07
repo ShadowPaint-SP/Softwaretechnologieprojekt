@@ -52,4 +52,24 @@ class CustomerManagementIntegrationTests {
 
 
 	}
+	@Test
+	void TAM02Register() throws Exception {
+		//entspricht TAM02 aus dem Pflichtenheft
+		mvc.perform(post("/register")
+				.param("name", "jörg")
+				.param("last", "unwichtig")
+				.param("password", "1823h7og1")
+				.param("email", "joerg@mail.de"))
+			.andExpectAll(
+				status().is3xxRedirection(),
+				redirectedUrl("/default/login"));
+
+		mvc.perform(post("/register")
+				.param("name", "jörg")
+				.param("last", "unwichtig")
+				.param("password", "1823h7og1")
+				.param("email", "joerg@mail.de")).
+			andExpect(model().attribute("errorMessage", "User with this email already exists!"));
+
+	}
 }
