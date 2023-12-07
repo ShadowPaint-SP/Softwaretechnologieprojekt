@@ -11,98 +11,103 @@
 
             <!-- button to act as the default submit button, so the others don't. -->
             <button type="submit" class="hidden"></button>
+            <div class="container mx-auto mt-20">
+                <div class="stats shadow w-full">
 
-            <div class="stats shadow">
-
-                <div class="stat place-items-center">
-                    <div class="stat-title">Zeitraum</div>
-                    <div class="stat-actions">
-                        <div>
-                            <label>start</label>
-                            <input class="input" type="date" name="arrival" th:value="${searchQuery.defaultedArrival}"
-                                th:min="${searchQuery.minArrivalDate}" onchange="this.form.submit()">
-                        </div>
-                        <div>
-                            <label>end</label>
-                            <input class="input" type="date" name="departure"
-                                th:value="${searchQuery.defaultedDeparture}" th:min="${searchQuery.defaultedArrival}"
-                                onchange="this.form.submit()">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="stat place-items-center">
-                    <div class="stat-title">Parkplatz</div>
-                    <div class="stat-value text-secondary">
-                        <select class="select w-full max-w-xs" name="parking" onchange="this.form.submit()">
-                            <option disabled selected>Pick The minimum size you need</option>
-                            <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{catalog.parking.no}">
-                            </option>
-                            <option value="1" th:selected="${searchQuery.parking==1}" th:text="#{catalog.parking.bike}">
-                            </option>
-                            <option value="2" th:selected="${searchQuery.parking==2}" th:text="#{catalog.parking.car}">
-                            </option>
-                            <option value="3" th:selected="${searchQuery.parking==3}"
-                                th:text="#{catalog.parking.camper}">
-                            </option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="stat place-items-center">
-                    <div class="stat-title">Größe in Quadratmeter</div>
-                    <div class="stat-actions">
-                        <div>
-                            <input class="input" type="number" name="sizeMin" th:value="${searchQuery.sizeMin}"
-                                th:placeholder="#{catalog.ranges.from-size}" onchange="this.form.submit()">
-                        </div>
-                        <div>
-                            <input class="input" type="number" name="sizeMax" th:value="${searchQuery.sizeMax}"
-                                th:placeholder="#{catalog.ranges.to-size}" onchange="this.form.submit()">
+                    <div class="stat place-items-center">
+                        <div class="stat-title">Zeitraum</div>
+                        <div class="stat-actions">
+                            <div>
+                                <label>start</label>
+                                <input class="input" type="date" name="arrival"
+                                    th:value="${searchQuery.defaultedArrival}" th:min="${searchQuery.minArrivalDate}"
+                                    onchange="this.form.submit()">
+                            </div>
+                            <div>
+                                <label>end</label>
+                                <input class="input" type="date" name="departure"
+                                    th:value="${searchQuery.defaultedDeparture}"
+                                    th:min="${searchQuery.defaultedArrival}" onchange="this.form.submit()">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stat place-items-center">
-                    <div class="stat-title">Preis</div>
-                    <div class="stat-actions">
-                        <div>
-                            <input class="input" type="number" name="priceMin" th:value="${searchQuery.priceMin}"
-                                th:placeholder="#{catalog.ranges.from-price}" onchange="this.form.submit()">
-                        </div>
-                        <div>
-                            <input class="input" type="number" name="priceMax" th:value="${searchQuery.priceMax}"
-                                th:placeholder="#{catalog.ranges.to-price}" onchange="this.form.submit()">
+                    <div class="stat place-items-center">
+                        <div class="stat-title">Parkplatz</div>
+                        <div class="stat-value text-secondary">
+                            <select class="select w-full max-w-xs" name="parking" onchange="this.form.submit()">
+                                <option disabled selected>Pick The minimum size you need</option>
+                                <option value="0" th:selected="${searchQuery.parking==0}"
+                                    th:text="#{catalog.parking.no}">
+                                </option>
+                                <option value="1" th:selected="${searchQuery.parking==1}"
+                                    th:text="#{catalog.parking.bike}">
+                                </option>
+                                <option value="2" th:selected="${searchQuery.parking==2}"
+                                    th:text="#{catalog.parking.car}">
+                                </option>
+                                <option value="3" th:selected="${searchQuery.parking==3}"
+                                    th:text="#{catalog.parking.camper}">
+                                </option>
+                            </select>
                         </div>
                     </div>
-                </div>
 
+                    <div class="stat place-items-center">
+                        <div class="stat-title">Größe in Quadratmeter</div>
+                        <div class="stat-actions">
+                            <div>
+                                <input class="input" type="number" name="sizeMin" th:value="${searchQuery.sizeMin}"
+                                    th:placeholder="#{catalog.ranges.from-size}" onchange="this.form.submit()">
+                            </div>
+                            <div>
+                                <input class="input" type="number" name="sizeMax" th:value="${searchQuery.sizeMax}"
+                                    th:placeholder="#{catalog.ranges.to-size}" onchange="this.form.submit()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat place-items-center">
+                        <div class="stat-title">Preis</div>
+                        <div class="stat-actions">
+                            <div>
+                                <input class="input" type="number" name="priceMin" th:value="${searchQuery.priceMin}"
+                                    th:placeholder="#{catalog.ranges.from-price}" onchange="this.form.submit()">
+                            </div>
+                            <div>
+                                <input class="input" type="number" name="priceMax" th:value="${searchQuery.priceMax}"
+                                    th:placeholder="#{catalog.ranges.to-price}" onchange="this.form.submit()">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div th:fragment="plot_table" class="overflow-x-auto">
+            <div th:fragment="plot_table" class="overflow-x-auto container mx-auto mt-14">
                 <table th:if="${availablePlotsTable != null}" class="table table-zebra">
                     <!-- head -->
                     <thead>
-                        <tr>
-                            <input type="hidden" name="firstWeekDate" th:value="${searchQuery.defaultedFirstWeekDate}">
-                            <th>
-                                <h2 th:if="${availablePlotsTable}" th:text="#{catalog.plots.available}"></h2>
-                                <h2 th:if="${!availablePlotsTable}" th:text="#{catalog.plots.reserved}"></h2>
-                            </th>
-                            <th>
-                                <button type="submit" formaction="/plotcatalog/prev-week#filter">
-                                    < </button>
-                            </th>
-                            <th th:each="date, stat : ${weekDates}"
-                                th:utext=" #{'weekday.'+${stat.index}} + '<br/>' + ${date}">date</th>
-                            <th>
-                                <button type="submit" formaction="/plotcatalog/next-week#filter">>
-                                </button>
-                            </th>
-                        </tr>
+
+                        <input type="hidden" name="firstWeekDate" th:value="${searchQuery.defaultedFirstWeekDate}">
+                        <th class="w-[34%]">
+                            <h2 th:if="${availablePlotsTable}" th:text="#{catalog.plots.available}"></h2>
+                            <h2 th:if="${!availablePlotsTable}" th:text="#{catalog.plots.reserved}"></h2>
+                        </th>
+                        <th class="w-[5%]">
+                            <button type="submit" formaction="/plotcatalog/prev-week#filter">
+                                < </button>
+                        </th>
+                        <th class="w-[8%]" th:each="date, stat : ${weekDates}"
+                            th:utext=" #{'weekday.'+${stat.index}} + '<br/>' + ${date}">date</th>
+                        <th class="w-[5%]">
+                            <button type="submit" formaction="/plotcatalog/next-week#filter">>
+                            </button>
+                        </th>
+
                     </thead>
-                    <tbody th:each="plot, iStat : ${allPlots.get(availablePlotsTable)}">
-                        <tr>
+                    <tbody>
+                        <tr th:each="plot, iStat : ${allPlots.get(availablePlotsTable)}">
                             <th class="flex">
                                 <div>
                                     <img class="h-32 w-32" th:src="'/img/camp_1_1/camp ('+${iStat.count} +').png'" />
