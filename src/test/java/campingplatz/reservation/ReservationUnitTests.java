@@ -1,48 +1,80 @@
 package campingplatz.reservation;
 
+import campingplatz.customer.Customer;
 import campingplatz.plots.Plot;
+import campingplatz.plots.PlotCatalog;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.salespointframework.catalog.Product;
+import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.UserAccountManagement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import static org.mockito.Mockito.when;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.salespointframework.core.Currencies.EURO;
 
+@SpringBootTest
 public class ReservationUnitTests {
-	private PlotReservation reservation;
 
-	@Mock
+	@Autowired
+	private ReservationRepository<Plot> reservationRepository;
+
+	@Autowired
+	private PlotCatalog plotCatalog;
+
+	@Autowired
+	private UserAccountManagement userAccountManagement;
+
+	private PlotReservation reservation;
+	private PlotReservation takenReservation;
+
+
+
 	private UserAccount customer;
-	@Mock
-	private Plot plot1;
-	@Mock
-	private Plot plot2;
+	private Plot plot;
+
+
+
 
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
-		when(plot1.getPrice()).thenReturn(Money.of(20, EURO));
-		when(plot1.getId()).thenReturn(Product.ProductIdentifier.of("1"));
-		when(plot1.getId()).thenReturn(Product.ProductIdentifier.of("2"));
-		reservation = new PlotReservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(),
-				LocalDate.of(2023, 11, 10).atStartOfDay());
+
+		customer = userAccountManagement.create("customer", Password.UnencryptedPassword.of("none"), Customer.Roles.CUSTOMER.getValue());
+		plot = new Plot("1. Platz", 15.0, Money.of(20, EURO), Plot.ParkingLot.NONE);
+		plotCatalog.save(plot);
+
+		var arrival = LocalDate.of(2023, 11, 1).atStartOfDay();
+		var departure = LocalDate.of(2023, 11, 10).atStartOfDay();
+
+		reservation = new PlotReservation(customer, plot, arrival, departure);
+		reservationRepository.save(reservation);
+
+		takenReservation = new PlotReservation(customer, plot, arrival, departure);
+		takenReservation.setState(Reservation.State.TAKEN);
+		reservationRepository.save(takenReservation);
 	}
 
 	@AfterEach
 	void tearDown() {
+		reservationRepository.deleteAll();
+		plotCatalog.delete(plot);
+		userAccountManagement.delete(customer);
 	}
 
 	@Test
 	void init_Reservation() {
-		new PlotReservation(customer, plot1, LocalDate.of(2023, 11, 1).atStartOfDay(),
-				LocalDate.of(2023, 11, 10).atStartOfDay());
+		reservation = new PlotReservation(customer, plot,
+			LocalDate.of(2023, 11, 1).atStartOfDay(),
+			LocalDate.of(2023, 11, 10).atStartOfDay());
 	}
 
 	@Test
@@ -54,8 +86,32 @@ public class ReservationUnitTests {
 	@Test
 	void getPriceTest() {
 		assertEquals(reservation.getPrice(),
-				plot1.getPrice().multiply(ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10))),
+				plot.getPrice().multiply(ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10))),
 				"reservation.getPrice rechnet den Falschen Preis aus");
+	}
+
+
+	@Test
+	void FirstDeletionTest(){
+		// nothing should get deleted
+		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 10, 30).atStartOfDay());
+		assertEquals(2, reservationRepository.findAll().size());
+	}
+
+	@Test
+	void SecondDeletionTest(){
+		// one should get deleted
+		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 11, 2).atStartOfDay());
+		assertEquals(1, reservationRepository.findAll().size());
+		assertEquals(Optional.empty(), reservationRepository.findById(reservation.id));
+		assertEquals(takenReservation, reservationRepository.findById(takenReservation.id).get());
+	}
+
+	@Test
+	void ThirdDeletionTest(){
+		// all should get deleted
+		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 11, 20).atStartOfDay());
+		assertEquals(0, reservationRepository.findAll().size());
 	}
 
 }

@@ -137,4 +137,7 @@ class PlotCatalogController {
         model.addAttribute("Plots", all);
         return "dashboards/plot_management";
     }
+
+
+
 }
