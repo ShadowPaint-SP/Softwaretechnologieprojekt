@@ -1,10 +1,13 @@
 package campingplatz.plots;
 
 import campingplatz.utils.DetailedProduct;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
+
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Plot extends DetailedProduct {
@@ -16,6 +19,17 @@ public class Plot extends DetailedProduct {
     @Getter
     @Setter
     private ParkingLot parking;
+
+	@Getter
+	@Setter
+	@Embedded
+	private Condition condition;
+
+
+
+
+
+
 
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
 
@@ -54,5 +68,37 @@ public class Plot extends DetailedProduct {
         }
 
     }
+
+
+	@Embeddable
+	public static class Condition {
+		public enum State {
+			OPERATIONAL,
+			DEFECTIVE,
+			DELETED
+		}
+		private Boolean deleted = false;
+
+		@Getter
+		@Setter
+		@OneToMany
+		private List<Issue> issueList;
+		public State getState(){
+			if (!issueList.isEmpty()){
+				return State.DEFECTIVE;
+			}
+			if (deleted){
+				return State.DELETED;
+			}
+			else {
+				return State.OPERATIONAL;
+			}
+		}
+
+
+
+	}
+
+
 
 }
