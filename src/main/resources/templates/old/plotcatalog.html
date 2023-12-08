@@ -110,7 +110,7 @@
                         <tr th:each="plot, iStat : ${allPlots.get(availablePlotsTable)}">
                             <th class="flex">
                                 <div>
-                                    <img class="h-32 w-32" th:src="'/img/camp_1_1/camp ('+${iStat.count} +').png'" />
+                                    <img class="h-32 w-32" th:src="${plot.imagePath}" />
                                 </div>
                                 <div>
                                     <div th:text="${plot.name}">Plotname</div>
@@ -118,6 +118,7 @@
                                         <div th:text="'Kosten: '+${plot.priceString}"></div>
                                         <div th:text="'Größe: '+${plot.sizeString}"></div>
                                         <div th:text="#{${plot.parking.label}}"></div>
+                                        <div th:text="${plot.desc}"></div>
                                     </div>
                                     <button type="submit" th:formaction="'/cart/' + ${plot.id}"
                                         th:text="#{catalog.reserve}"></button>
