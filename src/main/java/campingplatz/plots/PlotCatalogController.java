@@ -131,13 +131,5 @@ class PlotCatalogController {
         return "old/seasonalplotcatalog";
     }
 
-    @GetMapping("/management/plots")
-    String plots(Model model) {
-        Streamable<Plot> all = plotCatalog.findAll();
-        model.addAttribute("Plots", all);
-        return "dashboards/plot_management";
-    }
-
-
 
 }

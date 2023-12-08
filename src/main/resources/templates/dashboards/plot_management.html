@@ -12,17 +12,37 @@
 					<tr>
 						<th></th>
 						<th>Name</th>
+						<th>Größe</th>
+						<th>Parkplatz</th>
 						<th>Preis</th>
-						<th>Favorite Color</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- row 1 -->
-					<tr th:each="plot, iStat : ${Plots}" class="hover">
-						<th th:text="${iStat.count}">1</th>
-						<td th:text="${plot.toString}">Cy Ganderton</td>
-						<td th:text="${plot.getPriceString}">Quality Control Specialist</td>
-						<td>Blue</td>
+					<tr th:each="plot, iStat : ${plots}" class="hover">
+						<form method="post" action="/management/plots/updatePlot">
+							<input type="hidden" name="plotUUID" th:value="${plot.id}">
+							<td th:text="${iStat.count}">
+								1
+							</td>
+							<td>
+								<input type="text" name="name" th:value="${plot.name}" onchange="this.form.submit()">
+							</td>
+							<td>
+								<input type="number" name="size" th:value="${plot.size}" onchange="this.form.submit()">
+							</td>
+							<td>
+								<select  name="parkingValue" onchange="this.form.submit()" class="select select-bordered select-xs w-full max-w-xs">
+									<option value="0" th:selected="${plot.parking.size == 0}" th:text="#{plot.parking.no}"></option>
+									<option value="1" th:selected="${plot.parking.size == 1}" th:text="#{plot.parking.bike}"></option>
+									<option value="2" th:selected="${plot.parking.size == 2}" th:text="#{plot.parking.car}"></option>
+									<option value="3" th:selected="${plot.parking.size == 3}" th:text="#{plot.parking.camper}"></option>
+								</select>
+							</td>
+							<td>
+								<input type="number" name="price" th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
+							</td>
+						</form>
 					</tr>
 				</tbody>
 			</table>
