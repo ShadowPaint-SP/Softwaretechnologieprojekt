@@ -101,4 +101,21 @@ class CustomerManagementIntegrationTests {
 
 	}
 
+	@Test
+	void TAM04() throws Exception {
+		//entspricht TAM04 aus dem Pflichtenheft
+		//unfinished because it doesn't log in and logout, it doesn't share the same session between performs
+		//which makes this quit hard...
+		mvc.perform(get("/cart"))
+			.andExpect(status().is3xxRedirection());
+
+		mvc.perform(get("/orders"))
+			.andExpect(status().is3xxRedirection());
+
+		mvc.perform(get("/management/reservation"))
+			.andExpect(status().is3xxRedirection());
+
+
+	}
+
 }
