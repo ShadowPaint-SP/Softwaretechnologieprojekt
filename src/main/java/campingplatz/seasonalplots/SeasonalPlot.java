@@ -1,37 +1,33 @@
-package campingplatz.plots;
+package campingplatz.seasonalplots;
 
-import campingplatz.customer.Customer;
+import campingplatz.plots.Config;
+import campingplatz.plots.Plot;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 
 @Entity
-public class SeasonalPlots extends Plot {
-
-	@Getter
-	private double electricityMeter;
-
-	@Getter
-	private double waterMeter;
+public class SeasonalPlot extends Plot {
 
 	@Getter
 	@Setter
-	private PaymentMethod paymentMethod;
+	private double electricityMeter;
 
-	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter,
-			double waterMeter, PaymentMethod paymentMethod) {
+	@Getter
+	@Setter
+	private double waterMeter;
+
+	public SeasonalPlot(String name, Double size, Money price, ParkingLot parking, double electricityMeter,
+						double waterMeter, String imagePath, String description) {	//Price is per Month
 		//loliger quick fix pls make pictures great again
-		super(name, size, price, parking,
-			"/img/placeholder.png",
-			"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam");
+		super(name, size, price, parking, imagePath, description);
 
 		this.electricityMeter = electricityMeter;
 		this.waterMeter = waterMeter;
-		this.paymentMethod = paymentMethod;
 	}
 
-	public SeasonalPlots() {
+	public SeasonalPlot() {
 	}
 
 	public Money settlementElectricity(double electricityMeter) { // returns the electricity costs for this time period
@@ -45,9 +41,4 @@ public class SeasonalPlots extends Plot {
 		this.waterMeter = waterMeter;
 		return Config.getWaterCosts().multiply(water);
 	}
-
-	public enum PaymentMethod {
-		MONTHLY, SEASONAL
-	}
-
 }

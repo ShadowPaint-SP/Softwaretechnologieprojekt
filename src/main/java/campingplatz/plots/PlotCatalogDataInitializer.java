@@ -40,11 +40,5 @@ class PlotCatalogDataInitializer implements DataInitializer {
 			"/img/camp_1_1/camp_7.png",
 			"Se(e)hen und staunen ;)"));
 
-        plotCatalog.save(new SeasonalPlots("1. Saison Plot", 50.0, Money.of(100, EURO), Plot.ParkingLot.NONE,
-                0, 0, "hans", SeasonalPlots.PaymentMethod.SEASONAL));
-        plotCatalog.save(new SeasonalPlots("2. Saison Plot", 30.0, Money.of(80, EURO), Plot.ParkingLot.NONE,
-                200, 533, "hans", SeasonalPlots.PaymentMethod.SEASONAL));
-        plotCatalog.save(new SeasonalPlots("2. Saison Plot", 120.0, Money.of(150, EURO), Plot.ParkingLot.NONE,
-                232932, 334883, "hans", SeasonalPlots.PaymentMethod.SEASONAL));
     }
 }
