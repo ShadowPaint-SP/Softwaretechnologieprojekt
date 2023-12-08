@@ -266,3 +266,10 @@ image::./models/design/SQD_Plots.png[Sequenzdiagramms Plots, 100%, 100%, pdfwidt
 
 === Reservation
 image::./models/design/SQD_Reservation.png[Sequenzdiagramms Reservation, 100%, 100%, pdfwidth=100%, align=center]
+
+== Konzeptänderungen
+Konzeptänderungen seit dem Erstellen des Pflichtenhefts +
+
+=== Plätze Inventar [F0100]
+Plätze werden in einem Katalog statt einem Inventar gespeichert.
+
