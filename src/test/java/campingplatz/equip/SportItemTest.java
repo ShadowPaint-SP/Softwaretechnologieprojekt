@@ -1,12 +1,8 @@
 package campingplatz.equip;
 
 import org.javamoney.moneta.Money;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
-import org.springframework.test.context.TestConstructor;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -19,23 +15,25 @@ class SportItemTest {
 	@BeforeEach
 	void setUp() {
 		this.defaultItem = new SportItem("Default",
-			Money.of(10, EURO),
-			Money.of(10, EURO),
-			"Default",
-			0,
-			"Default",
-			"Default");
+				Money.of(10, EURO),
+				Money.of(10, EURO),
+				"Default",
+				0,
+				"Default",
+				"Default");
 	}
 
 	@Test
 	public void SportItemConstructorTest() {
-		assertDoesNotThrow(()->{new SportItem("Default",
-			Money.of(10, EURO),
-			Money.of(10, EURO),
-			"Default",
-			0,
-			"Default",
-			"Default");}, "SportItem constructor failed");
+		assertDoesNotThrow(() -> {
+			new SportItem("Default",
+					Money.of(10, EURO),
+					Money.of(10, EURO),
+					"Default",
+					0,
+					"Default",
+					"Default");
+		}, "SportItem constructor failed");
 	}
 
 	@Test
@@ -46,7 +44,6 @@ class SportItemTest {
 
 		assertEquals(deposit, this.defaultItem.getDeposit());
 	}
-
 
 	@Test
 	public void SportItemSetGetAmountTest() {

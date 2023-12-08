@@ -24,7 +24,11 @@ public class SeasonalPlots extends Plot {
 
 	public SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter,
 			double waterMeter, String permanentCamper, PaymentMethod paymentMethod) {
-		super(name, size, price, parking);
+		//loliger quick fix pls make pictures great again
+		super(name, size, price, parking,
+			"/img/placeholder.png",
+			"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam");
+
 		this.electricityMeter = electricityMeter;
 		this.waterMeter = waterMeter;
 		this.permanentCamper = permanentCamper;

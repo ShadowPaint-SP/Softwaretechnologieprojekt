@@ -1,15 +1,9 @@
 package campingplatz.customer;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import org.jmolecules.ddd.types.Identifier;
-import org.salespointframework.core.AbstractAggregateRoot;
+import jakarta.persistence.*;
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
-import campingplatz.customer.Customer.CustomerIdentifier;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 // Salespoint bietet nur eine UserAccount Verwaltung, für weitere Attribute sollte eine extra
@@ -17,93 +11,85 @@ import java.util.UUID;
 // Um den Customer in die Datenbank zu bekommen, schreiben wir ein CustomerRepository.
 
 @Entity
-public class Customer extends AbstractAggregateRoot<CustomerIdentifier> {
+public class Customer {
 
-    private @EmbeddedId CustomerIdentifier id = new CustomerIdentifier();
+	private @Id UUID id = UUID.randomUUID();
 
-    private String address;
+	/*
+	 * Every Customer has a User Account.
+	 */
+	@OneToOne
+	private UserAccount userAccount;
 
-    // Jedem Customer ist genau ein UserAccount zugeordnet, um später über den
-    // UserAccount an den
-    // Customer zu kommen, speichern wir den hier
-    @OneToOne //
-    private UserAccount userAccount;
+	public Customer() {
+	}
 
-    public Customer() {
-    }
+	public Customer(UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
 
-    public Customer(UserAccount userAccount) {
-        this.userAccount = userAccount;
+	public UUID getId() {
+		return id;
+	}
 
-    }
+	public String getUsername() {
+		return userAccount.getUsername();
+	}
 
-    @Override
-    public CustomerIdentifier getId() {
-        return id;
-    }
+	public String getFirstName() {
+		return userAccount.getFirstname();
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getLastName() {
+		return userAccount.getLastname();
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
 
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
+	public Role getRole() {
+		var roles = userAccount.getRoles().toList();
+		return roles.get(0);
+	}
 
-    @Embeddable
-    public static final class CustomerIdentifier implements Identifier, Serializable {
+	public void setRole(Role r) {
+		// delete all existing roles
+		var roles = userAccount.getRoles().toList();
+		for (var role : roles) {
+			userAccount.remove(role);
+		}
 
-        private static final long serialVersionUID = 7740660930809051850L;
-        private final UUID identifier;
+		// add the wanted role
+		userAccount.add(r);
+	}
 
-        /**
-         * Creates a new unique identifier for {@link Customer}s.
-         */
-        CustomerIdentifier() {
-            this(UUID.randomUUID());
-        }
+	public static enum Roles {
+		NONE(Role.of("")),
+		CUSTOMER(Role.of("CUSTOMER")),
+		EMPLOYEE(Role.of("EMPLOYEE")),
+		BOSS(Role.of("BOSS"));
 
-        /**
-         * Only needed for property editor, shouldn't be used otherwise.
-         *
-         * @param identifier The string representation of the identifier.
-         */
-        CustomerIdentifier(UUID identifier) {
-            this.identifier = identifier;
-        }
+		private Role role;
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
+		Roles(Role role) {
+			this.role = role;
+		}
 
-            final int prime = 31;
-            int result = 1;
+		public Role getValue() {
+			return role;
+		}
 
-            result = prime * result + (identifier == null ? 0 : identifier.hashCode());
+		public static Role fromNumber(Integer i) {
+			return switch (i) {
+				case 0 -> NONE.getValue();
+				case 1 -> CUSTOMER.getValue();
+				case 2 -> EMPLOYEE.getValue();
+				case 3 -> BOSS.getValue();
+				default -> NONE.getValue();
+			};
 
-            return result;
-        }
+		}
+	}
 
-        @Override
-        public boolean equals(Object obj) {
-
-            if (obj == this) {
-                return true;
-            }
-
-            if (!(obj instanceof CustomerIdentifier that)) {
-                return false;
-            }
-
-            return this.identifier.equals(that.identifier);
-        }
-    }
 }

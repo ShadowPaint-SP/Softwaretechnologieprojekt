@@ -1,7 +1,9 @@
 package campingplatz.reservation;
 
+import jakarta.transaction.Transactional;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -58,4 +60,18 @@ public interface ReservationRepository<U extends Product> extends CrudRepository
     default Boolean productIsAvailableIn(U product, LocalDateTime arrival, LocalDateTime departure) {
         return !findPlotsReservedBetween(arrival, departure).contains(product);
     }
+
+
+	@Modifying
+	@Transactional
+	@Query("""
+                delete #{#entityName} r
+                where (r.state = 0 and r.begin < :time)
+                or (r.state = 1 and r.end < :time)
+            """)
+	void deleteBeforeThan(LocalDateTime time);
+
+
+
+
 }

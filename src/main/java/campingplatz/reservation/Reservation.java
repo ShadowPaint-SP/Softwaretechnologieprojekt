@@ -30,7 +30,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @EqualsAndHashCode
-public class Reservation<T extends Product> implements Priced {
+public abstract class Reservation<T extends Product> implements Priced {
 
     @Getter
     @Id
@@ -56,13 +56,19 @@ public class Reservation<T extends Product> implements Priced {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime end;
 
+    @Getter
+    @Setter
+    private State state;
+
     public Reservation() {
         this.id = UUID.randomUUID();
+        this.state = State.NOT_TAKEN;
     }
 
     public Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end) {
 
         this.id = UUID.randomUUID();
+        this.state = State.NOT_TAKEN;
 
         this.user = user;
         this.product = product;
@@ -78,9 +84,7 @@ public class Reservation<T extends Product> implements Priced {
     }
 
     // meant to be overridden
-    public ChronoUnit getIntervalUnit() {
-        return null;
-    }
+    public abstract ChronoUnit getIntervalUnit();
 
     /**
      * Get the duration between begin and end. The unit of the duration
@@ -89,6 +93,29 @@ public class Reservation<T extends Product> implements Priced {
     public long duration() {
         var units = getIntervalUnit();
         return units.between(begin, end);
+    }
+
+    public static enum State {
+        NOT_TAKEN(0),
+        TAKEN(1);
+
+        private Integer value;
+
+        State(Integer value) {
+            this.value = value;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public static State fromNumber(Integer i) {
+            return switch (i) {
+                case 0 -> NOT_TAKEN;
+                case 1 -> TAKEN;
+                default -> null;
+            };
+        }
     }
 
 }

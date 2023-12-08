@@ -28,22 +28,24 @@ import java.util.Optional;
 public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvailabilityTable.FieldType[]> {
 
 	public static enum FieldType {
-		FREE_COMPLETELY(0, "catalog.fields.free.completely", "submit"),
-		FREE_HIGHLIGHTED(1, "catalog.fields.free.highlighted", "submit"),
-		FREE_SELECTED(2, "catalog.fields.free.selected", "submit"),
-		RESERVED_OTHER(3, "catalog.fields.reserved.other", "button"),
-		RESERVED_SELF(4, "catalog.fields.reserved.self", "button");
+		FREE_COMPLETELY(0, "catalog.fields.free.completely", "submit", "bg-transparent"),
+		FREE_HIGHLIGHTED(1, "catalog.fields.free.highlighted", "submit", "bg-blue-300"),
+		FREE_SELECTED(2, "catalog.fields.free.selected", "submit", "bg-green-500"),
+		RESERVED_OTHER(3, "catalog.fields.reserved.other", "button", "bg-red-500"),
+		RESERVED_SELF(4, "catalog.fields.reserved.self", "button", "bg-yellow-600");
 
 		public final String clickability;
 		public final Integer value;
 		public final String css;
 		public final String label;
+		public final String color;
 
-		FieldType(Integer size, String arg, String clickability) {
+		FieldType(Integer size, String arg, String clickability, String color) {
 			this.value = size;
 			this.css = arg + ".css";
 			this.label = arg + ".label";
 			this.clickability = clickability;
+			this.color = color;
 		}
 
 	}
