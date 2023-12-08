@@ -12,18 +12,23 @@
             <div class="container mx-auto mt-20">
                 <div class="grid grid-cols-4 gap-4">
                     <div class="flex grow place-self-auto" th:each="item : ${items}">
-                        <div class="card card-compact w-96 bg-base-100 shadow-xl">
+                        <a th:href="@{/item/{id}(id=${item.id})}">
+                        <div class="card card-compact w-96 bg-base-100 shadow-xl" >
                             <figure>
                                 <img th:src="${item.imagePath}" />
                             </figure>
-                            <div class="card-body">
-                                <h2 class="card-title" th:text="${item.name}">Shoes!</h2>
-                                <p th:text="${item.desc}">If a dog chews shoes whose shoes does he choose?</p>
-                                <div class="card-actions justify-end">
-                                    <a th:href="@{/item/{id}(id=${item.id})}" class="btn btn-primary"> details</a>
+                            <div class="card-body grid grid-cols-2">
+                                <div>
+                                <h2 class="card-title" th:text="${item.name}"></h2>
+                                <p th:text="${item.desc}"></p>
+                                </div>
+                                <div >
+                                    <p th:text="#{sport.available}+': '+ ${item.amount}">0</p>
                                 </div>
                             </div>
+
                         </div>
+                        </a>
                     </div>
                 </div>
             </div>
