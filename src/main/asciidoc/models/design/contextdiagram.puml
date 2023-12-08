@@ -1,0 +1,19 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+component Campingplatz {
+        port User
+        port Customer
+        port Employee
+        port Boss
+
+}
+
+
+@enduml

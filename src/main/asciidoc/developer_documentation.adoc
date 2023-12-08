@@ -99,7 +99,6 @@ Notwendige Hardware um die Applikation zu nutzen.
 - Computer
 * Tastatur
 * Maus
-- alternativ ein handy
 
 === Software-Vorgaben
 Notwendige Software um die Applikation zu nutzen.
@@ -120,17 +119,17 @@ image::./models/analysis/context.png[context diagram, 100%, 100%, pdfwidth=100%,
 |=== 
 |Qualitätsziel |Lösungsansatz
 |Wartbarkeit  a|
-- **Modularität:** Der Aufbau der Anwendung sollte aus Komponenten bestehen, welche bei änderungen geringe/keine Auswirkungen auf andere Komponenten aufweisen.
-- **Modifizierbarkeit:** Stellt sicher, dass die Anwendung ohne probleme zu verursachen erweitert oder modifiziert werden kann.
+- **Modularität:** Der Aufbau der Anwendung sollte aus Komponenten bestehen, welche bei Änderungen geringe/keine Auswirkungen auf andere Komponenten aufweisen.
+- **Modifizierbarkeit:** Stellt sicher, dass die Anwendung ohne Probleme zu verursachen erweitert oder modifiziert werden kann.
 - **Wiederverwendbarkeit:** Stellt sicher, dass Komponenten des Systems in anderen Komponenten wieder verwendet werden können.
 |Nutzbarkeit  a|
 - **Lernbarkeit:** Stellt sicher, dass das System leicht zu verstehen/benutzen ist.
-- **Error handeling:** Schützt Nutzer davor fehler zu machen. Nicht valide eingaben dürfen nicht zu nicht validen Zuständen des systems führen.
-- **Schönes Nutzer Interface:** Stellt eine schönes und befriedigendes interaktionsmöglichkeit zwischen dem System und dem Nutzer bereit. 
-- **Barrierefreiheit:** Stellt sicher, dass Menschen mit einer großen bandbreite an charakteristiken die vollen funktionen des Systems nutzen können. 
+- **Error handeling:** Schützt Nutzer davor Fehler zu machen. Nicht valide Eingaben dürfen nicht zu nicht validen Zuständen des Systems führen.
+- **Schönes Nutzer Interface:** Stellt eine schönes und befriedigendes Interaktionsmöglichkeit zwischen dem System und dem Nutzer bereit.
+- **Barrierefreiheit:** Stellt sicher, dass Menschen mit einer großen Bandbreite an Charakteristiken die vollen Funktionen des Systems nutzen können.
 |Sicherheit   a|
-- **Vertraulichkeit:** Stellt sicher, dass auf daten nur von berechtigen Personen zugegriffen werden kann.
-- **Integrität:** Verhindert unbefugtes modifizieren von daten.
+- **Vertraulichkeit:** Stellt sicher, dass auf Daten nur von berechtigen Personen zugegriffen werden kann.
+- **Integrität:** Verhindert unbefugtes modifizieren von Daten.
 - **Verantwortlichkeit:** Nachverfolgbarkeit von Handlungen oder Ereignissen zu einer eindeutigen Person.
 |===
 
@@ -165,7 +164,7 @@ image::./models/design/Dialog_Map.png[Dialog Map für den Campingplatz, 100%, 10
 - campingplatz +
 - campingplatz.customer +
 - campingplatz.reservation
-|Sicherheitsmerkmale für die Campingplatz Anwendung und Authorisierung für Website zugriff
+|Sicherheitsmerkmale für die Campingplatzanwendung und Authorisierung für Website zugriff
 |org.springframework.web a|
 - campingplatz +
 - campingplatz.customer +
@@ -179,7 +178,7 @@ image::./models/design/Dialog_Map.png[Dialog Map für den Campingplatz, 100%, 10
 - campingplatz.equip +
 - campingplatz.plots +
 - campingplatz.reservation
-|JPA verbindungsdienst zur Datenbankebene
+|JPA Verbindungsdienst zur Datenbankebene
 |org.salespointframework a|
 - campingplatz +
 - campingplatz.customer +
