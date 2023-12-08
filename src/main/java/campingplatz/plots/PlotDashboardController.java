@@ -46,6 +46,8 @@ public class PlotDashboardController {
 		plot.setSize(info.getSize());
 		plot.setParking(Plot.ParkingLot.fromNumber(info.getParkingValue()));
 		plot.setPrice(Money.of(info.getPrice(), EURO));
+		plot.setImagePath(info.getPicture());
+		plot.setDesc(info.getDescription());
 
 		// dont forget to save
 		plotCatalog.save(plot);
@@ -64,8 +66,8 @@ public class PlotDashboardController {
 			info.getSize(),
 			Money.of(info.getPrice(), EURO),
 			Plot.ParkingLot.fromNumber(info.getParkingValue()),
-			"",
-			""
+			info.getPicture(),
+			info.getDescription()
 		);
 
 		// dont forget to save
@@ -105,5 +107,7 @@ public class PlotDashboardController {
 		Double getSize();
 		Integer getParkingValue();
 		Double getPrice();
+		String getDescription();
+		String getPicture();
 	}
 }

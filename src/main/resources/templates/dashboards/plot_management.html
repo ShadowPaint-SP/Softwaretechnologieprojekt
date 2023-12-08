@@ -6,47 +6,48 @@
 <body>
 	<main layout:fragment="input">
 		<div class="overflow-x-auto">
-			<table class="table table-zebra">
-				<!-- head -->
-				<thead>
-					<tr>
-						<th></th>
-						<th>Name </th>
-						<th>Größe</th>
-						<th>Parkplatz</th>
-						<th>Preis</th>
-						<th></th>
-					</tr>
-				</thead>
+			<table class="table">
+
 				<tbody>
 					<!-- row 1 is plot addition -->
-					<tr>
-						<form method="post" action="/management/plots/updatePlot">
-							<td>
+					<form method="post" action="/management/plots/updatePlot">
+						<tr>
+							<td rowspan="2">
 								+
 							</td>
 							<td>
+								<b>name: &nbsp;</b>
 								<input type="text" value="Neuer Platz" name="name">
 							</td>
 							<td>
+								<b>größe: &nbsp;</b>
 								<input type="number" value="0" name="size" >
 							</td>
-							<td>
+							<th>
 								<select  name="parkingValue" class="select select-bordered select-xs w-full max-w-xs">
 									<option value="0"  th:text="#{plot.parking.no}" selected></option>
 									<option value="1" th:text="#{plot.parking.bike}"></option>
 									<option value="2" th:text="#{plot.parking.car}"></option>
 									<option value="3" th:text="#{plot.parking.camper}"></option>
 								</select>
-							</td>
+							</th>
 							<td>
+								<b>preis: &nbsp;</b>
 								<input type="number" value="0" name="price">
 							</td>
-							<td>
+							<td rowspan="2">
 								<button th:text="#{management.plot.add}" formaction="/management/plots/createPlot" class="btn btn-accent"></button>
 							</td>
-						</form>
-					</tr>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="text" name="description" value="Beschreibung einfügen" onchange="this.form.submit()" class="w-full">
+							</td>
+							<td colspan="2">
+								<input type="text" name="picture" value="/img/..." onchange="this.form.submit()" class="w-full">
+							</td>
+						</tr>
+					</form>
 
 					<!-- row 2 is empty -->
 					<tr>
@@ -54,36 +55,47 @@
 					</tr>
 
 					<!-- row 3+ are plots -->
-					<tr th:each="plot, iStat : ${plots}" class="hover">
+					<div th:each="plot, iStat : ${plots}" class="hover">
 						<form method="post" action="/management/plots/updatePlot">
-							<input type="hidden" name="plotID" th:value="${plot.id}">
-							<td th:text="${iStat.count}">
-								1
-							</td>
-							<td>
-								<input type="text" name="name" th:value="${plot.name}" onchange="this.form.submit()">
-							</td>
-							<td>
-								<input type="number" name="size" th:value="${plot.size}" onchange="this.form.submit()">
-							</td>
-							<td>
-								<select  name="parkingValue" onchange="this.form.submit()" class="select select-bordered select-xs w-full max-w-xs">
-									<option value="0" th:selected="${plot.parking.size == 0}" th:text="#{plot.parking.no}"></option>
-									<option value="1" th:selected="${plot.parking.size == 1}" th:text="#{plot.parking.bike}"></option>
-									<option value="2" th:selected="${plot.parking.size == 2}" th:text="#{plot.parking.car}"></option>
-									<option value="3" th:selected="${plot.parking.size == 3}" th:text="#{plot.parking.camper}"></option>
-								</select>
-							</td>
-							<td>
-								<input type="number" name="price" th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
-							</td>
-							<td>
-								<button th:text="#{management.plot.delete}" formaction="/management/plots/deletePlot" class="btn btn-primary"></button>
-							</td>
+							<tr>
+								<input type="hidden" name="plotID" th:value="${plot.id}">
+								<td th:text="${iStat.count}" rowspan="2">
+									1
+								</td>
+								<td>
+									<b>name: &nbsp;</b>
+									<input type="text" name="name" th:value="${plot.name}" onchange="this.form.submit()">
+								</td>
+								<td>
+									<b>größe: &nbsp;</b>
+									<input type="number" name="size" th:value="${plot.size}" onchange="this.form.submit()">
+								</td>
+								<th>
+									<select  name="parkingValue" onchange="this.form.submit()" class="select select-bordered select-xs w-full max-w-xs">
+										<option value="0" th:selected="${plot.parking.size == 0}" th:text="#{plot.parking.no}"></option>
+										<option value="1" th:selected="${plot.parking.size == 1}" th:text="#{plot.parking.bike}"></option>
+										<option value="2" th:selected="${plot.parking.size == 2}" th:text="#{plot.parking.car}"></option>
+										<option value="3" th:selected="${plot.parking.size == 3}" th:text="#{plot.parking.camper}"></option>
+									</select>
+								</th>
+								<td>
+									<b>preis: &nbsp;</b>
+									<input type="number" name="price" th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
+								</td>
+								<td rowspan="2">
+									<button th:text="#{management.plot.delete}" formaction="/management/plots/deletePlot" class="btn btn-primary"></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input type="text" name="description" th:value="${plot.desc}" onchange="this.form.submit()" class="w-full">
+								</td>
+								<td colspan="2">
+									<input type="text" name="picture" th:value="${plot.imagePath}" onchange="this.form.submit()" class="w-full">
+								</td>
+							</tr>
 						</form>
-					</tr>
-
-
+					</div>
 				</tbody>
 			</table>
 		</div>
