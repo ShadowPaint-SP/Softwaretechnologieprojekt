@@ -49,7 +49,7 @@ public class ReservationUnitTests {
 		MockitoAnnotations.openMocks(this);
 
 		customer = userAccountManagement.create("customer", Password.UnencryptedPassword.of("none"), Customer.Roles.CUSTOMER.getValue());
-		plot = new Plot("1. Platz", 15.0, Money.of(20, EURO), Plot.ParkingLot.NONE);
+		plot = new Plot("1. Platz", 15.0, Money.of(20, EURO), Plot.ParkingLot.NONE, "", "");
 		plotCatalog.save(plot);
 
 		var arrival = LocalDate.of(2023, 11, 1).atStartOfDay();
