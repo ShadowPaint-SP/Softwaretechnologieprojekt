@@ -37,9 +37,9 @@ public class PlotDashboardController {
 
 	@PostMapping("/management/plots/updatePlot")
 	@PreAuthorize("hasRole('BOSS')")
-	String changePlotDetails(Model model, @Valid PlotChangeInformation info) {
+	String changePlotDetails(Model model, @Valid PlotInformation info) {
 
-		var uuid = info.getPlotUUID();
+		var uuid = info.getPlotID();
 		var plot = plotCatalog.findById(uuid).get();
 
 		plot.setName(info.getName());
@@ -55,11 +55,52 @@ public class PlotDashboardController {
 		return "dashboards/plot_management";
 	}
 
+	@PostMapping("/management/plots/createPlot")
+	@PreAuthorize("hasRole('BOSS')")
+	String createPlot(Model model, @Valid PlotInformation info) {
+
+		var plot = new Plot(
+			info.getName(),
+			info.getSize(),
+			Money.of(info.getPrice(), EURO),
+			Plot.ParkingLot.fromNumber(info.getParkingValue()),
+			"",
+			""
+		);
+
+		// dont forget to save
+		plotCatalog.save(plot);
+
+		Streamable<Plot> all = plotCatalog.findAll();
+		model.addAttribute("plots", all);
+		return "dashboards/plot_management";
+	}
+
+	//TODO
+	@PostMapping("/management/plots/deletePlot")
+	@PreAuthorize("hasRole('BOSS')")
+	String deletePlot(Model model, @Valid PlotInformation info) {
+
+		// cannot just delete the entry, reservations might depend on it
+		try {
+			plotCatalog.deleteById(info.getPlotID());
+		}
+		catch (Exception e){
+			// just continue
+		}
+
+		Streamable<Plot> all = plotCatalog.findAll();
+		model.addAttribute("plots", all);
+		return "dashboards/plot_management";
+	}
 
 
-	interface PlotChangeInformation {
 
-		Product.ProductIdentifier getPlotUUID();
+
+
+	interface PlotInformation {
+
+		Product.ProductIdentifier getPlotID();
 		String getName();
 		Double getSize();
 		Integer getParkingValue();
