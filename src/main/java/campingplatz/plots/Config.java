@@ -1,22 +1,25 @@
 package campingplatz.plots;
 
-public class Config {
-	private static double electricityCosts = 0.29; // per kWh in Euro
-	private static double waterCosts = 2.59; // per m^3 in Euro
+import org.javamoney.moneta.Money;
+import static org.salespointframework.core.Currencies.EURO;
 
-	public static double getElectricityCosts() {
+public class Config {
+	private static Money electricityCosts = Money.of(0.29, EURO); // per kWh in Euro
+	private static Money waterCosts = Money.of(2.59,EURO); // per m^3 in Euro
+
+	public static Money getElectricityCosts() {
 		return electricityCosts;
 	}
 
-	public static void setElectricityCosts(float electricityCosts) {
+	public static void setElectricityCosts(Money electricityCosts) {
 		Config.electricityCosts = electricityCosts;
 	}
 
-	public static double getWaterCosts() {
-		return waterCosts;
+	public static void setWaterCosts(Money waterCosts) {
+		Config.waterCosts = waterCosts;
 	}
 
-	public static void setWaterCosts(int waterCosts) {
-		Config.waterCosts = waterCosts;
+	public static Money getWaterCosts() {
+		return waterCosts;
 	}
 }
