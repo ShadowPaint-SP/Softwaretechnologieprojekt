@@ -5,21 +5,19 @@
 
 <body>
 	<main layout:fragment="input">
-		<div class="overflow-x-auto">
+		<div class="overflow-x-auto container mx-auto mt-14 rounded-box">
 			<table class="table table-zebra">
 				<!-- head -->
-				<thead>
+				<thead class="bg-secondary">
 					<tr>
 						<th></th>
-						<th th:text="#{user.firstName}"></th>
-						<th th:text="#{user.lastName}"></th>
+						<th th:text="#{user.firstName}" class="w-[10%]"></th>
+						<th th:text="#{user.lastName}" class="w-[10%]"></th>
 						<th th:text="#{user.email}"></th>
 						<th th:text="#{user.role}"></th>
 					</tr>
 				</thead>
 				<tbody>
-
-					<!-- row 2 -->
 					<tr th:each="customer, iStat : ${Customers}" class="hover">
 						<th th:text="${iStat.count}">2</th>
 						<td th:text="${customer.firstName}"></td>
@@ -29,7 +27,7 @@
 							<form method="post" action="/management/customer/updateRoles">
 								<input type="hidden" name="customerUUID" th:value="${customer.id}">
 								<select onchange="this.form.submit()" name="roleValue" th:disabled="${customer.role.name=='BOSS'}"
-									class="select select-bordered select-xs w-full max-w-xs">
+									class="select select-xs select-ghost focus:outline-accent w-full max-w-xs">
 									<option value="0" th:selected="${customer.role.name=='CUSTOMER'}" th:text="#{user.role.customer}">
 									</option>
 									<option value="1" th:selected="${customer.role.name=='EMPLOYEE'}" th:text="#{user.role.employee}">

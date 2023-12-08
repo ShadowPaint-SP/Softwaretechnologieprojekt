@@ -10,32 +10,32 @@
                 class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20">
                 <div>
                     <label class="label-text">Name: </label>
-                    <input type="text" placeholder="Type here" class="input input-sm w-full" id="name" name="name"
-                        required />
+                    <input type="text" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
+                        id="name" name="name" required />
                 </div>
                 <div>
                     <label class="label-text">Price: </label>
-                    <input type="number" placeholder="Type here" class="input input-sm w-full" id="price" name="price"
-                        step="0.1" min="1" required />
+                    <input type="number" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
+                        id="price" name="price" step="0.1" min="1" required />
                 </div>
                 <div>
                     <label class="label-text">Deposit: </label>
-                    <input type="number" placeholder="Type here" class="input input-sm w-full" id="deposit"
-                        name="deposit" min="1" required />
+                    <input type="number" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
+                        id="deposit" name="deposit" min="1" required />
                 </div>
                 <div>
                     <label class="label-text">Category: </label>
-                    <input type="text" placeholder="Type here" class="input input-sm w-full" id="category"
-                        name="category" required />
+                    <input type="text" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
+                        id="category" name="category" required />
                 </div>
                 <div>
                     <label class="label-text">Amount: </label>
-                    <input type="number" placeholder="Type here" class="input input-sm w-full" id="amount" name="amount"
-                        min="1" required />
+                    <input type="number" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
+                        id="amount" name="amount" min="1" required />
                 </div>
                 <div class="flex justify-around">
                     <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}" />
-                    <button class="btn btn-primary" type="submit">Add New SportItem</button>
+                    <button class="btn btn-accent" type="submit">Add New SportItem</button>
                 </div>
             </div>
         </form>
@@ -43,7 +43,7 @@
 
         <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
             <table class="table table-zebra">
-                <thead class="bg-secondary font-bold">
+                <thead class="bg-secondary">
                     <tr>
                         <th th:text="#{sport.name}"></th>
                         <th th:text="#{sport.rental_fee}" class="w-[10%]"></th>
@@ -61,7 +61,7 @@
                             <form th:action="@{/changeSportItemAmount}" method="post">
                                 <input type="text" id="nameItem" name="nameItem" th:value="${item.name}" hidden />
                                 <input type="number" id="amountItem" name="amountItem" min="0" th:value="${item.amount}"
-                                    class="input input-sm" required />
+                                    class="input input-sm input-ghost focus:outline-accent" required />
 
                                 <input type="hidden" id="equip_id" name="equip_id"
                                     th:value="${item != null ? item.id : ''}" />

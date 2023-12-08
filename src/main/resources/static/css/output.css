@@ -2172,6 +2172,18 @@ html {
   outline-color: var(--fallback-bc,oklch(var(--bc)/0.2));
 }
 
+.input-ghost {
+  --tw-bg-opacity: 0.05;
+}
+
+.input-ghost:focus,
+    .input-ghost:focus-within {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+  box-shadow: none;
+}
+
 .input-disabled,
   .input:disabled,
   .input[disabled] {
@@ -2424,6 +2436,27 @@ html {
   outline-width: 2px;
   outline-offset: 2px;
   outline-color: var(--fallback-bc,oklch(var(--bc)/0.2));
+}
+
+.select-ghost {
+  --tw-bg-opacity: 0.05;
+}
+
+.select-ghost:focus {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+}
+
+.select-primary {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-p,oklch(var(--p)/var(--tw-border-opacity)));
+}
+
+.select-primary:focus {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-p,oklch(var(--p)/var(--tw-border-opacity)));
+  outline-color: var(--fallback-p,oklch(var(--p)/1));
 }
 
 .select-disabled,
@@ -3396,6 +3429,11 @@ html {
 
 .border-b-\[1px\] {
   border-bottom-width: 1px;
+}
+
+.border-primary {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-p,oklch(var(--p)/var(--tw-border-opacity)));
 }
 
 .border-b-neutral-500 {
