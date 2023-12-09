@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.money.MonetaryAmount;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.salespointframework.core.Currencies.EURO;
@@ -28,7 +29,7 @@ public class PlotDashboardController {
 	}
 
 	@GetMapping("/management/plots")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String plots(Model model) {
 		Streamable<Plot> all = plotCatalog.findAll();
 		model.addAttribute("plots", all);
@@ -36,29 +37,31 @@ public class PlotDashboardController {
 	}
 
 	@PostMapping("/management/plots/updatePlot")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String changePlotDetails(Model model, @Valid PlotInformation info) {
 
-		var uuid = info.getPlotID();
-		var plot = plotCatalog.findById(uuid).get();
+		Optional<Plot> plotOptional = plotCatalog.findById(info.getPlotID());
+		if (plotOptional.isPresent()){
+			Plot plot = plotOptional.get();
+			plot.setName(info.getName());
+			plot.setSize(info.getSize());
+			plot.setParking(Plot.ParkingLot.fromNumber(info.getParkingValue()));
+			plot.setPrice(Money.of(info.getPrice(), EURO));
+			plot.setImagePath(info.getPicture());
+			plot.setDesc(info.getDescription());
 
-		plot.setName(info.getName());
-		plot.setSize(info.getSize());
-		plot.setParking(Plot.ParkingLot.fromNumber(info.getParkingValue()));
-		plot.setPrice(Money.of(info.getPrice(), EURO));
-		plot.setImagePath(info.getPicture());
-		plot.setDesc(info.getDescription());
+			// dont forget to save
+			plotCatalog.save(plot);
 
-		// dont forget to save
-		plotCatalog.save(plot);
+			Streamable<Plot> all = plotCatalog.findAll();
+			model.addAttribute("plots", all);
+		}
 
-		Streamable<Plot> all = plotCatalog.findAll();
-		model.addAttribute("plots", all);
 		return "dashboards/plot_management";
 	}
 
 	@PostMapping("/management/plots/createPlot")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String createPlot(Model model, @Valid PlotInformation info) {
 
 		var plot = new Plot(
@@ -80,7 +83,7 @@ public class PlotDashboardController {
 
 	//TODO
 	@PostMapping("/management/plots/deletePlot")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String deletePlot(Model model, @Valid PlotInformation info) {
 
 		// cannot just delete the entry, reservations might depend on it
