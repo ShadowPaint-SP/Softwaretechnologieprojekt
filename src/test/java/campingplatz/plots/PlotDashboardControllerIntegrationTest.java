@@ -1,6 +1,5 @@
 package campingplatz.plots;
 
-import campingplatz.equip.SportItem;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,8 +8,6 @@ import org.springframework.data.util.Streamable;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
-import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -59,7 +56,7 @@ class PlotDashboardControllerIntegrationTest {
 				.param("name", "Ein Plot")
 				.param("size", "30")
 				.param("parkingValue", "1")
-				.param("price", "120")
+				.param("price", "35")
 				.param("picture", "picture")
 				.param("description", "description"))
 			.andExpect(status().isOk());
