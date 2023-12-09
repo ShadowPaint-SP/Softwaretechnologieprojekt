@@ -1,8 +1,5 @@
 package campingplatz.plots;
 
-import campingplatz.customer.Customer;
-import campingplatz.customer.CustomerDashboardController;
-import campingplatz.reservation.ReservationRepository;
 import jakarta.validation.Valid;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
@@ -13,9 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.money.MonetaryAmount;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -41,7 +36,7 @@ public class PlotDashboardController {
 	String changePlotDetails(Model model, @Valid PlotInformation info) {
 
 		Optional<Plot> plotOptional = plotCatalog.findById(info.getPlotID());
-		if (plotOptional.isPresent()){
+		if (plotOptional.isPresent()) {
 			Plot plot = plotOptional.get();
 			plot.setName(info.getName());
 			plot.setSize(info.getSize());
@@ -65,13 +60,12 @@ public class PlotDashboardController {
 	String createPlot(Model model, @Valid PlotInformation info) {
 
 		var plot = new Plot(
-			info.getName(),
-			info.getSize(),
-			Money.of(info.getPrice(), EURO),
-			Plot.ParkingLot.fromNumber(info.getParkingValue()),
-			info.getPicture(),
-			info.getDescription()
-		);
+				info.getName(),
+				info.getSize(),
+				Money.of(info.getPrice(), EURO),
+				Plot.ParkingLot.fromNumber(info.getParkingValue()),
+				info.getPicture(),
+				info.getDescription());
 
 		// dont forget to save
 		plotCatalog.save(plot);
@@ -81,7 +75,7 @@ public class PlotDashboardController {
 		return "dashboards/plot_management";
 	}
 
-	//TODO
+	// TODO
 	@PostMapping("/management/plots/deletePlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String deletePlot(Model model, @Valid PlotInformation info) {
@@ -89,8 +83,7 @@ public class PlotDashboardController {
 		// cannot just delete the entry, reservations might depend on it
 		try {
 			plotCatalog.deleteById(info.getPlotID());
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			// just continue
 		}
 
@@ -99,18 +92,20 @@ public class PlotDashboardController {
 		return "dashboards/plot_management";
 	}
 
-
-
-
-
 	interface PlotInformation {
 
 		Product.ProductIdentifier getPlotID();
+
 		String getName();
+
 		Double getSize();
+
 		Integer getParkingValue();
+
 		Double getPrice();
+
 		String getDescription();
+
 		String getPicture();
 	}
 }

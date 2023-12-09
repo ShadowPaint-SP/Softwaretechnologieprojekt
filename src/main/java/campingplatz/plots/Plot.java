@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
-import org.salespointframework.useraccount.Role;
 
 @Entity
 public class Plot extends DetailedProduct {
@@ -31,11 +30,11 @@ public class Plot extends DetailedProduct {
     }
 
     // a second getter for in inherited field price. returns a double
-	public Double getPriceDouble(){
-		return getPrice().getNumber().doubleValue();
-	}
+    public Double getPriceDouble() {
+        return getPrice().getNumber().doubleValue();
+    }
 
-	//a third getter for in inherited field price. returns a formatted String
+    // a third getter for in inherited field price. returns a formatted String
     public String getPriceString() {
         return getPriceDouble().toString() + " Euro";
     }
@@ -59,16 +58,16 @@ public class Plot extends DetailedProduct {
             this.label = label;
         }
 
-		public static ParkingLot fromNumber(Integer i) {
-			return switch (i) {
-				case 0 -> NONE;
-				case 1 -> BIKE_PARKING;
-				case 2 -> CAR_PARKING;
-				case 3 -> CAMPER_PARKING;
-				default -> NONE;
-			};
+        public static ParkingLot fromNumber(Integer i) {
+            return switch (i) {
+                case 0 -> NONE;
+                case 1 -> BIKE_PARKING;
+                case 2 -> CAR_PARKING;
+                case 3 -> CAMPER_PARKING;
+                default -> NONE;
+            };
 
-		}
+        }
 
     }
 

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -41,7 +40,7 @@ public class SportItemCatalogController {
 		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
 
 		model.addAttribute("items", listo);
-		//model.addAttribute("first", listo.get(0));
+		// model.addAttribute("first", listo.get(0));
 		model.addAttribute("cate", listo.get(0).getCategories().stream().toList().get(0));
 
 		return "dashboards/sportsequipment_management";

@@ -9,7 +9,6 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -130,6 +129,5 @@ class PlotCatalogController {
         model.addAttribute("searchQuery", query);
         return "old/seasonalplotcatalog";
     }
-
 
 }
