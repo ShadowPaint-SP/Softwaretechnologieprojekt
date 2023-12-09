@@ -148,4 +148,31 @@ class SportItemCatalogControllerIntegrationTest {
 
 		assertEquals(testAmount, testItem1.getAmount());
 	}
+
+	@Test
+	void setupCatalogTest() throws Exception {
+		mvc.perform(get("/sportequipmentcatalog"))
+			.andExpectAll(status().isOk(),
+				model().attributeExists("items"));
+
+	}
+
+	@Test
+	void showSportItemDetailsTest() throws Exception {
+		MvcResult result =mvc.perform(get("/sportequipmentcatalog")).andReturn();
+		@SuppressWarnings("unchecked")
+		List<SportItem> testList = (List<SportItem>) result.getModelAndView().
+			getModelMap().
+			getAttribute("items");
+		SportItem testItem = testList.get(0);
+		// extract one item to show details
+
+		mvc.perform(get("/item/"+ testItem.getId()))
+			.andExpectAll(status().isOk());
+
+		//check no id
+		mvc.perform(get("/item/"+ "blub"));
+			//.andExpectAll(status().is3xxRedirection(), redirectedUrl("/sportequipmentcatalog"));
+
+	}
 }
