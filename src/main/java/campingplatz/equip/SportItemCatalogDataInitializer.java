@@ -27,7 +27,7 @@ public class SportItemCatalogDataInitializer implements DataInitializer {
 		sportItemCatalog.save(new SportItem("Federballset", Money.of(1, EURO),
 			Money.of(30, EURO), "Federball", 3,
 			"/img/equip/badminton.png",
-			"Federballset macht Spaß"));
+			"Federball macht Spaß"));
 		sportItemCatalog.save(new SportItem("Tischtennisgarnituren", Money.of(2, EURO),
 			Money.of(100, EURO), "Tischtennis", 2,
 			"/img/equip/table_tennis.png",

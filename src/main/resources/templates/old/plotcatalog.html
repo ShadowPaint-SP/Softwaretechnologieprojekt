@@ -86,9 +86,9 @@
 
             <div th:fragment="plot_table" class="overflow-x-auto container mx-auto mt-14">
                 <table th:if="${availablePlotsTable != null}" class="table table-zebra">
+                    <a th:id="${availablePlotsTable}"></a>
                     <!-- head -->
                     <thead>
-
                         <input type="hidden" name="firstWeekDate" th:value="${searchQuery.defaultedFirstWeekDate}">
                         <th class="w-[34%]">
                             <h2 th:if="${availablePlotsTable}" th:text="#{catalog.plots.available}"></h2>

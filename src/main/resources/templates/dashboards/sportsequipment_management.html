@@ -1,78 +1,96 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=#{dashboard.title})}" >
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{dashboard.title})}">
+
 <head></head>
+
 <body>
-
-	<main layout:fragment="input">
-
+    <main layout:fragment="input">
         <form th:action="@{/addSportItem}" method="post">
-            <label for="name">Name: </label>
-            <input type="text" id="name" name="name" required/>
-
-            <label for="price">Price: </label>
-            <input type="number" id="price" name="price" step="0.1" required/>
-            <td th:if="${item != null}" th:text="${item.price != null ? item.price.getNumber() : ''}"></td>
-
-            <label for="deposit">Deposit: </label>
-            <input type="number" id="deposit" name="deposit"  required/>
-            <td th:if="${item != null}" th:text="${item.deposit != null ? item.deposit.getNumber() : ''}"></td>
-
-            <label for="category">Category: </label>
-            <input type="text" id="category" name="category" required/>
-
-
-            <label for="amount">Amount: </label>
-            <input type="number" id="amount" name="amount" min="1" required/>
-
-            <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}"/>
-
-            <button class="btn btn-primary" type="submit">Add New SportItem</button>
+            <div
+                class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20">
+                <div>
+                    <label class="label-text">Name: </label>
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="name" name="name" required th:value="${first != null ? first.name : ''}"/>
+                </div>
+                <div>
+                    <label class="label-text">Price in € pro Stunde: </label>
+                    <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="price" name="price" step="0.1" min="0.1" required th:value="${first != null ? first.price.number : '1'}"/>
+                </div>
+                <div>
+                    <label class="label-text">Deposit in €: </label>
+                    <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="deposit" name="deposit" min="1" required th:value="${first != null ? first.deposit.number : '1'}"/>
+                </div>
+                <div>
+                    <label class="label-text">Category: </label>
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="category" name="category" required th:value="${first != null ? cate : ''}"/>
+                </div>
+                <div>
+                    <label class="label-text">Amount: </label>
+                    <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="amount" name="amount" min="1" required th:value="${first != null ? first.amount : '1'}"/>
+                </div>
+                <div>
+                    <label class="label-text">Picture: </label>
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                           id="imagePath" name="imagePath" required th:value="${first != null ? first.imagePath : ''}"/>
+                </div>
+                <div>
+                    <label class="label-text">Description: </label>
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                           id="desc" name="desc" required th:value="${first != null ? first.desc : ''}"/>
+                </div>
+                <div class="flex justify-around">
+                    <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}" />
+                    <button class="btn btn-accent" type="submit">Add New/Change SportItem</button>
+                </div>
+            </div>
         </form>
 
-        <form th:action="@{/changeSportItemAmount}" method="post">
-            <label for="nameItem">Name: </label>
-            <input type="text" id="nameItem" name="nameItem" required/>
 
-            <label for="amountItem">Amount: </label>
-            <input type="number" id="amountItem" name="amountItem" min="1" required/>
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
+            <table class="table table-zebra">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th th:text="#{sport.name}"></th>
+                        <th th:text="#{sport.rental_fee}" class="w-[10%]"></th>
+                        <th th:text="#{sport.deposit}" class="w-[10%]"></th>
+                        <th th:text="#{sport.amount}" class="w-[30%]"></th>
+                        <th th:text="#{sport.delete}" class="w-[5%]"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item, iStat : ${items}" class="hover">
+                        <td th:text="${item.name}" class="font-bold"></td>
+                        <td th:text="${item.price}"></td>
+                        <td th:text="${item.deposit}"></td>
+                        <td>
+                            <form th:action="@{/changeSportItemAmount}" method="post">
+                                <input type="number" id="amountItem" name="amountItem" min="0" th:value="${item.amount}"
+                                    class="input input-sm input-ghost focus:outline-accent" required />
 
-            <input type="hidden" id="equip_id" name="equip_id" th:value="${item != null ? item.id : ''}"/>
+                                <input type="hidden" id="equip_id" name="equip_id"
+                                    th:value="${item != null ? item.id : ''}" />
 
-            <button class="btn btn-primary" type="submit">Change Amount</button>
-        </form>
-
-
-
-        <form th:action="@{/deleteSportItem}" method="post">
-            <label for="name">Name: </label>
-            <input type="text" id="itemName" name="itemName" required/>
-
-            <input type="hidden" id="id" name="id" th:value="${item != null ? item.id : ''}"/>
-
-            <button class="btn btn-primary" type="submit">Delete SportItem</button>
-        </form>
-
-		<div class="overflow-x-auto">
-			<table class="table table-zebra">
-				<thead>
-					<tr>
-						<th th:text="#{sport.name}"></th>
-						<th th:text="#{sport.rental_fee}"></th>
-						<th th:text="#{sport.deposit}"></th>
-						<th th:text="#{sport.amount}"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item, iStat : ${items}" class="hover">
-						<td th:text="${item.name}"></td>
-						<td th:text="${item.price}"></td>
-						<td th:text="${item.deposit}"></td>
-                        <td th:text="${item.amount}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</main>
+                                <button class="btn btn-primary btn-sm" type="submit" th:text="#{sport.change}">Change
+                                    Amount</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/deleteSportItem}" method="post">
+                                <input type="text" id="itemName" name="itemName" th:value="${item.name}" hidden />
+                                <button class="btn btn-error btn-sm" type="submit" th:text="#{sport.delete}">Delete
+                                    SportItem</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
+
 </html>

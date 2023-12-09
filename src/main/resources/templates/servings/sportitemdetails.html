@@ -1,46 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=#{sportitem.name})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{sportitem.name})}">
 
 <head></head>
 
 <body>
-<section layout:fragment="input">
-    <div class="ui items">
-        <div class="item">
-            <div class="content">
-                <h2 class="header" th:text="${item.name}"></h2>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p class="description" th:text="'Price: '+${{item.price}}"></p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p class="description" th:text="'Deposit: '+${{item.deposit}}"></p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p class="description" th:text="'Amount: '+${item.amount}"></p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </div>
+    <main layout:fragment="input">
+        <div class="container mx-auto bg-secondary mt-20 rounded-box p-4">
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
 
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
+                    <p th:text="'Price: '+${{item.price}}"></p>
 
-            <div class="extra content">
-                <a>
-                    <label for="startTime">Start time: </label>
-                    <input type="time" id="startTime" min="10:00" max="22:00" required/>
-                </a>
-                <a>
-                    <label for="endTime"> End time: </label>
-                    <input type="time" id="endTime" min="10:00" max="22:00" required/>
-                </a>
-                <a><button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${item.id}"
-                           th:text="#{sport.book}"></button></a>
+                    <p th:text="'Deposit: '+${{item.deposit}}"></p>
+
+                    <p th:text="'Amount: '+${item.amount}"></p>
+                    <div class="p-4">
+                        <label class="label-text">Start time: </label>
+                        <input type="time" id="startTime" min="10:00" max="22:00"
+                            class="input input-md focus:outline-accent" required />
+                    </div>
+                    <div class="p-4">
+                        <label class="label-text"> End time: </label>
+                        <input type="time" id="endTime" min="10:00" max="22:00"
+                            class="input input-md focus:outline-accent" required />
+                    </div>
+                    <button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${item.id}"
+                        th:text="#{sport.book}"></button>
+                </div>
+                <div>
+                    <figure>
+                        <img th:src="${item.imagePath}" />
+                    </figure>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </main>
 </body>
+
 </html>
