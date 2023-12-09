@@ -67,53 +67,58 @@
 
                 </div>
             </div>
-            <div th:fragment="seasonplot_table" class="overflow-x-auto container mx-auto mt-14 rounded-box">
-                <table th:if="${plotsavailable != null}" class="table table-zebra">
-                    <thead>
-                        <tr>
-                            <th>
-                                <span th:if="${plotsavailable}" th:text="#{catalog.plots.available}"></span>
-                                <span th:if="${!plotsavailable}" th:text="#{catalog.plots.reserved}"></span>
-                            </th>
-                            <th>
-                                <span>Reservieren</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="plot : ${allSeasonalPlots.get(plotsavailable)}">
-                            <td class="flex">
+
+
+        </form>
+
+        <div th:fragment="seasonplot_table" class="overflow-x-auto container mx-auto mt-14 rounded-box">
+            <table th:if="${plotsavailable != null}" class="table table-zebra">
+                <thead>
+                    <tr>
+                        <th>
+                            <span th:if="${plotsavailable}" th:text="#{catalog.plots.available}"></span>
+                            <span th:if="${!plotsavailable}" th:text="#{catalog.plots.reserved}"></span>
+                        </th>
+                        <th>
+                            <span>Reservieren</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="plot : ${allSeasonalPlots.get(plotsavailable)}">
+                        <td class="flex">
+                            <div>
+                                <img class="h-32 w-32" th:src="${plot.imagePath}" />
+                            </div>
+                            <div>
+                                <div th:text="${plot.name}">Plotname</div>
                                 <div>
-                                    <img class="h-32 w-32" th:src="${plot.imagePath}" />
+                                    <div th:text="'Kosten: '+${plot.priceString}"></div>
+                                    <div th:text="'Größe: '+${plot.sizeString}"></div>
+                                    <div th:text="#{${plot.parking.label}}"></div>
+                                    <div th:text="${plot.desc}"></div>
                                 </div>
-                                <div>
-                                    <div th:text="${plot.name}">Plotname</div>
-                                    <div>
-                                        <div th:text="'Kosten: '+${plot.priceString}"></div>
-                                        <div th:text="'Größe: '+${plot.sizeString}"></div>
-                                        <div th:text="#{${plot.parking.label}}"></div>
-                                        <div th:text="${plot.desc}"></div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${plot.id}"
-                                    th:text="#{catalog.reserve}"></button>
+                            </div>
+                        </td>
+                        <td>
+                            <form th:action="'/seasonalcheckout/' + ${plot.id}" method="post">
+                                <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve}"></button>
                                 <select class="select w-full max-w-xs p-2 ">
                                     <option disabled selected th:text="#{seasonalcatalog.pay}">Pick your payment
                                         interval</option>
                                     <option value="0" th:text="#{seasonalcatalog.pay.monthly}"></option>
                                     <option value="1" th:text="#{seasonalcatalog.pay.yearly}"></option>
                                 </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div th:replace="~{servings/seasonalplotcatalog :: seasonplot_table (plotsavailable=true)}"></div>
-            <div th:replace="~{servings/seasonalplotcatalog :: seasonplot_table (plotsavailable=false)}"></div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:replace="~{servings/seasonalplotcatalog :: seasonplot_table (plotsavailable=true)}"></div>
+        <div th:replace="~{servings/seasonalplotcatalog :: seasonplot_table (plotsavailable=false)}"></div>
 
-        </form>
+
     </main>
 </body>
 
