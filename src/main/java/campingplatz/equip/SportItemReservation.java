@@ -7,7 +7,6 @@ import org.salespointframework.useraccount.UserAccount;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-@Entity
 public class SportItemReservation extends Reservation<SportItem> {
 	public SportItemReservation() {
 		super();
