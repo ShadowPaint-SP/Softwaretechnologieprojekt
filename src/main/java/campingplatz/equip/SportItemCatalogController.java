@@ -35,7 +35,7 @@ public class SportItemCatalogController {
 	}
 
 	@GetMapping("/management/sportsequipment")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String setup(Model model) {
 
 		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
@@ -62,7 +62,7 @@ public class SportItemCatalogController {
 	}
 
 	@PostMapping("/addSportItem")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String addSportItem(@RequestParam String name,
 			@RequestParam double price,
 			@RequestParam double deposit,
@@ -93,7 +93,7 @@ public class SportItemCatalogController {
 	}
 
 	@PostMapping("/changeSportItemAmount")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String changeSportItemAmount(@RequestParam int amountItem,
 			@RequestParam(required = false) Product.ProductIdentifier equip_id) {
 
@@ -110,7 +110,7 @@ public class SportItemCatalogController {
 	}
 
 	@PostMapping("/deleteSportItem")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String deleteSportItem(@RequestParam String itemName,
 			@RequestParam(required = false) Product.ProductIdentifier id) {
 		SportItem item = itemCatalog.findByName(itemName).stream().findFirst().orElse(null);
