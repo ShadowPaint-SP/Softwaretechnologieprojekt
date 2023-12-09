@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=#{sportequip.title})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout.html(title=#{sportequip.title})}">
 
 <head></head>
 
 <body>
-   <div class="container">
-       <section layout:fragment="input">
-           <div class="ui link cards" th:remove="all-but-first">
-               <div class="ui card" th:each="item, iStat : ${items}">
-                   <div class="content">
-                       <a th:href="@{/item/{id}(id=${item.id})}">
-                           <img class="h-32 w-32" th:src="${item.imagePath}" />
-                       </a>
-                       <p th:text="${item.desc}">&nbsp;test</p>
-                       <p>&nbsp;</p>
-                   </div>
-               </div>
-           </div>
-       </section>
-   </div>
+    <div class="container">
+        <section layout:fragment="input">
+
+            <div class="container mx-auto mt-20">
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="flex grow place-self-auto" th:each="item : ${items}">
+                        <a th:href="@{/item/{id}(id=${item.id})}">
+                        <div class="card card-compact w-96 bg-base-100 shadow-xl" >
+                            <figure>
+                                <img th:src="${item.imagePath}" />
+                            </figure>
+                            <div class="card-body grid grid-cols-2">
+                                <div>
+                                <h2 class="card-title" th:text="${item.name}"></h2>
+                                <p th:text="${item.desc}"></p>
+                                </div>
+                                <div >
+                                    <p th:text="#{sport.available}+': '+ ${item.amount}">0</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
 </body>
 
 </html>
-
-
-
