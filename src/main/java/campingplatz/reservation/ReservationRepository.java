@@ -1,5 +1,6 @@
 package campingplatz.reservation;
 
+import campingplatz.seasonalplots.SeasonalPlot;
 import jakarta.transaction.Transactional;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;

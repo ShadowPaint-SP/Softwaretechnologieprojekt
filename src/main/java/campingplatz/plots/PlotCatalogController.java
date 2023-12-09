@@ -125,19 +125,10 @@ class PlotCatalogController {
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
 
-    @GetMapping("/seasonalplots")
-    String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
-        model.addAttribute("searchQuery", query);
-        return "old/seasonalplotcatalog";
-    }
-
     @GetMapping("/management/plots")
     String plots(Model model) {
         Streamable<Plot> all = plotCatalog.findAll();
         model.addAttribute("Plots", all);
         return "dashboards/plot_management";
     }
-
-
-
 }
