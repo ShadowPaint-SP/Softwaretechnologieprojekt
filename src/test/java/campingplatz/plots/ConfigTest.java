@@ -1,5 +1,6 @@
 package campingplatz.plots;
 
+import campingplatz.seasonalplots.Config;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

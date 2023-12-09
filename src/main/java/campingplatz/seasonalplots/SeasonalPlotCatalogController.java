@@ -1,22 +1,23 @@
 package campingplatz.seasonalplots;
 
+import campingplatz.plots.Plot;
 import campingplatz.reservation.ReservationRepository;
 import campingplatz.utils.Cart;
 import jakarta.validation.Valid;
+import org.javamoney.moneta.Money;
+import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.salespointframework.core.Currencies.EURO;
 
 @Controller
 @SessionAttributes("cart")
@@ -74,4 +75,64 @@ public class SeasonalPlotCatalogController {
 		model.addAttribute("ordersCompleted", userReservations);
 		return "servings/orders";
 	}
+
+
+
+
+	@PostMapping("/addSeasonalPlot")
+	@PreAuthorize("hasRole('Boss')")
+	public String addSeasonalPlot(@RequestParam String name,
+			  @RequestParam Double size,
+			  @RequestParam Money price,
+			  @RequestParam Plot.ParkingLot parkingLot,
+			  @RequestParam double electricityMeter,
+			  @RequestParam double waterMeter,
+			  @RequestParam String imagePath,
+			  @RequestParam String description) {
+
+		SeasonalPlot newSeasonalPlot = seasonalPlotCatalog.findByName(name).stream().findFirst().orElse(null);
+		if(newSeasonalPlot == null) {
+			seasonalPlotCatalog.save(new SeasonalPlot(name,
+				size, price, parkingLot, electricityMeter,
+				waterMeter, imagePath, description));
+		} else {
+			newSeasonalPlot.setName(name);
+			newSeasonalPlot.setSize(size);
+			newSeasonalPlot.setPrice(price);
+			newSeasonalPlot.setParking(parkingLot);
+			newSeasonalPlot.setElectricityMeter(electricityMeter);
+			newSeasonalPlot.setWaterMeter(waterMeter);
+			newSeasonalPlot.setImagePath(imagePath);
+			newSeasonalPlot.setDesc(description);
+		}
+		return "redirect: /management/seasonalplot";
+	}
+
+	//TODO Controller für defekte Stellplätze, Funktion hat Vincent
+
+	@PostMapping("/deleteSeasonalPlot")
+	@PreAuthorize("hasRole('BOSS')")
+	public String deleteSeasonalPlot(@RequestParam String name,
+			 @RequestParam(required = false)Product.ProductIdentifier id) {
+		SeasonalPlot oldSeasonalPlot = seasonalPlotCatalog.findByName(name).stream().findFirst().orElse(null);
+		if (oldSeasonalPlot != null && oldSeasonalPlot.getId() != null) {
+			seasonalPlotCatalog.deleteById(oldSeasonalPlot.getId());
+		}
+		return "redirect: /management/seasonalplot";
+	}
+
+	@PostMapping("/changeElectricityPrice")
+	@PreAuthorize("hasRole('BOSS')")
+	public String changeElectricityPrice(@RequestParam double newElectricityCosts) {
+		Config.setElectricityCosts(Money.of(newElectricityCosts, EURO));
+		return "redirect: /management/seasonalplot";
+	}
+
+	@PostMapping("/changeWaterPrice")
+	@PreAuthorize("hasRole('BOSS')")
+	public String changeWaterPrice(@RequestParam double newWaterCosts) {
+		Config.setWaterCosts(Money.of(newWaterCosts, EURO));
+		return "redirect: /management/seasonalplot";
+	}
+
 }
