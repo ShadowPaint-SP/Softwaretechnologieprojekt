@@ -1,6 +1,5 @@
 package campingplatz.seasonalplots;
 
-import campingplatz.plots.Config;
 import campingplatz.plots.Plot;
 import jakarta.persistence.Entity;
 import lombok.Getter;

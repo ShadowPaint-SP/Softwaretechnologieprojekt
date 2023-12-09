@@ -1,4 +1,4 @@
-package campingplatz.plots;
+package campingplatz.seasonalplots;
 
 import org.javamoney.moneta.Money;
 import static org.salespointframework.core.Currencies.EURO;
