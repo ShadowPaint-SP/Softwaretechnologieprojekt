@@ -21,8 +21,8 @@
                     <tr th:each="item, iStat : ${reservations}" class="hover">
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.product.name}">place on the lake</td>
-                        <td th:text="${item.begin}">today</td>
-                        <td th:text="${item.end}">tomorrow</td>
+                        <td th:text="${item.begin.plusHours(12)}">today</td>
+                        <td th:text="${item.end.plusDays(1).plusHours(11)}">tomorrow</td>
                         <td th:text="${item.duration}">one day</td>
                         <td th:text="${item.price}">50</td>
                     </tr>

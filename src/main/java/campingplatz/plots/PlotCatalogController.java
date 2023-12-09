@@ -113,7 +113,7 @@ class PlotCatalogController {
             @PathVariable("plot") Plot plot, @PathVariable("index") Integer index,
             @ModelAttribute("cart") Cart<Plot> reservationCart) {
 
-        var day = query.getDefaultedFirstWeekDate().plusDays(index).atTime(12, 00);
+        var day = query.getDefaultedFirstWeekDate().plusDays(index).atStartOfDay();
         var reservation = new ReservationEntry<Plot>(plot, day);
 
         if (!reservationCart.contains(reservation)) {
