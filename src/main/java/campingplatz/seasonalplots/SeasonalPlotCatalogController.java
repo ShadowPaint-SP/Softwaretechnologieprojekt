@@ -39,7 +39,8 @@ public class SeasonalPlotCatalogController {
 
 	@GetMapping("/seasonalplotcatalog")
 	String setupSeasonalCatalog(Model model, @LoggedIn Optional<UserAccount> user,
-			@Valid SeasonalPlotCatalog.SeasonalSiteState query, @ModelAttribute("cart") Cart<SeasonalPlot> reservationCart) {
+			@Valid SeasonalPlotCatalog.SeasonalSiteState query,
+			@ModelAttribute("cart") Cart<SeasonalPlot> reservationCart) {
 		var filteredSeasonalPlots = seasonalPlotCatalog.seasonalFilter(query);
 		var reservedSeasonalPlots = reservationRepository.findPlotsAll();
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
@@ -57,6 +58,7 @@ public class SeasonalPlotCatalogController {
 		return setupSeasonalCatalog(model, user, query, reservationCart);
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcheckout/{plot}")
 	String reservate(Model model, @LoggedIn UserAccount userAccount, @PathVariable("plot") SeasonalPlot seasonalPlot,
 			SeasonalPlotReservation.PayMethod payMethod) {
@@ -65,7 +67,7 @@ public class SeasonalPlotCatalogController {
 				LocalDateTime.now(), null, payMethod);
 		reservationRepository.save(reservation);
 
-		return "redirect:/cart";
+		return "redirect:/seasonalplotcatalog";
 	}
 
 	@GetMapping("/seasonalorders")

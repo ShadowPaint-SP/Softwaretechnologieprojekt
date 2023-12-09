@@ -22,7 +22,7 @@ public class SeasonalPlot extends Plot {
 	public SeasonalPlot(String name, Double size, Money price, ParkingLot parking, double electricityMeter,
 						double waterMeter, String imagePath, String description) {	//Price is per Month
 
-		super(name, size, price, parking, imagePath, description);
+		super(name + "\n[Dauercamper]", size, price, parking, imagePath, description);
 
 		this.electricityMeter = electricityMeter;
 		this.waterMeter = waterMeter;

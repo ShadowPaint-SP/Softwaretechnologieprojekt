@@ -23,6 +23,12 @@ public interface PlotCatalog extends Catalog<Plot> {
         return findAll().filter(plot -> {
             boolean isMatch = true;
 
+            //TODO evaluate why seasonalPlots are saved to both seasonal and normal PlotCatalog
+            if (plot.getName().contains("[Dauercamper]")) {
+                isMatch = false;
+            }
+
+
             var priceMin = query.getPriceMin();
             if (priceMin != null && plot.getPrice().isLessThan(Money.of(priceMin, EURO))) {
                 isMatch = false;
