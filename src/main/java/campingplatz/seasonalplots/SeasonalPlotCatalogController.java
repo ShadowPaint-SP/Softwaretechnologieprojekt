@@ -80,7 +80,7 @@ public class SeasonalPlotCatalogController {
 
 
 	@GetMapping("/management/seasonalplot")
-	@PreAuthorize("hasRole('Boss')")
+	@PreAuthorize("hasRole('BOSS')")
 	public String managementSetup(Model model) {
 
 		List<SeasonalPlot> allSPLots = seasonalPlotCatalog.findAll().stream().toList();

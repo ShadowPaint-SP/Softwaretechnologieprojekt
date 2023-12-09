@@ -4,6 +4,32 @@
 <head></head>
 
 <body>
-    hallo
+    <main layout:fragment="input">
+
+        <div class="overflow-x-auto">
+            <table class="table table-zebra">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Titel</th>
+                        <th>arrival</th>
+                        <th>departure</th>
+                        <th>Preis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item, iStat : ${allSPlots}" class="hover">
+                        <th th:text="${iStat.count}">1</th>
+                        <td th:text="${item.name}">name</td>
+                        <!-- <td th:text="${item.begin}">arrival</td> -->
+                        <!-- <td th:text="${item.end}">departure</td> -->
+                        <!-- <td th:text="${item.duration}">days</td> -->
+                        <!-- <td th:text="${item.getPrice}">price</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
 </body>
 </html>
