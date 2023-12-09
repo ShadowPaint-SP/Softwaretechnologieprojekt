@@ -138,6 +138,15 @@ class PlotCatalogController {
         return "dashboards/plot_management";
     }
 
+    // quick fix
+    // index.html needs a cart attribute in navbar
+    // so I put it in a controller which has a cart
+    // TODO may shift this to an other class
+    @GetMapping("/")
+    String homePage(Model model) {
+        return "index";
+    }
+
 
 
 }
