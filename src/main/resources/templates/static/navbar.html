@@ -58,6 +58,10 @@
                   <a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
                     th:text="#{nav.dashboard.plots}">Plot management</a>
                 </li>
+                <li sec:authorize="hasRole('BOSS')">
+                  <a href="../dashboards/seasonalplot_management.html" th:href="@{/management/seasonalplot}"
+                     th:text="#{nav.dashboard.seasonalplot}">Seasonalplot management</a>
+                </li>
                 <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
                   <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
                     th:text="#{nav.dashboard.reservations}">Reservations management</a>

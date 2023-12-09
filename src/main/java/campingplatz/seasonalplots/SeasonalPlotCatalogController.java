@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -76,6 +77,16 @@ public class SeasonalPlotCatalogController {
 
 
 
+	@GetMapping("/management/seasonalplot")
+	@PreAuthorize("hasRole('Boss')")
+	public String managementSetup(Model model) {
+
+		List<SeasonalPlot> allSPLots = seasonalPlotCatalog.findAll().stream().toList();
+
+		model.addAttribute("allSPlots", allSPLots);
+
+		return "dashboards/seasonalplot_management";
+	}
 
 	@PostMapping("/addSeasonalPlot")
 	@PreAuthorize("hasRole('Boss')")
