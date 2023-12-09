@@ -10,32 +10,42 @@
                 class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20">
                 <div>
                     <label class="label-text">Name: </label>
-                    <input type="text" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
-                        id="name" name="name" required />
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="name" name="name" required th:value="${first.name}"/>
                 </div>
                 <div>
-                    <label class="label-text">Price: </label>
-                    <input type="number" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
-                        id="price" name="price" step="0.1" min="1" required />
+                    <label class="label-text">Price in € pro Stunde: </label>
+                    <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="price" name="price" step="0.1" min="0.1" required th:value="${first.price.number}"/>
                 </div>
                 <div>
-                    <label class="label-text">Deposit: </label>
-                    <input type="number" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
-                        id="deposit" name="deposit" min="1" required />
+                    <label class="label-text">Deposit in €: </label>
+                    <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="deposit" name="deposit" min="1" required th:value="${first.deposit.number}"/>
                 </div>
                 <div>
                     <label class="label-text">Category: </label>
-                    <input type="text" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
-                        id="category" name="category" required />
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="category" name="category" required th:value="${cate}"/>
                 </div>
                 <div>
                     <label class="label-text">Amount: </label>
-                    <input type="number" placeholder="Type here" class="input input-sm w-full focus:outline-accent"
-                        id="amount" name="amount" min="1" required />
+                    <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                        id="amount" name="amount" min="1" required th:value="${first.amount}"/>
+                </div>
+                <div>
+                    <label class="label-text">Picture: </label>
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                           id="imagePath" name="imagePath" required th:value="${first.imagePath}"/>
+                </div>
+                <div>
+                    <label class="label-text">Description: </label>
+                    <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                           id="desc" name="desc" required th:value="${first.desc}"/>
                 </div>
                 <div class="flex justify-around">
                     <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}" />
-                    <button class="btn btn-accent" type="submit">Add New SportItem</button>
+                    <button class="btn btn-accent" type="submit">Add New/Change SportItem</button>
                 </div>
             </div>
         </form>

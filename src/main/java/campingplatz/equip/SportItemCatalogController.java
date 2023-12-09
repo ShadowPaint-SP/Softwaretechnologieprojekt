@@ -41,24 +41,11 @@ public class SportItemCatalogController {
 		List<SportItem> listo = this.itemCatalog.findAll().stream().collect(Collectors.toList());
 
 		model.addAttribute("items", listo);
+		model.addAttribute("first", listo.get(0));
+		model.addAttribute("cate", listo.get(0).getCategories().stream().toList().get(0));
 
 		return "dashboards/sportsequipment_management";
 	}
-	/*
-	 * @GetMapping({"/sportequipmentcatalog", "/management/sportsequipment"})
-	 * public String setupCatalogAndManagement(Model model, @LoggedIn
-	 * Optional<UserAccount> user) {
-	 * List<SportItem> sportItems =
-	 * this.itemCatalog.findAll().stream().collect(Collectors.toList());
-	 * model.addAttribute("items", sportItems);
-	 * 
-	 * if (user.isPresent() && user.get().hasRole(Role.of("BOSS"))){
-	 * return "dashboards/sportsequipment_mamangement";
-	 * } else {
-	 * return "servings/sportequipmentcatalog";
-	 * }
-	 * }
-	 */
 
 	@GetMapping("/item/{id}")
 	public String showSportItemDetails(@PathVariable Product.ProductIdentifier id, Model model) {
@@ -74,62 +61,49 @@ public class SportItemCatalogController {
 		}
 	}
 
-	/*
-	 * @PostMapping("/addSportItem")
-	 * public String addSportItem(@RequestParam String name,
-	 * 
-	 * @RequestParam double price,
-	 * 
-	 * @RequestParam double deposit,
-	 * 
-	 * @RequestParam int amount,
-	 * 
-	 * @RequestParam(required = false) Product.ProductIdentifier itemId,
-	 * 
-	 * @RequestParam String category) {
-	 * 
-	 * if (itemId != null) {
-	 * SportItem oldItem =
-	 * itemCatalog.findByName(name).stream().findFirst().orElse(null);
-	 * if (oldItem != null) {
-	 * oldItem.setAmount(oldItem.getAmount() + amount);
-	 * itemCatalog.save(oldItem);
-	 * }
-	 * }
-	 * //SportItem newItem = new SportItem(name, Money.of(price, EURO),
-	 * Money.of(deposit, EURO), " ", amount);
-	 * itemCatalog.save(new SportItem(name, Money.of(price, EURO), Money.of(deposit,
-	 * EURO),category, amount));
-	 * return "redirect:/management/sportsequipment";
-	 * 
-	 * }
-	 */
-
 	@PostMapping("/addSportItem")
+	@PreAuthorize("hasRole('BOSS')")
 	public String addSportItem(@RequestParam String name,
 			@RequestParam double price,
 			@RequestParam double deposit,
 			@RequestParam int amount,
 			@RequestParam(required = false) Product.ProductIdentifier itemId,
-			@RequestParam String category) {
+			// was macht das? wie bekomme ich das?
+			@RequestParam String category,
+			@RequestParam String imagePath,
+			@RequestParam String desc) {
 
 		SportItem item = itemCatalog.findByName(name).stream().findFirst().orElse(null);
 		if (item == null) {
-			itemCatalog.save(new SportItem(name, Money.of(price, EURO), Money.of(deposit, EURO), category, amount,
-					"",
-					""));
-			// TODO please add
+			itemCatalog.save(new SportItem(name,
+					Money.of(price, EURO),
+					Money.of(deposit, EURO),
+					category, amount,
+					imagePath,
+					desc));
+		} else {
+			item.setName(name);
+			item.setPrice(Money.of(price, EURO));
+			item.setDeposit(Money.of(deposit, EURO));
+			item.addCategory(category); // das ist noch nicht soo gut.
+			item.setAmount(amount);
+			item.setImagePath(imagePath);
+			item.setDesc(desc);
+			itemCatalog.save(item);
 		}
 		return "redirect:/management/sportsequipment";
 	}
 
 	@PostMapping("/changeSportItemAmount")
+	@PreAuthorize("hasRole('BOSS')")
 	public String changeSportItemAmount(@RequestParam String nameItem,
 			@RequestParam int amountItem,
 			@RequestParam(required = false) Product.ProductIdentifier equip_id) {
+		// wofür brauch man equip_id?
 
 		if (equip_id != null) {
 			SportItem item = itemCatalog.findByName(nameItem).stream().findFirst().orElse(null);
+
 			if (item != null) {
 				item.setAmount(amountItem);
 				itemCatalog.save(item);
@@ -140,6 +114,7 @@ public class SportItemCatalogController {
 	}
 
 	@PostMapping("/deleteSportItem")
+	@PreAuthorize("hasRole('BOSS')")
 	public String deleteSportItem(@RequestParam String itemName,
 			@RequestParam(required = false) Product.ProductIdentifier id) {
 		SportItem item = itemCatalog.findByName(itemName).stream().findFirst().orElse(null);
