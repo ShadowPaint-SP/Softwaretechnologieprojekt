@@ -27,7 +27,7 @@ public class SportItemCatalogController {
 
 	@GetMapping("/sportequipmentcatalog")
 	String setupCatalog(Model model) {
-		List<SportItem> listo = this.itemCatalog.findAll().stream().collect(Collectors.toList());
+		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
 
 		model.addAttribute("items", listo);
 
@@ -38,10 +38,10 @@ public class SportItemCatalogController {
 	@PreAuthorize("hasRole('BOSS')")
 	public String setup(Model model) {
 
-		List<SportItem> listo = this.itemCatalog.findAll().stream().collect(Collectors.toList());
+		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
 
 		model.addAttribute("items", listo);
-		model.addAttribute("first", listo.get(0));
+		//model.addAttribute("first", listo.get(0));
 		model.addAttribute("cate", listo.get(0).getCategories().stream().toList().get(0));
 
 		return "dashboards/sportsequipment_management";
@@ -67,8 +67,6 @@ public class SportItemCatalogController {
 			@RequestParam double price,
 			@RequestParam double deposit,
 			@RequestParam int amount,
-			@RequestParam(required = false) Product.ProductIdentifier itemId,
-			// was macht das? wie bekomme ich das?
 			@RequestParam String category,
 			@RequestParam String imagePath,
 			@RequestParam String desc) {
@@ -85,7 +83,7 @@ public class SportItemCatalogController {
 			item.setName(name);
 			item.setPrice(Money.of(price, EURO));
 			item.setDeposit(Money.of(deposit, EURO));
-			item.addCategory(category); // das ist noch nicht soo gut.
+			item.addCategory(category); // das ist noch nicht so gut.
 			item.setAmount(amount);
 			item.setImagePath(imagePath);
 			item.setDesc(desc);
@@ -96,13 +94,11 @@ public class SportItemCatalogController {
 
 	@PostMapping("/changeSportItemAmount")
 	@PreAuthorize("hasRole('BOSS')")
-	public String changeSportItemAmount(@RequestParam String nameItem,
-			@RequestParam int amountItem,
+	public String changeSportItemAmount(@RequestParam int amountItem,
 			@RequestParam(required = false) Product.ProductIdentifier equip_id) {
-		// wofür brauch man equip_id?
 
 		if (equip_id != null) {
-			SportItem item = itemCatalog.findByName(nameItem).stream().findFirst().orElse(null);
+			SportItem item = itemCatalog.findById(equip_id).stream().findFirst().orElse(null);
 
 			if (item != null) {
 				item.setAmount(amountItem);
