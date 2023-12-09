@@ -1,15 +1,14 @@
 package campingplatz.equip;
 
+import campingplatz.plots.Plot;
+import campingplatz.reservation.PlotReservation;
+import campingplatz.utils.Cart;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +24,11 @@ public class SportItemCatalogController {
 
 	SportItemCatalogController(SportItemCatalog itemCatalog) {
 		this.itemCatalog = itemCatalog;
+	}
+
+	@ModelAttribute("cart") // quick fix for tests
+	Cart<Plot> initializeCart() {
+		return new Cart<Plot>(PlotReservation.class);
 	}
 
 	@GetMapping("/sportequipmentcatalog")

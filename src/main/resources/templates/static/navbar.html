@@ -32,7 +32,7 @@
                     th:text="#{nav.s_management}">Sportsequipment management</a></li>
               </ul>
             </li>
-            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')"><a href="../servings/orders.html" th:href="@{/orders}"
+            <li sec:authorize="hasAnyRole('BOSS','EMPLOYEE','CUSTOMER')"><a href="../servings/orders.html" th:href="@{/orders}"
                 th:text="#{nav.orders}">Orders</a></li>
           </ul>
         </div>
