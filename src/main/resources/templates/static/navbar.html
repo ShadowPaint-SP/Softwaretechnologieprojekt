@@ -92,6 +92,10 @@
               </div>
             </div>
           </div>
+          <div th:if="${cart.size > 0}" style="color: red; position: relative; top: -45px; left: 32px; font-size: 1cm; height: 0; width: 0;">
+            <!-- highlight cart if not empty -->
+            &#x2022
+          </div>
         </div>
         <div class="pt-2">
           <label class="swap swap-rotate">
