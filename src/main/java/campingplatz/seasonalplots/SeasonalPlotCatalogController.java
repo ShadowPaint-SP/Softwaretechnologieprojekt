@@ -1,7 +1,6 @@
 package campingplatz.seasonalplots;
 
 import campingplatz.plots.Plot;
-import campingplatz.plots.PlotCatalog;
 import campingplatz.reservation.ReservationRepository;
 import campingplatz.utils.Cart;
 import jakarta.validation.Valid;
@@ -23,28 +22,31 @@ public class SeasonalPlotCatalogController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
 	ReservationRepository<SeasonalPlot> reservationRepository;
 
-	public SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog, ReservationRepository<SeasonalPlot> reservationRepository) {
+	public SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog,
+			ReservationRepository<SeasonalPlot> reservationRepository) {
 		this.seasonalPlotCatalog = seasonalPlotCatalog;
 		this.reservationRepository = reservationRepository;
 	}
 
 	@GetMapping("/seasonalplotcatalog")
-	String setupSeasonalCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid  SeasonalPlotCatalog.SeasonalSiteState query) {
+	String setupSeasonalCatalog(Model model, @LoggedIn Optional<UserAccount> user,
+			@Valid SeasonalPlotCatalog.SeasonalSiteState query, @ModelAttribute("cart") Cart<Plot> reservationCart) {
 		var filteredSeasonalPlots = seasonalPlotCatalog.seasonalFilter(query);
-		var reservedSeasonalPlots = reservationRepository.findAll();
+		var reservedSeasonalPlots = reservationRepository.findPlotsAll();
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
-			seasonalPlot -> !reservedSeasonalPlots.contains(seasonalPlot)));
+				seasonalPlot -> !reservedSeasonalPlots.contains(seasonalPlot)));
 
 		model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
 		model.addAttribute("searchQuery", query);
 
-		return "old/seasonalplotcatalog";
+		return "servings/seasonalplotcatalog";
 	}
 
 	@PostMapping("/seasonalplotcatalog/filter")
-	String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid SeasonalPlotCatalog.SeasonalSiteState query) {
-		return setupSeasonalCatalog(model, user, query);
+	String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid SeasonalPlotCatalog.SeasonalSiteState query,
+			@ModelAttribute("cart") Cart<Plot> reservationCart) {
+		return setupSeasonalCatalog(model, user, query, reservationCart);
 	}
 
-	//TODO Dashboard verweis
+	// TODO Dashboard verweis
 }
