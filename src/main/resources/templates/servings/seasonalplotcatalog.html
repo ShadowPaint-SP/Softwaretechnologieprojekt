@@ -101,7 +101,7 @@
                             </div>
                         </td>
                         <td>
-                            <form th:action="'/seasonalcheckout/' + ${plot.id}" method="post">
+                            <form th:if="${plotsavailable}" th:action="'/seasonalcheckout/' + ${plot.id}" method="post">
                                 <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve}"></button>
                                 <select class="select w-full max-w-xs p-2 ">
                                     <option disabled selected th:text="#{seasonalcatalog.pay}">Pick your payment
