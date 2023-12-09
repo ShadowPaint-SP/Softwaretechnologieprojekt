@@ -5,9 +5,9 @@
 
 <body>
     <main layout:fragment="input">
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
             <table class="table table-zebra">
-                <thead>
+                <thead class="bg-secondary">
                     <tr>
                         <th></th>
                         <th>Titel</th>
@@ -30,7 +30,7 @@
             </table>
         </div>
 
-        <div class="card w-96 bg-neutral text-neutral-content container mx-auto mt-10">
+        <div class="card w-96 bg-base-300 container mx-auto mt-10">
             <div class="card-body items-center text-center">
                 <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
                 <div class="badge badge-lg badge-secondary" th:text="${{cart.price}}">987,654</div>
