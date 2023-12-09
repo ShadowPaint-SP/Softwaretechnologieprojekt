@@ -48,12 +48,12 @@ public abstract class Reservation<T extends Product> implements Priced {
 
     @Getter
     @Setter
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:MM")
     private LocalDateTime begin;
 
     @Getter
     @Setter
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:MM")
     private LocalDateTime end;
 
     @Getter
@@ -73,8 +73,8 @@ public abstract class Reservation<T extends Product> implements Priced {
         this.user = user;
         this.product = product;
 
-        this.begin = begin.plusHours(12).plusMinutes(0);
-        this.end = end.plusHours(11).plusMinutes(0);
+        this.begin = begin;
+        this.end = end;
     }
 
     @Override
