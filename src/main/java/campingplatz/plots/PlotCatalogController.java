@@ -1,15 +1,15 @@
 package campingplatz.plots;
 
-import campingplatz.reservation.PlotReservation;
+import campingplatz.plots.plotReservations.PlotCart;
+import campingplatz.plots.plotReservations.PlotReservation;
+import campingplatz.plots.plotReservations.PlotReservationRepository;
 import campingplatz.reservation.ReservationEntry;
-import campingplatz.reservation.ReservationRepository;
-import campingplatz.utils.Cart;
+import campingplatz.reservation.Cart;
 import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,21 +23,21 @@ import java.util.stream.Collectors;
 class PlotCatalogController {
 
     PlotCatalog plotCatalog;
-    ReservationRepository<Plot> reservationRepository;
+    PlotReservationRepository reservationRepository;
 
-    PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository<Plot> reservationRepository) {
+    PlotCatalogController(PlotCatalog plotCatalog, PlotReservationRepository reservationRepository) {
         this.plotCatalog = plotCatalog;
         this.reservationRepository = reservationRepository;
     }
 
     @ModelAttribute("cart")
-    Cart<Plot> initializeCart() {
-        return new Cart<Plot>(PlotReservation.class);
+	PlotCart initializeCart() {
+        return new PlotCart();
     }
 
     @GetMapping("/plotcatalog") // consider renaming the query argument and attribute to state
     String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
-            @ModelAttribute("cart") Cart<Plot> reservationCart) {
+            @ModelAttribute("cart") PlotCart reservationCart) {
 
         var firstWeekDate = query.getDefaultedFirstWeekDate();
         var lastWeekDay = firstWeekDate.plusDays(7);
@@ -68,13 +68,13 @@ class PlotCatalogController {
 
     @PostMapping("/plotcatalog/filter")
     String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
-            @ModelAttribute("cart") Cart<Plot> reservationCart) {
+            @ModelAttribute("cart") PlotCart reservationCart) {
         return setupCatalog(model, user, query, reservationCart);
     }
 
     @PostMapping("/plotcatalog/next-week")
     String nextWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
-            @ModelAttribute("cart") Cart<Plot> reservationCart) {
+            @ModelAttribute("cart") PlotCart reservationCart) {
 
         var firstWeekday = query.getDefaultedFirstWeekDate();
         var firstWeekdayNextWeek = firstWeekday.plusWeeks(1);
@@ -85,7 +85,7 @@ class PlotCatalogController {
 
     @PostMapping("/plotcatalog/prev-week")
     String prevWeek(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalog.SiteState query,
-            @ModelAttribute("cart") Cart<Plot> reservationCart) {
+            @ModelAttribute("cart") PlotCart reservationCart) {
 
         var firstWeekday = query.getDefaultedFirstWeekDate();
         var firstWeekdayNextWeek = firstWeekday.minusWeeks(1);
@@ -97,7 +97,7 @@ class PlotCatalogController {
     @PostMapping("/plotcatalog/select/{plot}")
     @PreAuthorize("isAuthenticated()")
     String addReservationRange(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
-            @PathVariable Plot plot, @ModelAttribute("cart") Cart<Plot> reservationCart) {
+            @PathVariable Plot plot, @ModelAttribute("cart") PlotCart reservationCart) {
 
         var arrival = query.getArrival().atStartOfDay();
         var departure = query.getDeparture().atStartOfDay();
@@ -111,7 +111,7 @@ class PlotCatalogController {
     @PreAuthorize("isAuthenticated()")
     String addReservationDay(Model model, @LoggedIn UserAccount user, @Valid PlotCatalog.SiteState query,
             @PathVariable("plot") Plot plot, @PathVariable("index") Integer index,
-            @ModelAttribute("cart") Cart<Plot> reservationCart) {
+            @ModelAttribute("cart") PlotCart reservationCart) {
 
         var day = query.getDefaultedFirstWeekDate().plusDays(index).atStartOfDay();
         var reservation = new ReservationEntry<Plot>(plot, day);
@@ -125,10 +125,19 @@ class PlotCatalogController {
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
 
-    @GetMapping("/management/plots")
-    String plots(Model model) {
-        Streamable<Plot> all = plotCatalog.findAll();
-        model.addAttribute("Plots", all);
-        return "dashboards/plot_management";
+    @GetMapping("/seasonalplots")
+    String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
+        model.addAttribute("searchQuery", query);
+        return "old/seasonalplotcatalog";
     }
+
+    // quick fix
+    // index.html needs a cart attribute in navbar
+    // so I put it in a controller which has a cart
+    // TODO may shift this to an other class
+    // @GetMapping("/")
+    // String homePage(Model model) {
+    // return "index";
+    // }
+
 }

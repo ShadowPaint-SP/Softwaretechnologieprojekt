@@ -1,7 +1,9 @@
-package campingplatz.utils;
+package campingplatz.reservation;
 
 import campingplatz.reservation.Reservation;
 import campingplatz.reservation.ReservationEntry;
+import campingplatz.utils.Priced;
+import campingplatz.utils.Utils;
 import one.util.streamex.StreamEx;
 import org.javamoney.moneta.Money;
 
@@ -30,15 +32,15 @@ import static org.salespointframework.core.Currencies.EURO;
  * The function getReservations recombines the individual ReservationEntries
  * back into Reservations
  */
-public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> implements Priced {
+public class Cart<T extends Product, U extends Reservation<T>> extends ArrayList<ReservationEntry<T>> implements Priced {
 
-	Class<? extends Reservation<T>> reservationType;
+	Class<U> reservationType;
 
-	public Cart(Class<? extends Reservation<T>> reservationType) {
+	public Cart(Class<U> reservationType) {
 		this.reservationType = reservationType;
 	}
 
-	public List<Reservation<T>> getReservationsOfUser(UserAccount user) {
+	public List<U> getReservationsOfUser(UserAccount user) {
 
 		// sort the cart by the name of its elements first and date second.
 		this.sort(ReservationEntry::compareTo);
@@ -73,7 +75,7 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 			var firstElement = list.get(0);
 			var lastElement = list.get(list.size() - 1);
 
-			Reservation<T> reservation = Utils.createInstance(reservationType);
+			U reservation = Utils.createInstance(reservationType);
 			reservation.setUser(user);
 			reservation.setProduct(firstElement.getProduct());
 			reservation.setBegin(firstElement.getTime());
@@ -115,11 +117,11 @@ public class Cart<T extends Product> extends ArrayList<ReservationEntry<T>> impl
 
 	@Override
 	public MonetaryAmount getPrice() {
-		var reservations = getReservationsOfUser(null);
+
 
 		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var reservation : reservations) {
-			acuumulator = acuumulator.add(reservation.getPrice());
+		for (var entry : this) {
+			acuumulator = acuumulator.add(entry.getProduct().getPrice());
 		}
 
 		return acuumulator;
