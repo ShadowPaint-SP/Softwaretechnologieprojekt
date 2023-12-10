@@ -1,7 +1,12 @@
 package campingplatz.equip;
 
+import campingplatz.equip.sportsItemReservations.SportItemReservation;
+import campingplatz.equip.sportsItemReservations.SportItemReservationRepository;
+import org.hibernate.mapping.Array;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,8 +32,11 @@ public class SportItemCatalogController {
 
 	private SportItemCatalog itemCatalog;
 
-	SportItemCatalogController(SportItemCatalog itemCatalog) {
+	private SportItemReservationRepository reservationRepository;
+
+	SportItemCatalogController(SportItemCatalog itemCatalog, SportItemReservationRepository reservationRepository) {
 		this.itemCatalog = itemCatalog;
+		this.reservationRepository = reservationRepository;
 	}
 
 	@GetMapping("/sportequipmentcatalog")
@@ -34,91 +48,40 @@ public class SportItemCatalogController {
 		return "servings/sportequipmentcatalog";
 	}
 
-	@GetMapping("/management/sportsequipment")
-	@PreAuthorize("hasRole('BOSS')")
-	public String setup(Model model) {
-
-		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
-
-		model.addAttribute("items", listo);
-		//model.addAttribute("first", listo.get(0));
-		model.addAttribute("cate", listo.get(0).getCategories().stream().toList().get(0));
-
-		return "dashboards/sportsequipment_management";
-	}
 
 	@GetMapping("/item/{id}")
-	public String showSportItemDetails(@PathVariable Product.ProductIdentifier id, Model model) {
+	public String showSportItemDetails(@LoggedIn UserAccount user , Model model, @PathVariable Product.ProductIdentifier id) {
 		Optional<SportItem> sportItemOptional = itemCatalog.findById(id);
 
-		if (sportItemOptional.isPresent()) {
-			SportItem sportItem = sportItemOptional.get();
-			model.addAttribute("item", sportItem);
-			return "servings/sportitemdetails";
-		} else {
-
+		if (sportItemOptional.isEmpty()){
 			return "servings/sportequipmentcatalog";
 		}
-	}
 
-	@PostMapping("/addSportItem")
-	@PreAuthorize("hasRole('BOSS')")
-	public String addSportItem(@RequestParam String name,
-			@RequestParam double price,
-			@RequestParam double deposit,
-			@RequestParam int amount,
-			@RequestParam String category,
-			@RequestParam String imagePath,
-			@RequestParam String desc) {
-
-		SportItem item = itemCatalog.findByName(name).stream().findFirst().orElse(null);
-		if (item == null) {
-			itemCatalog.save(new SportItem(name,
-					Money.of(price, EURO),
-					Money.of(deposit, EURO),
-					category, amount,
-					imagePath,
-					desc));
-		} else {
-			item.setName(name);
-			item.setPrice(Money.of(price, EURO));
-			item.setDeposit(Money.of(deposit, EURO));
-			item.addCategory(category); // das ist noch nicht so gut.
-			item.setAmount(amount);
-			item.setImagePath(imagePath);
-			item.setDesc(desc);
-			itemCatalog.save(item);
+		var currentDay = LocalDate.now();
+		var opening = currentDay.atStartOfDay().plusHours(9);
+		var closing = currentDay.atStartOfDay().plusHours(17);
+		var formatedTimes = new ArrayList<String>();
+		for (var curr = opening; !curr.isAfter(closing); curr = curr.plusHours(1)){
+			formatedTimes.add(curr.format(DateTimeFormatter.ofPattern("H")));
 		}
-		return "redirect:/management/sportsequipment";
-	}
 
-	@PostMapping("/changeSportItemAmount")
-	@PreAuthorize("hasRole('BOSS')")
-	public String changeSportItemAmount(@RequestParam int amountItem,
-			@RequestParam(required = false) Product.ProductIdentifier equip_id) {
 
-		if (equip_id != null) {
-			SportItem item = itemCatalog.findById(equip_id).stream().findFirst().orElse(null);
+		var sportItem = sportItemOptional.get();
+		var reservations = reservationRepository.findReservationsBetween(opening, closing);
 
-			if (item != null) {
-				item.setAmount(amountItem);
-				itemCatalog.save(item);
-			}
-		}
-		return "redirect:/management/sportsequipment";
+
+		var availabilityTable = new SportItemAvailabilityTable(opening, closing)
+			.addMaxAmount(sportItem.getAmount())
+			.addReservations(user, reservations);
+
+
+		model.addAttribute("item", sportItem);
+		model.addAttribute("times", formatedTimes);
+		model.addAttribute("availabilityTable", availabilityTable);
+		return "servings/sportitemdetails";
 
 	}
 
-	@PostMapping("/deleteSportItem")
-	@PreAuthorize("hasRole('BOSS')")
-	public String deleteSportItem(@RequestParam String itemName,
-			@RequestParam(required = false) Product.ProductIdentifier id) {
-		SportItem item = itemCatalog.findByName(itemName).stream().findFirst().orElse(null);
-		if (item != null && item.getId() != null) {
-			itemCatalog.deleteById(item.getId());
-		}
-		return "redirect:/management/sportsequipment";
 
-	}
 
 }
