@@ -197,15 +197,11 @@ image::./models/design/PackageDiagramm.svg[Package Diagramm, 100%, 100%, pdfwidt
 
 === Entwurfsklassendiagramme der einzelnen Packages
 ==== Campingplatz
-image::./models/design/EKD_Campingplatz.png[Entwurfsklassendiagramm Campingplatz, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_campingplatz.svg[Entwurfsklassendiagramm Campingplatz, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
-|=== 
-|Klasse/Enumeration |Description
-|... |...
-|===
 
 ==== Customer
-image::./models/design/EKD_Customer.png[Entwurfsklassendiagramm Customer, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Customer.svg[Entwurfsklassendiagramm Customer, 100%, 100%, pdfwidth=100%, align=center]
 ////
 image::./projektbezogenen_dateien/images/package-campingplatz.customer2.png[class design diagram - customer,100%, 100%, pdfwidth=100%, align=center]
 image::./projektbezogene_dateien/images/package-campingplatz.customer.png[]

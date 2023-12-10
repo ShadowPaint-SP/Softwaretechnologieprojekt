@@ -7,6 +7,8 @@ skinparam BackgroundColor #FEFEFE
 allowmixing
 skinparam packageStyle Frame
 
+package campingplatz{
+
 package equip{
 }
 package reservation{
@@ -17,10 +19,23 @@ package plots{
 }
 package utils{
 }
+}
+package org{
+package org.salespointframework{
+}
+package org.springframework{
+}
+}
 
 customer .d.> reservation
 equip .r.> reservation
 plots .l.> reservation
 utils <.u. reservation
+
+org.springframework -[hidden]u- org.salespointframework
+
+
+campingplatz .r.> springframework
+campingplatz .r.> salespointframework
 
 @enduml
