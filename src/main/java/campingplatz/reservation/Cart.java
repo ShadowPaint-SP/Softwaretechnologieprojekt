@@ -117,11 +117,11 @@ public class Cart<T extends Product, U extends Reservation<T>> extends ArrayList
 
 	@Override
 	public MonetaryAmount getPrice() {
-		var reservations = getReservationsOfUser(null);
+
 
 		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var reservation : reservations) {
-			acuumulator = acuumulator.add(reservation.getPrice());
+		for (var entry : this) {
+			acuumulator = acuumulator.add(entry.getProduct().getPrice());
 		}
 
 		return acuumulator;
