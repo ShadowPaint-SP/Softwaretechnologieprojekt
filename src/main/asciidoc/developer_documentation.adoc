@@ -209,20 +209,21 @@ image::./projektbezogene_dateien/images/package-campingplatz.customer.png[]
 [options="header"]
 |=== 
 |Klasse/Enumeration |Beschreibung
-|Customer|Benutzerdefinierte Klasse zur Erweiterung des Salespoint-UserAccount mit einer Adresse und der Eigenschaft Dauercamper
+|Customer|Benutzerdefinierte Klasse zur Erweiterung des Salespoint-UserAccount
 |CustomerController|Ein Spring MVC Controller zur Bearbeitung von Anfragen zur Registrierung und Anzeige von Kunden
 |CustomerDataInitializer|Eine Implementierung des DataInitializer zur Erstellung von Dummy-Kunden beim Start der Anwendung
 |CustomerManagement|Serviceklasse zur Verwaltung von Kunden
 |CustomerRepository|Eine Repository-Schnittstelle zur Verwaltung von Kundeninstanzen
 |RegistrationFrom|Eine Klasse zum Sammeln und Validieren der Benutzereingaben des Registrierungsformulars
+|CustomerDashboardController| Dieser Controller verwaltet Dashboardfunktionen, welche mit Kunden zutun haben
 |===
 
 ==== Equip
-image::./models/design/EKD_Equip.png[Entwurfsklassendiagramm Equip, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Equip.svg[Entwurfsklassendiagramm Equip, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
 |=== 
-|Klasse/Enumeration |Description
-|... |...
+|Klasse/Enumeration |Beschreibung
+|SportItem | Repräsentiert eine Menge eines bestimmten Gerätes
 |===
 
 ==== Plots

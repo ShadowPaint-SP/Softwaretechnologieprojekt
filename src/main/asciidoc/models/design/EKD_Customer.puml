@@ -7,6 +7,8 @@ skinparam BackgroundColor #FEFEFE
 allowmixing
 skinparam packageStyle Frame
 
+interface org.springframework.data.repository.CrudRepository
+
 package campingplatz{
     package customer{
         class Customer<<Entity>>{
@@ -85,6 +87,6 @@ CustomerDataInitializer -[hidden]u- CustomerDashboardController
 CustomerManagement -[hidden]u- CustomerDataInitializer
 CustomerDataInitializer --|> org.salespointframework.core.DataInitializer
 CustomerDashboardController -[hidden]r- CustomerRepository
-CustomerRepository --|> org.springframework.data.repository.CrudRepository
+CustomerRepository --|> org.springframework.data.repository.CrudRepository: <<bind T->Customer, ID->UUID>>
 RegistrationForm -[hidden]d- CustomerManagement
 @enduml

@@ -8,17 +8,28 @@ allowmixing
 skinparam packageStyle Frame
 
 class campingplatz.utils.DetailedProduct
+class campingplatz.reservation.Cart<T extends Product, U extends Reservation<T>>
+class campingplatz.reservation.Reservation<T extends Product>
+interface campingplatz.reservation.ReservationRepository<T extends Product, U extends Reservation<T>>
 
 package org{
-    package springframework
     package salespointframework{
         interface catalog.Catalog<T extends Product>
-        interface core.DataInitializer
+        class core.DataInitializer
     }
 }
 
 package campingplatz.equip {
-    class SportItem{
+    package sportItemReservations{
+    class SportItemCart{
+    }
+    class SportItemReservation<<Entity>>{
+    +SportItemReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure)
+    +getIntervalUnit(): ChronoUnit
+    }
+    interface SportItemReservationRepository
+    }
+    class SportItem<<Entity>>{
     -amount: int
     -deposit: Money
     +SportItem(String name, Money rentalFee, Money deposit, String category, int amount, String imagePath, String description)
@@ -28,14 +39,19 @@ package campingplatz.equip {
     +setDeposit(Money value): void
     }
     interface SportItemCatalog{
+    +findById(Product.ProductIdentifier id): Optional<SportItem>
     }
-    class SportItemCatalogController{
+    class SportItemCatalogController<<Controller>>{
     -itemCatalog: SportItemCatalog
     +SportItemCatalogController(SportItemCatalog itemCatalog)
     +setupCatalog(Model model, Optional<UserAccount> user): String
-    +addSportItem(String name, double price, double deposit, int amount, Product.ProductIdentifier itemId): String
+    +setup(Model model): String
+    +showSportItemDetails(Product.ProductIdentifier id, Model model): String
+    +addSportItem(String name, double price, double deposit, int amount, String category, String imagePath,	String desc): String
+    +changeSportItemAmount(int amountItem, Product.ProductIdentifier equip_id): String
+    +deleteSportItem(String itemName, Product.ProductIdentifier id): String
     }
-    class SportItemCatalogDataInitializer{
+    class SportItemCatalogDataInitializer<<Component>>{
     -sportItemCatalog: SportItemCatalog
     +SportItemCatalogDataInitializer(SportItemCatalog sportItemCatalog)
     +initialize(): void
@@ -43,16 +59,26 @@ package campingplatz.equip {
 
 }
 
-SportItem -right-|> DetailedProduct
+SportItem -r|> DetailedProduct
+SportItem -[hidden]u- SportItemCatalogDataInitializer
+SportItemCatalog --|> Catalog: <<bind T->SportItem>>
+SportItemCatalogController -[hidden]u- SportItem
 
-SportItemCatalog .right.|> Catalog: <<bind T->SportItem>>
 
-SportItemCatalogController ..> springframework: <<use>>
-SportItemCatalogController ..> salespointframework: <<use>>
+SportItemCatalogDataInitializer --|> DataInitializer
+
+campingplatz -[hidden]l- org
+
 SportItemCatalogController ..> SportItemCatalog: <<use>>
 
-SportItemCatalogDataInitializer ..|> DataInitializer
-SportItemCatalogDataInitializer ..> SportItemCatalog: <<use>>
+SportItemCart --|> Cart: <<bind T->SportItem, U->SportItemReservation>>
+SportItemReservation --|> Reservation
+SportItemReservationRepository --|> ReservationRepository: <<bind T->SportItem, U->SportItemReservation>>
 
+Cart -[hidden]d- Reservation
+Reservation -[hidden]u- ReservationRepository
+
+SportItemCart -[hidden]d- SportItemReservation
+SportItemReservation -[hidden]u- SportItemReservationRepository
 
 @enduml
