@@ -1,6 +1,7 @@
 package campingplatz.seasonalplots;
 
 import campingplatz.plots.Plot;
+import campingplatz.plots.PlotDashboardController;
 import campingplatz.reservation.ReservationRepository;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
@@ -10,6 +11,7 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
+import org.springframework.data.util.Streamable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -88,71 +90,96 @@ public class SeasonalPlotCatalogController {
 
 
 	@GetMapping("/management/seasonalplot")
-	@PreAuthorize("hasRole('BOSS')")
-	public String managementSetup(Model model) {
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
+	String plots(Model model) {
+		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
+		model.addAttribute("plots", all);
+		return "dashboards/plot_management";
+	}
 
-		List<SeasonalPlot> allSPLots = seasonalPlotCatalog.findAll().stream().toList();
-		model.addAttribute("allSPlots", allSPLots);
+	@PostMapping("/management/seasonalplot/updateSeasonalPlot")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
+	String changePlotDetails(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
 
+		Optional<SeasonalPlot> plotOptional = seasonalPlotCatalog.findById(info.getPlotID());
+		if (plotOptional.isPresent()) {
+			SeasonalPlot plot = plotOptional.get();
+			plot.setName(info.getName());
+			plot.setSize(info.getSize());
+			plot.setParking(Plot.ParkingLot.fromNumber(info.getParkingValue()));
+			plot.setPrice(Money.of(info.getPrice(), EURO));
+			plot.setElectricityMeter(info.getElectricityMeter());
+			plot.setWaterMeter(info.getWaterMeter());
+			plot.setImagePath(info.getPicture());
+			plot.setDesc(info.getDescription());
 
+			// dont forget to save
+			seasonalPlotCatalog.save(plot);
+
+			Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
+			model.addAttribute("seasonalPlots", all);
+		}
 
 		return "dashboards/seasonalplot_management";
 	}
 
-	@PostMapping("/addSeasonalPlot")
-	@PreAuthorize("hasRole('Boss')")
-	public String addSeasonalPlot(@RequestParam String name,
-			  @RequestParam Double size,
-			  @RequestParam Money price,
-			  @RequestParam Plot.ParkingLot parkingLot,
-			  @RequestParam double electricityMeter,
-			  @RequestParam double waterMeter,
-			  @RequestParam String imagePath,
-			  @RequestParam String description) {
+	@PostMapping("/management/seasonalplot/createSeasonalPlot")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
+	String createPlot(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
 
-		SeasonalPlot newSeasonalPlot = seasonalPlotCatalog.findByName(name).stream().findFirst().orElse(null);
-		if(newSeasonalPlot == null) {
-			seasonalPlotCatalog.save(new SeasonalPlot(name,
-				size, price, parkingLot, electricityMeter,
-				waterMeter, imagePath, description));
-		} else {
-			newSeasonalPlot.setName(name);
-			newSeasonalPlot.setSize(size);
-			newSeasonalPlot.setPrice(price);
-			newSeasonalPlot.setParking(parkingLot);
-			newSeasonalPlot.setElectricityMeter(electricityMeter);
-			newSeasonalPlot.setWaterMeter(waterMeter);
-			newSeasonalPlot.setImagePath(imagePath);
-			newSeasonalPlot.setDesc(description);
+		var splot = new SeasonalPlot(
+			info.getName(),
+			info.getSize(),
+			Money.of(info.getPrice(), EURO),
+			Plot.ParkingLot.fromNumber(info.getParkingValue()),
+			info.getElectricityMeter(),
+			info.getWaterMeter(),
+			info.getPicture(),
+			info.getDescription());
+
+		// dont forget to save
+		seasonalPlotCatalog.save(splot);
+
+		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
+		model.addAttribute("seasonalPlots", all);
+		return "dashboards/seasonalplot_management";
+	}
+
+	// TODO
+	@PostMapping("/management/seasonalplot/deleteSeasonalPlot")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
+	String deletePlot(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
+
+		// cannot just delete the entry, reservations might depend on it
+		try {
+			seasonalPlotCatalog.deleteById(info.getPlotID());
+		} catch (Exception e) {
+			// just continue
 		}
-		return "redirect: /management/seasonalplot";
+
+		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
+		model.addAttribute("plots", all);
+		return "dashboards/plot_management";
 	}
 
-	//TODO Controller für defekte Stellplätze, Funktion hat Vincent
+	interface SeasonalPlotInformation {
 
-	@PostMapping("/deleteSeasonalPlot")
-	@PreAuthorize("hasRole('BOSS')")
-	public String deleteSeasonalPlot(@RequestParam String name,
-			 @RequestParam(required = false)Product.ProductIdentifier id) {
-		SeasonalPlot oldSeasonalPlot = seasonalPlotCatalog.findByName(name).stream().findFirst().orElse(null);
-		if (oldSeasonalPlot != null && oldSeasonalPlot.getId() != null) {
-			seasonalPlotCatalog.deleteById(oldSeasonalPlot.getId());
-		}
-		return "redirect: /management/seasonalplot";
+		Product.ProductIdentifier getPlotID();
+
+		String getName();
+
+		Double getSize();
+
+		Integer getParkingValue();
+
+		Double getElectricityMeter();
+
+		Double getWaterMeter();
+
+		Double getPrice();
+
+		String getDescription();
+
+		String getPicture();
 	}
-
-	@PostMapping("/changeElectricityPrice")
-	@PreAuthorize("hasRole('BOSS')")
-	public String changeElectricityPrice(@RequestParam double newElectricityCosts) {
-		Config.setElectricityCosts(Money.of(newElectricityCosts, EURO));
-		return "redirect: /management/seasonalplot";
-	}
-
-	@PostMapping("/changeWaterPrice")
-	@PreAuthorize("hasRole('BOSS')")
-	public String changeWaterPrice(@RequestParam double newWaterCosts) {
-		Config.setWaterCosts(Money.of(newWaterCosts, EURO));
-		return "redirect: /management/seasonalplot";
-	}
-
 }
