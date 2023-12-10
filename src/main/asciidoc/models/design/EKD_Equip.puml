@@ -67,7 +67,9 @@ SportItemCatalogController -[hidden]u- SportItem
 
 SportItemCatalogDataInitializer --|> DataInitializer
 
-campingplatz -[hidden]l- org
+campingplatz -[hidden]r- org
+
+utils -[hidden]u- reservation
 
 SportItemCatalogController ..> SportItemCatalog: <<use>>
 
@@ -80,5 +82,7 @@ Reservation -[hidden]u- ReservationRepository
 
 SportItemCart -[hidden]d- SportItemReservation
 SportItemReservation -[hidden]u- SportItemReservationRepository
+
+SportItem -[hidden]l- sportItemReservations
 
 @enduml

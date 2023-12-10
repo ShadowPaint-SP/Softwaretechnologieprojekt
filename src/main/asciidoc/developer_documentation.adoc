@@ -227,36 +227,34 @@ image::./models/design/EKD_Equip.svg[Entwurfsklassendiagramm Equip, 100%, 100%, 
 |===
 
 ==== Plots
-image::./models/design/EKD_Plots.png[Entwurfsklassendiagramm Plots, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Plots.svg[Entwurfsklassendiagramm Plots, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
 |=== 
-|Klasse/Enumeration |Description
-|... |...
+
 |===
 
 ==== Reservation
-image::./models/design/EKD_Reservation.png[Entwurfsklassendiagramm Reservation, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Reservation.svg[Entwurfsklassendiagramm Reservation, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
 |=== 
-|Klasse/Enumeration |Description
-|... |...
+
 |===
 
-=== Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
-_Die folgende Tabelle zeigt die Rückverfolgbarkeit zwischen Entwurfs- und Analysemodell._
+//=== Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
+//_Die folgende Tabelle zeigt die Rückverfolgbarkeit zwischen Entwurfs- und Analysemodell._
 
-[options="header"]
-|===
-|Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell)
-|... |...
-|===
+//[options="header"]
+//|===
+//|Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell)
+//|... |...
+//|===
 
 == Laufzeitsicht
-=== Customer
-image::./models/design/SQD_Customer.png[Sequenzdiagramms Customer, 100%, 100%, pdfwidth=100%, align=center]
+//=== Customer
+//image::./models/design/SQD_Customer.png[Sequenzdiagramms Customer, 100%, 100%, pdfwidth=100%, align=center]
 
-=== Equip
-image::./models/design/SQD_Equip.png[Sequenzdiagramms Equip, 100%, 100%, pdfwidth=100%, align=center]
+//=== Equip
+//::./models/design/SQD_Equip.png[Sequenzdiagramms Equip, 100%, 100%, pdfwidth=100%, align=center]
 
 === Plots
 image::./models/design/SQD_Plots.png[Sequenzdiagramms Plots, 100%, 100%, pdfwidth=100%, align=center]
