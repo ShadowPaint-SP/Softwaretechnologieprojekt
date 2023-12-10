@@ -1,5 +1,6 @@
 package campingplatz.seasonalplots.seasonalPlotReservations;
 
+import campingplatz.plots.Plot;
 import campingplatz.reservation.Reservation;
 import campingplatz.seasonalplots.SeasonalPlot;
 import jakarta.persistence.Entity;
@@ -40,5 +41,13 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
 	public enum PayMethod {
 		MONTHLY, YEARLY;
+
+		public static PayMethod fromNumberPayMethod(Integer i) {
+			return switch (i) {
+				case 0 -> MONTHLY;
+				case 1 -> YEARLY;
+				default -> MONTHLY;
+			};
+		}
 	}
 }

@@ -35,6 +35,8 @@
                                     <div th:text="'Größe: '+${order.product.sizeString}"></div>
                                     <div th:text="#{${order.product.parking.label}}"></div>
                                     <div th:text="${order.product.desc}"></div>
+                                    <div th:text="#{arrival} + ' ' + ${order.begin.toString().substring(0,10)}">Arrival</div>
+                                    <div th:text="#{departure} + ' ' + ${order.end.toString().substring(0,10)}">Departure</div>
                                 </div>
                             </div>
                         </td>
@@ -145,13 +147,14 @@
                             <section th:text="#{arrival} + ' ' + ${plot.ArrivalStr}">Arrival</section>
                             <section th:text="#{departure} + ' ' + ${plot.DepartureStr}">Departure</section>
                             <form th:if="${plotsavailable}" th:action="'/seasonalcheckout/' + ${plot.id}" method="post">
+                                <div>
+                                    <label class="label-text">Bezahlart:</label>
+                                    <select name="payMethod" class="select w-full max-w-xs p-2 ">
+                                        <option value="1" th:text="#{seasonalcatalog.pay.yearly}"></option>
+                                        <option value="0" th:text="#{seasonalcatalog.pay.monthly}"></option>
+                                    </select>
+                                </div>
                                 <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve}"></button>
-                                <select class="select w-full max-w-xs p-2 ">
-                                    <option disabled selected th:text="#{seasonalcatalog.pay}">Pick your payment
-                                        interval</option>
-                                    <option value="0" th:text="#{seasonalcatalog.pay.monthly}"></option>
-                                    <option value="1" th:text="#{seasonalcatalog.pay.yearly}"></option>
-                                </select>
                             </form>
                         </td>
                     </tr>
