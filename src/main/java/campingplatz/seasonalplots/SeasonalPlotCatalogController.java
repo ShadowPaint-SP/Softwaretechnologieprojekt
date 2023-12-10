@@ -62,8 +62,8 @@ public class SeasonalPlotCatalogController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcheckout/{plot}")
-	String reservate(Model model, @LoggedIn UserAccount userAccount, @PathVariable("plot") SeasonalPlot seasonalPlot,
-			SeasonalPlotReservation.PayMethod payMethod) {
+	String reservate(Model model, @LoggedIn UserAccount userAccount,
+					 Integer payMethod, @PathVariable("plot") SeasonalPlot seasonalPlot) {
 
 		// seasonal Plots are offered from April to October
 		// the reservation will start on the next possible date
@@ -77,7 +77,7 @@ public class SeasonalPlotCatalogController {
 		}
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(userAccount, seasonalPlot,
-		inApril, inOctober, payMethod);
+		inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 		reservationRepository.save(reservation);
 		
 
@@ -90,5 +90,7 @@ public class SeasonalPlotCatalogController {
 		model.addAttribute("ordersCompleted", userReservations);
 		return "servings/orders";
 	}
+
+
 
 }
