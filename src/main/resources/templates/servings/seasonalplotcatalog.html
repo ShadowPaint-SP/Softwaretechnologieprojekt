@@ -6,7 +6,48 @@
 <head></head>
 
 <body>
+
+    
     <main layout:fragment="input">
+
+        <div th:fragment="my_orders" class="overflow-x-auto container mx-auto mt-14 rounded-box">
+            <table class="table table-zebra">
+                <thead>
+                    <tr>
+                        <th>
+                            <span th:text="#{my_orders}"></span>
+                        </th>
+                        <th>
+                            <span>Reservieren</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${ordersCompleted}"> 
+                        <td class="flex">
+                            <div>
+                                <img class="h-32 w-32" th:src="${order.product.imagePath}" />
+                            </div>
+                            <div>
+                                <div th:text="${order.product.name}">Plotname</div>
+                                <div>
+                                    <div th:text="'Kosten: '+${order.product.priceString}"></div>
+                                    <div th:text="'Größe: '+${order.product.sizeString}"></div>
+                                    <div th:text="#{${order.product.parking.label}}"></div>
+                                    <div th:text="${order.product.desc}"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            
+                            <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve.for_next_year}"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
         <form method="post" action="/seasonalplotcatalog/filter#top">
             <a id="top"></a>
 
@@ -115,6 +156,8 @@
                 </tbody>
             </table>
         </div>
+
+
         <div th:replace="~{servings/seasonalplotcatalog :: seasonplot_table (plotsavailable=true)}"></div>
         <div th:replace="~{servings/seasonalplotcatalog :: seasonplot_table (plotsavailable=false)}"></div>
 

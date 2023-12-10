@@ -46,9 +46,12 @@ public class SeasonalPlotCatalogController {
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
 				seasonalPlot -> !reservedSeasonalPlots.contains(seasonalPlot)));
 
-		model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
-		model.addAttribute("searchQuery", query);
+				var userReservations = reservationRepository.findByUserId(user.get().getId());
+				model.addAttribute("ordersCompleted", userReservations);
 
+				model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
+				model.addAttribute("searchQuery", query);
+				
 		return "servings/seasonalplotcatalog";
 	}
 
@@ -64,8 +67,9 @@ public class SeasonalPlotCatalogController {
 			SeasonalPlotReservation.PayMethod payMethod) {
 
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(userAccount, seasonalPlot,
-				LocalDateTime.now(), null, payMethod);
+		LocalDateTime.now(), null, payMethod);
 		reservationRepository.save(reservation);
+		
 
 		return "redirect:/seasonalplotcatalog";
 	}
@@ -84,8 +88,9 @@ public class SeasonalPlotCatalogController {
 	public String managementSetup(Model model) {
 
 		List<SeasonalPlot> allSPLots = seasonalPlotCatalog.findAll().stream().toList();
-
 		model.addAttribute("allSPlots", allSPLots);
+
+
 
 		return "dashboards/seasonalplot_management";
 	}
