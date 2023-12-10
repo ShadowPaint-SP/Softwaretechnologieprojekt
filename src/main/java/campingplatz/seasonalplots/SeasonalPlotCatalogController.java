@@ -65,8 +65,19 @@ public class SeasonalPlotCatalogController {
 	String reservate(Model model, @LoggedIn UserAccount userAccount, @PathVariable("plot") SeasonalPlot seasonalPlot,
 			SeasonalPlotReservation.PayMethod payMethod) {
 
+		// seasonal Plots are offered from April to October
+		// the reservation will start on the next possible date
+		var inApril = LocalDateTime.now().withMonth(4).withDayOfMonth(1);
+		int monthNow = LocalDateTime.now().getMonthValue();
+		// take next year if the season is over
+		if (monthNow >= 10) {
+			inApril = inApril.plusYears(1);
+		} else if (monthNow > 4)  {
+			inApril = LocalDateTime.now();
+		}
+		var inOctober = LocalDateTime.now().withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(userAccount, seasonalPlot,
-		LocalDateTime.now(), null, payMethod);
+		inApril, inOctober, payMethod);
 		reservationRepository.save(reservation);
 		
 
