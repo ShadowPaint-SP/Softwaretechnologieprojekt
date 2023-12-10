@@ -2825,6 +2825,50 @@ html {
   position: absolute;
 }
 
+.select-md {
+  height: 3rem;
+  min-height: 3rem;
+  padding-left: 1rem;
+  padding-right: 2.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 2;
+}
+
+[dir="rtl"] .select-md {
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+}
+
+.select-lg {
+  height: 4rem;
+  min-height: 4rem;
+  padding-left: 1.5rem;
+  padding-right: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  line-height: 2;
+}
+
+[dir="rtl"] .select-lg {
+  padding-left: 2rem;
+  padding-right: 1.5rem;
+}
+
+.select-sm {
+  height: 2rem;
+  min-height: 2rem;
+  padding-left: 0.75rem;
+  padding-right: 2rem;
+  font-size: 0.875rem;
+  line-height: 2rem;
+}
+
+[dir="rtl"] .select-sm {
+  padding-left: 2rem;
+  padding-right: 0.75rem;
+}
+
 .select-xs {
   height: 1.5rem;
   min-height: 1.5rem;

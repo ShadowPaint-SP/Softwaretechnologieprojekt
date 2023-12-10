@@ -5,24 +5,107 @@
 
 <body>
 	<main layout:fragment="input">
-		<div class="overflow-x-auto">
+
+		<form method="post" action="/management/plots/updatePlot">
+			<div
+				class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20">
+				<div>
+					<label class="label-text">Name:</label>
+					<input class="input input-sm w-full focus:outline-accent" type="text" placeholder="Neuer Platz" name="name"
+						required>
+				</div>
+				<div>
+					<label class="label-text">Größe:</label>
+					<input class="input input-sm w-full focus:outline-accent" type="number" value="20" min="10" name="size"
+						required>
+				</div>
+				<div>
+					<label class="label-text">Parking:</label>
+					<select name="parkingValue" class="select select-bordered select-sm w-full">
+						<option value="0" th:text="#{plot.parking.no}" selected></option>
+						<option value="1" th:text="#{plot.parking.bike}"></option>
+						<option value="2" th:text="#{plot.parking.car}"></option>
+						<option value="3" th:text="#{plot.parking.camper}"></option>
+					</select>
+				</div>
+				<div>
+					<label class="label-text">Price:</label>
+					<input class="input input-sm w-full focus:outline-accent" type="number" value="10" min="1" name="price"
+						required>
+				</div>
+				<div>
+					<label class="label-text">Description:</label>
+					<input class="input input-sm w-full focus:outline-accent" type="text" name="description"
+						placeholder="Beschreibung einfügen" onchange="this.form.submit()">
+				</div>
+				<div>
+					<label class="label-text">Picture:</label>
+					<input class="input input-sm w-full focus:outline-accent" type="text" name="picture" value="/img/..."
+						onchange="this.form.submit()">
+				</div>
+				<div></div>
+				<div class="flex justify-around">
+					<button th:text="#{management.plot.add}" formaction="/management/plots/createPlot"
+						class="btn btn-accent"></button>
+				</div>
+			</div>
+		</form>
+
+		<div class="overflow-x-auto container mx-auto mt-14 rounded-box">
 			<table class="table table-zebra">
-				<!-- head -->
 				<thead>
 					<tr>
 						<th></th>
-						<th>Name</th>
-						<th>Preis</th>
-						<th>Favorite Color</th>
+						<th th:text="#{plot.name}"></th>
+						<th th:text="#{plot.size}"></th>
+						<th th:text="#{plot.parking}"></th>
+						<th th:text="#{plot.price}"></th>
+						<th th:text="#{plot.description}"></th>
+						<th th:text="#{plot.picture}"></th>
+						<th th:text="#{plot.remove}"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- row 1 -->
-					<tr th:each="plot, iStat : ${Plots}" class="hover">
-						<th th:text="${iStat.count}">1</th>
-						<td th:text="${plot.toString}">Cy Ganderton</td>
-						<td th:text="${plot.getPriceString}">Quality Control Specialist</td>
-						<td>Blue</td>
+					<tr th:each="plot, iStat : ${plots}">
+						<form method="post" action="/management/plots/updatePlot">
+							<td th:text="${iStat.count}">
+								<input type="hidden" name="plotID" th:value="${plot.id}">
+								1
+							</td>
+							<td>
+								<input class="input input-sm w-full focus:outline-accent" type="text" name="name"
+									th:value="${plot.name}" onchange="this.form.submit()">
+							</td>
+							<td>
+								<input class="input input-sm w-full focus:outline-accent" type="number" name="size"
+									th:value="${plot.size}" onchange="this.form.submit()">
+							</td>
+							<th>
+								<select name="parkingValue" onchange="this.form.submit()"
+									class="select select-bordered select-xs w-full max-w-xs">
+									<option value="0" th:selected="${plot.parking.size == 0}" th:text="#{plot.parking.no}"></option>
+									<option value="1" th:selected="${plot.parking.size == 1}" th:text="#{plot.parking.bike}"></option>
+									<option value="2" th:selected="${plot.parking.size == 2}" th:text="#{plot.parking.car}"></option>
+									<option value="3" th:selected="${plot.parking.size == 3}" th:text="#{plot.parking.camper}"></option>
+								</select>
+							</th>
+							<td>
+								<input class="input input-sm w-full focus:outline-accent" type="number" name="price"
+									th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
+							</td>
+							<td>
+								<input class="input input-sm w-full focus:outline-accent" type="text" name="description"
+									th:value="${plot.desc}" onchange="this.form.submit()">
+							</td>
+							<td>
+								<input class="input input-sm w-full focus:outline-accent" type="text" name="picture"
+									th:value="${plot.imagePath}" onchange="this.form.submit()">
+							</td>
+							<td>
+								<button th:text="#{management.plot.delete}" formaction="/management/plots/deletePlot"
+									class="btn btn-primary"></button>
+							</td>
+						</form>
 					</tr>
 				</tbody>
 			</table>
