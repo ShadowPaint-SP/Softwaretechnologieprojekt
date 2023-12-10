@@ -98,12 +98,12 @@ public class Plot extends DetailedProduct {
 		@OneToMany
 		private List<Issue> issueList;
 		public State getState(){
-			if (!issueList.isEmpty()){
-				return State.DEFECTIVE;
+            if (deleted){
+                return State.DELETED;
 			}
-			if (deleted){
-				return State.DELETED;
-			}
+            else if (!issueList.isEmpty()){
+                return State.DEFECTIVE;
+            }
 			else {
 				return State.OPERATIONAL;
 			}
