@@ -23,14 +23,12 @@
                        id="price" name="price" step="0.1" min="0.1" required th:value="${first != null ? first.price.number : '1'}"/>
             </div>
             <div>
-                <label class="label-text">Art des Stellplatzes: </label>
-                <input type="hidden" name="parkinLot" th:value="#{dashboard.plot.parkinglot.none}">
-                <select onchange="this.form.submit()" name="stateValue" class="select select-bordered select-xs w-full max-w-xs">
-                    <option disabled selected th:text="#{dashboard.seasonalplot.parkinglot}">Pick kind of Parking Lot </option>
-                    <option value="0" th:text="#{dashboard.plot.parkinglot.none}"></option>
-                    <option value="1" th:text="#{dashboard.plot.parkinglot.bikeparking}"></option>
-                    <option value="2" th:text="#{dashboard.plot.parkinglot.carparking}"></option>
-                    <option value="3" th:text="#{dashboard.plot.parkinglot.camperparking}"></option>
+                <label class="label-text">Parking:</label>
+                <select name="parkingValue" class="select select-bordered select-sm w-full">
+                    <option value="0" th:text="#{plot.parking.no}" selected></option>
+                    <option value="1" th:text="#{plot.parking.bike}"></option>
+                    <option value="2" th:text="#{plot.parking.car}"></option>
+                    <option value="3" th:text="#{plot.parking.camper}"></option>
                 </select>
             </div>
             <div>
@@ -57,28 +55,67 @@
                 <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}" />
                 <button class="btn btn-accent" type="submit">Hinzufügen/Ändern der Dauerstellplätze</button>
             </div>
-
-
         </form>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
             <table class="table table-zebra">
                 <thead>
-                    <tr>
-                        <th></th>
-                        <th>Titel</th>
-                        <th>arrival</th>
-                        <th>departure</th>
-                        <th>Preis</th>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <th th:text="#{plot.name}"></th>
+                    <th th:text="#{plot.size}"></th>
+                    <th th:text="#{plot.parking}"></th>
+                    <th th:text="#{plot.price}"></th>
+                    <th th:text="#{plot.description}"></th>
+                    <th th:text="#{plot.picture}"></th>
+                    <th th:text="#{plot.remove}"></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="item, iStat : ${allSPlots}" class="hover">
-                        <th th:text="${iStat.count}">1</th>
-                        <td th:text="${item.name}">name</td>
-                    </tr>
+                <tr th:each="plot, iStat : ${allSplot}">
+                    <form method="post" action="/management/plots/updatePlot">
+                        <td th:text="${iStat.count}">
+                            <input type="hidden" name="plotID" th:value="${plot.id}">
+                            1
+                        </td>
+                        <td>
+                            <input class="input input-sm w-full focus:outline-accent" type="text" name="name"
+                                   th:value="${plot.name}" onchange="this.form.submit()">
+                        </td>
+                        <td>
+                            <input class="input input-sm w-full focus:outline-accent" type="number" name="size"
+                                   th:value="${plot.size}" onchange="this.form.submit()">
+                        </td>
+                        <th>
+                            <select name="parkingValue" onchange="this.form.submit()"
+                                    class="select select-bordered select-xs w-full max-w-xs">
+                                <option value="0" th:selected="${plot.parking.size == 0}" th:text="#{plot.parking.no}"></option>
+                                <option value="1" th:selected="${plot.parking.size == 1}" th:text="#{plot.parking.bike}"></option>
+                                <option value="2" th:selected="${plot.parking.size == 2}" th:text="#{plot.parking.car}"></option>
+                                <option value="3" th:selected="${plot.parking.size == 3}" th:text="#{plot.parking.camper}"></option>
+                            </select>
+                        </th>
+                        <td>
+                            <input class="input input-sm w-full focus:outline-accent" type="number" name="price"
+                                   th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
+                        </td>
+                        <td>
+                            <input class="input input-sm w-full focus:outline-accent" type="text" name="description"
+                                   th:value="${plot.desc}" onchange="this.form.submit()">
+                        </td>
+                        <td>
+                            <input class="input input-sm w-full focus:outline-accent" type="text" name="picture"
+                                   th:value="${plot.imagePath}" onchange="this.form.submit()">
+                        </td>
+                        <td>
+                            <button th:text="#{management.plot.delete}" formaction="/management/plots/deletePlot"
+                                    class="btn btn-primary"></button>
+                        </td>
+                    </form>
+                </tr>
                 </tbody>
             </table>
         </div>
     </main>
 </body>
+
 </html>
