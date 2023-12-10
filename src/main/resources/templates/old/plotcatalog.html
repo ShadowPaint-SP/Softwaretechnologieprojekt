@@ -38,16 +38,16 @@
                             <select class="select w-full max-w-xs" name="parking" onchange="this.form.submit()">
                                 <option disabled selected>Pick The minimum size you need</option>
                                 <option value="0" th:selected="${searchQuery.parking==0}"
-                                    th:text="#{catalog.parking.no}">
+                                    th:text="#{plot.parking.no}">
                                 </option>
                                 <option value="1" th:selected="${searchQuery.parking==1}"
-                                    th:text="#{catalog.parking.bike}">
+                                    th:text="#{plot.parking.bike}">
                                 </option>
                                 <option value="2" th:selected="${searchQuery.parking==2}"
-                                    th:text="#{catalog.parking.car}">
+                                    th:text="#{plot.parking.car}">
                                 </option>
                                 <option value="3" th:selected="${searchQuery.parking==3}"
-                                    th:text="#{catalog.parking.camper}">
+                                    th:text="#{plot.parking.camper}">
                                 </option>
                             </select>
                         </div>
@@ -86,9 +86,9 @@
 
             <div th:fragment="plot_table" class="overflow-x-auto container mx-auto mt-14">
                 <table th:if="${availablePlotsTable != null}" class="table table-zebra">
+                    <a th:id="${availablePlotsTable}"></a>
                     <!-- head -->
                     <thead>
-
                         <input type="hidden" name="firstWeekDate" th:value="${searchQuery.defaultedFirstWeekDate}">
                         <th class="w-[34%]">
                             <h2 th:if="${availablePlotsTable}" th:text="#{catalog.plots.available}"></h2>
@@ -120,8 +120,8 @@
                                         <div th:text="#{${plot.parking.label}}"></div>
                                         <div th:text="${plot.desc}"></div>
                                     </div>
-                                    <button type="submit" th:formaction="'/cart/' + ${plot.id}"
-                                        th:text="#{catalog.reserve}"></button>
+                                    <!--<button type="submit" th:formaction="'/plotcatalog/select/' + ${plot.id}"
+                                        th:text="#{catalog.reserve}"></button>-->
                                 </div>
                             </th>
                             <td></td>

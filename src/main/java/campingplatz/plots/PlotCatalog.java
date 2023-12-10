@@ -4,6 +4,7 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Catalog;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +15,7 @@ import static org.salespointframework.core.Currencies.EURO;
  * An extension of {@link Catalog} to add specific query methods.
  *
  */
+@Repository
 public interface PlotCatalog extends Catalog<Plot> {
     static final Sort DEFAULT_SORT = Sort.sort(Plot.class).by(Plot::getName).descending();
 
@@ -22,6 +24,12 @@ public interface PlotCatalog extends Catalog<Plot> {
         // the number of plots in the catalog is not big enough for it to matter
         return findAll().filter(plot -> {
             boolean isMatch = true;
+
+            //TODO evaluate why seasonalPlots are saved to both seasonal and normal PlotCatalog
+            if (plot.getName().contains("[Dauercamper]")) {
+                isMatch = false;
+            }
+
 
             var priceMin = query.getPriceMin();
             if (priceMin != null && plot.getPrice().isLessThan(Money.of(priceMin, EURO))) {

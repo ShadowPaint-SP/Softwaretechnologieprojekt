@@ -9,15 +9,13 @@ import org.javamoney.moneta.Money;
 import java.util.List;
 import java.util.UUID;
 
+@Setter
+@Getter
 @Entity
 public class Plot extends DetailedProduct {
 
-    @Getter
-    @Setter
     private Double size; // in square meters
 
-    @Getter
-    @Setter
     private ParkingLot parking;
 
 	@Getter
@@ -43,9 +41,14 @@ public class Plot extends DetailedProduct {
     public Plot() {
     }
 
-    // a second getter for in inherited field price. returns a formatted String
+    // a second getter for in inherited field price. returns a double
+    public Double getPriceDouble() {
+        return getPrice().getNumber().doubleValue();
+    }
+
+    // a third getter for in inherited field price. returns a formatted String
     public String getPriceString() {
-        return getPrice().getNumber().toString() + " Euro";
+        return getPriceDouble().toString() + " Euro";
     }
 
     // a second getter for size. returns a formatted String
@@ -54,10 +57,10 @@ public class Plot extends DetailedProduct {
     }
 
     public enum ParkingLot {
-        NONE(0, "catalog.parking.no"),
-        BIKE_PARKING(1, "catalog.parking.bike"),
-        CAR_PARKING(2, "catalog.parking.car"),
-        CAMPER_PARKING(3, "catalog.parking.camper");
+        NONE(0, "plot.parking.no"),
+        BIKE_PARKING(1, "plot.parking.bike"),
+        CAR_PARKING(2, "plot.parking.car"),
+        CAMPER_PARKING(3, "plot.parking.camper");
 
         public final Integer size;
         public final String label;
@@ -65,6 +68,17 @@ public class Plot extends DetailedProduct {
         ParkingLot(Integer size, String label) {
             this.size = size;
             this.label = label;
+        }
+
+        public static ParkingLot fromNumber(Integer i) {
+            return switch (i) {
+                case 0 -> NONE;
+                case 1 -> BIKE_PARKING;
+                case 2 -> CAR_PARKING;
+                case 3 -> CAMPER_PARKING;
+                default -> NONE;
+            };
+
         }
 
     }
