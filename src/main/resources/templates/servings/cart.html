@@ -33,7 +33,7 @@
         <div class="card w-96 bg-base-300 container mx-auto mt-10">
             <div class="card-body items-center text-center">
                 <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
-                <div class="badge badge-lg badge-secondary" th:text="${{cart.price}}">987,654</div>
+                <div class="badge badge-lg badge-secondary" th:text="${{plotCart.price}}">987,654</div>
                 <div class="card-actions justify-end">
                     <form method="post" th:action="@{/checkout}">
                         <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>

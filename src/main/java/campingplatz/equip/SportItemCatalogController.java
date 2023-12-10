@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.salespointframework.core.Currencies.EURO;
 
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes("plotCart")
 public class SportItemCatalogController {
 
 	private SportItemCatalog itemCatalog;
@@ -27,7 +27,7 @@ public class SportItemCatalogController {
 	}
 
 	//TODO remove
-	@ModelAttribute("cart") // quick fix for tests
+	@ModelAttribute("plotCart") // quick fix for tests
 	PlotCart initializeCart() {
 		return new PlotCart();
 	}

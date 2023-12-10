@@ -33,7 +33,7 @@ class ReservationIntegrationTests {
 
 		mvc.perform(get("/cart"))
 				.andExpect(status().isOk())
-				.andExpect(model().attributeExists("cart"));
+				.andExpect(model().attributeExists("plotCart"));
 	}
 
 	@Test
@@ -42,7 +42,7 @@ class ReservationIntegrationTests {
 
 		mvc.perform(get("/cart"))
 				.andExpect(status().isOk())
-				.andExpect(model().attributeExists("cart"));
+				.andExpect(model().attributeExists("plotCart"));
 	}
 
 	@Test

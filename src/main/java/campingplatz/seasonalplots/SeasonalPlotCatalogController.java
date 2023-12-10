@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 import static org.salespointframework.core.Currencies.EURO;
 
 @Controller
-@SessionAttributes("cart")
 public class SeasonalPlotCatalogController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
 	SeasonalPlotReservationRepository reservationRepository;
@@ -36,15 +35,10 @@ public class SeasonalPlotCatalogController {
 		this.reservationRepository = reservationRepository;
 	}
 
-	@ModelAttribute("cart")
-	SeasonalPlotCart initializeCart() {
-		return new SeasonalPlotCart();
-	}
 
 	@GetMapping("/seasonalplotcatalog")
 	String setupSeasonalCatalog(Model model, @LoggedIn Optional<UserAccount> user,
-			@Valid SeasonalPlotCatalog.SeasonalSiteState query,
-			@ModelAttribute("cart") SeasonalPlotCart reservationCart) {
+			@Valid SeasonalPlotCatalog.SeasonalSiteState query) {
 		var filteredSeasonalPlots = seasonalPlotCatalog.seasonalFilter(query);
 		var reservedSeasonalPlots = reservationRepository.findPlotsAll();
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
@@ -62,9 +56,8 @@ public class SeasonalPlotCatalogController {
 	}
 
 	@PostMapping("/seasonalplotcatalog/filter")
-	String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid SeasonalPlotCatalog.SeasonalSiteState query,
-			@ModelAttribute("cart") SeasonalPlotCart reservationCart) {
-		return setupSeasonalCatalog(model, user, query, reservationCart);
+	String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid SeasonalPlotCatalog.SeasonalSiteState query) {
+		return setupSeasonalCatalog(model, user, query);
 	}
 
 	@PreAuthorize("isAuthenticated()")

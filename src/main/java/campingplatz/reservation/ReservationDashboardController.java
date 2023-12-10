@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes("plotCart")
 public class ReservationDashboardController {
 
 	PlotReservationRepository plotReservations;

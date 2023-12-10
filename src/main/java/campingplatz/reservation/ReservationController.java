@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes("cart")
+@SessionAttributes("plotCart")
 @EnableScheduling
 class ReservationController {
 
@@ -32,13 +32,13 @@ class ReservationController {
         this.reservationRepository = reservationRepository;
     }
 
-    @ModelAttribute("cart")
+    @ModelAttribute("plotCart")
 	PlotCart initializeCart() {
         return new PlotCart();
     }
 
     @GetMapping("/cart")
-    String cart(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") PlotCart reservationCart) {
+    String cart(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("plotCart") PlotCart reservationCart) {
         var reservations = reservationCart.getReservationsOfUser(userAccount);
         model.addAttribute("reservations", reservations);
         return "servings/cart";
@@ -46,7 +46,7 @@ class ReservationController {
 
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
-            @ModelAttribute("cart") PlotCart reservationCart) {
+            @ModelAttribute("plotCart") PlotCart reservationCart) {
 
         List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
         reservationRepository.saveAll(reservations);
