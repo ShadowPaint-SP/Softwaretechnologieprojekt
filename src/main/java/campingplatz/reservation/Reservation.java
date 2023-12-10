@@ -1,21 +1,20 @@
 package campingplatz.reservation;
 
 import campingplatz.utils.Priced;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.UUID;
-import javax.money.MonetaryAmount;
-
-import jakarta.persistence.*;
-
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.money.MonetaryAmount;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 
 /**
  * The Base class of all Reservations.
@@ -48,12 +47,12 @@ public abstract class Reservation<T extends Product> implements Priced {
 
     @Getter
     @Setter
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime begin;
 
     @Getter
     @Setter
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime end;
 
     @Getter

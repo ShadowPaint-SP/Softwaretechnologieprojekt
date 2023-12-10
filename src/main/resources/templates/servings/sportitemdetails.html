@@ -16,18 +16,22 @@
                     <p th:text="'Deposit: '+${{item.deposit}}"></p>
 
                     <p th:text="'Amount: '+${item.amount}"></p>
-                    <div class="p-4">
-                        <label class="label-text">Start time: </label>
-                        <input type="time" id="startTime" min="10:00" max="22:00"
-                            class="input input-md focus:outline-accent" required />
-                    </div>
-                    <div class="p-4">
-                        <label class="label-text"> End time: </label>
-                        <input type="time" id="endTime" min="10:00" max="22:00"
-                            class="input input-md focus:outline-accent" required />
-                    </div>
-                    <button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${item.id}"
-                        th:text="#{sport.book}"></button>
+
+                    <form method="get" th:action="@{/cartSportItem}">
+                        <input type="hidden" id="id" name="id" th:value="${item.id}"/>
+                        <div class="p-4">
+                            <label class="label-text">Start time: </label>
+                            <input type="datetime-local" id="startTime" name="startTime" min="10:00" max="22:00"
+                                   class="input input-md focus:outline-accent" required />
+                        </div>
+                        <div class="p-4">
+                            <label class="label-text"> End time: </label>
+                            <input type="datetime-local" id="endTime" name="endTime" min="10:00" max="22:00"
+                                   class="input input-md focus:outline-accent" required />
+                        </div>
+
+                        <button class="btn btn-primary" type="submit" th:text="#{sport.book}">Book</button>
+                    </form>
                 </div>
                 <div>
                     <figure>

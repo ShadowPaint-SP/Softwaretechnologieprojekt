@@ -22,4 +22,5 @@ public class SportItemReservation extends Reservation<SportItem> {
 		return ChronoUnit.HOURS;
 	}
 
+
 }

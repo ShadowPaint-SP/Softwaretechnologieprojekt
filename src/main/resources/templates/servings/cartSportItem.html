@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{cartSportItem.title})}">
+
+<head></head>
+
+<body>
+<main layout:fragment="input">
+    <div class="overflow-x-auto">
+        <table class="table table-zebra">
+            <thead>
+            <tr>
+                <th>Sport Item</th>
+                 <th>Amount</th>
+                 <th>User</th>
+                 <th>Total Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item, iStat : ${reservationsSport}" class="hover">
+                <th th:text="${iStat.count}">1</th>
+                <td th:text="${item.product.name}">Cy Ganderton</td>
+                <td th:text="${item.begin}">Quality Control Specialist</td>
+                <td th:text="${item.end}">Quality Control Specialist</td>
+                <td th:text="${item.duration}">Quality Control Specialist</td>
+                <td th:text="${item.price}">Blue</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="card w-96 bg-neutral text-neutral-content container mx-auto mt-10">
+        <div class="card-body items-center text-center">
+            <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
+
+            <div class="badge badge-lg badge-secondary" th:text="${{cartSportItem.price}}">987,654</div>
+
+
+            <div class="card-actions justify-end">
+                <form method="post" th:action="@{/reservate/}">
+                    <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+
+</html>
+
