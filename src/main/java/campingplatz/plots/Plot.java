@@ -18,16 +18,14 @@ public class Plot extends DetailedProduct {
 
     private ParkingLot parking;
 
-	@Getter
-	@Setter
-	@Embedded
-	private Condition condition;
+    @Getter
+    @Setter
+    private State state = State.OPERATIONAL;
 
-
-
-
-
-
+    @Getter
+    @Setter
+    @OneToMany
+    private List<Issue> issueList;
 
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
 
@@ -83,36 +81,28 @@ public class Plot extends DetailedProduct {
 
     }
 
+    public enum State {
+        OPERATIONAL(0,"state.ok"),
+        DEFECTIVE(1,"state.broke"),
+        DELETED(2,"state.deleted");
 
-	@Embeddable
-	public static class Condition {
-		public enum State {
-			OPERATIONAL,
-			DEFECTIVE,
-			DELETED
-		}
-		private Boolean deleted = false;
+        public final Integer index;
+        public final String label;
 
-		@Getter
-		@Setter
-		@OneToMany
-		private List<Issue> issueList;
-		public State getState(){
-            if (deleted){
-                return State.DELETED;
-			}
-            else if (!issueList.isEmpty()){
-                return State.DEFECTIVE;
-            }
-			else {
-				return State.OPERATIONAL;
-			}
-		}
+        State(Integer index, String label) {
+            this.index = index;
+            this.label = label;
+        }
 
+        public static State fromNumber(Integer i) {
+            return switch (i) {
+                case 0 -> OPERATIONAL;
+                case 1 -> DEFECTIVE;
+                case 2 -> DELETED;
+                default -> OPERATIONAL;
+            };
 
-
-	}
-
-
+        }
+    }
 
 }
