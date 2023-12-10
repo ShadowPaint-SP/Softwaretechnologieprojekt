@@ -9,6 +9,7 @@
 
     
     <main layout:fragment="input">
+        <div th:text="'today: '+ ${currentDate}"></div>
 
         <div th:if="${ordersCompleted != null}" th:fragment="my_orders" class="overflow-x-auto container mx-auto mt-14 rounded-box">
             <table class="table table-zebra">

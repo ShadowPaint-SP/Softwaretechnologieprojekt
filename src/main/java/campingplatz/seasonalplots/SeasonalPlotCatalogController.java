@@ -9,6 +9,7 @@ import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservati
 import jakarta.validation.Valid;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
+import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.data.util.Streamable;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +30,13 @@ import static org.salespointframework.core.Currencies.EURO;
 public class SeasonalPlotCatalogController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
 	SeasonalPlotReservationRepository reservationRepository;
+	BusinessTime businessTime;
 
-	public SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog,
+	public SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog, BusinessTime businessTime,
 			SeasonalPlotReservationRepository reservationRepository) {
 		this.seasonalPlotCatalog = seasonalPlotCatalog;
 		this.reservationRepository = reservationRepository;
+		this.businessTime = businessTime;
 	}
 
 
@@ -51,6 +55,7 @@ public class SeasonalPlotCatalogController {
 
 				model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
 				model.addAttribute("searchQuery", query);
+				model.addAttribute("currentDate", businessTime.getTime());
 				
 		return "servings/seasonalplotcatalog";
 	}
@@ -89,6 +94,14 @@ public class SeasonalPlotCatalogController {
 		var userReservations = reservationRepository.findByUserId(user.getId());
 		model.addAttribute("ordersCompleted", userReservations);
 		return "servings/orders";
+	}
+
+	@GetMapping("/forward/{days}")
+	String forwardTime(Model model,  @PathVariable("days") int days) {
+
+		businessTime.forward(Duration.ofDays(days));
+
+		return "redirect:/seasonalplotcatalog";
 	}
 
 }
