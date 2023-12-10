@@ -93,8 +93,8 @@ public class SeasonalPlotCatalogController {
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String plots(Model model) {
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
-		model.addAttribute("plots", all);
-		return "dashboards/plot_management";
+		model.addAttribute("seasonalPlots", all);
+		return "dashboards/seasonalplot_management";
 	}
 
 	@PostMapping("/management/seasonalplot/updateSeasonalPlot")
