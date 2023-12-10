@@ -1,6 +1,9 @@
 package campingplatz.equip;
 
+import campingplatz.equip.sportsItemReservations.SportItemCart;
 import campingplatz.plots.Plot;
+import campingplatz.plots.PlotCatalog;
+import campingplatz.plots.plotReservations.PlotCart;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +24,12 @@ public class SportItemCatalogController {
 
 	SportItemCatalogController(SportItemCatalog itemCatalog) {
 		this.itemCatalog = itemCatalog;
+	}
+
+	//TODO remove
+	@ModelAttribute("cart") // quick fix for tests
+	PlotCart initializeCart() {
+		return new PlotCart();
 	}
 
 	@GetMapping("/sportequipmentcatalog")

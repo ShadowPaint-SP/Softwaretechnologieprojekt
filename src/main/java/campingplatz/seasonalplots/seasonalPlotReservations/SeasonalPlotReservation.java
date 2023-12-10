@@ -1,6 +1,7 @@
-package campingplatz.seasonalplots;
+package campingplatz.seasonalplots.seasonalPlotReservations;
 
 import campingplatz.reservation.Reservation;
+import campingplatz.seasonalplots.SeasonalPlot;
 import jakarta.persistence.Entity;
 
 import org.salespointframework.useraccount.UserAccount;

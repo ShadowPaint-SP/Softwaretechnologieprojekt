@@ -2,11 +2,13 @@ package campingplatz.seasonalplots;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Catalog;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+@Repository
 public interface SeasonalPlotCatalog extends Catalog<SeasonalPlot> {
 
 	default List<SeasonalPlot> seasonalFilter(SeasonalSiteState query) {
