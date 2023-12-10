@@ -1,5 +1,6 @@
-package campingplatz.equip;
+package campingplatz.equip.sportsItemReservations;
 
+import campingplatz.equip.SportItem;
 import campingplatz.reservation.Reservation;
 import jakarta.persistence.Entity;
 import org.salespointframework.useraccount.UserAccount;
@@ -7,6 +8,7 @@ import org.salespointframework.useraccount.UserAccount;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+@Entity
 public class SportItemReservation extends Reservation<SportItem> {
 	public SportItemReservation() {
 		super();

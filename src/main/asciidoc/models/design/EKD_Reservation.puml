@@ -8,7 +8,7 @@ allowmixing
 skinparam packageStyle Frame
 
 interface campingplatz.utils.Priced
-class campingplatz.utils.Cart
+class campingplatz.reservation.Cart
 
 package campingplatz{
     class plots.Plot
