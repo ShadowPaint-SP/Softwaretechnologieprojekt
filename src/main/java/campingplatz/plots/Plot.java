@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 
+@Setter
+@Getter
 @Entity
 public class Plot extends DetailedProduct {
 
-    @Getter
-    @Setter
     private Double size; // in square meters
 
-    @Getter
-    @Setter
     private ParkingLot parking;
 
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {

@@ -46,8 +46,10 @@ public class SeasonalPlotCatalogController {
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
 				seasonalPlot -> !reservedSeasonalPlots.contains(seasonalPlot)));
 
-				var userReservations = reservationRepository.findByUserId(user.get().getId());
-				model.addAttribute("ordersCompleted", userReservations);
+				if (user.isPresent()) {
+					var userReservations = reservationRepository.findByUserId(user.get().getId());
+					model.addAttribute("ordersCompleted", userReservations);
+				}
 
 				model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
 				model.addAttribute("searchQuery", query);
