@@ -1,15 +1,13 @@
 package campingplatz.accounting;
 
 import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.reservation.Reservation;
 import jakarta.persistence.Entity;
 import org.salespointframework.accountancy.AccountancyEntry;
 
-import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 
 @Entity
-public class PlotReservationAccountancyEntry extends AccountancyEntry {
+public class PlotReservationDeductionEntry extends AccountancyEntry {
 
 	String plotName;
 	String userName;
@@ -17,8 +15,8 @@ public class PlotReservationAccountancyEntry extends AccountancyEntry {
 	LocalDateTime end;
 
 
-	public PlotReservationAccountancyEntry(PlotReservation reservation) {
-		super(reservation.getPrice());
+	public PlotReservationDeductionEntry(PlotReservation reservation) {
+		super(reservation.getPrice().multiply(-1));
 
 		plotName = reservation.getProduct().getName();
 		userName = reservation.getUser().getUsername();
@@ -26,8 +24,7 @@ public class PlotReservationAccountancyEntry extends AccountancyEntry {
 		end = reservation.getEnd();
 	}
 
-	public PlotReservationAccountancyEntry() {
+	public PlotReservationDeductionEntry() {
 
 	}
-
 }

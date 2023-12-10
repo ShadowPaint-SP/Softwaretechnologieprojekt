@@ -1,7 +1,10 @@
 package campingplatz.plots.plotReservations;
 
+import campingplatz.accounting.PlotReservationAccountancyEntry;
+import campingplatz.accounting.PlotReservationDeductionEntry;
 import campingplatz.reservation.Reservation;
 import jakarta.validation.Valid;
+import org.salespointframework.accountancy.Accountancy;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +20,11 @@ import java.util.UUID;
 public class PlotReservationDashboardController {
 
 	PlotReservationRepository plotReservations;
+	Accountancy accountancy;
 
-	PlotReservationDashboardController(PlotReservationRepository plotReservations) {
+	PlotReservationDashboardController(PlotReservationRepository plotReservations, Accountancy accountancy) {
 		this.plotReservations = plotReservations;
+		this.accountancy = accountancy;
 	}
 
 	@GetMapping("/management/reservation")
@@ -40,9 +45,16 @@ public class PlotReservationDashboardController {
 
 		var newState = Reservation.State.fromNumber(info.getStateValue());
 
-		if (oldState == Reservation.State.PAYED && newState != Reservation.State.PAYED){
 
+		if (oldState == Reservation.State.PAYED && newState != Reservation.State.PAYED){
+			var entry = new PlotReservationDeductionEntry(reservation);
+			accountancy.add(entry);
 		}
+		if (oldState != Reservation.State.PAYED && newState == Reservation.State.PAYED){
+			var entry = new PlotReservationAccountancyEntry(reservation);
+			accountancy.add(entry);
+		}
+
 
 
 		// update and save

@@ -68,8 +68,8 @@
 				<tbody>
 					<tr th:each="plot, iStat : ${plots}">
 						<form method="post" action="/management/plots/updatePlot">
+							<input type="hidden" name="plotID" th:value="${plot.id}">
 							<td th:text="${iStat.count}">
-								<input type="hidden" name="plotID" th:value="${plot.id}">
 								1
 							</td>
 							<td>
