@@ -97,7 +97,9 @@ public abstract class Reservation<T extends Product> implements Priced {
 
     public static enum State {
         NOT_TAKEN(0),
-        TAKEN(1);
+        TAKEN(1),
+
+		PAYED(2);
 
         private Integer value;
 
@@ -113,6 +115,7 @@ public abstract class Reservation<T extends Product> implements Priced {
             return switch (i) {
                 case 0 -> NOT_TAKEN;
                 case 1 -> TAKEN;
+				case 2 -> PAYED;
                 default -> null;
             };
         }

@@ -73,7 +73,7 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
     @Query("""
                 delete #{#entityName} r
                 where (r.state = 0 and r.begin < :time)
-                or (r.state = 1 and r.end < :time)
+                or (r.state != 0 and r.end < :time)
             """)
     void deleteBeforeThan(LocalDateTime time);
 

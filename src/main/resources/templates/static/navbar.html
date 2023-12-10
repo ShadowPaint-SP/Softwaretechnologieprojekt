@@ -24,12 +24,14 @@
             <li sec:authorize="hasRole('BOSS')">
               <a th:text="#{nav.dashboard}">Dashboard</a>
               <ul class="p-2">
+                <li><a href="../dashboards/departure_management.html" th:href="@{/management/departure}"
+                    th:text="#{nav.dashboard.departure}">Abreise management</a></li>
                 <li><a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
-                    th:text="#{nav.c_management}">Customer management</a></li>
+                    th:text="#{nav.dashboard.customers}">Customer management</a></li>
                 <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
-                    th:text="#{nav.p_management}">Plot management</a></li>
+                    th:text="#{nav.dashboard.plots}">Plot management</a></li>
                 <li><a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
-                    th:text="#{nav.s_management}">Sportsequipment management</a></li>
+                    th:text="#{nav.dashboard.sports}">Sportsequipment management</a></li>
               </ul>
             </li>
             <li sec:authorize="hasAnyRole('BOSS','EMPLOYEE','CUSTOMER')"><a href="../servings/orders.html"

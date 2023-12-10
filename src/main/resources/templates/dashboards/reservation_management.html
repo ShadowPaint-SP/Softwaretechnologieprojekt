@@ -29,8 +29,9 @@
 							<form method="post" action="/management/reservation/updateReservation">
 								<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
 								<select onchange="this.form.submit()" name="stateValue" class="select select-bordered select-xs w-full max-w-xs">
-									<option value="0" th:selected="${reservation.state.value == 0}" th:text="#{reservation.status.not_taken}"></option>
+									<option value="0" th:selected="${reservation.state.value == 0}" th:text="#{reservation.status.not_taken}"> </option>
 									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}"> </option>
+									<option value="2" th:selected="${reservation.state.value == 2}" th:text="#{reservation.status.payed}"> </option>
 								</select>
 							</form>
 						</td>

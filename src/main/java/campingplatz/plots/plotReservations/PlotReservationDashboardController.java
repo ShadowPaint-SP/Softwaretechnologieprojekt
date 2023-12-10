@@ -1,8 +1,6 @@
-package campingplatz.reservation;
+package campingplatz.plots.plotReservations;
 
-import campingplatz.plots.Plot;
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.plots.plotReservations.PlotReservationRepository;
+import campingplatz.reservation.Reservation;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,17 +14,17 @@ import java.util.UUID;
 
 @Controller
 @SessionAttributes("cart")
-public class ReservationDashboardController {
+public class PlotReservationDashboardController {
 
 	PlotReservationRepository plotReservations;
 
-	ReservationDashboardController(PlotReservationRepository plotReservations) {
+	PlotReservationDashboardController(PlotReservationRepository plotReservations) {
 		this.plotReservations = plotReservations;
 	}
 
 	@GetMapping("/management/reservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
-	String customer(Model model) {
+	String reservations(Model model) {
 		List<PlotReservation> all = plotReservations.findAll();
 		model.addAttribute("reservations", all);
 		return "dashboards/reservation_management";
@@ -34,14 +32,21 @@ public class ReservationDashboardController {
 
 	@PostMapping("/management/reservation/updateReservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
-	String customer(Model model, @Valid ReservationChangeInformation info) {
+	String updateReservations(Model model, @Valid ReservationChangeInformation info) {
 
 		var uuid = info.getReservationUUID();
 		var reservation = plotReservations.findById(uuid).get();
-		var state = Reservation.State.fromNumber(info.getStateValue());
+		var oldState = reservation.getState();
+
+		var newState = Reservation.State.fromNumber(info.getStateValue());
+
+		if (oldState == Reservation.State.PAYED && newState != Reservation.State.PAYED){
+
+		}
+
 
 		// update and save
-		reservation.setState(state);
+		reservation.setState(newState);
 		plotReservations.save(reservation);
 
 		List<PlotReservation> all = plotReservations.findAll();
