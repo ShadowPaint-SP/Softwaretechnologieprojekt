@@ -9,7 +9,6 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -131,20 +130,13 @@ class PlotCatalogController {
         return "old/seasonalplotcatalog";
     }
 
-    @GetMapping("/management/plots")
-    String plots(Model model) {
-        Streamable<Plot> all = plotCatalog.findAll();
-        model.addAttribute("Plots", all);
-        return "dashboards/plot_management";
-    }
-
     // quick fix
     // index.html needs a cart attribute in navbar
     // so I put it in a controller which has a cart
     // TODO may shift this to an other class
-    @GetMapping("/")
-    String homePage(Model model) {
-        return "index";
-    }
+    // @GetMapping("/")
+    // String homePage(Model model) {
+    // return "index";
+    // }
 
 }
