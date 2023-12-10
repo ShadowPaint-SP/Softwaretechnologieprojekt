@@ -120,7 +120,7 @@ public class SeasonalPlotCatalogController {
 			model.addAttribute("seasonalPlots", all);
 		}
 
-		return "dashboards/seasonalplot_management";
+		return "redirect:/management/seasonalplot";
 	}
 
 	@PostMapping("/management/seasonalplot/createSeasonalPlot")
@@ -181,5 +181,7 @@ public class SeasonalPlotCatalogController {
 		String getDescription();
 
 		String getPicture();
+
+		Plot.Condition.State getState();
 	}
 }
