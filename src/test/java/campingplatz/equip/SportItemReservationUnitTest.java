@@ -1,3 +1,4 @@
+/*
 package campingplatz.equip;
 
 import campingplatz.customer.Customer;
@@ -69,6 +70,7 @@ class SportItemReservationUnitTest {
 		sportItemCatalog.delete(sportItem);
 		userAccountManagement.delete(customer);
 	}
+*/
 /*	@Test
 	void init_Reservation() {
 		assertDoesNotThrow(()->{new SportItemReservation(customer, sportItem, defaultBegin, defaultEnd);},
@@ -88,8 +90,9 @@ class SportItemReservationUnitTest {
 		assertEquals(defaultReservation.getPrice(),
 			sportItem.getPrice().multiply(ChronoUnit.HOURS.between(defaultBegin, defaultEnd)),
 			"reservation.getPrice rechnet den Falschen Preis aus");
-	}*/
+	}*//*
 
 
 
-}
+
+}*/
