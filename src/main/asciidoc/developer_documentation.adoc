@@ -18,6 +18,8 @@ Müller, Jannes +
 Voigtmann, Richard  +
 Fiedler, Tom +
 Drumeva, Irina
+|1.1      | 10.12.2023   | Fiedler, Tom
+
 |===
 
 = Entwicklerdokumentation
@@ -111,7 +113,7 @@ Notwendige Software um die Applikation zu nutzen.
 
 == Kontextabgrenzung
 [[context_diagram]]
-image::./models/analysis/context.png[context diagram, 100%, 100%, pdfwidth=100%, title= "Kontextdiagramm des {project_name} in UML", align=center]
+image::./models/design/contextdiagram.svg[context diagram, 100%, 100%, pdfwidth=100%, title= "Kontextdiagramm des {project_name} in UML", align=center]
 
 == Lösungsstrategie
 === Erfüllung der Qualitätsziele
@@ -135,8 +137,7 @@ image::./models/analysis/context.png[context diagram, 100%, 100%, pdfwidth=100%,
 
 
 === Softwarearchitektur
-image::./models/design/Container_diagram_in_C4_notation.png[Container Diagramm in C4 Notation, 100%, 100%, pdfwidth=100%, title= "Container Diagramm in C4 Notation (Level 2: Container)", align=center]
-image::./models/design/TLA_in_C4.png[Container Diagramm in C4 Notation, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the Web Application in C4 notation (Level 3: Component)", align=center]
+image::./models/design/TLA_in_C4.png[Container Diagramm in C4 Notation, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture des Campingplatzes in C4 Notation (Level 3: Component)", align=center]
 
 === Entwurfsentscheidungen
 ==== Verwendete Muster
@@ -192,7 +193,7 @@ image::./models/design/Dialog_Map.png[Dialog Map für den Campingplatz, 100%, 10
 == Bausteinsicht 
 === Package-Diagramm
 
-image::./models/design/PackageDiagramm.png[Package Diagramm, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/PackageDiagramm.svg[Package Diagramm, 100%, 100%, pdfwidth=100%, align=center]
 
 === Entwurfsklassendiagramme der einzelnen Packages
 ==== Campingplatz

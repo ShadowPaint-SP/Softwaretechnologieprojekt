@@ -1,0 +1,26 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+package equip{
+}
+package reservation{
+}
+package customer{
+}
+package plots{
+}
+package utils{
+}
+
+customer .d.> reservation
+equip .r.> reservation
+plots .l.> reservation
+utils <.u. reservation
+
+@enduml
