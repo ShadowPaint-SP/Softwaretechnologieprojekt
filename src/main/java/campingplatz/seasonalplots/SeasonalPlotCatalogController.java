@@ -2,6 +2,7 @@ package campingplatz.seasonalplots;
 
 import campingplatz.plots.Plot;
 import campingplatz.plots.PlotDashboardController;
+import campingplatz.reservation.Reservation;
 import campingplatz.reservation.ReservationRepository;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
@@ -87,10 +88,24 @@ public class SeasonalPlotCatalogController {
 	@GetMapping("/seasonalorders")
 	String orders(Model model, @LoggedIn UserAccount user) {
 		var userReservations = reservationRepository.findByUserId(user.getId());
+		for(SeasonalPlotReservation reservation : userReservations) {
+			reservation.setNextYear(reservation.isNextYear());
+		}
 		model.addAttribute("ordersCompleted", userReservations);
 		return "servings/orders";
 	}
 
-
+	/*
+	@PostMapping("/seasonalplotnavaible")
+	String nextYearAvaible(Model model, @LoggedIn UserAccount user) {
+		var userReservations = reservationRepository.findByUserId(user.getId());
+		for(SeasonalPlotReservation reservation : userReservations) {
+			if(!reservation.isNextYearAvaible()) {
+				userReservations.remove(reservation);
+			}
+		}
+		model.addAttribute("nextYearAvaiblePlot", userReservations);
+		return "redirect:/seasonalplotcatalog";
+	}*/
 
 }

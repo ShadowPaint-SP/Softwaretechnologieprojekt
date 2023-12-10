@@ -41,8 +41,9 @@
                             </div>
                         </td>
                         <td>
-                            
-                            <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve.for_next_year}"></button>
+                            <div th:if="${order.isNextYearAvaible()}">
+                                <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve.for_next_year}"></button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
