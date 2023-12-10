@@ -5,7 +5,6 @@ import campingplatz.equip.SportItemCatalog;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ import java.util.Optional;
 @Controller
 public class SportItemReservationController {
 
-	private final SportItemReservationRepository reservationRepositorySportItem;
+	private SportItemReservationRepository reservationRepositorySportItem;
 	private final SportItemCatalog itemCatalog;
 
 	SportItemReservationController(SportItemReservationRepository reservationRepositorySportItem, SportItemCatalog itemCatalog) {
@@ -39,7 +38,7 @@ public class SportItemReservationController {
 				@LoggedIn Optional<UserAccount> userAccount,
 				@ModelAttribute("cartSportItem") SportItemCart reservationCartSportItem,
 				@RequestParam("startTime") LocalDateTime startTime,
-				@RequestParam ("endTime") LocalDateTime endTime) {
+				@RequestParam("endTime") LocalDateTime endTime) {
 
 		if (userAccount.isEmpty()) {
 			return "static/defaultlogin";
@@ -54,7 +53,7 @@ public class SportItemReservationController {
 		var reservationsSport = reservationCartSportItem.getReservationsOfUser(userAccount2);
 		MonetaryAmount totalPrice = reservationCartSportItem.getPrice();
 		model.addAttribute("reservationsSport", reservationsSport);
-		model.addAttribute("totalPrice",totalPrice);
+		model.addAttribute("totalPrice", totalPrice);
 
 		return "servings/cartSportItem";
 	}
@@ -65,6 +64,10 @@ public class SportItemReservationController {
 
 		List<SportItemReservation> reservationsSport = reservationCartSportItem.getReservationsOfUser(userAccount);
 		reservationRepositorySportItem.saveAll(reservationsSport);
+		for(SportItemReservation reservation: reservationsSport){
+			SportItem sportItem = reservation.getProduct();
+			sportItem.setAmount(sportItem.getAmount()-1);
+		}
 		reservationCartSportItem.clear();
 
 		return "servings/cartSportItem";
@@ -73,12 +76,7 @@ public class SportItemReservationController {
 
 
 
-	// we are scheduling a task to be executed at 10:00 AM on the 15th day of every month.
-	// were we are deleting the reservations older than the current day if they were not taken
-	@Scheduled(cron = "0 00 10 * * ?")
-	public void periodicallyDeleteReservatinos() {
-		reservationRepositorySportItem.deleteBeforeThan(LocalDateTime.now());
-	}
 }
+
 
 
