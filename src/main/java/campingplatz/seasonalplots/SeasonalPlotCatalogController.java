@@ -91,7 +91,7 @@ public class SeasonalPlotCatalogController {
 
 	@GetMapping("/management/seasonalplot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
-	String plots(Model model) {
+	String seasonalPlots(Model model) {
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 		model.addAttribute("seasonalPlots", all);
 		return "dashboards/seasonalplot_management";
@@ -99,7 +99,7 @@ public class SeasonalPlotCatalogController {
 
 	@PostMapping("/management/seasonalplot/updateSeasonalPlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
-	String changePlotDetails(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
+	String changeSeasonalPlotDetails(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
 
 		Optional<SeasonalPlot> plotOptional = seasonalPlotCatalog.findById(info.getPlotID());
 		if (plotOptional.isPresent()) {
@@ -125,7 +125,7 @@ public class SeasonalPlotCatalogController {
 
 	@PostMapping("/management/seasonalplot/createSeasonalPlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
-	String createPlot(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
+	String createSeasonalPlot(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
 
 		var splot = new SeasonalPlot(
 			info.getName(),
@@ -148,7 +148,7 @@ public class SeasonalPlotCatalogController {
 	// TODO
 	@PostMapping("/management/seasonalplot/deleteSeasonalPlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
-	String deletePlot(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
+	String deleteSeasonalPlot(Model model, @Valid SeasonalPlotCatalogController.SeasonalPlotInformation info) {
 
 		// cannot just delete the entry, reservations might depend on it
 		try {
@@ -158,8 +158,8 @@ public class SeasonalPlotCatalogController {
 		}
 
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
-		model.addAttribute("plots", all);
-		return "dashboards/plot_management";
+		model.addAttribute("seasonalPlots", all);
+		return "dashboards/seasonalplot_management";
 	}
 
 	interface SeasonalPlotInformation {

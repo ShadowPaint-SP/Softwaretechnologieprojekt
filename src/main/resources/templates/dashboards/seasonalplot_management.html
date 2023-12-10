@@ -35,12 +35,12 @@
             </div>
             <div>
                 <label class="label-text">Stromzähler:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0" name="electricitymeter"
+                <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0" name="electricityMeter"
                        required>
             </div>
             <div>
                 <label class="label-text">Wasserzähler:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0" name="watermeter"
+                <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0" name="waterMeter"
                        required>
             </div>
             <div>
@@ -104,11 +104,11 @@
                                th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
                     </td>
                     <td>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" name="electricitymeter"
+                        <input class="input input-sm w-full focus:outline-accent" type="number" name="electricityMeter"
                                th:value="${plot.getElectricityMeter()}" onchange="this.form.submit()">
                     </td>
                     <td>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" name="watermeter"
+                        <input class="input input-sm w-full focus:outline-accent" type="number" name="waterMeter"
                                th:value="${plot.getWaterMeter()}" onchange="this.form.submit()">
                     </td>
                     <td>
