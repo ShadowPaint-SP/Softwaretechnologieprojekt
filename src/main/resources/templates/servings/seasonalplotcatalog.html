@@ -142,6 +142,8 @@
                             </div>
                         </td>
                         <td>
+                            <section th:text="#{arrival} + ' ' + ${plot.ArrivalStr}">Arrival</section>
+                            <section th:text="#{departure} + ' ' + ${plot.DepartureStr}">Departure</section>
                             <form th:if="${plotsavailable}" th:action="'/seasonalcheckout/' + ${plot.id}" method="post">
                                 <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve}"></button>
                                 <select class="select w-full max-w-xs p-2 ">
