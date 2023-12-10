@@ -1,6 +1,7 @@
 package campingplatz.plots;
 
 import org.javamoney.moneta.Money;
+import org.jmolecules.ddd.annotation.Repository;
 import org.salespointframework.catalog.Catalog;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +15,7 @@ import static org.salespointframework.core.Currencies.EURO;
  * An extension of {@link Catalog} to add specific query methods.
  *
  */
+@Repository
 public interface PlotCatalog extends Catalog<Plot> {
     static final Sort DEFAULT_SORT = Sort.sort(Plot.class).by(Plot::getName).descending();
 

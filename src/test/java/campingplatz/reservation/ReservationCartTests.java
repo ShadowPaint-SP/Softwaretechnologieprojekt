@@ -2,7 +2,8 @@ package campingplatz.reservation;
 
 import javax.money.MonetaryAmount;
 
-import campingplatz.utils.Cart;
+import campingplatz.plots.plotReservations.PlotCart;
+import campingplatz.plots.plotReservations.PlotReservation;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ import org.salespointframework.useraccount.UserAccount;
 import campingplatz.plots.Plot;
 
 public class ReservationCartTests {
-	private Cart<Plot> cart;
+	private PlotCart cart;
 	private PlotReservation reservation1;
 	private PlotReservation reservation2;
 
@@ -42,7 +43,7 @@ public class ReservationCartTests {
 		when(plot1.getName()).thenReturn("a");
 		when(plot2.getName()).thenReturn("b");
 
-		cart = new Cart<Plot>(PlotReservation.class);
+		cart = new PlotCart();
 		reservation1 = new PlotReservation(user, plot1, LocalDate.of(2023, 11,
 			1).atStartOfDay(),
 			LocalDate.of(2023, 11, 10).atStartOfDay());
