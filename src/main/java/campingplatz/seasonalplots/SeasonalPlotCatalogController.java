@@ -75,7 +75,7 @@ public class SeasonalPlotCatalogController {
 		} else if (monthNow > 4)  {
 			inApril = LocalDateTime.now();
 		}
-		var inOctober = LocalDateTime.now().withMonth(10).withDayOfMonth(31);
+		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(userAccount, seasonalPlot,
 		inApril, inOctober, payMethod);
 		reservationRepository.save(reservation);
