@@ -11,19 +11,21 @@ import java.time.LocalDateTime;
 @Entity
 public class PlotReservationAccountancyEntry extends AccountancyEntry {
 
-	String plotName;
-	String userName;
-	LocalDateTime begin;
-	LocalDateTime end;
+	private static String description(PlotReservation reservation){
+
+		String ret = "";
+
+		ret += "Product Name: " + reservation.getProduct().getName() + ",\n";
+		ret += "Nutzer Name: " + reservation.getUser().getUsername() + ",\n";
+		ret += "von: " + reservation.getBegin() + ",\n";
+		ret += "bis: " + reservation.getEnd();
+
+		return ret;
+	}
 
 
 	public PlotReservationAccountancyEntry(PlotReservation reservation) {
-		super(reservation.getPrice());
-
-		plotName = reservation.getProduct().getName();
-		userName = reservation.getUser().getUsername();
-		begin = reservation.getBegin();
-		end = reservation.getEnd();
+		super(reservation.getPrice(), description(reservation));
 	}
 
 	public PlotReservationAccountancyEntry() {

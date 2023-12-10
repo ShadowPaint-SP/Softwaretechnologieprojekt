@@ -24,8 +24,6 @@
             <li sec:authorize="hasRole('BOSS')">
               <a th:text="#{nav.dashboard}">Dashboard</a>
               <ul class="p-2">
-                <li><a href="../dashboards/departure_management.html" th:href="@{/management/departure}"
-                    th:text="#{nav.dashboard.departure}">Abreise management</a></li>
                 <li><a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
                     th:text="#{nav.dashboard.customers}">Customer management</a></li>
                 <li><a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
@@ -71,6 +69,10 @@
                 <li sec:authorize="hasRole('BOSS')">
                   <a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
                     th:text="#{nav.dashboard.sports}">Sportsequipment management</a>
+                </li>
+                <li sec:authorize="hasRole('BOSS')">
+                  <a href="../dashboards/accountancy_management.html" th:href="@{/management/accountancy}"
+                     th:text="#{nav.dashboard.accountancy}">Accountancy management</a>
                 </li>
               </ul>
             </details>
