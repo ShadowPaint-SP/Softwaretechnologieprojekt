@@ -3,6 +3,8 @@ package campingplatz.reservation;
 import campingplatz.customer.Customer;
 import campingplatz.plots.Plot;
 import campingplatz.plots.PlotCatalog;
+import campingplatz.plots.plotReservations.PlotReservation;
+import campingplatz.plots.plotReservations.PlotReservationRepository;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +27,7 @@ import static org.salespointframework.core.Currencies.EURO;
 public class ReservationUnitTests {
 
 	@Autowired
-	private ReservationRepository<Plot> reservationRepository;
+	private PlotReservationRepository reservationRepository;
 
 	@Autowired
 	private PlotCatalog plotCatalog;

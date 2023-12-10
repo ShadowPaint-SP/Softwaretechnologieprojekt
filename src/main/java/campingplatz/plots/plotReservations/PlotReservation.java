@@ -1,6 +1,7 @@
-package campingplatz.reservation;
+package campingplatz.plots.plotReservations;
 
 import campingplatz.plots.Plot;
+import campingplatz.reservation.Reservation;
 import jakarta.persistence.Entity;
 import org.salespointframework.useraccount.UserAccount;
 

@@ -28,7 +28,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Reservation anyway
  *
  */
-@Entity
+@MappedSuperclass
 @EqualsAndHashCode
 public abstract class Reservation<T extends Product> implements Priced {
 

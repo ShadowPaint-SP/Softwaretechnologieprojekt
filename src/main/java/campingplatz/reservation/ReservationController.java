@@ -1,7 +1,9 @@
 package campingplatz.reservation;
 
 import campingplatz.plots.Plot;
-import campingplatz.utils.Cart;
+import campingplatz.plots.plotReservations.PlotCart;
+import campingplatz.plots.plotReservations.PlotReservation;
+import campingplatz.plots.plotReservations.PlotReservationRepository;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -23,20 +25,20 @@ import java.util.List;
 @EnableScheduling
 class ReservationController {
 
-    private final ReservationRepository<Plot> reservationRepository;
+    private final PlotReservationRepository reservationRepository;
 
-    ReservationController(ReservationRepository<Plot> reservationRepository) {
+    ReservationController(PlotReservationRepository reservationRepository) {
 
         this.reservationRepository = reservationRepository;
     }
 
     @ModelAttribute("cart")
-    Cart<Plot> initializeCart() {
-        return new Cart<Plot>(PlotReservation.class);
+	PlotCart initializeCart() {
+        return new PlotCart();
     }
 
     @GetMapping("/cart")
-    String cart(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") Cart<Plot> reservationCart) {
+    String cart(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") PlotCart reservationCart) {
         var reservations = reservationCart.getReservationsOfUser(userAccount);
         model.addAttribute("reservations", reservations);
         return "servings/cart";
@@ -44,9 +46,9 @@ class ReservationController {
 
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
-            @ModelAttribute("cart") Cart<Plot> reservationCart) {
+            @ModelAttribute("cart") PlotCart reservationCart) {
 
-        List<Reservation<Plot>> reservations = reservationCart.getReservationsOfUser(userAccount);
+        List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
         reservationRepository.saveAll(reservations);
         reservationCart.clear();
 

@@ -1,6 +1,7 @@
 package campingplatz.plots;
 
 import org.javamoney.moneta.Money;
+import org.jmolecules.ddd.annotation.Repository;
 import org.salespointframework.catalog.Catalog;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
