@@ -47,9 +47,9 @@ public class SeasonalPlot extends Plot {
 		return Config.getWaterCosts().multiply(water);
 	}
 
-	public LocalDateTime getArrival() {
+	public LocalDateTime getArrival(LocalDateTime now) {
 		// at the first day of next month
-		LocalDateTime arrival = LocalDateTime.now().plusMonths(1).withDayOfMonth(1);
+		LocalDateTime arrival = now.plusMonths(1).withDayOfMonth(1);
 
 		// in April next year if the season is over
 		if (arrival.getMonthValue() > 10) {
@@ -62,17 +62,17 @@ public class SeasonalPlot extends Plot {
 
 		return arrival;
 	}
-	public String getArrivalStr() {
-		return getArrival().toString().substring(0, 10);
+	public String getArrivalStr(LocalDateTime now) {
+		return getArrival(now).toString().substring(0, 10);
 	}
 	
 
 
-	public LocalDateTime getDeparture() {
-		return getArrival().withMonth(10).withDayOfMonth(31);
+	public LocalDateTime getDeparture(LocalDateTime now) {
+		return getArrival(now).withMonth(10).withDayOfMonth(31);
 	}
-	public String getDepartureStr() {
-		return getDeparture().toString().substring(0, 10);
+	public String getDepartureStr(LocalDateTime now) {
+		return getDeparture(now).toString().substring(0, 10);
 	}
 
 }
