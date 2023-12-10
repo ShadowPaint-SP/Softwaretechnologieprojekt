@@ -50,7 +50,7 @@
             <details>
               <summary th:text="#{nav.dashboard}">Dashboard</summary>
               <ul class="p-2">
-                <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
+                <li sec:authorize="hasAnyRole('BOSS')">
                   <a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
                     th:text="#{nav.dashboard.customers}">Customer management</a>
                 </li>
@@ -72,7 +72,7 @@
         </ul>
       </div>
       <div class="navbar-end">
-        <div class="dropdown dropdown-end" sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE','CUSTOMER')">
+        <div class="dropdown dropdown-end" sec:authorize="isAuthenticated()">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
