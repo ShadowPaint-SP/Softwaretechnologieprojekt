@@ -1,7 +1,8 @@
 package campingplatz.plots;
 
-import campingplatz.reservation.Reservation;
-import campingplatz.utils.Cart;
+import campingplatz.plots.plotReservations.PlotCart;
+import campingplatz.plots.plotReservations.PlotReservation;
+import campingplatz.reservation.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -85,7 +86,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 
 	/** Marks all the periods in which the plot is reserved as such in the table */
 	public PlotCatalogAvailabilityTable addReservations(Optional<UserAccount> user,
-			List<Reservation<Plot>> reservations) {
+			List<PlotReservation> reservations) {
 		// fill the table with reservation information
 		for (var reservation : reservations) {
 
@@ -144,17 +145,17 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	}
 
 	/** Marks the periods between of reservations in the cart as selected */
-	public PlotCatalogAvailabilityTable addSelections(Cart<Plot> reservationCart) {
+	public PlotCatalogAvailabilityTable addSelections(PlotCart reservationCart) {
 
 		for (var field : reservationCart) {
 			var time = field.getTime();
 			var plot = field.getProduct();
 
-			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.atStartOfDay())) {
+			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.minusDays(1).atStartOfDay())) {
 				continue;
 			}
 
-			int index = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, time)));
+			int index = (int) (ChronoUnit.DAYS.between(firstDay, time));
 
 			var row = this.get(plot);
 			row[index] = FieldType.FREE_SELECTED;

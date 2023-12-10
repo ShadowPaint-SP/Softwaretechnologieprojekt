@@ -5,7 +5,61 @@
 
 <body>
     <main layout:fragment="input">
+        <form th:action="@{/addSeasonalPlot}" method="post">
+            class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20">
+            <div>
+                <label class="label-text">Name: </label>
+                <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                       id="name" name="name" required th:value="${first != null ? first.name : ''}"/>
+            </div>
+            <div>
+                <label class="label-text">Größe in m^2: </label>
+                <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                       id="size" name="size" min="1" required th:value="${first != null ? first.price.number : '1'}"/>
+            </div>
+            <div>
+                <label class="label-text">Price in € pro Monat: </label>
+                <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                       id="price" name="price" step="0.1" min="0.1" required th:value="${first != null ? first.price.number : '1'}"/>
+            </div>
+            <div>
+                <label class="label-text">Art des Stellplatzes: </label>
+                <input type="hidden" name="parkinLot" th:value="#{dashboard.plot.parkinglot.none}">
+                <select onchange="this.form.submit()" name="stateValue" class="select select-bordered select-xs w-full max-w-xs">
+                    <option disabled selected th:text="#{dashboard.seasonalplot.parkinglot}">Pick kind of Parking Lot </option>
+                    <option value="0" th:text="#{dashboard.plot.parkinglot.none}"></option>
+                    <option value="1" th:text="#{dashboard.plot.parkinglot.bikeparking}"></option>
+                    <option value="2" th:text="#{dashboard.plot.parkinglot.carparking}"></option>
+                    <option value="3" th:text="#{dashboard.plot.parkinglot.camperparking}"></option>
+                </select>
+            </div>
+            <div>
+                <label class="label-text">Stromzähler: </label>
+                <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                       id="electyricitMeter" name="electricityMeter" step="0.1" min="0.1" required th:value="${first != null ? first.price.number : '0'}"/>
+            </div>
+            <div>
+                <label class="label-text">Wasserzähler: </label>
+                <input type="number" placeholder="" class="input input-sm w-full focus:outline-accent"
+                       id="waterMeter" name="waterMeter" step="0.1" min="0.1" required th:value="${first != null ? first.price.number : '0'}"/>
+            </div>
+            <div>
+                <label class="label-text">Bild: </label>
+                <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                       id="imagePath" name="imagePath" required th:value="${first != null ? first.imagePath : ''}"/>
+            </div>
+            <div>
+                <label class="label-text">Description: </label>
+                <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent"
+                       id="desc" name="desc" required th:value="${first != null ? first.desc : ''}"/>
+            </div>
+            <div class="flex justify-around">
+                <input type="hidden" id="itemId" name="itemId" th:value="${item != null ? item.id : ''}" />
+                <button class="btn btn-accent" type="submit">Hinzufügen/Ändern der Dauerstellplätze</button>
+            </div>
 
+
+        </form>
         <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <thead>
@@ -21,15 +75,10 @@
                     <tr th:each="item, iStat : ${allSPlots}" class="hover">
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.name}">name</td>
-                        <!-- <td th:text="${item.begin}">arrival</td> -->
-                        <!-- <td th:text="${item.end}">departure</td> -->
-                        <!-- <td th:text="${item.duration}">days</td> -->
-                        <!-- <td th:text="${item.getPrice}">price</td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
-
     </main>
 </body>
 </html>

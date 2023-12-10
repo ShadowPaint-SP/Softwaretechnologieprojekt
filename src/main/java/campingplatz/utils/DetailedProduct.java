@@ -6,11 +6,16 @@ import lombok.Setter;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 
-@Setter
-@Getter
+
 @Entity
 public class DetailedProduct extends Product {
+
+	@Setter
+	@Getter
 	private String imagePath;
+
+	@Setter
+	@Getter
 	private String desc;
 
 	@SuppressWarnings({ "deprecation" })

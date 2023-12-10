@@ -1,28 +1,33 @@
 package campingplatz.equip;
 
+import campingplatz.plots.Plot;
+import campingplatz.reservation.PlotReservation;
+import campingplatz.utils.Cart;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.salespointframework.core.Currencies.EURO;
 
 @Controller
+@SessionAttributes("cart")
 public class SportItemCatalogController {
 
 	private SportItemCatalog itemCatalog;
 
 	SportItemCatalogController(SportItemCatalog itemCatalog) {
 		this.itemCatalog = itemCatalog;
+	}
+
+	@ModelAttribute("cart") // quick fix for tests
+	Cart<Plot> initializeCart() {
+		return new Cart<Plot>(PlotReservation.class);
 	}
 
 	@GetMapping("/sportequipmentcatalog")
@@ -41,7 +46,7 @@ public class SportItemCatalogController {
 		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
 
 		model.addAttribute("items", listo);
-		//model.addAttribute("first", listo.get(0));
+		// model.addAttribute("first", listo.get(0));
 		model.addAttribute("cate", listo.get(0).getCategories().stream().toList().get(0));
 
 		return "dashboards/sportsequipment_management";

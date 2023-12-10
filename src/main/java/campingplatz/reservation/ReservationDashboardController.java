@@ -1,6 +1,8 @@
 package campingplatz.reservation;
 
 import campingplatz.plots.Plot;
+import campingplatz.plots.plotReservations.PlotReservation;
+import campingplatz.plots.plotReservations.PlotReservationRepository;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,16 +18,16 @@ import java.util.UUID;
 @SessionAttributes("cart")
 public class ReservationDashboardController {
 
-	ReservationRepository<Plot> plotReservations;
+	PlotReservationRepository plotReservations;
 
-	ReservationDashboardController(ReservationRepository<Plot> plotReservations) {
+	ReservationDashboardController(PlotReservationRepository plotReservations) {
 		this.plotReservations = plotReservations;
 	}
 
 	@GetMapping("/management/reservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String customer(Model model) {
-		List<Reservation<Plot>> all = plotReservations.findAll();
+		List<PlotReservation> all = plotReservations.findAll();
 		model.addAttribute("reservations", all);
 		return "dashboards/reservation_management";
 	}
@@ -42,7 +44,7 @@ public class ReservationDashboardController {
 		reservation.setState(state);
 		plotReservations.save(reservation);
 
-		List<Reservation<Plot>> all = plotReservations.findAll();
+		List<PlotReservation> all = plotReservations.findAll();
 		model.addAttribute("reservations", all);
 		return "dashboards/reservation_management";
 	}
