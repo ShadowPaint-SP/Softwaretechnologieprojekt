@@ -2,6 +2,7 @@ package campingplatz.equip.sportsItemReservations;
 
 import campingplatz.equip.SportItem;
 import campingplatz.equip.SportItemCatalog;
+import jakarta.servlet.http.HttpServletRequest;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,16 +40,23 @@ public class SportItemReservationController {
 				@LoggedIn Optional<UserAccount> userAccount,
 				@ModelAttribute("cartSportItem") SportItemCart reservationCartSportItem,
 				@RequestParam("startTime") LocalDateTime startTime,
-				@RequestParam("endTime") LocalDateTime endTime) {
+				@RequestParam("endTime") LocalDateTime endTime, HttpServletRequest request ) {
 
-		if (userAccount.isEmpty()) {
-			return "static/defaultlogin";
+		LocalDateTime currentDate = LocalDateTime.now();
+
+		if (startTime.isBefore(currentDate) || endTime.isBefore(startTime) || ChronoUnit.HOURS.between(startTime, endTime) < 1){
+			String referer = request.getHeader("Referer");
+			return "redirect:" + referer;
 
 		}
+
+		if (userAccount.isEmpty()) {
+			return "static/defaultlogin";}
 
 		UserAccount userAccount2 = userAccount.get();
 
 		SportItem item = itemCatalog.findById(id).get();
+
 
 		reservationCartSportItem.add(new SportItemReservation(userAccount2, item, startTime, endTime));
 		var reservationsSport = reservationCartSportItem.getReservationsOfUser(userAccount2);
@@ -61,6 +70,7 @@ public class SportItemReservationController {
 	@PostMapping("/reservate/")
 	String reservate(Model model, @LoggedIn UserAccount userAccount,
 					 @ModelAttribute("cartSportItem") SportItemCart reservationCartSportItem) {
+
 
 		List<SportItemReservation> reservationsSport = reservationCartSportItem.getReservationsOfUser(userAccount);
 		reservationRepositorySportItem.saveAll(reservationsSport);
@@ -77,6 +87,3 @@ public class SportItemReservationController {
 
 
 }
-
-
-
