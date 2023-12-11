@@ -6,40 +6,52 @@
 
 <body>
     <main layout:fragment="input">
-        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
             <div class="grid grid-cols-2 gap-2">
                 <div class="m-2">
                     <form method="post" th:action="'/sportitem/'+${item.id}">
-                        <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
-                        <p th:text="'Preis: '+${{item.price}}"></p>
-                        <p th:text="'Kaution: '+${{item.deposit}}"></p>
-                        <br>
-                        <div>
+                        <div class="grid grid-flow-col justify-around items-center">
+                            <div>
+                                <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
+                                <span th:text="'Preis: '+${{item.price}}"></span>
+                                <span class="p-2" th:text="'Kaution: '+${{item.deposit}}"></span>
+                            </div>
+                            <input class="input focus:outline-accent bg-base-200" type="date" name="day"
+                                th:value="${state.defaultedDay}" onchange="this.form.submit()">
+                        </div>
+                        <div class="mt-14">
                             <table class="table">
-                                <tr>
-                                    <th class="w-[20%] justify-items-center">
-                                       <input type="date" name="day" th:value="${state.defaultedDay}" onchange="this.form.submit()">
-                                    </th>
-                                    <th class="text-center">Verfügbarkeit</th>
-                                </tr>
-                                <tr th:each="time, stat : ${times}">
-                                    <td class="text-center" th:text="${time}">date</td>
-
-                                    <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"
-                                        th:with="fields=${availabilityTable.get(stat.index)}">
-                                        <button th:type="${fields.type.clickability}"
+                                <thead>
+                                    <tr class="text-center text-xl">
+                                        <th class="w-[20%]">
+                                            Time
+                                        </th>
+                                        <th>Amount</th>
+                                        <th>Verfügbarkeit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="time, stat : ${times}">
+                                        <td class="text-center" th:text="${time}">date</td>
+                                        <td class="text-center" th:with="fields=${availabilityTable.get(stat.index)}">
+                                            <text th:text="${fields.amount} + ' ' + #{sport.amount}"></text>
+                                        </td>
+                                        <td class="hover:bg-secondary p-0 relative"
+                                            th:classappend="${fields.type.color}"
+                                            th:with="fields=${availabilityTable.get(stat.index)}">
+                                            <button th:type="${fields.type.clickability}"
                                                 th:formaction="'/sportitem/select/'+${item.id}+'/'+${fields.index}"
                                                 class="absolute top-0 right-0 bottom-0 left-0 w-full">
-                                            <div th:if="${fields.type.value == 0}">
-                                                <text th:text="${fields.amount} + ' ' + #{${fields.type.label}}"></text>
-                                            </div>
-                                            <div th:if="${fields.type.value != 0}">
-                                                <text th:text="#{${fields.type.label}}"></text>
-                                            </div>
-                                        </button>
-                                    </td>
-                                </tr>
-
+                                                <div th:if="${fields.type.value == 0}">
+                                                    <text th:text="#{catalog.fields.free.completely.label}"></text>
+                                                </div>
+                                                <div th:if="${fields.type.value != 0}">
+                                                    <text th:text="#{catalog.fields.free.selected.label}"></text>
+                                                </div>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </form>

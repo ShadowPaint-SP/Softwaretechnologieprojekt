@@ -7,32 +7,29 @@
 
 <body>
     <div class="container">
-        <section layout:fragment="input">
-            <div class="container mx-auto mt-20">
-                <div class="grid grid-cols-4 gap-4">
-                    <div class="flex grow place-self-auto" th:each="item : ${items}">
-                        <a th:href="@{/sportitem/{id}(id=${item.id})}">
-                        <div class="card card-compact w-96 bg-base-100 shadow-xl" >
+        <main layout:fragment="input">
+            <div class="container mx-auto mt-20 grid grid-cols-4 gap-4">
+                <div class="flex grow place-self-auto" th:each="item : ${items}">
+                    <a th:href="@{/sportitem/{id}(id=${item.id})}">
+                        <div class="card card-compact w-96 bg-base-100 shadow-xl">
                             <figure>
                                 <img th:src="${item.imagePath}" />
                             </figure>
-                            <div class="card-body grid grid-cols-2">
+                            <div class="card-body grid grid-cols-2 justify-items-stretch">
                                 <div>
-                                <h2 class="card-title" th:text="${item.name}"></h2>
-                                <p th:text="${item.desc}"></p>
+                                    <h2 class="card-title" th:text="${item.name}"></h2>
+                                    <p th:text="${item.desc}"></p>
                                 </div>
-                                <div >
-                                    <p th:text="#{sport.available}+': '+ ${item.amount}">0</p>
+                                <div class="justify-self-end flex items-end">
+                                    <h2 class="font-normal" th:text="#{sport.available}+': '+ ${item.amount}">0
+                                    </h2>
                                 </div>
                             </div>
-
                         </div>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             </div>
-
-        </section>
+        </main>
     </div>
 </body>
 
