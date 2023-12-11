@@ -1,5 +1,6 @@
 package campingplatz.equip;
 
+import campingplatz.equip.sportsItemReservations.SportItemCart;
 import campingplatz.equip.sportsItemReservations.SportItemReservation;
 import campingplatz.plots.Plot;
 import campingplatz.plots.PlotCatalog;
@@ -72,11 +73,13 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 	LocalDateTime firstTime;
 	LocalDateTime lastTime;
 	Integer length;
+	SportItem currentItem;
 
-	public SportItemAvailabilityTable(LocalDateTime firstTime, LocalDateTime lastDay) {
+	public SportItemAvailabilityTable(LocalDateTime firstTime, LocalDateTime lastDay, SportItem currentItem) {
 		this.length = (int) (ChronoUnit.HOURS.between(firstTime, lastDay));
 		this.firstTime = firstTime;
 		this.lastTime = lastDay;
+		this.currentItem = currentItem;
 	}
 
 	public SportItemAvailabilityTable addMaxAmount(Integer n){
@@ -90,23 +93,27 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 		return this;
 	}
 
-	public SportItemAvailabilityTable addReservations(UserAccount user, List<SportItemReservation> reservations){
+	public SportItemAvailabilityTable addReservations(Optional<UserAccount> user, List<SportItemReservation> reservations){
 
 		for (var reservation : reservations){
+
+			if (!reservation.getProduct().getId().equals(currentItem.getId())){
+				continue;
+			}
 
 			// calculate begin and end index.
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.HOURS.between(firstTime, reservation.getBegin())));
 			int endIndex = (int) Math.min((long) length - 1,
-				(ChronoUnit.DAYS.between(firstTime, reservation.getEnd()))
+				(ChronoUnit.HOURS.between(firstTime, reservation.getEnd()))
 			);
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				var prevValue = this.get(i);
 
 				Field newValue;
-				if (reservation.getUser() == user){
+				if (user.isPresent() && reservation.getUser() == user.get()){
 					newValue = new Field(FieldType.RESERVED_SELF, prevValue.index, prevValue.amount - 1);
 				}
 				else if (prevValue.amount == 1 && prevValue.type != FieldType.RESERVED_SELF){
@@ -119,6 +126,30 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 				this.set(i, newValue);
 			}
 
+		}
+
+		return this;
+	}
+
+	public SportItemAvailabilityTable addSelections(SportItemCart reservationCart) {
+
+		for (var field : reservationCart) {
+			var time = field.getTime();
+			var sportItem = field.getProduct();
+
+			if (!sportItem.getId().equals(currentItem.getId())) {
+				continue;
+			}
+
+			if (time.isBefore(firstTime) || time.isAfter(lastTime)) {
+				continue;
+			}
+
+			int index = (int) Math.max(0, (ChronoUnit.HOURS.between(firstTime, time)));
+
+			var prevValue = this.get(index);
+			var newValue = new Field(FieldType.FREE_SELECTED, prevValue.index,prevValue.amount);
+			this.set(index, newValue);
 		}
 
 		return this;

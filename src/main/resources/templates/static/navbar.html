@@ -19,7 +19,7 @@
             </li>
             <li><a href="../old/seasonalplotcatalog.html" th:href="@{/seasonalplots}"
                 th:text="#{nav.seasonalplotcatalog}">Seasonalplotcatalog</a></li>
-            <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportequipmentcatalog}"
+            <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportitemcatalog}"
                 th:text="#{nav.sportsequipmentcatalog}">Sportsequipmentcatalog</a></li>
             <li sec:authorize="hasRole('BOSS')">
               <a th:text="#{nav.dashboard}">Dashboard</a>
@@ -44,7 +44,7 @@
           </li>
           <li><a href="../old/seasonalplotcatalog.html" th:href="@{/seasonalplots}"
               th:text="#{nav.seasonalplotcatalog}">Seasonalplotcatalog</a></li>
-          <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportequipmentcatalog}"
+          <li><a href="../servings/sportequipmentcatalog.html" th:href="@{/sportitemcatalog}"
               th:text="#{nav.sportsequipmentcatalog}">Sportsequipmentcatalog</a></li>
           <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
             <details>

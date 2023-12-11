@@ -6,34 +6,50 @@
 
 <body>
     <main layout:fragment="input">
-        <div>
-            <form>
-                <table class="table">
-                    <tr>
-                        <td class="w-[5%]"><<td>
-                        <th class="w-[8%]" th:each="time : ${times}"
-                            th:text="${time}">date</th>
-                        <td class="w-[5%]">><td>
-                    </tr>
-                    <tr>
-                        <td><td>
-                        <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"
-                            th:each="fields : ${availabilityTable}">
-                            <button th:type="${fields.type.clickability}"
-                                    th:formaction="'/sportitem/select/'+${item.id}+'/'+${fields.index}"
-                                    class="absolute top-0 right-0 bottom-0 left-0 w-full">
-                                <div th:if="fields.type.value == 0">
-                                    <text th:text="${fields.amount} + '' + #{${fields.type.label}}"></text>
-                                </div>
-                                <div th:if="fields.type.value != 0">
-                                    <text th:text="#{${fields.type.label}}"></text>
-                                </div>
-                            </button>
-                        </td>
-                        <td><td>
-                    </tr>
-                </table>
-            </form>
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
+            <div class="grid grid-cols-2 gap-2">
+                <div class="m-2">
+                    <form method="post" th:action="'/sportitem/'+${item.id}">
+                        <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
+                        <p th:text="'Preis: '+${{item.price}}"></p>
+                        <p th:text="'Kaution: '+${{item.deposit}}"></p>
+                        <br>
+                        <div>
+                            <table class="table">
+                                <tr>
+                                    <th class="w-[20%] justify-items-center">
+                                       <input type="date" name="day" th:value="${state.defaultedDay}" onchange="this.form.submit()">
+                                    </th>
+                                    <th class="text-center">Verfügbarkeit</th>
+                                </tr>
+                                <tr th:each="time, stat : ${times}">
+                                    <td class="text-center" th:text="${time}">date</td>
+
+                                    <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"
+                                        th:with="fields=${availabilityTable.get(stat.index)}">
+                                        <button th:type="${fields.type.clickability}"
+                                                th:formaction="'/sportitem/select/'+${item.id}+'/'+${fields.index}"
+                                                class="absolute top-0 right-0 bottom-0 left-0 w-full">
+                                            <div th:if="${fields.type.value == 0}">
+                                                <text th:text="${fields.amount} + ' ' + #{${fields.type.label}}"></text>
+                                            </div>
+                                            <div th:if="${fields.type.value != 0}">
+                                                <text th:text="#{${fields.type.label}}"></text>
+                                            </div>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="rounded-box">
+                    <figure>
+                        <img th:src="${item.imagePath}" />
+                    </figure>
+                </div>
+            </div>
         </div>
     </main>
 </body>
