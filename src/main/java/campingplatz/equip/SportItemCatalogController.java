@@ -1,5 +1,9 @@
 package campingplatz.equip;
 
+import campingplatz.equip.sportsItemReservations.SportItemCart;
+import campingplatz.equip.sportsItemReservations.SportItemReservationRepository;
+import campingplatz.reservation.ReservationEntry;
+import jakarta.validation.Valid;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
@@ -53,9 +57,9 @@ public class SportItemCatalogController {
 
 
 	@GetMapping("/sportitem/{sportItem}")
-	public String showSportItemDetails( Model model, @LoggedIn Optional<UserAccount> user,
-										@Valid SiteState state, @PathVariable SportItem sportItem,
-										@ModelAttribute("SportItemCart") SportItemCart reservationCart) {
+	public String showSportItemDetails(Model model, @LoggedIn Optional<UserAccount> user,
+									   @Valid SiteState state, @PathVariable SportItem sportItem,
+									   @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
 		var currentDay = state.getDefaultedDay();
 		var opening = currentDay.atStartOfDay().plusHours(9);
