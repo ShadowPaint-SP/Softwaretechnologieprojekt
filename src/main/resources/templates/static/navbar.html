@@ -67,6 +67,10 @@
                     th:text="#{nav.dashboard.reservations}">Reservations management</a>
                 </li>
                 <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
+                  <a href="../dashboards/reservation_seasonalPlot_management.html" th:href="@{/management/seasonalreservation}"
+                    th:text="#{nav.dashboard.reservations.seasonal}">Reservations management</a>
+                </li>
+                <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
                   <a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
                     th:text="#{nav.dashboard.sports}">Sportsequipment management</a>
                 </li>

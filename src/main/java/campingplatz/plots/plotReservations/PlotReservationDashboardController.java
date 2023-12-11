@@ -23,24 +23,19 @@ public class PlotReservationDashboardController {
 
 	PlotReservationRepository plotReservations;
 	Accountancy accountancy;
-	SeasonalPlotReservationRepository seasonalPlotReservations;
 
 	PlotReservationDashboardController(PlotReservationRepository plotReservations,
-		SeasonalPlotReservationRepository seasonalPlotReservations,
 		Accountancy accountancy) {
 		this.plotReservations = plotReservations;
 		this.accountancy = accountancy;
-		this.seasonalPlotReservations = seasonalPlotReservations;
 	}
 
 	@GetMapping("/management/reservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String reservations(Model model) {
 		List<PlotReservation> all = plotReservations.findAll();
-		List<SeasonalPlotReservation> allS = seasonalPlotReservations.findAll();
 
 		model.addAttribute("reservations", all);
-		model.addAttribute("seasonalreservations", allS);
 		return "dashboards/reservation_management";
 	}
 

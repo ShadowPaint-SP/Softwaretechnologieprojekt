@@ -27,16 +27,11 @@
 					<tr th:each="reservation, iStat : ${reservations}" class="hover">
 						<th th:text="${iStat.count}"></th>
 						<td>
-							<form method="post" action="/management/reservation/updateReservation">
+							<form method="post" action="/management/seasonalreservation/updateReservation">
 								<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
-								<select onchange="this.form.submit()" name="stateValue"
-									class="select select-bordered select-xs w-full max-w-xs">
-									<option value="0" th:selected="${reservation.state.value == 0}"
-									th:text="#{reservation.status.not_taken}"></option>
-									<option value="1" th:selected="${reservation.state.value == 1}"
-										th:text="#{reservation.status.taken}"> </option>
-<option value="2" th:selected="${reservation.state.value == 2}"
-                                            th:text="#{reservation.status.payed}"> </option>
+								<select onchange="this.form.submit()" name="stateValue" class="select select-bordered select-xs w-full max-w-xs">
+									<option value="0" th:selected="${reservation.state.value == 0}" th:text="#{reservation.status.not_taken}"></option>
+									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}"> </option>
 								</select>
 							</form>
 						</td>
@@ -51,7 +46,7 @@
 				</tbody>
 			</table>
 		</div>
-		
+
 	</main>
 </body>
 
