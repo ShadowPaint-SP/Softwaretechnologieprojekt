@@ -1,0 +1,41 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+package campingplatz{
+
+package equip{
+}
+package reservation{
+}
+package customer{
+}
+package plots{
+}
+package utils{
+}
+}
+package org{
+package org.salespointframework{
+}
+package org.springframework{
+}
+}
+
+customer .d.> reservation
+equip .r.> reservation
+plots .l.> reservation
+utils <.u. reservation
+
+org.springframework -[hidden]u- org.salespointframework
+
+
+campingplatz .r.> springframework
+campingplatz .r.> salespointframework
+
+@enduml

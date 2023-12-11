@@ -1,0 +1,92 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+interface org.springframework.data.repository.CrudRepository
+
+package campingplatz{
+    package customer{
+        class Customer<<Entity>>{
+            - id: UUID
+            - userAccount: UserAccount
+            + Customer(UserAccount userAccount)
+            +getId(): UUID
+            +getUsername(): String
+            +getFirstName(): String
+            +getLastName(): String
+            +getUserAccount(): UserAccount
+            +getRole(): Role
+            +setRole(Role r): void
+
+        }
+        enum Roles{
+        NONE
+        CUSTOMER
+        EMPLOYEE
+        BOSS
+
+        -role: Role
+        +Roles(Role role)
+        +getValue(): Role
+        +{static} fromNumber(Integer i): Role
+        }
+        class CustomerController<<Controller>>{
+        -customerManagement: CustomerManagement
+        +CustomerController(CustomerManagement customerManagement)
+        +registerNew(RegistrationForm form, Errors result, Model model): String
+        +register(Model model, RegistrationForm form): String
+        +faildloginredirect(Model model): String
+        }
+        class CustomerDashboardController<<Controller>>{
+        -customerManagement: CustomerManagement
+        +CustomerDashboardController(CustomerManagement customerManagement)
+        +customer(Model model): String
+        +changeRole(Model model, RoleChangeInformation info): String
+        }
+        interface RoleChangeInformation{
+        +getCustomerUUID(): UUID
+        +getRoleValue(): Integer
+        }
+        class CustomerDataInitializer<<Component>>{
+        -{static}LOG: Logger
+        -userAccountManagement: UserAccountManagement
+        -customerManagement: CustomerManagement
+        +CustomerDataInitializer(UerAccountManagement userAccountManagement, CustomerManagement customerManagement)
+        +initialize(): void
+        }
+        class CustomerManagement<<Service>>{
+        -customers: CustomerRepository
+        -userAccounts: UserAccountManagement
+        +CustomerManagement(CustomerRepository customers, UserAccountManagement userAccounts)
+        +create(String email, UnencryptedPassword password, Role roles, String firstname, String lastname): Customer
+        +findAll(): Streamable<Customer>
+        +findByUUID(UUID id): Optional<Customer>
+        }
+        interface CustomerRepository{
+        +findAll(): Streamable<Customer>
+        }
+        class RegistrationForm{
+        -name: String
+        -last: String
+        -password: String
+        -email: String
+        +RegistrationForm(String name, String last, String password, String email)
+        +validate(Errors errors): void
+        }
+    }
+}
+CustomerController -[hidden]d- CustomerDashboardController
+RoleChangeInformation -r-+ CustomerDashboardController
+Roles -r-+ Customer
+CustomerDataInitializer -[hidden]u- CustomerDashboardController
+CustomerManagement -[hidden]u- CustomerDataInitializer
+CustomerDataInitializer --|> org.salespointframework.core.DataInitializer
+CustomerDashboardController -[hidden]r- CustomerRepository
+CustomerRepository --|> org.springframework.data.repository.CrudRepository: <<bind T->Customer, ID->UUID>>
+RegistrationForm -[hidden]d- CustomerManagement
+@enduml
