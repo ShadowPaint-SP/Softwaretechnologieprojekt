@@ -23,4 +23,10 @@ public class PlotReservationAccountancyEntry extends AccountancyEntry {
 		super(reservation.getPrice(), description(reservation));
 	}
 
+	
+	//need default constructor
+	public PlotReservationAccountancyEntry() {
+
+	}
+
 }
