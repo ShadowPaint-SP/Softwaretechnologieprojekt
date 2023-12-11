@@ -91,7 +91,7 @@ public abstract class Reservation<T extends Product> implements Priced {
      */
     public long duration() {
         var units = getIntervalUnit();
-        return units.between(begin, end.plusDays(1));
+        return units.between(begin, end) + 1;
     }
 
     public static enum State {
