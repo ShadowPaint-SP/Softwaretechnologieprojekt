@@ -42,7 +42,7 @@ public class ReservationDashboardController {
 
 	@PostMapping("/management/reservation/updateReservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
-	String customer(Model model, @Valid ReservationChangeInformation info) {
+	String updateSeasonal(Model model, @Valid ReservationChangeInformation info) {
 
 		var uuid = info.getReservationUUID();
 		var reservation = plotReservations.findById(uuid).get();
@@ -52,9 +52,24 @@ public class ReservationDashboardController {
 		reservation.setState(state);
 		plotReservations.save(reservation);
 
-		List<PlotReservation> all = plotReservations.findAll();
-		model.addAttribute("reservations", all);
-		return "dashboards/reservation_management";
+		// List<PlotReservation> all = plotReservations.findAll();
+		// model.addAttribute("reservations", all);
+		return "redirect:/management/reservation";
+	}
+
+	@PostMapping("/management/reservation/updateSeasonalReservation")
+	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
+	String customer(Model model, @Valid ReservationChangeInformation info) {
+
+		var uuid = info.getReservationUUID();
+		var reservation = seasonalPlotReservations.findById(uuid).get();
+		var state = Reservation.State.fromNumber(info.getStateValue());
+
+		// update and save
+		reservation.setState(state);
+		seasonalPlotReservations.save(reservation);
+
+		return "redirect:/management/reservation";
 	}
 
 	interface ReservationChangeInformation {
