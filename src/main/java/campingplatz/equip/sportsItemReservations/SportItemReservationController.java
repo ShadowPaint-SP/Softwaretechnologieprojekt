@@ -8,12 +8,14 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.Optional;
 
 @SessionAttributes("cartSportItem")
@@ -64,26 +66,8 @@ public class SportItemReservationController {
 		model.addAttribute("reservationsSport", reservationsSport);
 		model.addAttribute("totalPrice", totalPrice);
 
-		return "servings/cartSportItem";
+		return "servings/cart";
 	}
-
-	@PostMapping("/reservate/")
-	String reservate(Model model, @LoggedIn UserAccount userAccount,
-					 @ModelAttribute("cartSportItem") SportItemCart reservationCartSportItem) {
-
-
-		List<SportItemReservation> reservationsSport = reservationCartSportItem.getReservationsOfUser(userAccount);
-		reservationRepositorySportItem.saveAll(reservationsSport);
-		for(SportItemReservation reservation: reservationsSport){
-			SportItem sportItem = reservation.getProduct();
-			sportItem.setAmount(sportItem.getAmount()-1);
-		}
-		reservationCartSportItem.clear();
-
-		return "servings/cartSportItem";
-	}
-
-
 
 
 }
