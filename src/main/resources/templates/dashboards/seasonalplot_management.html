@@ -121,10 +121,14 @@
                         <input class="input input-sm w-full focus:outline-accent" type="text" name="picture"
                                th:value="${plot.imagePath}" onchange="this.form.submit()">
                     </td>
-                    <td>
-                        <button th:text="#{management.plot.delete}" formaction="/management/seasonalplot/deleteSeasonalPlot"
-                                class="btn btn-primary"></button>
-                    </td>
+                    <th>
+                        <select name="state" onchange="this.form.submit()"
+                            class="select select-bordered select-xs w-full max-w-xs">
+                            <option value="0" th:selected="${plot.state.index == 0}" >operational</option>
+                            <option value="1" th:selected="${plot.state.index == 1}" >defectiv</option>
+                            <option value="2" th:selected="${plot.state.index == 2}" >deleted</option>
+                        </select>
+                    </th>
                 </form>
             </tr>
             </tbody>

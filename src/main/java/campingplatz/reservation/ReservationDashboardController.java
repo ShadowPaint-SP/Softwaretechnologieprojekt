@@ -3,6 +3,8 @@ package campingplatz.reservation;
 import campingplatz.plots.Plot;
 import campingplatz.plots.plotReservations.PlotReservation;
 import campingplatz.plots.plotReservations.PlotReservationRepository;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,16 +21,22 @@ import java.util.UUID;
 public class ReservationDashboardController {
 
 	PlotReservationRepository plotReservations;
+	SeasonalPlotReservationRepository seasonalPlotReservations;
 
-	ReservationDashboardController(PlotReservationRepository plotReservations) {
+
+	ReservationDashboardController(PlotReservationRepository plotReservations, SeasonalPlotReservationRepository seasonalPlotReservations) {
 		this.plotReservations = plotReservations;
+		this.seasonalPlotReservations = seasonalPlotReservations;
 	}
 
 	@GetMapping("/management/reservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String customer(Model model) {
 		List<PlotReservation> all = plotReservations.findAll();
+		List<SeasonalPlotReservation> allS = seasonalPlotReservations.findAll();
+
 		model.addAttribute("reservations", all);
+		model.addAttribute("seasonalreservations", allS);
 		return "dashboards/reservation_management";
 	}
 

@@ -23,6 +23,7 @@ public class SeasonalPlotDashboardController {
 	SeasonalPlotDashboardController(SeasonalPlotCatalog plotCatalog) {
 		this.seasonalPlotCatalog = plotCatalog;
 	}
+
 	@GetMapping("/management/seasonalplot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String seasonalPlots(Model model) {
@@ -48,6 +49,8 @@ public class SeasonalPlotDashboardController {
 			plot.setDesc(info.getDescription());
 
 			// dont forget to save
+			plot.setState(Plot.State.fromNumber(info.getState()));
+
 			seasonalPlotCatalog.save(plot);
 
 			Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
@@ -62,14 +65,14 @@ public class SeasonalPlotDashboardController {
 	String createSeasonalPlot(Model model, @Valid SeasonalPlotDashboardController.SeasonalPlotInformation info) {
 
 		var splot = new SeasonalPlot(
-			info.getName(),
-			info.getSize(),
-			Money.of(info.getPrice(), EURO),
-			Plot.ParkingLot.fromNumber(info.getParkingValue()),
-			info.getElectricityMeter(),
-			info.getWaterMeter(),
-			info.getPicture(),
-			info.getDescription());
+				info.getName(),
+				info.getSize(),
+				Money.of(info.getPrice(), EURO),
+				Plot.ParkingLot.fromNumber(info.getParkingValue()),
+				info.getElectricityMeter(),
+				info.getWaterMeter(),
+				info.getPicture(),
+				info.getDescription());
 
 		// dont forget to save
 		seasonalPlotCatalog.save(splot);
@@ -115,5 +118,7 @@ public class SeasonalPlotDashboardController {
 		String getDescription();
 
 		String getPicture();
+
+		Integer getState();
 	}
 }
