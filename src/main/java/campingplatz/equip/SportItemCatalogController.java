@@ -55,7 +55,6 @@ public class SportItemCatalogController {
 		return "servings/sportequipmentcatalog";
 	}
 
-
 	@GetMapping("/sportitem/{sportItem}")
 	public String showSportItemDetails(Model model, @LoggedIn Optional<UserAccount> user,
 									   @Valid SiteState state, @PathVariable SportItem sportItem,
@@ -128,7 +127,4 @@ public class SportItemCatalogController {
 
 		return showSportItemDetails(model, Optional.ofNullable(user), state, sportItem, reservationCart);
 	}
-
-
-
 }

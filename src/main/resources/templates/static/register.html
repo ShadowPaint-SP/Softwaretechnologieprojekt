@@ -5,7 +5,7 @@
 <head> </head>
 
 <body>
-    <main layout:fragment="input">
+    <main layout:fragment="input" >
         <div class="hero min-h-screen bg-base-200">
             <div class="hero-content flex-col lg:flex-row-reverse">
                 <div class="text-center lg:text-left">
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="label pb-0">
-                            <span class="label-text-alt">What is your name?</span>
+                            <span class="label-text-alt">Geben Sie Ihren Namen ein.</span>
                         </div>
                         <div class="flex join">
                             <input id="firstname" th:field="*{name}" th:errorclass="fieldError" type="text"
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="label pb-0">
-                            <span class="label-text-alt">think of a password</span>
+                            <span class="label-text-alt">Bitte geben Sie Ihr Passwort ein.</span>
                         </div>
                         <div class="form-control">
                             <input id="password" th:field="*{password}" th:errorclass="fieldError" type="password"
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="label pb-0">
-                            <span class="label-text-alt">think of an email</span>
+                            <span class="label-text-alt">Bitte geben Sie ihre E-Mail Adresse ein.</span>
                         </div>
                         <div class="form-control">
                             <input id="email" th:field="*{email}" th:errorclass="fieldError" type="email"

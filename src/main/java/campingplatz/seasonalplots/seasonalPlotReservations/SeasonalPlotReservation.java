@@ -1,9 +1,12 @@
 package campingplatz.seasonalplots.seasonalPlotReservations;
 
+import campingplatz.plots.Plot;
 import campingplatz.reservation.Reservation;
 import campingplatz.seasonalplots.SeasonalPlot;
 import jakarta.persistence.Entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.money.MonetaryAmount;
@@ -15,6 +18,10 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
 	private PayMethod payMethod;
 
+	@Getter
+	@Setter
+	private boolean show;
+
 	public SeasonalPlotReservation() {
 		super();
 	}
@@ -23,6 +30,8 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 			PayMethod payMethod) {
 		super(user, product, begin, end);
 		this.payMethod = payMethod;
+		this.show = true;
+
 	}
 
 	@Override
@@ -38,7 +47,20 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 		return getPrice().add(getProduct().settlementElectricity(electricity).add(getProduct().settlementWater(water)));
 	}
 
+	public boolean isNextYearAvaible(LocalDateTime date) {
+		/*return LocalDateTime.now().isAfter(getEnd());*/
+		return date.isAfter(getEnd());
+	}
+
 	public enum PayMethod {
 		MONTHLY, YEARLY;
+
+		public static PayMethod fromNumberPayMethod(Integer i) {
+			return switch (i) {
+				case 0 -> MONTHLY;
+				case 1 -> YEARLY;
+				default -> MONTHLY;
+			};
+		}
 	}
 }

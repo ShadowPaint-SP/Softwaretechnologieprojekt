@@ -75,16 +75,28 @@ class ReservationController {
         return "servings/cart";
     }
 
-
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
             @ModelAttribute("plotCart") PlotCart reservationCart
 		) {
 
-        List<PlotReservation> plotReservations = reservationCart.getReservationsOfUser(userAccount);
-		plotReservationRepository.saveAll(plotReservations);
-        reservationCart.clear();
+        List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
 
+
+		// TODO: replace with a propper database query. this is slow an terrible
+		for (var reservation : reservations){
+			if (reservationRepository.productIsAvailableIn(
+				reservation.getProduct(),
+				reservation.getBegin(),
+				reservation.getEnd()
+			)){
+				reservationRepository.save(reservation);
+			}
+		}
+
+
+
+        reservationCart.clear();
 
         return "redirect:/";
     }

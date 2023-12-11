@@ -58,7 +58,8 @@ class PlotDashboardControllerIntegrationTest {
 				.param("parkingValue", "1")
 				.param("price", "35")
 				.param("picture", "picture")
-				.param("description", "description"))
+				.param("description", "description")
+				.param("state", "1"))
 			.andExpect(status().isOk());
 
 	}

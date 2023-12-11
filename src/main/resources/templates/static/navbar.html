@@ -50,11 +50,11 @@
             <details>
               <summary th:text="#{nav.dashboard}">Dashboard</summary>
               <ul class="p-2">
-                <li sec:authorize="hasRole('BOSS')">
+                <li sec:authorize="hasAnyRole('BOSS')">
                   <a href="../dashboards/customer_management.html" th:href="@{/management/customer}"
                     th:text="#{nav.dashboard.customers}">Customer management</a>
                 </li>
-                <li sec:authorize="hasRole('BOSS')">
+                <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
                   <a href="../dashboards/plot_management.html" th:href="@{/management/plots}"
                     th:text="#{nav.dashboard.plots}">Plot management</a>
                 </li>
@@ -66,7 +66,7 @@
                   <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
                     th:text="#{nav.dashboard.reservations}">Reservations management</a>
                 </li>
-                <li sec:authorize="hasRole('BOSS')">
+                <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
                   <a href="../dashboards/sportsequipment_management.html" th:href="@{/management/sportsequipment}"
                     th:text="#{nav.dashboard.sports}">Sportsequipment management</a>
                 </li>
@@ -79,7 +79,7 @@
         </ul>
       </div>
       <div class="navbar-end">
-        <div class="dropdown dropdown-end" sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE','CUSTOMER')">
+        <div class="dropdown dropdown-end" sec:authorize="isAuthenticated()">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -123,10 +123,10 @@
             </div>
           </div>
           <ul class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52">
-            <li sec:authorize="hasAnyRole('BOSS','CUSTOMER')">
+            <li sec:authorize="isAuthenticated()">
               <a href="../servings/orders.html" th:href="@{/orders}" th:text="#{nav.orders}">Orders</a>
             </li>
-            <li sec:authorize="!hasAnyRole('BOSS','CUSTOMER')">
+            <li sec:authorize="!isAuthenticated()">
               <button type="submit">
                 <a href="/static/register.html" th:href="@{/register}" th:text="#{register.info}">Registration</a>
               </button>
