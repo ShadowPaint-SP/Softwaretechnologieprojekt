@@ -33,7 +33,7 @@ public class SeasonalPlotCatalogController {
 	BusinessTime businessTime;
 
 	public SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog,
-			SeasonalPlotReservationRepository reservationRepository) {
+			SeasonalPlotReservationRepository reservationRepository, BusinessTime businessTime) {
 		this.seasonalPlotCatalog = seasonalPlotCatalog;
 		this.reservationRepository = reservationRepository;
 		this.businessTime = businessTime;
@@ -68,8 +68,8 @@ public class SeasonalPlotCatalogController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcheckout/{plot}")
 	String reservate(Model model, @LoggedIn UserAccount userAccount, @PathVariable("plot") SeasonalPlot seasonalPlot,
-			SeasonalPlotReservation.PayMethod payMethod) {
-
+			Integer payMethod) {
+		/*
 		// seasonal Plots are offered from April to October
 		// the reservation will start on the next possible date
 		var inApril = LocalDateTime.now().withMonth(4).withDayOfMonth(1);
@@ -81,8 +81,18 @@ public class SeasonalPlotCatalogController {
 			inApril = LocalDateTime.now();
 		}
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
+		*/
+		var inApril = businessTime.getTime().withMonth(4).withDayOfMonth(1);
+		int monthNow = businessTime.getTime().getMonthValue();
+		// take next year if the season is over
+		if (monthNow >= 10) {
+			inApril = inApril.plusYears(1);
+		} else if (monthNow > 4)  {
+			inApril = businessTime.getTime();
+		}
+		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(userAccount, seasonalPlot,
-		inApril, inOctober, payMethod);
+		inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 		reservationRepository.save(reservation);
 		
 
@@ -92,25 +102,23 @@ public class SeasonalPlotCatalogController {
 	@GetMapping("/seasonalorders")
 	String orders(Model model, @LoggedIn UserAccount user) {
 		var userReservations = reservationRepository.findByUserId(user.getId());
-		for(SeasonalPlotReservation reservation : userReservations) {
-			reservation.setNextYear(reservation.isNextYear());
-		}
 		model.addAttribute("ordersCompleted", userReservations);
 		return "servings/orders";
 	}
 
-	/*
-	@PostMapping("/seasonalplotnavaible")
-	String nextYearAvaible(Model model, @LoggedIn UserAccount user) {
+	@PostMapping("/updateseasonalplot/{plot}")
+	String updateSeasonalPlot(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlotReservation seasonalplotreservation) {
 		var userReservations = reservationRepository.findByUserId(user.getId());
 		for(SeasonalPlotReservation reservation : userReservations) {
-			if(!reservation.isNextYearAvaible()) {
-				userReservations.remove(reservation);
+			if(reservation.getId() == seasonalplotreservation.getId()) {
+				var inApril = SeasonalPlot.getArrival(businessTime.getTime());
+				var inOctober = inApril.withMonth(10).withDayOfMonth(31);
+				reservation.setBegin(inApril);
+				reservation.setEnd(inOctober);
 			}
 		}
-		model.addAttribute("nextYearAvaiblePlot", userReservations);
 		return "redirect:/seasonalplotcatalog";
-	}*/
+	}
 
 	@GetMapping("/forward/{days}")
 	String forwardTime(Model model,  @PathVariable("days") int days) {

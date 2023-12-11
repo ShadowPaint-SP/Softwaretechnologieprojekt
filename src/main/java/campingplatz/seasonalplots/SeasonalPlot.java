@@ -47,7 +47,7 @@ public class SeasonalPlot extends Plot {
 		return Config.getWaterCosts().multiply(water);
 	}
 
-	public LocalDateTime getArrival(LocalDateTime now) {
+	public static LocalDateTime getArrival(LocalDateTime now) {
 		// at the first day of next month
 		LocalDateTime arrival = now.plusMonths(1).withDayOfMonth(1);
 

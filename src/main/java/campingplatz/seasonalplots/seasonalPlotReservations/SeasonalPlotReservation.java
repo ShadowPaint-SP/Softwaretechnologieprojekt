@@ -10,17 +10,15 @@ import lombok.Setter;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.money.MonetaryAmount;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import org.salespointframework.time.BusinessTime;
 
 @Entity
 public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
 	private PayMethod payMethod;
-
-	@Getter
-	@Setter
-	private boolean nextYear;
 
 	public SeasonalPlotReservation() {
 		super();
@@ -30,7 +28,6 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 			PayMethod payMethod) {
 		super(user, product, begin, end);
 		this.payMethod = payMethod;
-		this.nextYear = false;
 	}
 
 	@Override
@@ -46,12 +43,11 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 		return getPrice().add(getProduct().settlementElectricity(electricity).add(getProduct().settlementWater(water)));
 	}
 
-	public boolean isNextYearAvaible() {
-		if(LocalDateTime.now().isAfter(getEnd())){
-			return true;
-		}
-		return false;
+	public boolean isNextYearAvaible(LocalDateTime date) {
+		/*return LocalDateTime.now().isAfter(getEnd());*/
+		return date.isAfter(getEnd());
 	}
+
 	public enum PayMethod {
 		MONTHLY, YEARLY;
 
