@@ -1,38 +1,52 @@
 package campingplatz.equip;
 
 import campingplatz.equip.sportsItemReservations.SportItemCart;
-import campingplatz.plots.Plot;
-import campingplatz.plots.PlotCatalog;
-import campingplatz.plots.plotReservations.PlotCart;
+import campingplatz.equip.sportsItemReservations.SportItemReservationRepository;
+import campingplatz.reservation.ReservationEntry;
+import jakarta.validation.Valid;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.web.LoggedIn;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.salespointframework.core.Currencies.EURO;
 
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes("SportItemCart")
 public class SportItemCatalogController {
 
 	private SportItemCatalog itemCatalog;
 
-	SportItemCatalogController(SportItemCatalog itemCatalog) {
+	private SportItemReservationRepository reservationRepository;
+
+	SportItemCatalogController(SportItemCatalog itemCatalog, SportItemReservationRepository reservationRepository) {
 		this.itemCatalog = itemCatalog;
+		this.reservationRepository = reservationRepository;
 	}
 
-	//TODO remove
-	@ModelAttribute("cart") // quick fix for tests
-	PlotCart initializeCart() {
-		return new PlotCart();
+	@ModelAttribute("SportItemCart")
+	SportItemCart initializeCart() {
+		return new SportItemCart();
 	}
 
-	@GetMapping("/sportequipmentcatalog")
+
+
+	@GetMapping("/sportitemcatalog")
 	String setupCatalog(Model model) {
 		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
 
@@ -41,91 +55,76 @@ public class SportItemCatalogController {
 		return "servings/sportequipmentcatalog";
 	}
 
-	@GetMapping("/management/sportsequipment")
-	@PreAuthorize("hasRole('BOSS')")
-	public String setup(Model model) {
+	@GetMapping("/sportitem/{sportItem}")
+	public String showSportItemDetails(Model model, @LoggedIn Optional<UserAccount> user,
+									   @Valid SiteState state, @PathVariable SportItem sportItem,
+									   @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
-		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
-
-		model.addAttribute("items", listo);
-		// model.addAttribute("first", listo.get(0));
-		model.addAttribute("cate", listo.get(0).getCategories().stream().toList().get(0));
-
-		return "dashboards/sportsequipment_management";
-	}
-
-	@GetMapping("/item/{id}")
-	public String showSportItemDetails(@PathVariable Product.ProductIdentifier id, Model model) {
-		Optional<SportItem> sportItemOptional = itemCatalog.findById(id);
-
-		if (sportItemOptional.isPresent()) {
-			SportItem sportItem = sportItemOptional.get();
-			model.addAttribute("item", sportItem);
-			return "servings/sportitemdetails";
-		} else {
-
-			return "servings/sportequipmentcatalog";
+		var currentDay = state.getDefaultedDay();
+		var opening = currentDay.atStartOfDay().plusHours(9);
+		var closing = currentDay.atStartOfDay().plusHours(17);
+		var formatedTimes = new ArrayList<String>();
+		for (var curr = opening; !curr.isAfter(closing); curr = curr.plusHours(1)) {
+			formatedTimes.add(curr.format(DateTimeFormatter.ofPattern("H.mm")));
 		}
+
+		var reservations = reservationRepository.findReservationsBetween(opening, closing);
+
+
+		var availabilityTable = new SportItemAvailabilityTable(opening, closing, sportItem)
+			.addMaxAmount(sportItem.getAmount())
+			.addReservations(user, reservations)
+			.addSelections(reservationCart);
+
+
+		model.addAttribute("item", sportItem);
+		model.addAttribute("times", formatedTimes);
+		model.addAttribute("state", state);
+		model.addAttribute("availabilityTable", availabilityTable);
+		return "servings/sportitemdetails";
+
 	}
 
-	@PostMapping("/addSportItem")
-	@PreAuthorize("hasRole('BOSS')")
-	public String addSportItem(@RequestParam String name,
-			@RequestParam double price,
-			@RequestParam double deposit,
-			@RequestParam int amount,
-			@RequestParam String category,
-			@RequestParam String imagePath,
-			@RequestParam String desc) {
 
-		SportItem item = itemCatalog.findByName(name).stream().findFirst().orElse(null);
-		if (item == null) {
-			itemCatalog.save(new SportItem(name,
-					Money.of(price, EURO),
-					Money.of(deposit, EURO),
-					category, amount,
-					imagePath,
-					desc));
-		} else {
-			item.setName(name);
-			item.setPrice(Money.of(price, EURO));
-			item.setDeposit(Money.of(deposit, EURO));
-			item.addCategory(category); // das ist noch nicht so gut.
-			item.setAmount(amount);
-			item.setImagePath(imagePath);
-			item.setDesc(desc);
-			itemCatalog.save(item);
-		}
-		return "redirect:/management/sportsequipment";
+	@PostMapping("/sportitem/{sportItem}")
+	public String updateSportItemDetails(Model model, @LoggedIn Optional<UserAccount> user,
+										 @Valid SiteState state, @PathVariable SportItem sportItem,
+										 @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
+
+		return showSportItemDetails(model, user, state, sportItem, reservationCart);
 	}
 
-	@PostMapping("/changeSportItemAmount")
-	@PreAuthorize("hasRole('BOSS')")
-	public String changeSportItemAmount(@RequestParam int amountItem,
-			@RequestParam(required = false) Product.ProductIdentifier equip_id) {
+	interface SiteState {
 
-		if (equip_id != null) {
-			SportItem item = itemCatalog.findById(equip_id).stream().findFirst().orElse(null);
+		@DateTimeFormat(pattern = "yyyy-MM-dd")
+		LocalDate getDay();
 
-			if (item != null) {
-				item.setAmount(amountItem);
-				itemCatalog.save(item);
+		@DateTimeFormat(pattern = "yyyy-MM-dd")
+		default LocalDate getDefaultedDay() {
+			if (getDay() == null) {
+				return LocalDate.now();
 			}
+			return getDay();
 		}
-		return "redirect:/management/sportsequipment";
 
 	}
 
-	@PostMapping("/deleteSportItem")
-	@PreAuthorize("hasRole('BOSS')")
-	public String deleteSportItem(@RequestParam String itemName,
-			@RequestParam(required = false) Product.ProductIdentifier id) {
-		SportItem item = itemCatalog.findByName(itemName).stream().findFirst().orElse(null);
-		if (item != null && item.getId() != null) {
-			itemCatalog.deleteById(item.getId());
+	@PostMapping("/sportitem/select/{sportitem}/{index}")
+	@PreAuthorize("isAuthenticated()")
+	String addReservationDay(Model model, @LoggedIn UserAccount user, @Valid SiteState state,
+							 @PathVariable("sportitem") SportItem sportItem, @PathVariable("index") Integer index,
+							 @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
+
+		var currentDay = state.getDefaultedDay();
+		var time = currentDay.atStartOfDay().plusHours(9 + index);
+		var reservation = new ReservationEntry<SportItem>(sportItem, time);
+
+		if (!reservationCart.contains(reservation)) {
+			reservationCart.add(reservation);
+		} else {
+			reservationCart.remove(reservation);
 		}
-		return "redirect:/management/sportsequipment";
 
+		return showSportItemDetails(model, Optional.ofNullable(user), state, sportItem, reservationCart);
 	}
-
 }

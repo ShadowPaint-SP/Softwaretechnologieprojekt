@@ -7,26 +7,25 @@ skinparam BackgroundColor #FEFEFE
 allowmixing
 skinparam packageStyle Frame
 
+class campingplatz.utils.DetailedProduct
+class org.salespointframework.core.DataInitializer
 interface org.salespointframework.catalog.Catalog<T extends Product>
 
-class java.util.HashMap<K, V>
+class campingplatz.reservation.Cart<T extends Product, U extends Reservation<T>>
+class campingplatz.reservation.Reservation<T extends Product>
+interface campingplatz.reservation.ReservationRepository<T extends Product, U extends Reservation<T>>
 
-package campingplatz{
-    class utils.DetailedProduct
-    class utils.Cart
-    package reservation
-}
-'class campingplatz.utils.DetailedProduct
-
-package jakarta
-
-package org{
-    package springframework
-    package salespointframework
-    interface salespointframework.core.DataInitializer
-}
 
 package campingplatz.plots {
+    package plotReservations{
+        class PlotCart{
+        }
+        class PlotReservation<<Entity>>{
+        +PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure)
+        +getIntervalUnit(): ChronoUnit
+        }
+        interface PlotReservationRepository
+    }
     class Config{
     -{static} electricityCosts = 0.29: double
     -{static} waterCosts = 2.59: double
@@ -35,7 +34,7 @@ package campingplatz.plots {
     +{static}getWaterCosts(): double
     +{static}setWaterCosts(double waterCosts): void
     }
-    class Plot{
+    class Plot<<Entity>>{
     -size: Double
     -parking: ParkingLot
     +Plot(name: String, size: Double, price: Money, parking: ParkingLot)
@@ -98,7 +97,7 @@ package campingplatz.plots {
     +getAmount(): Integer
     +setAmount(Integer value): void
     }
-    class PlotCatalogController{
+    class PlotCatalogController<<Controller>>{
     +plotCatalog: PlotCatalog
     +reservationRepository: ReservationRepository<Plot>
     +PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository<Plot> reservationRepository)
@@ -111,7 +110,7 @@ package campingplatz.plots {
     +addReservationDay(Model model, UserAccount user, PlotCatalog.SiteState query, Plot plot, Cart<Plot> reservationCart): String
     +plots(Model model): String
     }
-    class PlotCatalogDataInitializer{
+    class PlotCatalogDataInitializer<<Component>>{
     -plotCatalog PlotCatalog
     +PlotCatalogDataInitializer(PlotCatalog plotCatalog)
     +initialize(): void
@@ -136,40 +135,56 @@ package campingplatz.plots {
     MONTHLY
     SEASONAL
     }
+    class PlotDashboardController<<Controller>>{
+    +plotCatalog: PlotCatalog
+    +PlotDashboardController(PlotCatalog plotCatalog)
+    +plots(Model model): String
+    +changePlotDetails(Model model, PlotInformation info): String
+    +createPlot(Model model, PlotInformation info): String
+    +deletePlot(Model model, PlotInformation info): String
+    }
+    interface PlotInformation{
+    +getPlotID(): Product.ProductIdentifier
+    +getName(): String
+    +getSize(): Double
+    +getParkingValue(): Integer
+    +getPrice(): Double
+    +getDescription(): String
+    +getPicture(): String
+    }
 }
 
 Plot --|> DetailedProduct
 ParkingLot --+ Plot
-Plot ..> jakarta: <<use>>
 
 PlotCatalog --|> Catalog: <<bind T->Plot>>
 SiteState --+ PlotCatalog
 
-PlotCatalogAvailabilityTable --|> HashMap: <<bind K, V->Plot, PlotCatalogAvailabilityTable.FieldType[]>>
 FieldType --+ PlotCatalogAvailabilityTable
 Fields --+ PlotCatalogAvailabilityTable
-PlotCatalogAvailabilityTable ..> reservation: <<use>>
-PlotCatalogAvailabilityTable ..> Cart: <<use>>
 
-PlotCatalogController ..> reservation
 
-PlotCatalogDataInitializer ..|> DataInitializer
+PlotCatalogDataInitializer --|> DataInitializer
 
 SeasonalPlots --|> Plot
 
 PaymentMethod --+ SeasonalPlots
-'layout tests
-PlotCatalogDataInitializer ..> springframework: <<use>>
-PlotCatalogController .. (PlotCatalogDataInitializer, springframework)
-PlotCatalog .. (PlotCatalogDataInitializer, springframework)
-'PlotCatalogController ..> springframework: <<use>>
-'PlotCatalog ..> springframework: <<use>>
 
-PlotCatalogController ..> salespointframework: <<use>>
-PlotCatalogAvailabilityTable .. (PlotCatalogController, salespointframework)
-PlotCatalog .. (PlotCatalogController, salespointframework)
-'PlotCatalogAvailabilityTable ..> salespointframework: <<use>>
-'PlotCatalog ..> salespointframework: <<use>>
+Cart -[hidden]d- Reservation
+Reservation -[hidden]u- ReservationRepository
+
+PlotCart -[hidden]d- PlotReservation
+PlotReservation -[hidden]u- PlotReservationRepository
+
+PlotCart --|> Cart: <<bind T->Plot, U->PlotReservation>>
+PlotReservation --|> Reservation
+PlotReservationRepository --|> ReservationRepository: <<bind T->Plot, U->PlotReservation>>
+
+PlotCatalogController ..> PlotCatalogAvailabilityTable: <<use>>
+
+PlotInformation --+ PlotDashboardController
+PlotDashboardController ..> PlotCatalog: <<use>>
+PlotCatalogController ..> PlotCatalog: <<use>>
 
 
 @enduml

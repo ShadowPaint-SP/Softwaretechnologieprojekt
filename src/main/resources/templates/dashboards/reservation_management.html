@@ -5,47 +5,59 @@
 
 <body>
 	<main layout:fragment="input">
-		<div class="overflow-x-auto">
-			<table class="table table-zebra">
-				<!-- head -->
-				<thead>
-					<tr>
-						<th></th>
-						<th th:text="#{reservation.status}"></th>
-						<th th:text="#{user.firstName}"></th>
-						<th th:text="#{user.lastName}"></th>
-						<th th:text="#{terms.plot}"></th>
-						<th th:text="#{reservation.plot.begin}"></th>
-						<th th:text="#{reservation.plot.end}"></th>
-						<th th:text="#{reservation.price}"></th>
-					</tr>
-				</thead>
-				<tbody>
+		<form method="post" action="/management/reservation/updateReservation">
+			<div th:fragment="orders(reservations)" class="overflow-x-auto">
 
-					<!-- row 2 -->
-					<tr th:each="reservation, iStat : ${reservations}" class="hover">
-						<th th:text="${iStat.count}"></th>
-						<td>
-							<form method="post" action="/management/reservation/updateReservation">
+				<table class="table table-zebra">
+					<!-- head -->
+					<thead>
+						<tr>
+							<th></th>
+							<th th:text="#{reservation.status}"></th>
+							<th th:text="#{user.firstName}"></th>
+							<th th:text="#{user.lastName}"></th>
+							<th th:text="#{terms.plot}"></th>
+							<th th:text="#{reservation.plot.begin}"></th>
+							<th th:text="#{reservation.plot.end}"></th>
+							<th th:text="#{reservation.price}"></th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<!-- row 2 -->
+						<tr th:each="reservation, iStat : ${reservations}" class="hover">
+							<th th:text="${iStat.count}"></th>
+							<td>
 								<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
-								<select onchange="this.form.submit()" name="stateValue" class="select select-bordered select-xs w-full max-w-xs">
-									<option value="0" th:selected="${reservation.state.value == 0}" th:text="#{reservation.status.not_taken}"> </option>
-									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}"> </option>
-									<option value="2" th:selected="${reservation.state.value == 2}" th:text="#{reservation.status.payed}"> </option>
-								</select>
-							</form>
-						</td>
-						<td th:text="${reservation.user.firstname}"></td>
-						<td th:text="${reservation.user.lastname}"></td>
-						<td th:text="${reservation.product.name}"></td>
-						<td th:text="${reservation.begin}"></td>
-						<td th:text="${reservation.end}"></td>
-						<td th:text="${reservation.price}"></td>
-					</tr>
+								<select onchange="this.form.submit()" name="stateValue"
+									class="select select-bordered select-xs w-full max-w-xs">
+									<option value="0" th:selected="${reservation.state.value == 0}"
+									th:text="#{reservation.status.not_taken}"></option>
+									<option value="1" th:selected="${reservation.state.value == 1}"
+										th:text="#{reservation.status.taken}"> </option>
+                                    <option value="2" th:selected="${reservation.state.value == 2}"
+                                            th:text="#{reservation.status.payed}"> </option>
+									</select>
+								</td>
+								<td th:text="${reservation.user.firstname}"></td>
+							<td th:text="${reservation.user.lastname}"></td>
+							<td th:text="${reservation.product.name}"></td>
+							<td th:text="${reservation.begin}"></td>
+							<td th:text="${reservation.end}"></td>
+							<td th:text="${reservation.price}"></td>
+						</tr>
 
-				</tbody>
-			</table>
-		</div>
+					</tbody>
+				</table>
+			</div>
+		</form>
+
+		<br>
+		<p th:text="#{nav.seasonalplotcatalog}"></p>
+
+		<form method="post" action="/management/reservation/updateSeasonalReservation">
+		<div th:replace="~{dashboards/reservation_management :: orders(reservations=${seasonalreservations})}"></div>
+		</form>
 	</main>
 </body>
 

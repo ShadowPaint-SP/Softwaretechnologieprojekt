@@ -44,7 +44,8 @@ public class PlotDashboardController {
 			plot.setPrice(Money.of(info.getPrice(), EURO));
 			plot.setImagePath(info.getPicture());
 			plot.setDesc(info.getDescription());
-
+			plot.setState(Plot.State.fromNumber(info.getState()));
+			
 			// dont forget to save
 			plotCatalog.save(plot);
 
@@ -107,5 +108,7 @@ public class PlotDashboardController {
 		String getDescription();
 
 		String getPicture();
+
+		Integer getState();
 	}
 }

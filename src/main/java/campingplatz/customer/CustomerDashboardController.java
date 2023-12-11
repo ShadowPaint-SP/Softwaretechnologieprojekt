@@ -15,7 +15,7 @@ import java.util.UUID;
  * DashboardController
  */
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes("plotCart")
 public class CustomerDashboardController {
 
 	CustomerManagement customerManagement;

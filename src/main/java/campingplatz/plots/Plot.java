@@ -1,10 +1,13 @@
 package campingplatz.plots;
 
 import campingplatz.utils.DetailedProduct;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
+
+import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -14,6 +17,15 @@ public class Plot extends DetailedProduct {
     private Double size; // in square meters
 
     private ParkingLot parking;
+
+    @Getter
+    @Setter
+    private State state = State.OPERATIONAL;
+
+    @Getter
+    @Setter
+    @OneToMany
+    private List<Issue> issueList;
 
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
 
@@ -67,6 +79,30 @@ public class Plot extends DetailedProduct {
 
         }
 
+    }
+
+    public enum State {
+        OPERATIONAL(0,"state.ok"),
+        DEFECTIVE(1,"state.broke"),
+        DELETED(2,"state.deleted");
+
+        public final Integer index;
+        public final String label;
+
+        State(Integer index, String label) {
+            this.index = index;
+            this.label = label;
+        }
+
+        public static State fromNumber(Integer i) {
+            return switch (i) {
+                case 0 -> OPERATIONAL;
+                case 1 -> DEFECTIVE;
+                case 2 -> DELETED;
+                default -> OPERATIONAL;
+            };
+
+        }
     }
 
 }

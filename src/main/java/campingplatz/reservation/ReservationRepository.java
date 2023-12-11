@@ -32,7 +32,7 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
     @Query("""
             select distinct r.product from #{#entityName} r
             """)
-    Set<U> findPlotsAll();
+    Set<T> findPlotsAll();
 
     /**
      * Database query to return a List of reservations, that are

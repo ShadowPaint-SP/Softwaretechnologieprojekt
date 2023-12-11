@@ -18,6 +18,8 @@ Müller, Jannes +
 Voigtmann, Richard  +
 Fiedler, Tom +
 Drumeva, Irina
+|1.1      | 10.12.2023   | Fiedler, Tom
+
 |===
 
 = Entwicklerdokumentation
@@ -99,7 +101,6 @@ Notwendige Hardware um die Applikation zu nutzen.
 - Computer
 * Tastatur
 * Maus
-- alternativ ein handy
 
 === Software-Vorgaben
 Notwendige Software um die Applikation zu nutzen.
@@ -112,7 +113,7 @@ Notwendige Software um die Applikation zu nutzen.
 
 == Kontextabgrenzung
 [[context_diagram]]
-image::./models/analysis/context.png[context diagram, 100%, 100%, pdfwidth=100%, title= "Kontextdiagramm des {project_name} in UML", align=center]
+image::./models/design/contextdiagram.svg[context diagram, 100%, 100%, pdfwidth=100%, title= "Kontextdiagramm des {project_name} in UML", align=center]
 
 == Lösungsstrategie
 === Erfüllung der Qualitätsziele
@@ -120,24 +121,23 @@ image::./models/analysis/context.png[context diagram, 100%, 100%, pdfwidth=100%,
 |=== 
 |Qualitätsziel |Lösungsansatz
 |Wartbarkeit  a|
-- **Modularität:** Der Aufbau der Anwendung sollte aus Komponenten bestehen, welche bei änderungen geringe/keine Auswirkungen auf andere Komponenten aufweisen.
-- **Modifizierbarkeit:** Stellt sicher, dass die Anwendung ohne probleme zu verursachen erweitert oder modifiziert werden kann.
+- **Modularität:** Der Aufbau der Anwendung sollte aus Komponenten bestehen, welche bei Änderungen geringe/keine Auswirkungen auf andere Komponenten aufweisen.
+- **Modifizierbarkeit:** Stellt sicher, dass die Anwendung ohne Probleme zu verursachen erweitert oder modifiziert werden kann.
 - **Wiederverwendbarkeit:** Stellt sicher, dass Komponenten des Systems in anderen Komponenten wieder verwendet werden können.
 |Nutzbarkeit  a|
 - **Lernbarkeit:** Stellt sicher, dass das System leicht zu verstehen/benutzen ist.
-- **Error handeling:** Schützt Nutzer davor fehler zu machen. Nicht valide eingaben dürfen nicht zu nicht validen Zuständen des systems führen.
-- **Schönes Nutzer Interface:** Stellt eine schönes und befriedigendes interaktionsmöglichkeit zwischen dem System und dem Nutzer bereit. 
-- **Barrierefreiheit:** Stellt sicher, dass Menschen mit einer großen bandbreite an charakteristiken die vollen funktionen des Systems nutzen können. 
+- **Error handeling:** Schützt Nutzer davor Fehler zu machen. Nicht valide Eingaben dürfen nicht zu nicht validen Zuständen des Systems führen.
+- **Schönes Nutzer Interface:** Stellt eine schönes und befriedigendes Interaktionsmöglichkeit zwischen dem System und dem Nutzer bereit.
+- **Barrierefreiheit:** Stellt sicher, dass Menschen mit einer großen Bandbreite an Charakteristiken die vollen Funktionen des Systems nutzen können.
 |Sicherheit   a|
-- **Vertraulichkeit:** Stellt sicher, dass auf daten nur von berechtigen Personen zugegriffen werden kann.
-- **Integrität:** Verhindert unbefugtes modifizieren von daten.
+- **Vertraulichkeit:** Stellt sicher, dass auf Daten nur von berechtigen Personen zugegriffen werden kann.
+- **Integrität:** Verhindert unbefugtes modifizieren von Daten.
 - **Verantwortlichkeit:** Nachverfolgbarkeit von Handlungen oder Ereignissen zu einer eindeutigen Person.
 |===
 
 
 === Softwarearchitektur
-image::./models/design/Container_diagram_in_C4_notation.png[Container Diagramm in C4 Notation, 100%, 100%, pdfwidth=100%, title= "Container Diagramm in C4 Notation (Level 2: Container)", align=center]
-image::./models/design/TLA_in_C4.png[Container Diagramm in C4 Notation, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture of the Web Application in C4 notation (Level 3: Component)", align=center]
+image::./models/design/TLA_in_C4.png[Container Diagramm in C4 Notation, 100%, 100%, pdfwidth=100%, title= "Top Level Architecture des Campingplatzes in C4 Notation (Level 3: Component)", align=center]
 
 === Entwurfsentscheidungen
 ==== Verwendete Muster
@@ -165,7 +165,7 @@ image::./models/design/Dialog_Map.png[Dialog Map für den Campingplatz, 100%, 10
 - campingplatz +
 - campingplatz.customer +
 - campingplatz.reservation
-|Sicherheitsmerkmale für die Campingplatz Anwendung und Authorisierung für Website zugriff
+|Sicherheitsmerkmale für die Campingplatzanwendung und Authorisierung für Website zugriff
 |org.springframework.web a|
 - campingplatz +
 - campingplatz.customer +
@@ -179,7 +179,7 @@ image::./models/design/Dialog_Map.png[Dialog Map für den Campingplatz, 100%, 10
 - campingplatz.equip +
 - campingplatz.plots +
 - campingplatz.reservation
-|JPA verbindungsdienst zur Datenbankebene
+|JPA Verbindungsdienst zur Datenbankebene
 |org.salespointframework a|
 - campingplatz +
 - campingplatz.customer +
@@ -193,19 +193,15 @@ image::./models/design/Dialog_Map.png[Dialog Map für den Campingplatz, 100%, 10
 == Bausteinsicht 
 === Package-Diagramm
 
-image::./models/design/PackageDiagramm.png[Package Diagramm, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/PackageDiagramm.svg[Package Diagramm, 100%, 100%, pdfwidth=100%, align=center]
 
 === Entwurfsklassendiagramme der einzelnen Packages
 ==== Campingplatz
-image::./models/design/EKD_Campingplatz.png[Entwurfsklassendiagramm Campingplatz, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_campingplatz.svg[Entwurfsklassendiagramm Campingplatz, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
-|=== 
-|Klasse/Enumeration |Description
-|... |...
-|===
 
 ==== Customer
-image::./models/design/EKD_Customer.png[Entwurfsklassendiagramm Customer, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Customer.svg[Entwurfsklassendiagramm Customer, 100%, 100%, pdfwidth=100%, align=center]
 ////
 image::./projektbezogenen_dateien/images/package-campingplatz.customer2.png[class design diagram - customer,100%, 100%, pdfwidth=100%, align=center]
 image::./projektbezogene_dateien/images/package-campingplatz.customer.png[]
@@ -213,56 +209,62 @@ image::./projektbezogene_dateien/images/package-campingplatz.customer.png[]
 [options="header"]
 |=== 
 |Klasse/Enumeration |Beschreibung
-|Customer|Benutzerdefinierte Klasse zur Erweiterung des Salespoint-UserAccount mit einer Adresse und der Eigenschaft Dauercamper
+|Customer|Benutzerdefinierte Klasse zur Erweiterung des Salespoint-UserAccount
 |CustomerController|Ein Spring MVC Controller zur Bearbeitung von Anfragen zur Registrierung und Anzeige von Kunden
 |CustomerDataInitializer|Eine Implementierung des DataInitializer zur Erstellung von Dummy-Kunden beim Start der Anwendung
 |CustomerManagement|Serviceklasse zur Verwaltung von Kunden
 |CustomerRepository|Eine Repository-Schnittstelle zur Verwaltung von Kundeninstanzen
 |RegistrationFrom|Eine Klasse zum Sammeln und Validieren der Benutzereingaben des Registrierungsformulars
+|CustomerDashboardController| Dieser Controller verwaltet Dashboardfunktionen, welche mit Kunden zutun haben
 |===
 
 ==== Equip
-image::./models/design/EKD_Equip.png[Entwurfsklassendiagramm Equip, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Equip.svg[Entwurfsklassendiagramm Equip, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
 |=== 
-|Klasse/Enumeration |Description
-|... |...
+|Klasse/Enumeration |Beschreibung
+|SportItem | Repräsentiert eine Menge eines bestimmten Gerätes
 |===
 
 ==== Plots
-image::./models/design/EKD_Plots.png[Entwurfsklassendiagramm Plots, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Plots.svg[Entwurfsklassendiagramm Plots, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
 |=== 
-|Klasse/Enumeration |Description
-|... |...
+
 |===
 
 ==== Reservation
-image::./models/design/EKD_Reservation.png[Entwurfsklassendiagramm Reservation, 100%, 100%, pdfwidth=100%, align=center]
+image::./models/design/EKD_Reservation.svg[Entwurfsklassendiagramm Reservation, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
 |=== 
-|Klasse/Enumeration |Description
-|... |...
+
 |===
 
-=== Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
-_Die folgende Tabelle zeigt die Rückverfolgbarkeit zwischen Entwurfs- und Analysemodell._
+//=== Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
+//_Die folgende Tabelle zeigt die Rückverfolgbarkeit zwischen Entwurfs- und Analysemodell._
 
-[options="header"]
-|===
-|Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell)
-|... |...
-|===
+//[options="header"]
+//|===
+//|Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell)
+//|... |...
+//|===
 
 == Laufzeitsicht
-=== Customer
-image::./models/design/SQD_Customer.png[Sequenzdiagramms Customer, 100%, 100%, pdfwidth=100%, align=center]
+//=== Customer
+//image::./models/design/SQD_Customer.png[Sequenzdiagramms Customer, 100%, 100%, pdfwidth=100%, align=center]
 
-=== Equip
-image::./models/design/SQD_Equip.png[Sequenzdiagramms Equip, 100%, 100%, pdfwidth=100%, align=center]
+//=== Equip
+//::./models/design/SQD_Equip.png[Sequenzdiagramms Equip, 100%, 100%, pdfwidth=100%, align=center]
 
 === Plots
 image::./models/design/SQD_Plots.png[Sequenzdiagramms Plots, 100%, 100%, pdfwidth=100%, align=center]
 
 === Reservation
 image::./models/design/SQD_Reservation.png[Sequenzdiagramms Reservation, 100%, 100%, pdfwidth=100%, align=center]
+
+== Konzeptänderungen
+Konzeptänderungen seit dem Erstellen des Pflichtenhefts +
+
+=== Plätze Inventar [F0100]
+Plätze werden in einem Katalog statt einem Inventar gespeichert.
+

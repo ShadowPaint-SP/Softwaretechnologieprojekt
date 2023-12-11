@@ -3,6 +3,8 @@ package campingplatz.plots.plotReservations;
 import campingplatz.accounting.PlotReservationAccountancyEntry;
 import campingplatz.accounting.PlotReservationDeductionEntry;
 import campingplatz.reservation.Reservation;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 import jakarta.validation.Valid;
 import org.salespointframework.accountancy.Accountancy;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,22 +18,29 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes("plotCart")
 public class PlotReservationDashboardController {
 
 	PlotReservationRepository plotReservations;
 	Accountancy accountancy;
+	SeasonalPlotReservationRepository seasonalPlotReservations;
 
-	PlotReservationDashboardController(PlotReservationRepository plotReservations, Accountancy accountancy) {
+	PlotReservationDashboardController(PlotReservationRepository plotReservations,
+		SeasonalPlotReservationRepository seasonalPlotReservations,
+		Accountancy accountancy) {
 		this.plotReservations = plotReservations;
 		this.accountancy = accountancy;
+		this.seasonalPlotReservations = seasonalPlotReservations;
 	}
 
 	@GetMapping("/management/reservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String reservations(Model model) {
 		List<PlotReservation> all = plotReservations.findAll();
+		List<SeasonalPlotReservation> allS = seasonalPlotReservations.findAll();
+
 		model.addAttribute("reservations", all);
+		model.addAttribute("seasonalreservations", allS);
 		return "dashboards/reservation_management";
 	}
 

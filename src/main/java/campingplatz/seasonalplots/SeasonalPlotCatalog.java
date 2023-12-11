@@ -4,6 +4,8 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Catalog;
 import org.springframework.stereotype.Repository;
 
+import campingplatz.plots.Plot;
+
 import java.util.List;
 
 import static org.salespointframework.core.Currencies.EURO;
@@ -14,6 +16,11 @@ public interface SeasonalPlotCatalog extends Catalog<SeasonalPlot> {
 	default List<SeasonalPlot> seasonalFilter(SeasonalSiteState query) {
 		return findAll().filter(seasonalPlot -> {
 			boolean isMatch = true;
+
+			//only show operational plots
+			if (seasonalPlot.getState() != Plot.State.OPERATIONAL){
+				isMatch = false;
+			}
 
 			var priceMin = query.getPriceMin();
 			if (priceMin != null && seasonalPlot.getPrice().isLessThan(Money.of(priceMin, EURO))) {

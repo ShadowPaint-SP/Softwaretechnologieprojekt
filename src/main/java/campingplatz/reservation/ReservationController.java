@@ -1,6 +1,10 @@
 package campingplatz.reservation;
 
-import campingplatz.plots.Plot;
+import campingplatz.equip.SportItem;
+import campingplatz.equip.SportItemCatalog;
+import campingplatz.equip.sportsItemReservations.SportItemCart;
+import campingplatz.equip.sportsItemReservations.SportItemReservation;
+import campingplatz.equip.sportsItemReservations.SportItemReservationRepository;
 import campingplatz.plots.plotReservations.PlotCart;
 import campingplatz.plots.plotReservations.PlotReservation;
 import campingplatz.plots.plotReservations.PlotReservationRepository;
@@ -11,54 +15,83 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes("cart")
+@SessionAttributes({"plotCart", "SportItemCart"})
 @EnableScheduling
 class ReservationController {
 
-    private final PlotReservationRepository reservationRepository;
+    private final PlotReservationRepository plotReservationRepository;
+	private final SportItemReservationRepository sportItemReservationRepository;
+	private SportItemCatalog itemCatalog;
 
-    ReservationController(PlotReservationRepository reservationRepository) {
+    ReservationController(PlotReservationRepository plotReservationRepository,
+						  SportItemReservationRepository sportItemReservationRepository, SportItemCatalog itemCatalog) {
 
-        this.reservationRepository = reservationRepository;
-    }
+        this.plotReservationRepository = plotReservationRepository;
+		this.sportItemReservationRepository = sportItemReservationRepository;
+		this.itemCatalog = itemCatalog;
+	}
 
-    @ModelAttribute("cart")
+
+
+    @ModelAttribute("plotCart")
 	PlotCart initializeCart() {
         return new PlotCart();
     }
 
+	@ModelAttribute("SportItemCart")
+	SportItemCart initializeSportCart() {
+		return new SportItemCart();
+	}
+
+
+
+
     @GetMapping("/cart")
-    String cart(Model model, @LoggedIn UserAccount userAccount, @ModelAttribute("cart") PlotCart reservationCart) {
-        var reservations = reservationCart.getReservationsOfUser(userAccount);
-        model.addAttribute("reservations", reservations);
+    String cart(Model model, @LoggedIn UserAccount userAccount,
+				@ModelAttribute("plotCart") PlotCart reservationCart,
+				@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
+
+
+        var plotReservations = reservationCart.getReservationsOfUser(userAccount);
+        model.addAttribute("plotReservations", plotReservations);
+
+		var sportsReservations = sportItemCart.getReservationsOfUser(userAccount);
+		model.addAttribute("sportsReservations", sportsReservations);
+
+
+		var total = reservationCart.getPrice().add(sportItemCart.getPrice());
+		model.addAttribute("total", total);
+
         return "servings/cart";
     }
 
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
-            @ModelAttribute("cart") PlotCart reservationCart) {
+            @ModelAttribute("plotCart") PlotCart reservationCart,
+					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart
+		) {
 
         List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
 
 
 		// TODO: replace with a propper database query. this is slow an terrible
 		for (var reservation : reservations){
-			if (reservationRepository.productIsAvailableIn(
+			if (plotReservationRepository.productIsAvailableIn(
 				reservation.getProduct(),
 				reservation.getBegin(),
 				reservation.getEnd()
 			)){
-				reservationRepository.save(reservation);
+				plotReservationRepository.save(reservation);
 			}
 		}
 
@@ -66,22 +99,36 @@ class ReservationController {
 
         reservationCart.clear();
 
+		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
+		sportItemReservationRepository.saveAll(sportReservations);
+
+
+		sportItemReservationRepository.saveAll(sportReservations);
+		for(SportItemReservation reservation: sportReservations){
+			SportItem sportItem = reservation.getProduct();
+			sportItem.setAmount(sportItem.getAmount()-1);
+			itemCatalog.save(sportItem);
+
+		}
+		sportItemCart.clear();
+
         return "redirect:/";
     }
 
+
     @GetMapping("/orders")
     String orders(Model model, @LoggedIn UserAccount user) {
-        var userReservations = reservationRepository.findByUserId(user.getId());
+        var userReservations = plotReservationRepository.findByUserId(user.getId());
         model.addAttribute("ordersCompleted", userReservations);
         return "servings/orders";
     }
 
 
 
-	// we are scheduling a task to be executed at 10:00 AM on the 15th day of every month.
+	// we are scheduling a task to be executed at 10:00 AM every day of every month.
 	// were we are deleting the reservations older than the current day if they were not taken
 	@Scheduled(cron = "0 00 10 * * ?")
 	public void periodicallyDeleteReservatinos() {
-		reservationRepository.deleteBeforeThan(LocalDateTime.now());
+		plotReservationRepository.deleteBeforeThan(LocalDateTime.now());
 	}
 }

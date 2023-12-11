@@ -6,30 +6,45 @@
 
 <body>
     <main layout:fragment="input">
-        <div class="container mx-auto bg-secondary mt-20 rounded-box p-4">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
             <div class="grid grid-cols-2 gap-2">
-                <div>
-                    <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
+                <div class="m-2">
+                    <form method="post" th:action="'/sportitem/'+${item.id}">
+                        <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
+                        <p th:text="'Preis: '+${{item.price}}"></p>
+                        <p th:text="'Kaution: '+${{item.deposit}}"></p>
+                        <br>
+                        <div>
+                            <table class="table">
+                                <tr>
+                                    <th class="w-[20%] justify-items-center">
+                                       <input type="date" name="day" th:value="${state.defaultedDay}" onchange="this.form.submit()">
+                                    </th>
+                                    <th class="text-center">Verfügbarkeit</th>
+                                </tr>
+                                <tr th:each="time, stat : ${times}">
+                                    <td class="text-center" th:text="${time}">date</td>
 
-                    <p th:text="'Price: '+${{item.price}}"></p>
+                                    <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"
+                                        th:with="fields=${availabilityTable.get(stat.index)}">
+                                        <button th:type="${fields.type.clickability}"
+                                                th:formaction="'/sportitem/select/'+${item.id}+'/'+${fields.index}"
+                                                class="absolute top-0 right-0 bottom-0 left-0 w-full">
+                                            <div th:if="${fields.type.value == 0}">
+                                                <text th:text="${fields.amount} + ' ' + #{${fields.type.label}}"></text>
+                                            </div>
+                                            <div th:if="${fields.type.value != 0}">
+                                                <text th:text="#{${fields.type.label}}"></text>
+                                            </div>
+                                        </button>
+                                    </td>
+                                </tr>
 
-                    <p th:text="'Deposit: '+${{item.deposit}}"></p>
-
-                    <p th:text="'Amount: '+${item.amount}"></p>
-                    <div class="p-4">
-                        <label class="label-text">Start time: </label>
-                        <input type="time" id="startTime" min="10:00" max="22:00"
-                            class="input input-md focus:outline-accent" required />
-                    </div>
-                    <div class="p-4">
-                        <label class="label-text"> End time: </label>
-                        <input type="time" id="endTime" min="10:00" max="22:00"
-                            class="input input-md focus:outline-accent" required />
-                    </div>
-                    <button class="btn btn-primary" type="submit" th:formaction="'/cart/' + ${item.id}"
-                        th:text="#{sport.book}"></button>
+                            </table>
+                        </div>
+                    </form>
                 </div>
-                <div>
+                <div class="rounded-box">
                     <figure>
                         <img th:src="${item.imagePath}" />
                     </figure>
@@ -40,3 +55,38 @@
 </body>
 
 </html>
+
+
+<!--div>
+    <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
+
+    <p th:text="'Price: '+${{item.price}}"></p>
+
+    <p th:text="'Deposit: '+${{item.deposit}}"></p>
+
+    <p th:text="'Amount: '+${item.amount}"></p>
+
+    <form method="get" th:action="@{/cartSportItem}">
+        <input type="hidden" id="id" name="id" th:value="${item.id}"/>
+        <div class="p-4">
+            <label class="label-text">Start time: </label>
+            <input type="datetime-local" id="startTime" name="startTime" min="10:00" max="22:00"
+                   class="input input-md focus:outline-accent" required />
+        </div>
+        <div class="p-4">
+            <label class="label-text"> End time: </label>
+            <input type="datetime-local" id="endTime" name="endTime" min="10:00" max="22:00"
+                   class="input input-md focus:outline-accent" required />
+        </div>
+
+        <button class="btn btn-primary" type="submit" th:text="#{sport.book}">Book</button>
+
+    </form>
+
+                <div>
+                    <figure>
+                        <img th:src="${item.imagePath}" />
+                    </figure>
+                </div>
+
+</div -->

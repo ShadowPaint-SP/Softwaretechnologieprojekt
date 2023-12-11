@@ -51,6 +51,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 
 	}
 
+
 	@AllArgsConstructor
 	public static class Fields {
 		@Getter
@@ -164,6 +165,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 		return this;
 	}
 
+	// currently not used
 	public Map<Plot, List<Fields>> collapse() {
 
 		Map<Plot, List<Fields>> ret = new HashMap<>();

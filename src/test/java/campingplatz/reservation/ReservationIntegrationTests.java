@@ -1,4 +1,4 @@
-package campingplatz;
+package campingplatz.reservation;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -18,7 +18,7 @@ class ReservationIntegrationTests {
 
 	@Autowired
 	MockMvc mvc;
-
+	//generell hat hier nichts mit der Reservierung zu tun.
 	@Test
 	void preventsPublicAccessForCart() throws Exception {
 
@@ -33,7 +33,7 @@ class ReservationIntegrationTests {
 
 		mvc.perform(get("/cart"))
 				.andExpect(status().isOk())
-				.andExpect(model().attributeExists("cart"));
+				.andExpect(model().attributeExists("plotCart"));
 	}
 
 	@Test
@@ -42,16 +42,22 @@ class ReservationIntegrationTests {
 
 		mvc.perform(get("/cart"))
 				.andExpect(status().isOk())
-				.andExpect(model().attributeExists("cart"));
+				.andExpect(model().attributeExists("plotCart"));
 	}
 
 	@Test
-	@WithMockUser(username = "hans", roles = "CUSTOMER")
+	@WithMockUser(username = "hans@mail.de", roles = "CUSTOMER")
 	void executeReservation() throws Exception {
-
+		// hää wo wird hier executed?
 		mvc.perform(get("/plotcatalog"))
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("allPlots"));
+
+	}
+
+	@Test
+	@WithMockUser(username = "hans@mail.de", roles = "CUSTOMER")
+	void TPR01() throws Exception {
 
 	}
 
