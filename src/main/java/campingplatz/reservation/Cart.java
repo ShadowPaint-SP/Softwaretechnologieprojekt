@@ -1,7 +1,5 @@
 package campingplatz.reservation;
 
-import campingplatz.reservation.Reservation;
-import campingplatz.reservation.ReservationEntry;
 import campingplatz.utils.Priced;
 import campingplatz.utils.Utils;
 import one.util.streamex.StreamEx;
@@ -32,7 +30,8 @@ import static org.salespointframework.core.Currencies.EURO;
  * The function getReservations recombines the individual ReservationEntries
  * back into Reservations
  */
-public class Cart<T extends Product, U extends Reservation<T>> extends ArrayList<ReservationEntry<T>> implements Priced {
+public class Cart<T extends Product, U extends Reservation<T>> extends ArrayList<ReservationEntry<T>>
+		implements Priced {
 
 	Class<U> reservationType;
 
@@ -117,7 +116,6 @@ public class Cart<T extends Product, U extends Reservation<T>> extends ArrayList
 
 	@Override
 	public MonetaryAmount getPrice() {
-
 
 		MonetaryAmount acuumulator = Money.of(0, EURO);
 		for (var entry : this) {

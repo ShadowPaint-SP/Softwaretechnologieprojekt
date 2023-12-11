@@ -1,11 +1,9 @@
 package campingplatz.equip;
 
-import campingplatz.equip.sportsItemReservations.SportItemCart;
-import campingplatz.equip.sportsItemReservations.SportItemReservationRepository;
+import campingplatz.equip.sportsitemreservations.SportItemCart;
+import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
 import campingplatz.reservation.ReservationEntry;
 import jakarta.validation.Valid;
-import org.javamoney.moneta.Money;
-import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,16 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 @Controller
 @SessionAttributes("SportItemCart")
@@ -44,8 +36,6 @@ public class SportItemCatalogController {
 		return new SportItemCart();
 	}
 
-
-
 	@GetMapping("/sportitemcatalog")
 	String setupCatalog(Model model) {
 		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
@@ -57,8 +47,8 @@ public class SportItemCatalogController {
 
 	@GetMapping("/sportitem/{sportItem}")
 	public String showSportItemDetails(Model model, @LoggedIn Optional<UserAccount> user,
-									   @Valid SiteState state, @PathVariable SportItem sportItem,
-									   @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
+			@Valid SiteState state, @PathVariable SportItem sportItem,
+			@ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
 		var currentDay = state.getDefaultedDay();
 		var opening = currentDay.atStartOfDay().plusHours(9);
@@ -70,12 +60,10 @@ public class SportItemCatalogController {
 
 		var reservations = reservationRepository.findReservationsBetween(opening, closing);
 
-
 		var availabilityTable = new SportItemAvailabilityTable(opening, closing, sportItem)
-			.addMaxAmount(sportItem.getAmount())
-			.addReservations(user, reservations)
-			.addSelections(reservationCart);
-
+				.addMaxAmount(sportItem.getAmount())
+				.addReservations(user, reservations)
+				.addSelections(reservationCart);
 
 		model.addAttribute("item", sportItem);
 		model.addAttribute("times", formatedTimes);
@@ -85,11 +73,10 @@ public class SportItemCatalogController {
 
 	}
 
-
 	@PostMapping("/sportitem/{sportItem}")
 	public String updateSportItemDetails(Model model, @LoggedIn Optional<UserAccount> user,
-										 @Valid SiteState state, @PathVariable SportItem sportItem,
-										 @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
+			@Valid SiteState state, @PathVariable SportItem sportItem,
+			@ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
 		return showSportItemDetails(model, user, state, sportItem, reservationCart);
 	}
@@ -112,11 +99,11 @@ public class SportItemCatalogController {
 	@PostMapping("/sportitem/select/{sportitem}/{index}")
 	@PreAuthorize("isAuthenticated()")
 	String addReservationDay(Model model, @LoggedIn UserAccount user, @Valid SiteState state,
-							 @PathVariable("sportitem") SportItem sportItem, @PathVariable("index") Integer index,
-							 @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
+			@PathVariable("sportitem") SportItem sportItem, @PathVariable("index") Integer index,
+			@ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
 		var currentDay = state.getDefaultedDay();
-		var time = currentDay.atStartOfDay().plusHours(9 + index);
+		var time = currentDay.atStartOfDay().plusHours((long) 9 + index);
 		var reservation = new ReservationEntry<SportItem>(sportItem, time);
 
 		if (!reservationCart.contains(reservation)) {

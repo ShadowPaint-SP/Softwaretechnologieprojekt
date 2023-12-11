@@ -1,4 +1,4 @@
-package campingplatz.equip.sportsItemReservations;
+package campingplatz.equip.sportsitemreservations;
 
 import campingplatz.equip.SportItem;
 import campingplatz.reservation.ReservationRepository;

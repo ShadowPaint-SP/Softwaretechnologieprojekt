@@ -1,7 +1,6 @@
 package campingplatz.seasonalplots;
 
 import campingplatz.plots.Plot;
-import campingplatz.plots.PlotCatalog;
 import jakarta.validation.Valid;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;

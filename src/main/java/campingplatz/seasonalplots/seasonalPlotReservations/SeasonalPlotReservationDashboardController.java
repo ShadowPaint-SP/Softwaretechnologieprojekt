@@ -10,22 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import campingplatz.accounting.PlotReservationAccountancyEntry;
-import campingplatz.accounting.PlotReservationDeductionEntry;
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.plots.plotReservations.PlotReservationRepository;
 import campingplatz.reservation.Reservation;
 import jakarta.validation.Valid;
 
 @Controller
 public class SeasonalPlotReservationDashboardController {
 
-    SeasonalPlotReservationRepository plotReservations;
+	SeasonalPlotReservationRepository plotReservations;
 	Accountancy accountancy;
 
 	SeasonalPlotReservationDashboardController(
-		SeasonalPlotReservationRepository plotReservations,
-		Accountancy accountancy) {
+			SeasonalPlotReservationRepository plotReservations,
+			Accountancy accountancy) {
 		this.plotReservations = plotReservations;
 		this.accountancy = accountancy;
 	}
@@ -45,21 +41,20 @@ public class SeasonalPlotReservationDashboardController {
 
 		var uuid = info.getReservationUUID();
 		var reservation = plotReservations.findById(uuid).get();
-		var oldState = reservation.getState();
+		// var oldState = reservation.getState();
 
 		var newState = Reservation.State.fromNumber(info.getStateValue());
 
-
-		// if (oldState == Reservation.State.PAYED && newState != Reservation.State.PAYED){
-		// 	var entry = new PlotReservationDeductionEntry(reservation);
-		// 	accountancy.add(entry);
+		// if (oldState == Reservation.State.PAYED && newState !=
+		// Reservation.State.PAYED){
+		// var entry = new PlotReservationDeductionEntry(reservation);
+		// accountancy.add(entry);
 		// }
-		// if (oldState != Reservation.State.PAYED && newState == Reservation.State.PAYED){
-		// 	var entry = new PlotReservationAccountancyEntry(reservation);
-		// 	accountancy.add(entry);
+		// if (oldState != Reservation.State.PAYED && newState ==
+		// Reservation.State.PAYED){
+		// var entry = new PlotReservationAccountancyEntry(reservation);
+		// accountancy.add(entry);
 		// }
-
-
 
 		// update and save
 		reservation.setState(newState);

@@ -9,6 +9,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -20,15 +21,15 @@ class PlotDashboardControllerIntegrationTest {
 
 	@Test
 	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
-	void plotsTest() throws Exception{
+	void plotsTest() throws Exception {
 		mockMvc.perform(get("/management/plots"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("plots"));
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("plots"));
 	}
 
 	@Test
 	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
-	void changePlotDetailsTestInvalidPlotID() throws Exception{
+	void changePlotDetailsTestInvalidPlotID() throws Exception {
 		mockMvc.perform(post("/management/plots/updatePlot")
 				.param("plotID", "lolo")
 				.param("name", "Ein Plot")
@@ -37,18 +38,17 @@ class PlotDashboardControllerIntegrationTest {
 				.param("price", "120")
 				.param("picture", "picture")
 				.param("description", "description"))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 
 	}
 
 	@Test
 	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
-	void changePlotDetailsTestValidPlotID() throws Exception{
-		MvcResult result =mockMvc.perform(get("/management/plots")).andReturn();
+	void changePlotDetailsTestValidPlotID() throws Exception {
+		MvcResult result = mockMvc.perform(get("/management/plots")).andReturn();
 		@SuppressWarnings("unchecked")
-		Streamable<Plot> testList = (Streamable<Plot>) result.getModelAndView().
-			getModelMap().
-			getAttribute("plots");
+		Streamable<Plot> testList = (Streamable<Plot>) result.getModelAndView().getModelMap().getAttribute("plots");
+		assertNotNull(testList, "testList is null");
 		Plot testItem = testList.stream().toList().get(0);
 
 		mockMvc.perform(post("/management/plots/updatePlot")
@@ -60,7 +60,7 @@ class PlotDashboardControllerIntegrationTest {
 				.param("picture", "picture")
 				.param("description", "description")
 				.param("state", "1"))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 
 	}
 
@@ -75,17 +75,16 @@ class PlotDashboardControllerIntegrationTest {
 				.param("price", "120")
 				.param("picture", "picture")
 				.param("description", "description"))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 	}
 
 	@Test
 	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
 	void deletePlotTest() throws Exception {
-		MvcResult result =mockMvc.perform(get("/management/plots")).andReturn();
+		MvcResult result = mockMvc.perform(get("/management/plots")).andReturn();
 		@SuppressWarnings("unchecked")
-		Streamable<Plot> testList = (Streamable<Plot>) result.getModelAndView().
-			getModelMap().
-			getAttribute("plots");
+		Streamable<Plot> testList = (Streamable<Plot>) result.getModelAndView().getModelMap().getAttribute("plots");
+		assertNotNull(testList, "testList is null");
 		Plot testItem = testList.stream().toList().get(0);
 
 		mockMvc.perform(post("/management/plots/deletePlot")
@@ -96,6 +95,6 @@ class PlotDashboardControllerIntegrationTest {
 				.param("price", "120")
 				.param("picture", "picture")
 				.param("description", "description"))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 	}
 }

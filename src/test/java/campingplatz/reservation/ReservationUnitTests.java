@@ -3,8 +3,9 @@ package campingplatz.reservation;
 import campingplatz.customer.Customer;
 import campingplatz.plots.Plot;
 import campingplatz.plots.PlotCatalog;
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.plots.plotReservations.PlotReservationRepository;
+import campingplatz.plots.plotreservations.PlotReservation;
+import campingplatz.plots.plotreservations.PlotReservationRepository;
+
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

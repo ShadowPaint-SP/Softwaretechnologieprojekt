@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.javamoney.moneta.Money;
 
 import java.util.List;
-import java.util.UUID;
 
 @Setter
 @Getter
@@ -82,9 +81,9 @@ public class Plot extends DetailedProduct {
     }
 
     public enum State {
-        OPERATIONAL(0,"state.ok"),
-        DEFECTIVE(1,"state.broke"),
-        DELETED(2,"state.deleted");
+        OPERATIONAL(0, "state.ok"),
+        DEFECTIVE(1, "state.broke"),
+        DELETED(2, "state.deleted");
 
         public final Integer index;
         public final String label;

@@ -1,7 +1,5 @@
 package campingplatz.accounting;
 
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.plots.plotReservations.PlotReservationRepository;
 import org.salespointframework.accountancy.Accountancy;
 import org.salespointframework.accountancy.AccountancyEntry;
 import org.springframework.data.util.Streamable;
@@ -10,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import campingplatz.plots.plotreservations.PlotReservationRepository;
 
 @Controller
 public class AccountancyDashboardController {
@@ -28,8 +26,5 @@ public class AccountancyDashboardController {
 		model.addAttribute("accountancy", all);
 		return "dashboards/accountancy_management";
 	}
-
-
-
 
 }

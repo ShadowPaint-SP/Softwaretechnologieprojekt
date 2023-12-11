@@ -1,6 +1,5 @@
 package campingplatz.seasonalplots.seasonalPlotReservations;
 
-import campingplatz.plots.Plot;
 import campingplatz.reservation.Reservation;
 import campingplatz.seasonalplots.SeasonalPlot;
 import jakarta.persistence.Entity;
@@ -48,7 +47,7 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 	}
 
 	public boolean isNextYearAvaible(LocalDateTime date) {
-		/*return LocalDateTime.now().isAfter(getEnd());*/
+		/* return LocalDateTime.now().isAfter(getEnd()); */
 		return date.isAfter(getEnd());
 	}
 

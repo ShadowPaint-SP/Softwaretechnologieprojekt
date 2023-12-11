@@ -1,4 +1,4 @@
-package campingplatz.equip.sportsItemReservations;
+package campingplatz.equip.sportsitemreservations;
 
 import campingplatz.equip.SportItem;
 import jakarta.validation.Valid;
@@ -50,6 +50,5 @@ public class SportItemReservationDashboardController {
 		Integer getStateValue();
 
 	}
-
 
 }

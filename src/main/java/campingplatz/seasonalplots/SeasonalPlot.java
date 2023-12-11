@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -35,7 +34,7 @@ public class SeasonalPlot extends Plot {
 	}
 
 	public MonetaryAmount settlementElectricity(double electricityMeter) { // returns the electricity costs for this
-																			// time period
+		// time period
 		double electricity = electricityMeter - this.electricityMeter;
 		this.electricityMeter = electricityMeter;
 		return Config.getElectricityCosts().multiply(electricity);
@@ -62,15 +61,15 @@ public class SeasonalPlot extends Plot {
 
 		return arrival;
 	}
+
 	public String getArrivalStr(LocalDateTime now) {
 		return getArrival(now).toString().substring(0, 10);
 	}
-	
-
 
 	public LocalDateTime getDeparture(LocalDateTime now) {
 		return getArrival(now).withMonth(10).withDayOfMonth(31);
 	}
+
 	public String getDepartureStr(LocalDateTime now) {
 		return getDeparture(now).toString().substring(0, 10);
 	}

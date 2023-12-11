@@ -1,4 +1,4 @@
-package campingplatz.plots.plotReservations;
+package campingplatz.plots.plotreservations;
 
 import campingplatz.plots.Plot;
 import campingplatz.reservation.Cart;

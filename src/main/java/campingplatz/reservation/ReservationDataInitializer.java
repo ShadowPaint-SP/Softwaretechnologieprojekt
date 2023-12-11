@@ -2,8 +2,9 @@ package campingplatz.reservation;
 
 import campingplatz.customer.CustomerManagement;
 import campingplatz.plots.PlotCatalog;
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.plots.plotReservations.PlotReservationRepository;
+import campingplatz.plots.plotreservations.PlotReservation;
+import campingplatz.plots.plotreservations.PlotReservationRepository;
+
 import org.salespointframework.core.DataInitializer;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

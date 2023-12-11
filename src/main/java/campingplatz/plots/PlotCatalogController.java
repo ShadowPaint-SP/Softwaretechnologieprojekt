@@ -1,10 +1,9 @@
 package campingplatz.plots;
 
-import campingplatz.plots.plotReservations.PlotCart;
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.plots.plotReservations.PlotReservationRepository;
+import campingplatz.plots.plotreservations.PlotCart;
+import campingplatz.plots.plotreservations.PlotReservation;
+import campingplatz.plots.plotreservations.PlotReservationRepository;
 import campingplatz.reservation.ReservationEntry;
-import campingplatz.reservation.Cart;
 import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -31,7 +30,7 @@ class PlotCatalogController {
     }
 
     @ModelAttribute("plotCart")
-	PlotCart initializeCart() {
+    PlotCart initializeCart() {
         return new PlotCart();
     }
 
@@ -130,14 +129,5 @@ class PlotCatalogController {
         model.addAttribute("searchQuery", query);
         return "old/seasonalplotcatalog";
     }
-
-    // quick fix
-    // index.html needs a cart attribute in navbar
-    // so I put it in a controller which has a cart
-    // TODO may shift this to an other class
-    // @GetMapping("/")
-    // String homePage(Model model) {
-    // return "index";
-    // }
 
 }

@@ -1,12 +1,12 @@
 package campingplatz.plots;
 
-import campingplatz.plots.plotReservations.PlotCart;
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.reservation.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.salespointframework.useraccount.UserAccount;
+
+import campingplatz.plots.plotreservations.PlotCart;
+import campingplatz.plots.plotreservations.PlotReservation;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -50,7 +50,6 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 		}
 
 	}
-
 
 	@AllArgsConstructor
 	public static class Fields {

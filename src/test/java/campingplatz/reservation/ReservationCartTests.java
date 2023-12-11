@@ -2,8 +2,6 @@ package campingplatz.reservation;
 
 import javax.money.MonetaryAmount;
 
-import campingplatz.plots.plotReservations.PlotCart;
-import campingplatz.plots.plotReservations.PlotReservation;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import campingplatz.plots.Plot;
+import campingplatz.plots.plotreservations.PlotCart;
+import campingplatz.plots.plotreservations.PlotReservation;
 
 public class ReservationCartTests {
 	private PlotCart cart;
@@ -45,12 +45,12 @@ public class ReservationCartTests {
 
 		cart = new PlotCart();
 		reservation1 = new PlotReservation(user, plot1, LocalDate.of(2023, 11,
-			1).atStartOfDay(),
-			LocalDate.of(2023, 11, 10).atStartOfDay());
+				1).atStartOfDay(),
+				LocalDate.of(2023, 11, 10).atStartOfDay());
 		cart.add(reservation1);
 		reservation2 = new PlotReservation(user, plot2, LocalDate.of(2023, 11,
-			11).atStartOfDay(),
-			LocalDate.of(2023, 11, 20).atStartOfDay());
+				11).atStartOfDay(),
+				LocalDate.of(2023, 11, 20).atStartOfDay());
 		cart.add(reservation2);
 	}
 
@@ -58,23 +58,23 @@ public class ReservationCartTests {
 	void testAdd() {
 
 		ReservationEntry<Plot> entry = new ReservationEntry<>(plot2,
-			LocalDate.of(2023, 12, 1).atStartOfDay());
+				LocalDate.of(2023, 12, 1).atStartOfDay());
 
 		cart.add(entry);
 		assertTrue(cart.contains(entry));
 
 		PlotReservation reservation = new PlotReservation(user, plot2,
-			LocalDate.of(2023, 12, 1).atStartOfDay(),
-			LocalDate.of(2023, 12, 10).atStartOfDay());
+				LocalDate.of(2023, 12, 1).atStartOfDay(),
+				LocalDate.of(2023, 12, 10).atStartOfDay());
 		cart.add(reservation);
 
 		var reservations = cart.getReservationsOfUser(user);
 
 		var found = false;
-		for (var res : reservations){
+		for (var res : reservations) {
 			if (res.getBegin().equals(LocalDate.of(2023, 12, 1).atStartOfDay())
-			&&  res.getEnd().equals(LocalDate.of(2023, 12, 10).atStartOfDay())
-			&& res.getUser().equals(user) && res.getProduct().equals(plot2)){
+					&& res.getEnd().equals(LocalDate.of(2023, 12, 10).atStartOfDay())
+					&& res.getUser().equals(user) && res.getProduct().equals(plot2)) {
 				found = true;
 			}
 		}
