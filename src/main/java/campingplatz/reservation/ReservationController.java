@@ -49,7 +49,21 @@ class ReservationController {
             @ModelAttribute("plotCart") PlotCart reservationCart) {
 
         List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
-        reservationRepository.saveAll(reservations);
+
+
+		// TODO: replace with a propper database query. this is slow an terrible
+		for (var reservation : reservations){
+			if (reservationRepository.productIsAvailableIn(
+				reservation.getProduct(),
+				reservation.getBegin(),
+				reservation.getEnd()
+			)){
+				reservationRepository.save(reservation);
+			}
+		}
+
+
+
         reservationCart.clear();
 
         return "redirect:/";

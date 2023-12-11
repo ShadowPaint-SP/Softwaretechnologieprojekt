@@ -10,16 +10,10 @@ skinparam packageStyle Frame
 interface campingplatz.utils.Priced
 class campingplatz.reservation.Cart
 
-package campingplatz{
-    class plots.Plot
-    class equip.SportItem
-}
-
-interface java.lang.Comparable<T>
 
 package org{
     package salespointframework{
-    interface DataInitializer{}
+    class DataInitializer{}
     }
     package springframework{
     interface data.repository.CrudRepository<T, ID>
@@ -27,10 +21,7 @@ package org{
 }
 
 package campingplatz.reservation{
-    class PlotReservation{
-    +PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure)
-    +getIntervalUnit(): ChronoUnit
-    }
+
     class Reservation<T extends Product>{
     +id: UUID
     -user: UserAccount
@@ -88,33 +79,13 @@ package campingplatz.reservation{
     +getIntervalUnit(): ChronoUnit
     }
 }
-
-PlotReservation --|> Reservation: <<bind T->Plot>>
-PlotReservation ..> Plot: <<use>>
-
-SportItemReservation --|> Reservation: <<bind T->SportItem>>
-SportItemReservation ..> SportItem: <<use>>
-
 Reservation ..|> Priced
-Reservation ..> salespointframework: <<use>>
-Reservation ..> springframework: <<use>>
-
-ReservationController ..> salespointframework: <<use>>
-ReservationController ..> springframework: <<use>>
 
 ReservationController ..> ReservationRepository: <<bind U->Plot>>
 ReservationController ..> Cart: <<bind T->Plot>>
 
 ReservationDataInitializer ..|> DataInitializer
-ReservationDataInitializer ..> springframework: <<use>>
-ReservationDataInitializer ..> salespointframework: <<use>>
-
-ReservationEntry ..|> Comparable: <<bind T->ReservationEntry<T>>>
-ReservationEntry ..> springframework: <<use>>
-ReservationEntry ..> salespointframework: <<use>>
 
 ReservationRepository ..|> CrudRepository
-ReservationRepository ..> springframework: <<use>>
-ReservationRepository ..> salespointframework: <<use>>
 
 @enduml
