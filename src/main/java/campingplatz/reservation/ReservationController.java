@@ -94,22 +94,11 @@ class ReservationController {
 				plotReservationRepository.save(reservation);
 			}
 		}
-
-
-
         reservationCart.clear();
+
 
 		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
 		sportItemReservationRepository.saveAll(sportReservations);
-
-
-		sportItemReservationRepository.saveAll(sportReservations);
-		for(SportItemReservation reservation: sportReservations){
-			SportItem sportItem = reservation.getProduct();
-			sportItem.setAmount(sportItem.getAmount()-1);
-			itemCatalog.save(sportItem);
-
-		}
 		sportItemCart.clear();
 
         return "redirect:/";
