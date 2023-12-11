@@ -62,7 +62,7 @@ class PlotCatalogController {
         model.addAttribute("searchQuery", query);
         model.addAttribute("weekDates", formatedWeekDates);
 
-        return "old/plotcatalog";
+        return "servings/plotcatalog";
     }
 
     @PostMapping("/plotcatalog/filter")
@@ -127,7 +127,7 @@ class PlotCatalogController {
     @GetMapping("/seasonalplots")
     String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
         model.addAttribute("searchQuery", query);
-        return "old/seasonalplotcatalog";
+        return "servings/seasonalplotcatalog";
     }
 
 }

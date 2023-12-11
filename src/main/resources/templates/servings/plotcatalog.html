@@ -37,14 +37,12 @@
                         <div class="stat-value text-secondary">
                             <select class="select w-full max-w-xs" name="parking" onchange="this.form.submit()">
                                 <option disabled selected>Wählen Sie Ihren Parkplatztyp.</option>
-                                <option value="0" th:selected="${searchQuery.parking==0}"
-                                    th:text="#{plot.parking.no}">
+                                <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{plot.parking.no}">
                                 </option>
                                 <option value="1" th:selected="${searchQuery.parking==1}"
                                     th:text="#{plot.parking.bike}">
                                 </option>
-                                <option value="2" th:selected="${searchQuery.parking==2}"
-                                    th:text="#{plot.parking.car}">
+                                <option value="2" th:selected="${searchQuery.parking==2}" th:text="#{plot.parking.car}">
                                 </option>
                                 <option value="3" th:selected="${searchQuery.parking==3}"
                                     th:text="#{plot.parking.camper}">
@@ -140,8 +138,8 @@
                     </tbody>
                 </table>
             </div>
-            <div th:replace="~{old/plotcatalog :: plot_table (availablePlotsTable=true)}"></div>
-            <div th:replace="~{old/plotcatalog :: plot_table (availablePlotsTable=false)}"></div>
+            <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=true)}"></div>
+            <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=false)}"></div>
 
 
         </form>
