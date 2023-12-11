@@ -85,8 +85,7 @@ class ReservationController {
 				plotReservationRepository.save(reservation);
 			}
 		}
-
-		reservationCart.clear();
+        reservationCart.clear();
 
 		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
 		sportItemReservationRepository.saveAll(sportReservations);
@@ -109,6 +108,8 @@ class ReservationController {
 		model.addAttribute("ordersCompleted", userReservations);
 		return "servings/orders";
 	}
+
+
 
 	// we are scheduling a task to be executed at 10:00 AM every day of every month.
 	// were we are deleting the reservations older than the current day if they were
