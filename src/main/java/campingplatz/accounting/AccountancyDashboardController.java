@@ -17,12 +17,12 @@ public class AccountancyDashboardController {
 
 	Accountancy accountancy;
 
-	AccountancyDashboardController(PlotReservationRepository plotReservations, Accountancy accountancy) {
+	AccountancyDashboardController(Accountancy accountancy) {
 		this.accountancy = accountancy;
 	}
 
 	@GetMapping("/management/accountancy")
-	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
+	@PreAuthorize("hasAnyRole('BOSS')")
 	String accountyncy(Model model) {
 		Streamable<AccountancyEntry> all = accountancy.findAll();
 		model.addAttribute("accountancy", all);
