@@ -10,15 +10,17 @@ import lombok.Setter;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.money.MonetaryAmount;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import org.salespointframework.time.BusinessTime;
 
 @Entity
 public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
 	private PayMethod payMethod;
+
+	@Getter
+	@Setter
+	private boolean show;
 
 	public SeasonalPlotReservation() {
 		super();
@@ -28,6 +30,8 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 			PayMethod payMethod) {
 		super(user, product, begin, end);
 		this.payMethod = payMethod;
+		this.show = true;
+
 	}
 
 	@Override

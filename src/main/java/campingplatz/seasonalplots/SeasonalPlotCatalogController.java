@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,7 +51,19 @@ public class SeasonalPlotCatalogController {
 
 				if (user.isPresent()) {
 					var userReservations = reservationRepository.findByUserId(user.get().getId());
-					model.addAttribute("ordersCompleted", userReservations);
+					var available = new ArrayList<SeasonalPlotReservation>();
+					for(SeasonalPlotReservation reservation : userReservations) {
+						if(businessTime.getTime().isAfter(reservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
+							if(reservation.isShow()) {
+								freeSeasonalPlots.get(true).add(reservation.getProduct());
+							}
+							reservation.setShow(false);
+						}
+						if(reservation.isShow()) {
+							available.add(reservation);
+						}
+					}
+					model.addAttribute("ordersCompleted", available);
 				}
 
 				model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
@@ -67,7 +80,7 @@ public class SeasonalPlotCatalogController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcheckout/{plot}")
-	String reservate(Model model, @LoggedIn UserAccount userAccount, @PathVariable("plot") SeasonalPlot seasonalPlot,
+	String reservate(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot,
 			Integer payMethod) {
 		/*
 		// seasonal Plots are offered from April to October
@@ -90,8 +103,15 @@ public class SeasonalPlotCatalogController {
 		} else if (monthNow > 4)  {
 			inApril = businessTime.getTime();
 		}
+		var userReservations = reservationRepository.findByUserId(user.getId());
+		for(SeasonalPlotReservation reservation : userReservations) {
+			if (reservation.getProduct().getId() == seasonalPlot.getId()) {
+				reservation.setShow(false);
+			}
+
+		}
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
-		SeasonalPlotReservation reservation = new SeasonalPlotReservation(userAccount, seasonalPlot,
+		SeasonalPlotReservation reservation = new SeasonalPlotReservation(user, seasonalPlot,
 		inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 		reservationRepository.save(reservation);
 		
