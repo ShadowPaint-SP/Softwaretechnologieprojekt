@@ -38,19 +38,15 @@ public class ReservationUnitTests {
 	private PlotReservation reservation;
 	private PlotReservation takenReservation;
 
-
-
 	private UserAccount customer;
 	private Plot plot;
-
-
-
 
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
 
-		customer = userAccountManagement.create("customer", Password.UnencryptedPassword.of("none"), Customer.Roles.CUSTOMER.getValue());
+		customer = userAccountManagement.create("customer", Password.UnencryptedPassword.of("none"),
+				Customer.Roles.CUSTOMER.getValue());
 		plot = new Plot("1. Platz", 15.0, Money.of(20, EURO), Plot.ParkingLot.NONE, "", "");
 		plotCatalog.save(plot);
 
@@ -75,33 +71,34 @@ public class ReservationUnitTests {
 	@Test
 	void init_Reservation() {
 		reservation = new PlotReservation(customer, plot,
-			LocalDate.of(2023, 11, 1).atStartOfDay(),
-			LocalDate.of(2023, 11, 10).atStartOfDay());
+				LocalDate.of(2023, 11, 1).atStartOfDay(),
+				LocalDate.of(2023, 11, 10).atStartOfDay());
 	}
 
 	@Test
 	void getDaysTest() {
-		assertEquals(reservation.duration(), ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10)),
+		assertEquals(reservation.duration(),
+				ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10).plusDays(1)),
 				"reservation.getDays, wrong Days between arrival, departure");
 	}
 
 	@Test
 	void getPriceTest() {
 		assertEquals(reservation.getPrice(),
-				plot.getPrice().multiply(ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10))),
+				plot.getPrice()
+						.multiply(ChronoUnit.DAYS.between(LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 10).plusDays(1))),
 				"reservation.getPrice rechnet den Falschen Preis aus");
 	}
 
-
 	@Test
-	void FirstDeletionTest(){
+	void FirstDeletionTest() {
 		// nothing should get deleted
 		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 10, 30).atStartOfDay());
 		assertEquals(2, reservationRepository.findAll().size());
 	}
 
 	@Test
-	void SecondDeletionTest(){
+	void SecondDeletionTest() {
 		// one should get deleted
 		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 11, 2).atStartOfDay());
 		assertEquals(1, reservationRepository.findAll().size());
@@ -110,7 +107,7 @@ public class ReservationUnitTests {
 	}
 
 	@Test
-	void ThirdDeletionTest(){
+	void ThirdDeletionTest() {
 		// all should get deleted
 		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 11, 20).atStartOfDay());
 		assertEquals(0, reservationRepository.findAll().size());

@@ -47,12 +47,12 @@ public abstract class Reservation<T extends Product> implements Priced {
 
     @Getter
     @Setter
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:MM")
     private LocalDateTime begin;
 
     @Getter
     @Setter
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:MM")
     private LocalDateTime end;
 
     @Getter
@@ -91,7 +91,7 @@ public abstract class Reservation<T extends Product> implements Priced {
      */
     public long duration() {
         var units = getIntervalUnit();
-        return units.between(begin, end);
+        return units.between(begin, end.plusDays(1));
     }
 
     public static enum State {

@@ -29,6 +29,11 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
      */
     List<U> findByUserId(UserAccount.UserAccountIdentifier id);
 
+    @Query("""
+            select distinct r.product from #{#entityName} r
+            """)
+    Set<T> findPlotsAll();
+
     /**
      * Database query to return a List of reservations, that are
      * wholy or partially reserved in the given time interval
@@ -63,17 +68,13 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
         return !findPlotsReservedBetween(arrival, departure).contains(product);
     }
 
-
-	@Modifying
-	@Transactional
-	@Query("""
+    @Modifying
+    @Transactional
+    @Query("""
                 delete #{#entityName} r
                 where (r.state = 0 and r.begin < :time)
                 or (r.state = 1 and r.end < :time)
             """)
-	void deleteBeforeThan(LocalDateTime time);
-
-
-
+    void deleteBeforeThan(LocalDateTime time);
 
 }

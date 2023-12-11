@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
  * DashboardController
  */
 @Controller
+@SessionAttributes("plotCart")
 public class CustomerDashboardController {
 
 	CustomerManagement customerManagement;

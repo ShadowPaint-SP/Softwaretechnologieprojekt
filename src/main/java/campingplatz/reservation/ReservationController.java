@@ -24,7 +24,7 @@ import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes({"cart", "SportItemCart"})
+@SessionAttributes({"plotCart", "SportItemCart"})
 @EnableScheduling
 class ReservationController {
 
@@ -40,8 +40,8 @@ class ReservationController {
 
 
 
-    @ModelAttribute("cart")
-	PlotCart initializePlotCart() {
+    @ModelAttribute("plotCart")
+	PlotCart initializeCart() {
         return new PlotCart();
     }
 
@@ -55,7 +55,7 @@ class ReservationController {
 
     @GetMapping("/cart")
     String cart(Model model, @LoggedIn UserAccount userAccount,
-				@ModelAttribute("cart") PlotCart reservationCart,
+				@ModelAttribute("plotCart") PlotCart reservationCart,
 				@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 
@@ -75,7 +75,7 @@ class ReservationController {
 
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
-            @ModelAttribute("cart") PlotCart reservationCart,
+            @ModelAttribute("plotCart") PlotCart reservationCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
         List<PlotReservation> plotReservations = reservationCart.getReservationsOfUser(userAccount);

@@ -1,34 +1,37 @@
 package campingplatz.plots;
 
+import campingplatz.seasonalplots.Config;
+import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.salespointframework.core.Currencies.EURO;
 
 @SpringBootTest
 public class ConfigTest {
 
 	@Test
 	public void testGetElectricityCosts() {
-		Config.setElectricityCosts(0.29f);
-		assertEquals(0.29f, Config.getElectricityCosts());
+		Config.setElectricityCosts(Money.of(0.29, EURO));
+		assertEquals(Money.of(0.29, EURO), Config.getElectricityCosts());
 	}
 
 	@Test
 	public void testSetElectricityCosts() {
-		Config.setElectricityCosts(0.30f);
-		assertEquals(0.30f, Config.getElectricityCosts());
+		Config.setElectricityCosts(Money.of(0.30, EURO));
+		assertEquals(Money.of(0.30, EURO), Config.getElectricityCosts());
 	}
 
 	@Test
 	public void testGetWaterCosts() {
-		assertEquals(2.59, Config.getWaterCosts());
+		assertEquals(Money.of(2.59, EURO), Config.getWaterCosts());
 	}
 
 	@Test
 	public void testSetWaterCosts() {
-		Config.setWaterCosts(3);
-		assertEquals(3, Config.getWaterCosts());
+		Config.setWaterCosts(Money.of(3, EURO));
+		assertEquals(Money.of(3, EURO), Config.getWaterCosts());
 	}
 
 }

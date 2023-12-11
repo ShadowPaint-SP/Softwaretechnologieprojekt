@@ -1,10 +1,10 @@
 package campingplatz.plots;
 
 import org.javamoney.moneta.Money;
-import org.jmolecules.ddd.annotation.Repository;
 import org.salespointframework.catalog.Catalog;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,6 +24,12 @@ public interface PlotCatalog extends Catalog<Plot> {
         // the number of plots in the catalog is not big enough for it to matter
         return findAll().filter(plot -> {
             boolean isMatch = true;
+
+            //TODO evaluate why seasonalPlots are saved to both seasonal and normal PlotCatalog
+            if (plot.getName().contains("[Dauercamper]")) {
+                isMatch = false;
+            }
+
 
             var priceMin = query.getPriceMin();
             if (priceMin != null && plot.getPrice().isLessThan(Money.of(priceMin, EURO))) {

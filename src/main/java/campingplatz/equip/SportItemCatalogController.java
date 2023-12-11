@@ -1,14 +1,5 @@
 package campingplatz.equip;
 
-import campingplatz.equip.sportsItemReservations.SportItemCart;
-import campingplatz.equip.sportsItemReservations.SportItemReservation;
-import campingplatz.equip.sportsItemReservations.SportItemReservationRepository;
-import campingplatz.plots.Plot;
-import campingplatz.plots.PlotCatalog;
-import campingplatz.plots.plotReservations.PlotCart;
-import campingplatz.reservation.ReservationEntry;
-import jakarta.validation.Valid;
-import org.hibernate.mapping.Array;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;

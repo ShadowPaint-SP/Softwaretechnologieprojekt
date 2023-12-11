@@ -8,7 +8,7 @@
         <!-- plot cart-->
         <div class="overflow-x-auto" th:unless="${plotReservations.isEmpty()}">
             <table class="table table-zebra">
-                <thead>
+                <thead class="bg-secondary">
                     <tr>
                         <th></th>
                         <th>Titel</th>
@@ -21,11 +21,11 @@
                 <tbody>
                     <tr th:each="item, iStat : ${plotReservations}" class="hover">
                         <th th:text="${iStat.count}">1</th>
-                        <td th:text="${item.product.name}">Cy Ganderton</td>
-                        <td th:text="${item.begin}">Quality Control Specialist</td>
-                        <td th:text="${item.end}">Quality Control Specialist</td>
-                        <td th:text="${item.duration}">Quality Control Specialist</td>
-                        <td th:text="${item.price}">Blue</td>
+                        <td th:text="${item.product.name}">place on the lake</td>
+                        <td th:text="${item.begin.plusHours(12)}">today</td>
+                        <td th:text="${item.end.plusDays(1).plusHours(11)}">tomorrow</td>
+                        <td th:text="${item.duration}">one day</td>
+                        <td th:text="${item.price}">50</td>
                     </tr>
                 </tbody>
             </table>

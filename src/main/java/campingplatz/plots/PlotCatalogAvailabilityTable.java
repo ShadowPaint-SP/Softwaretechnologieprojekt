@@ -152,11 +152,11 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			var time = field.getTime();
 			var plot = field.getProduct();
 
-			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.atStartOfDay())) {
+			if (time.isBefore(firstDay.atStartOfDay()) || time.isAfter(lastDay.minusDays(1).atStartOfDay())) {
 				continue;
 			}
 
-			int index = (int) Math.max(0, (ChronoUnit.DAYS.between(firstDay, time)));
+			int index = (int) (ChronoUnit.DAYS.between(firstDay, time));
 
 			var row = this.get(plot);
 			row[index] = FieldType.FREE_SELECTED;
