@@ -77,7 +77,8 @@ class ReservationController {
 
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
-            @ModelAttribute("plotCart") PlotCart reservationCart
+            @ModelAttribute("plotCart") PlotCart reservationCart,
+					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart
 		) {
 
         List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
@@ -85,26 +86,18 @@ class ReservationController {
 
 		// TODO: replace with a propper database query. this is slow an terrible
 		for (var reservation : reservations){
-			if (reservationRepository.productIsAvailableIn(
+			if (plotReservationRepository.productIsAvailableIn(
 				reservation.getProduct(),
 				reservation.getBegin(),
 				reservation.getEnd()
 			)){
-				reservationRepository.save(reservation);
+				plotReservationRepository.save(reservation);
 			}
 		}
 
 
 
         reservationCart.clear();
-
-        return "redirect:/";
-    }
-
-	@PostMapping("/reservate/")
-	String reservate(Model model, @LoggedIn UserAccount userAccount,
-					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
-
 
 		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
 		sportItemReservationRepository.saveAll(sportReservations);
@@ -119,10 +112,8 @@ class ReservationController {
 		}
 		sportItemCart.clear();
 
-
-		return "redirect:/";
-	}
-
+        return "redirect:/";
+    }
 
 
     @GetMapping("/orders")

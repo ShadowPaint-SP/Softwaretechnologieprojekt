@@ -64,7 +64,7 @@ public class SportItemCatalogController {
 		var opening = currentDay.atStartOfDay().plusHours(9);
 		var closing = currentDay.atStartOfDay().plusHours(17);
 		var formatedTimes = new ArrayList<String>();
-		for (var curr = opening; !curr.isAfter(closing); curr = curr.plusHours(1)){
+		for (var curr = opening; !curr.isAfter(closing); curr = curr.plusHours(1)) {
 			formatedTimes.add(curr.format(DateTimeFormatter.ofPattern("H.mm")));
 		}
 
@@ -87,9 +87,9 @@ public class SportItemCatalogController {
 
 
 	@PostMapping("/sportitem/{sportItem}")
-	public String updateSportItemDetails( Model model, @LoggedIn Optional<UserAccount> user,
-										@Valid SiteState state, @PathVariable SportItem sportItem,
-										@ModelAttribute("SportItemCart") SportItemCart reservationCart) {
+	public String updateSportItemDetails(Model model, @LoggedIn Optional<UserAccount> user,
+										 @Valid SiteState state, @PathVariable SportItem sportItem,
+										 @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
 		return showSportItemDetails(model, user, state, sportItem, reservationCart);
 	}
@@ -100,8 +100,8 @@ public class SportItemCatalogController {
 		LocalDate getDay();
 
 		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		default LocalDate getDefaultedDay(){
-			if (getDay() == null){
+		default LocalDate getDefaultedDay() {
+			if (getDay() == null) {
 				return LocalDate.now();
 			}
 			return getDay();
@@ -116,7 +116,7 @@ public class SportItemCatalogController {
 							 @ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
 		var currentDay = state.getDefaultedDay();
-		var time =  currentDay.atStartOfDay().plusHours(9 + index);
+		var time = currentDay.atStartOfDay().plusHours(9 + index);
 		var reservation = new ReservationEntry<SportItem>(sportItem, time);
 
 		if (!reservationCart.contains(reservation)) {

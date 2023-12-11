@@ -63,7 +63,7 @@
                 <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
                 <div class="badge badge-lg badge-secondary" th:text="${{total}}">987,654</div>
                 <div class="card-actions justify-end">
-                    <form method="post" th:action="@{/reservate/}">
+                    <form method="post" th:action="@{/checkout}">
                         <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>
                     </form>
                 </div>
