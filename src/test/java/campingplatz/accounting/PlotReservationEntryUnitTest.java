@@ -2,13 +2,11 @@ package campingplatz.accounting;
 
 import campingplatz.customer.Customer;
 import campingplatz.plots.Plot;
-import campingplatz.plots.plotReservations.PlotReservation;
-import campingplatz.reservation.Reservation;
+import campingplatz.plots.plotreservations.PlotReservation;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManagement;
