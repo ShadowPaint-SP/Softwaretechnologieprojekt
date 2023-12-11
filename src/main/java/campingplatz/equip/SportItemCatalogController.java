@@ -103,7 +103,7 @@ public class SportItemCatalogController {
 			@ModelAttribute("SportItemCart") SportItemCart reservationCart) {
 
 		var currentDay = state.getDefaultedDay();
-		var time = currentDay.atStartOfDay().plusHours((long) 9 + index);
+		var time = currentDay.atStartOfDay().plusHours(9L + Long.valueOf(index));
 		var reservation = new ReservationEntry<SportItem>(sportItem, time);
 
 		if (!reservationCart.contains(reservation)) {
