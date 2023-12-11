@@ -1,9 +1,10 @@
 package campingplatz.reservation;
 
+import campingplatz.equip.SportItem;
+import campingplatz.equip.SportItemCatalog;
 import campingplatz.equip.sportsItemReservations.SportItemCart;
 import campingplatz.equip.sportsItemReservations.SportItemReservation;
 import campingplatz.equip.sportsItemReservations.SportItemReservationRepository;
-import campingplatz.plots.Plot;
 import campingplatz.plots.plotReservations.PlotCart;
 import campingplatz.plots.plotReservations.PlotReservation;
 import campingplatz.plots.plotReservations.PlotReservationRepository;
@@ -14,10 +15,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,13 +31,15 @@ class ReservationController {
 
     private final PlotReservationRepository plotReservationRepository;
 	private final SportItemReservationRepository sportItemReservationRepository;
+	private SportItemCatalog itemCatalog;
 
     ReservationController(PlotReservationRepository plotReservationRepository,
-						  SportItemReservationRepository sportItemReservationRepository) {
+						  SportItemReservationRepository sportItemReservationRepository, SportItemCatalog itemCatalog) {
 
         this.plotReservationRepository = plotReservationRepository;
 		this.sportItemReservationRepository = sportItemReservationRepository;
-    }
+		this.itemCatalog = itemCatalog;
+	}
 
 
 
@@ -75,23 +78,38 @@ class ReservationController {
 
     @PostMapping("/checkout")
     String reservate(Model model, @LoggedIn UserAccount userAccount,
-            @ModelAttribute("plotCart") PlotCart reservationCart,
-			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
+            @ModelAttribute("plotCart") PlotCart reservationCart
+		) {
 
         List<PlotReservation> plotReservations = reservationCart.getReservationsOfUser(userAccount);
 		plotReservationRepository.saveAll(plotReservations);
         reservationCart.clear();
 
-		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
-		sportItemReservationRepository.saveAll(sportReservations);
-		sportItemCart.clear();
 
         return "redirect:/";
     }
 
+	@PostMapping("/reservate/")
+	String reservate(Model model, @LoggedIn UserAccount userAccount,
+					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 
+		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
+		sportItemReservationRepository.saveAll(sportReservations);
 
+
+		sportItemReservationRepository.saveAll(sportReservations);
+		for(SportItemReservation reservation: sportReservations){
+			SportItem sportItem = reservation.getProduct();
+			sportItem.setAmount(sportItem.getAmount()-1);
+			itemCatalog.save(sportItem);
+
+		}
+		sportItemCart.clear();
+
+
+		return "redirect:/";
+	}
 
 
 

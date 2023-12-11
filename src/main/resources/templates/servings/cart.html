@@ -27,6 +27,18 @@
                         <td th:text="${item.duration}">one day</td>
                         <td th:text="${item.price}">50</td>
                     </tr>
+
+                    <div class="card w-96 bg-neutral text-neutral-content container mx-auto mt-10">
+                        <div class="card-body items-center text-center">
+                            <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
+                            <div class="badge badge-lg badge-secondary" th:text="${{total}}">987,654</div>
+                            <div class="card-actions justify-end">
+                                <form method="post" th:action="@{/checkout/}">
+                                    <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </tbody>
             </table>
         </div>
@@ -53,22 +65,25 @@
                     <td th:text="${item.duration}">Quality Control Specialist</td>
                     <td th:text="${item.price}">Blue</td>
                 </tr>
+
+
+                <div class="card w-96 bg-neutral text-neutral-content container mx-auto mt-10">
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
+                        <div class="badge badge-lg badge-secondary" th:text="${{total}}">987,654</div>
+                        <div class="card-actions justify-end">
+                            <form method="post" th:action="@{/reservate/}">
+                                <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 </tbody>
             </table>
         </div>
 
 
-        <div class="card w-96 bg-neutral text-neutral-content container mx-auto mt-10">
-            <div class="card-body items-center text-center">
-                <h2 class="card-title font-bold" th:text="#{cart.total}">Your Total</h2>
-                <div class="badge badge-lg badge-secondary" th:text="${{total}}">987,654</div>
-                <div class="card-actions justify-end">
-                    <form method="post" th:action="@{/checkout}">
-                        <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+
 
     </main>
 </body>
