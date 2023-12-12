@@ -55,6 +55,7 @@ public class CustomerManagement {
     }
 
 	public void save(Customer customer){
+		customers.save(customer);
 		userAccounts.save(customer.getUserAccount());
 	}
 
