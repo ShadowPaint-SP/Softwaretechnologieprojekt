@@ -4,7 +4,10 @@ import campingplatz.customer.Customer;
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import org.javamoney.moneta.Money;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManagement;
@@ -26,10 +29,30 @@ public class SportItemAvailabilityTableTest {
 
 	@Autowired
 	private UserAccountManagement userAccountManagement;
+	UserAccount customer;
+	UserAccount other;
 
 	public SportItemAvailabilityTable table;
 	public static final Integer MAX_AMOUNT = 23;
 
+
+	@BeforeEach
+	void before_each(){
+		customer = userAccountManagement.create("customer",
+			Password.UnencryptedPassword.of("none"),
+			Customer.Roles.CUSTOMER.getValue()
+		);
+		other = userAccountManagement.create("other customer",
+			Password.UnencryptedPassword.of("none"),
+			Customer.Roles.CUSTOMER.getValue()
+		);
+	}
+
+	@AfterEach
+	void tearDown() {
+		userAccountManagement.delete(customer);
+		userAccountManagement.delete(other);
+	}
 	@Test
 	public void runThrough(){
 		LocalDateTime firstTime = LocalDateTime.of(2023, 11, 1, 8, 0);
@@ -62,14 +85,6 @@ public class SportItemAvailabilityTableTest {
 	}
 
 	public void testAddReservation(SportItem sportItem){
-		UserAccount customer = userAccountManagement.create("customer",
-			Password.UnencryptedPassword.of("none"),
-			Customer.Roles.CUSTOMER.getValue()
-		);
-		UserAccount other = userAccountManagement.create("other customer",
-			Password.UnencryptedPassword.of("none"),
-			Customer.Roles.CUSTOMER.getValue()
-		);
 		List<SportItemReservation> reservations = new ArrayList<>();
 		reservations.add(new SportItemReservation(customer, sportItem,
 			LocalDateTime.of(2023, 11, 1, 8, 0),
