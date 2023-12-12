@@ -14,6 +14,8 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 | view_campinglots/{id}|StartDate = nichts, EndDate = nichts | Versuch Reservierung ohne Angabe von Anfangs oder End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
 | view_campinglots/{id}|StartDate = 2023-12-15, EndDate = 2023-12-12 | Versuch Reservierung mit Anfangs vor End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
 | view_campinglots/{id}|StartDate = 2023-12-12, EndDate = 2023-12-12 | Versuch Reservierung mit gleichem Anfangs und End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
+| view_campinglots/{id}| StartDate = 2023-12-13, EndDate = 2023-12-16 und StartDate = 2023-12-13, EndDate = 2023-12-14| Versuch in einem Bereich zu reservieren, der bereits reserviert ist, führt zu einer error Seite  | Whitelabel Error Page
+
 | borrow-page|Date = 2023-16-12, StartTime = 15.15, EndTime = 15.15 | Versuch Reservierung mit gleicher Anfangs und End Zeit in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
 |===
 
@@ -26,6 +28,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 
 
 * Interaktion mit der Anwendung (Usability)
+    - nachdem man einen Account erstellt möchte man angemeldet bleiben
 
 == Verbesserungsvorschläge
-* Was kann noch weiter verbessert werden?
+
