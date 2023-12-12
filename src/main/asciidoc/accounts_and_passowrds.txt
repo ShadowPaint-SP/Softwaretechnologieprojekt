@@ -1,0 +1,14 @@
+Boss Rolle: 
+1. Nutzername: boss@mail.de", Passwort: 123
+
+
+Mitarbeiter Rolle:
+1. Nutzername: meister@mail.de", Passwort: 123
+2. Nutzername: westphal @mail.de", Passwort: 123
+
+
+Nutzer Rolle: 
+1. Nutzername: hans@mail.de", Passwort: 123
+2. Nutzername: hans@mail.de", Passwort: 123
+3. Nutzername: jürgen@mail.de", Passwort: 123
+4. Nutzername: dextermorgan@mail.de", Passwort: 123
