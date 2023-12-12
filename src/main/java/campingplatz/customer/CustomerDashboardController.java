@@ -42,6 +42,7 @@ public class CustomerDashboardController {
 
 		customer.setRole(role);
 
+
 		Streamable<Customer> all = customerManagement.findAll();
 		model.addAttribute("Customers", all);
 		return "dashboards/customer_management";

@@ -54,6 +54,10 @@ public class CustomerManagement {
 
     }
 
+	public void save(Customer customer){
+		userAccounts.save(customer.getUserAccount());
+	}
+
     /**
      * Returns all {@link Customer}s currently available in the system.
      *
