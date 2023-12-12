@@ -12,3 +12,14 @@ Nutzer Rolle:
 2. Nutzername: hans@mail.de", Passwort: 123
 3. Nutzername: jürgen@mail.de", Passwort: 123
 4. Nutzername: dextermorgan@mail.de", Passwort: 123
+
+
+
+
+Anmerkungen:
+
+1. Es wird nicht direkt reserviertn, wenn man was anklickt.
+   Es kommt zuerst in den Einkaufswagen, wo es dann final bestätigt wird
+
+2. Saisonplätze werden aktuell direkt reserviert und gehen nicht zuerst in den Einkaufswagen.
+   Ob wir das so belassen oder ändern werden noch diskutieren.
