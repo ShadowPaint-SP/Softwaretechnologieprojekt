@@ -33,11 +33,7 @@ public class SportItemReservationDashboardController {
 	String returnSportItem(@Valid SportItemReservationChangeInformation information) {
 
 		UUID id = information.getReservationUUID();
-
 		SportItemReservation reservation = sportItemReservations.findById(id).get();
-
-		SportItem item = reservation.getProduct();
-		item.setAmount(item.getAmount() + 1);
 
 		sportItemReservations.delete(reservation);
 
