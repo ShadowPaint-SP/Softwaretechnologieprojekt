@@ -2,7 +2,7 @@
 
 Treffen am 04.12.2023
 
-Ort:      --- +
+Ort:      SLUB 0.66 +
 Beginn:   14:50 Uhr +
 Ende:     16:20 Uhr
 
@@ -10,7 +10,7 @@ __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-11.12.2023, 14.50 Uhr, ---
+11.12.2023, 14.50 Uhr, SLUB 0.66
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
@@ -25,9 +25,12 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
+In Kenntnis setzen über das Crosstesting
 
 == Retrospektive des letzten Sprints
+Abschließen aller Basis- und Mussfunktionen
 
 == Planung des nächsten Sprints
+Tests schreiben. Bugs fixen.
 |===
 
