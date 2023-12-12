@@ -69,7 +69,7 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 	SportItem currentItem;
 
 	public SportItemAvailabilityTable(LocalDateTime firstTime, LocalDateTime lastDay, SportItem currentItem) {
-		this.length = (int) (ChronoUnit.HOURS.between(firstTime, lastDay));
+		this.length = (int) (ChronoUnit.HOURS.between(firstTime, lastDay) + 1);
 		this.firstTime = firstTime;
 		this.lastTime = lastDay;
 		this.currentItem = currentItem;
@@ -78,7 +78,7 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 	public SportItemAvailabilityTable addMaxAmount(Integer n) {
 		this.clear();
 
-		for (int i = 0; i <= length; i++) {
+		for (int i = 0; i < length; i++) {
 			var prototype = new Field(FieldType.FREE_COMPLETELY, i, n);
 			this.add(prototype);
 		}
@@ -99,8 +99,7 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 			// we do this, because we need numbers relative to zero
 			// for indexing into an array
 			int beginIndex = (int) Math.max(0, (ChronoUnit.HOURS.between(firstTime, reservation.getBegin())));
-			int endIndex = (int) Math.min((long) length - 1,
-					(ChronoUnit.HOURS.between(firstTime, reservation.getEnd())));
+			int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.HOURS.between(firstTime, reservation.getEnd())));
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				var prevValue = this.get(i);
