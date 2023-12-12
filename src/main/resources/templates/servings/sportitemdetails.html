@@ -43,10 +43,10 @@
                                                 th:formaction="'/sportitem/select/'+${item.id}+'/'+${fields.index}"
                                                 class="absolute top-0 right-0 bottom-0 left-0 w-full">
                                                 <div th:if="${fields.type.value == 0}">
-                                                    <text th:text="#{catalog.fields.free.completely.label}"></text>
+                                                    <text th:text="#{${fields.type.label}}"></text>
                                                 </div>
                                                 <div th:if="${fields.type.value != 0}">
-                                                    <text th:text="#{catalog.fields.free.selected.label}"></text>
+                                                    <text th:text="#{${fields.type.label}}"></text>
                                                 </div>
                                             </button>
                                         </td>
