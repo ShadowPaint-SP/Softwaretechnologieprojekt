@@ -45,7 +45,7 @@ class SportItemCatalogControllerIntegrationTest {
 				.param("category", testItem.getCategories().toList().get(0))
 				.param("imagePath", testItem.getImagePath())
 				.param("desc", testItem.getDesc()))
-				.andExpect(status().is3xxRedirection());
+			.andExpect(status().is3xxRedirection());
 
 		// check change here
 		MvcResult result1 = mvc.perform(get("/management/sportsequipment")).andReturn();
@@ -75,7 +75,7 @@ class SportItemCatalogControllerIntegrationTest {
 				.param("category", "Spaß")
 				.param("imagePath", "Bild")
 				.param("desc", "Beschreibung"))
-				.andExpect(status().is3xxRedirection());
+			.andExpect(status().is3xxRedirection());
 
 		// check change here
 		MvcResult result1 = mvc.perform(get("/management/sportsequipment")).andReturn();
@@ -103,7 +103,7 @@ class SportItemCatalogControllerIntegrationTest {
 
 		mvc.perform(post("/deleteSportItem")
 				.param("itemName", testItem.getName()))
-				.andExpect(status().is3xxRedirection());
+			.andExpect(status().is3xxRedirection());
 
 		// check change here
 		MvcResult result1 = mvc.perform(get("/management/sportsequipment")).andReturn();
@@ -133,7 +133,7 @@ class SportItemCatalogControllerIntegrationTest {
 		mvc.perform(post("/changeSportItemAmount")
 				.param("equip_id", String.valueOf(testItem.getId()))
 				.param("amountItem", String.valueOf(testAmount)))
-				.andExpect(status().is3xxRedirection());
+			.andExpect(status().is3xxRedirection());
 
 		MvcResult result1 = mvc.perform(get("/management/sportsequipment")).andReturn();
 		@SuppressWarnings("unchecked")
@@ -147,31 +147,30 @@ class SportItemCatalogControllerIntegrationTest {
 	@Test
 	void setupCatalogTest() throws Exception {
 		mvc.perform(get("/sportitemcatalog"))
-				.andExpectAll(status().isOk(),
-						model().attributeExists("items"));
+			.andExpectAll(status().isOk(),
+				model().attributeExists("items"));
 
 	}
 
-	/*
-	 * @Test
-	 * void showSportItemDetailsTest() throws Exception {
-	 * MvcResult result =mvc.perform(get("/sportitemcatalog")).andReturn();
-	 * 
-	 * @SuppressWarnings("unchecked")
-	 * List<SportItem> testList = (List<SportItem>) result.getModelAndView().
-	 * getModelMap().
-	 * getAttribute("items");
-	 * SportItem testItem = testList.get(0);
-	 * // extract one item to show details
-	 * 
-	 * mvc.perform(get("/item/"+ testItem.getId()))
-	 * .andExpectAll(status().isOk());
-	 * 
-	 * //check no id
-	 * mvc.perform(get("/item/"+ "blub"));
-	 * //.andExpectAll(status().is3xxRedirection(),
-	 * redirectedUrl("/sportequipmentcatalog"));
-	 * 
-	 * }
-	 */
+
+	@Test
+	void showSportItemDetailsTest() throws Exception {
+		MvcResult result = mvc.perform(get("/sportitemcatalog")).andReturn();
+
+		@SuppressWarnings("unchecked")
+		List<SportItem> testList = (List<SportItem>) result.getModelAndView()
+			.getModelMap()
+			.getAttribute("items");
+		SportItem testItem = testList.get(0);
+		// extract one item to show details
+
+		mvc.perform(get("/sportitem/" + testItem.getId()))
+			.andExpectAll(status().isOk());
+
+		//check no id
+		mvc.perform(get("/sportitem/" + "blub"))
+			.andExpectAll(status().is5xxServerError());
+
+	}
+
 }
