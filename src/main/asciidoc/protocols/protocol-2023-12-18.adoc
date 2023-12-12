@@ -1,6 +1,6 @@
 = Protokoll Gruppe 06
 
-Treffen am 04.12.2023
+Treffen am 18.12.2023
 
 Ort:      SLUB 0.66 +
 Beginn:   14:50 Uhr +
@@ -10,7 +10,7 @@ __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-11.12.2023, 14.50 Uhr, SLUB 0.66
+08.01.2024, 14.50 Uhr, ---
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
@@ -25,14 +25,9 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
-Milestone passed
 
 == Retrospektive des letzten Sprints
-große UI Überarbeitung +
-große Konzeptänderung im Backend
 
 == Planung des nächsten Sprints
-Der Rest der noch fehlt
-
 |===
 

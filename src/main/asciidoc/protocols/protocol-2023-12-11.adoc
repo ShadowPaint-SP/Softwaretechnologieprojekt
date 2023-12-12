@@ -1,6 +1,6 @@
 = Protokoll Gruppe 06
 
-Treffen am 04.12.2023
+Treffen am 11.12.2023
 
 Ort:      SLUB 0.66 +
 Beginn:   14:50 Uhr +
@@ -10,7 +10,7 @@ __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-11.12.2023, 14.50 Uhr, SLUB 0.66
+18.12.2023, 14.50 Uhr, SLUB 0.66
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
