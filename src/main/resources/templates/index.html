@@ -8,12 +8,13 @@
     <main layout:fragment="input">
 
         <div class="hero min-h-screen" style="background-image: url('/img/camp_16_9/camp\ \(92\).png');">
-            <div class="hero-overlay bg-opacity-60"></div>
+            <div class="hero-overlay bg-opacity-50 bg-black"></div>
             <div class="hero-content text-center text-neutral-content">
-                <div class="max-w-md">
-                    <h1 class="mb-5 text-2xl font-bold">Willkommen auf dem Campingplatz Below-the-sun.</h1>
-                    <p class="mb-5">Buchen Sie über unsere Webseite bequem ihren Stellplatz im vorraus oder leihen Sie
-                        sich Sportgeräte aus unserem Bestand aus.</p>
+                <div class="max-w-lg">
+                    <h1 class="mb-5 text-2xl font-bold text-neutral-300">Willkommen auf dem Campingplatz Below-the-sun.
+                    </h1>
+                    <p class="mb-5 text-neutral-300">Buchen Sie über unsere Webseite bequem ihren Stellplatz im vorraus
+                        oder leihen Sie sich Sportgeräte aus unserem Bestand aus.</p>
                     <form th:action="@{/plotcatalog}" method="get">
                         <button class="btn btn-primary" type="submit">Zur Stellplatzreservierung</button>
                     </form>

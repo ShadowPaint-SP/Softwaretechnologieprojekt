@@ -7,7 +7,7 @@
     <main layout:fragment="input">
         <form th:action="@{/addSportItem}" method="post">
             <div
-                class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20">
+                class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20 shadow-lg">
                 <div>
                     <label class="label-text">Name:</label>
                     <input type="text" placeholder="" class="input input-sm w-full focus:outline-accent" id="name"
@@ -52,7 +52,7 @@
         </form>
 
 
-        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
             <table class="table table-zebra">
                 <thead class="bg-secondary">
                     <tr>
@@ -60,7 +60,7 @@
                         <th th:text="#{sport.rental_fee}" class="w-[10%]"></th>
                         <th th:text="#{sport.deposit}" class="w-[10%]"></th>
                         <th th:text="#{sport.amount}" class="w-[30%]"></th>
-                        <th th:text="#{sport.delete}" class="w-[5%]"></th>
+                        <th th:text="#{sport.delete}"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +71,7 @@
                         <td>
                             <form th:action="@{/changeSportItemAmount}" method="post">
                                 <input type="number" id="amountItem" name="amountItem" min="0" th:value="${item.amount}"
-                                    class="input input-sm input-ghost focus:outline-accent" required />
+                                    class="input input-sm focus:outline-accent" required />
 
                                 <input type="hidden" id="equip_id" name="equip_id"
                                     th:value="${item != null ? item.id : ''}" />

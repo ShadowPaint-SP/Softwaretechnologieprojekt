@@ -1,140 +1,147 @@
 <<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{dashboard.title})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{dashboard.title})}">
 
-<head></head>
+    <head></head>
 
-<body>
-<main layout:fragment="input">
+    <body>
+        <main layout:fragment="input">
 
-    <form method="post" action="/management/seasonalplot/createSeasonalPlot">
-        <div
-                class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20">
-            <div>
-                <label class="label-text">Name:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="text" placeholder="Neuer Platz" name="name"
-                       required>
-            </div>
-            <div>
-                <label class="label-text">Größe:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="number" value="20" min="10" name="size"
-                       required>
-            </div>
-            <div>
-                <label class="label-text">Parking:</label>
-                <select name="parkingValue" class="select select-bordered select-sm w-full">
-                    <option value="0" th:text="#{plot.parking.no}" selected></option>
-                    <option value="1" th:text="#{plot.parking.bike}"></option>
-                    <option value="2" th:text="#{plot.parking.car}"></option>
-                    <option value="3" th:text="#{plot.parking.camper}"></option>
-                </select>
-            </div>
-            <div>
-                <label class="label-text">Price:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="number" value="10" min="1" name="price"
-                       required>
-            </div>
-            <div>
-                <label class="label-text">Stromzähler:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0" name="electricityMeter"
-                       required>
-            </div>
-            <div>
-                <label class="label-text">Wasserzähler:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0" name="waterMeter"
-                       required>
-            </div>
-            <div>
-                <label class="label-text">Description:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="text" name="description"
-                       placeholder="Beschreibung einfügen" required>
-            </div>
-            <div>
-                <label class="label-text">Picture:</label>
-                <input class="input input-sm w-full focus:outline-accent" type="text" name="picture" value="/img/..."
-                       required>
-            </div>
-            <div></div>
-            <div class="flex justify-around">
-                <button th:text="#{management.plot.add}" formaction="/management/seasonalplot/createSeasonalPlot"
-                        class="btn btn-accent"></button>
-            </div>
-        </div>
-    </form>
-
-    <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
-        <table class="table table-zebra">
-            <thead>
-            <tr>
-                <th></th>
-                <th th:text="#{plot.name}"></th>
-                <th th:text="#{plot.size}"></th>
-                <th th:text="#{plot.parking}"></th>
-                <th th:text="#{plot.price}"></th>
-                <th th:text="#{seasonalplot.electricitymeter}"></th>
-                <th th:text="#{seasonalplot.watermeter}"></th>
-                <th th:text="#{plot.description}"></th>
-                <th th:text="#{plot.picture}"></th>
-                <th th:text="#{plot.remove}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="plot, iStat : ${seasonalPlots}">
-                <form method="post" action="/management/seasonalplot/updateSeasonalPlot">
-                    <input type="hidden" name="plotID" th:value="${plot.id}">
-                    <td th:text="${iStat.count}">
-                        1
-                    </td>
-                    <td>
-                        <input class="input input-sm w-full focus:outline-accent" type="text" name="name"
-                               th:value="${plot.name}" onchange="this.form.submit()">
-                    </td>
-                    <td>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" name="size"
-                               th:value="${plot.size}" onchange="this.form.submit()">
-                    </td>
-                    <th>
-                        <select name="parkingValue" onchange="this.form.submit()"
-                                class="select select-bordered select-xs w-full max-w-xs">
-                            <option value="0" th:selected="${plot.parking.size == 0}" th:text="#{plot.parking.no}"></option>
-                            <option value="1" th:selected="${plot.parking.size == 1}" th:text="#{plot.parking.bike}"></option>
-                            <option value="2" th:selected="${plot.parking.size == 2}" th:text="#{plot.parking.car}"></option>
-                            <option value="3" th:selected="${plot.parking.size == 3}" th:text="#{plot.parking.camper}"></option>
+            <form method="post" action="/management/seasonalplot/createSeasonalPlot">
+                <div
+                    class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20 shadow-lg">
+                    <div>
+                        <label class="label-text">Name:</label>
+                        <input class="input input-sm w-full focus:outline-accent" type="text" placeholder="Neuer Platz"
+                            name="name" required>
+                    </div>
+                    <div>
+                        <label class="label-text">Größe:</label>
+                        <input class="input input-sm w-full focus:outline-accent" type="number" value="20" min="10"
+                            name="size" required>
+                    </div>
+                    <div>
+                        <label class="label-text">Parking:</label>
+                        <select name="parkingValue" class="select select-bordered select-sm w-full">
+                            <option value="0" th:text="#{plot.parking.no}" selected></option>
+                            <option value="1" th:text="#{plot.parking.bike}"></option>
+                            <option value="2" th:text="#{plot.parking.car}"></option>
+                            <option value="3" th:text="#{plot.parking.camper}"></option>
                         </select>
-                    </th>
-                    <td>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" name="price"
-                               th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
-                    </td>
-                    <td>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" name="electricityMeter"
-                               th:value="${plot.getElectricityMeter()}" onchange="this.form.submit()">
-                    </td>
-                    <td>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" name="waterMeter"
-                               th:value="${plot.getWaterMeter()}" onchange="this.form.submit()">
-                    </td>
-                    <td>
+                    </div>
+                    <div>
+                        <label class="label-text">Price:</label>
+                        <input class="input input-sm w-full focus:outline-accent" type="number" value="10" min="1"
+                            name="price" required>
+                    </div>
+                    <div>
+                        <label class="label-text">Stromzähler:</label>
+                        <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0"
+                            name="electricityMeter" required>
+                    </div>
+                    <div>
+                        <label class="label-text">Wasserzähler:</label>
+                        <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0"
+                            name="waterMeter" required>
+                    </div>
+                    <div>
+                        <label class="label-text">Description:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="text" name="description"
-                               th:value="${plot.desc}" onchange="this.form.submit()">
-                    </td>
-                    <td>
+                            placeholder="Beschreibung einfügen" required>
+                    </div>
+                    <div>
+                        <label class="label-text">Picture:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="text" name="picture"
-                               th:value="${plot.imagePath}" onchange="this.form.submit()">
-                    </td>
-                    <th>
-                        <select name="state" onchange="this.form.submit()"
-                            class="select select-bordered select-xs w-full max-w-xs">
-                            <option value="0" th:selected="${plot.state.index == 0}" >operational</option>
-                            <option value="1" th:selected="${plot.state.index == 1}" >defectiv</option>
-                            <option value="2" th:selected="${plot.state.index == 2}" >deleted</option>
-                        </select>
-                    </th>
-                </form>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</main>
-</body>
+                            value="/img/..." required>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div class="flex justify-around">
+                        <button th:text="#{management.plot.add}"
+                            formaction="/management/seasonalplot/createSeasonalPlot" class="btn btn-accent"></button>
+                    </div>
+                </div>
+            </form>
 
-</html>
+            <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+                <table class="table table-zebra">
+                    <thead class="bg-secondary">
+                        <tr>
+                            <th></th>
+                            <th th:text="#{plot.name}"></th>
+                            <th th:text="#{catalog.plot.size}" class="w-[8%]"></th>
+                            <th th:text="#{plot.parking}"></th>
+                            <th th:text="#{plot.price}" class="w-[8%]"></th>
+                            <th th:text="#{seasonalplot.electricitymeter}" class="w-[8%]"></th>
+                            <th th:text="#{seasonalplot.watermeter}" class="w-[8%]"></th>
+                            <th th:text="#{plot.description}"></th>
+                            <th th:text="#{plot.picture}"></th>
+                            <th th:text="#{plot.remove}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="plot, iStat : ${seasonalPlots}">
+                            <form method="post" action="/management/seasonalplot/updateSeasonalPlot">
+                                <input type="hidden" name="plotID" th:value="${plot.id}">
+                                <td th:text="${iStat.count}">
+                                    1
+                                </td>
+                                <td>
+                                    <input class="input input-sm w-full focus:outline-accent" type="text" name="name"
+                                        th:value="${plot.name}" onchange="this.form.submit()">
+                                </td>
+                                <td>
+                                    <input class="input input-sm w-full focus:outline-accent" type="number" name="size"
+                                        th:value="${plot.size}" onchange="this.form.submit()">
+                                </td>
+                                <th>
+                                    <select name="parkingValue" onchange="this.form.submit()"
+                                        class="select select-xs w-full max-w-xs focus:outline-accent">
+                                        <option value="0" th:selected="${plot.parking.size == 0}"
+                                            th:text="#{plot.parking.no}"></option>
+                                        <option value="1" th:selected="${plot.parking.size == 1}"
+                                            th:text="#{plot.parking.bike}"></option>
+                                        <option value="2" th:selected="${plot.parking.size == 2}"
+                                            th:text="#{plot.parking.car}"></option>
+                                        <option value="3" th:selected="${plot.parking.size == 3}"
+                                            th:text="#{plot.parking.camper}"></option>
+                                    </select>
+                                </th>
+                                <td>
+                                    <input class="input input-sm w-full focus:outline-accent" type="number" name="price"
+                                        th:value="${plot.getPriceDouble()}" onchange="this.form.submit()">
+                                </td>
+                                <td>
+                                    <input class="input input-sm w-full focus:outline-accent" type="number"
+                                        name="electricityMeter" th:value="${plot.getElectricityMeter()}"
+                                        onchange="this.form.submit()">
+                                </td>
+                                <td>
+                                    <input class="input input-sm w-full focus:outline-accent" type="number"
+                                        name="waterMeter" th:value="${plot.getWaterMeter()}"
+                                        onchange="this.form.submit()">
+                                </td>
+                                <td>
+                                    <input class="input input-sm w-full focus:outline-accent" type="text"
+                                        name="description" th:value="${plot.desc}" onchange="this.form.submit()">
+                                </td>
+                                <td>
+                                    <input class="input input-sm w-full focus:outline-accent" type="text" name="picture"
+                                        th:value="${plot.imagePath}" onchange="this.form.submit()">
+                                </td>
+                                <th>
+                                    <select name="state" onchange="this.form.submit()"
+                                        class="select select-xs w-full max-w-xs focus:outline-accent">
+                                        <option value="0" th:selected="${plot.state.index == 0}">operational</option>
+                                        <option value="1" th:selected="${plot.state.index == 1}">defectiv</option>
+                                        <option value="2" th:selected="${plot.state.index == 2}">deleted</option>
+                                    </select>
+                                </th>
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </body>
+
+    </html>

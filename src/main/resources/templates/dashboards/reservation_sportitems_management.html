@@ -1,53 +1,42 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=#{dashboard.title})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{dashboard.title})}">
 
 <head></head>
 
 <body>
-<main layout:fragment="input">
-    <div class="overflow-x-auto">
-        <table class="table table-zebra">
-
-            <thead>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>SportItem</th>
-            <th>Begin</th>
-            <th>End</th>
-            <th>Duration</th>
-
-            <th>Total Price</th>
-            </thead>
-
-            <tbody>
-            <!--<form method="get" th:action="@{/management/sportitems/reservation}">-->
-            <tr th:each="reservation, iStat : ${reservationsSportItem}" class="hover">
-
-
-            <td th:text="${reservation.user.firstname}"></td>
-            <td th:text="${reservation.user.lastname}"></td>
-            <td th:text="${reservation.product.name}"></td>
-            <td th:text="${reservation.begin}"></td>
-            <td th:text="${reservation.end}"></td>
-            <td th:text="${reservation.duration()}"></td>
-            <td th:text="${reservation.price}"></td>
-
-            <td>
-                <form method="post" th:action="@{/management/sportitems/return}">
-                    <input type="hidden" name="reservationUUID" th:value="${reservation.id}">
-                    <button type="submit">Return Item</button>
-                </form>
-            </td>
-            </tr>
-
-
-
-
-            </tbody>
-        </table>
-    </div>
-</main>
+    <main layout:fragment="input">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+            <table class="table table-zebra">
+                <thead class="bg-secondary">
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>SportItem</th>
+                    <th>Begin</th>
+                    <th>End</th>
+                    <th>Duration</th>
+                    <th>Total Price</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr th:each="reservation, iStat : ${reservationsSportItem}" class="hover">
+                        <td th:text="${reservation.user.firstname}"></td>
+                        <td th:text="${reservation.user.lastname}"></td>
+                        <td th:text="${reservation.product.name}"></td>
+                        <td th:text="${reservation.begin}"></td>
+                        <td th:text="${reservation.end}"></td>
+                        <td th:text="${reservation.duration()}"></td>
+                        <td th:text="${reservation.price}"></td>
+                        <td>
+                            <form method="post" th:action="@{/management/sportitems/return}">
+                                <input type="hidden" name="reservationUUID" th:value="${reservation.id}">
+                                <button class="btn btn-primary" type="submit">Return Item</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 
 </html>

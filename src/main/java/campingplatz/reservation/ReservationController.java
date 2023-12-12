@@ -99,7 +99,7 @@ class ReservationController {
 		}
 		sportItemCart.clear();
 
-		return "redirect:/";
+		return "redirect:/orders";
 	}
 
 	@GetMapping("/orders")

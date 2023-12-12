@@ -5,11 +5,9 @@
 
 <body>
 	<main layout:fragment="input">
-		<div th:fragment="orders(reservations)" class="overflow-x-auto">
-			
+		<div th:fragment="orders(reservations)" class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
 			<table class="table table-zebra">
-				<!-- head -->
-				<thead>
+				<thead class="bg-secondary">
 					<tr>
 						<th></th>
 						<th th:text="#{reservation.status}"></th>
@@ -22,16 +20,17 @@
 					</tr>
 				</thead>
 				<tbody>
-
-					<!-- row 2 -->
 					<tr th:each="reservation, iStat : ${reservations}" class="hover">
 						<th th:text="${iStat.count}"></th>
 						<td>
 							<form method="post" action="/management/seasonalreservation/updateReservation">
 								<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
-								<select onchange="this.form.submit()" name="stateValue" class="select select-bordered select-xs w-full max-w-xs">
-									<option value="0" th:selected="${reservation.state.value == 0}" th:text="#{reservation.status.not_taken}"></option>
-									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}"> </option>
+								<select onchange="this.form.submit()" name="stateValue"
+									class="select select-xs w-full max-w-xs focus:outline-accent">
+									<option value="0" th:selected="${reservation.state.value == 0}"
+										th:text="#{reservation.status.not_taken}"></option>
+									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}">
+									</option>
 								</select>
 							</form>
 						</td>
@@ -42,11 +41,9 @@
 						<td th:text="${reservation.end}"></td>
 						<td th:text="${reservation.price}"></td>
 					</tr>
-
 				</tbody>
 			</table>
 		</div>
-
 	</main>
 </body>
 

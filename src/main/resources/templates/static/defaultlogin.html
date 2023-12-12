@@ -18,10 +18,8 @@
 						et a id nisi.
 					</p>
 				</div>
-
 				<div class="card shrink-0 w-full max-w-md shadow-2xl bg-base-100">
 					<form class="card-body" id="form" th:action="@{/login}" method="post" role="form">
-
 						<div class="label pb-0">
 							<span class="label-text-alt">E-Mail</span>
 						</div>
@@ -30,7 +28,6 @@
 								th:placeholder="#{login-register.email}" aria-label="Username" id="username" name="username"
 								autofocus="autofocus" />
 						</div>
-
 						<div class="label pb-0">
 							<span class="label-text-alt">Password</span>
 						</div>
@@ -38,7 +35,6 @@
 							<input class="input input-bordered focus:outline-accent w-full" type="password"
 								th:placeholder="#{login-register.password}" aria-label="Password" id="password" name="password" />
 						</div>
-
 						<div class="form-control mt-6">
 							<button class="btn btn-accent" type="submit" th:text="#{login.login}">Login</button>
 						</div>

@@ -5,7 +5,7 @@
 <head> </head>
 
 <body>
-    <main layout:fragment="input" >
+    <main layout:fragment="input">
         <div class="hero min-h-screen bg-base-200">
             <div class="hero-content flex-col lg:flex-row-reverse">
                 <div class="text-center lg:text-left">
@@ -18,11 +18,9 @@
                         et a id nisi.
                     </p>
                 </div>
-
                 <div class="card shrink-0 w-full max-w-md shadow-2xl bg-base-100">
                     <form class="card-body" id="form" th:action="@{/register}" th:object="${registrationForm}"
                         method="post" role="form">
-
                         <div th:if="${errorMessage}" role="alert" class="alert alert-error">
                             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
                                 viewBox="0 0 24 24">
@@ -31,7 +29,6 @@
                             </svg>
                             <span th:text="${errorMessage}">Error!</span>
                         </div>
-
                         <div class="label pb-0">
                             <span class="label-text-alt">Geben Sie Ihren Namen ein.</span>
                         </div>
@@ -45,7 +42,6 @@
                                 class="input input-bordered focus:outline-accent bg-transparent join-item w-[50%]"
                                 required />
                         </div>
-
                         <div class="label pb-0">
                             <span class="label-text-alt">Bitte geben Sie Ihr Passwort ein.</span>
                         </div>
@@ -54,7 +50,6 @@
                                 th:placeholder="#{login-register.password}"
                                 class="input input-bordered focus:outline-accent" required />
                         </div>
-
                         <div class="label pb-0">
                             <span class="label-text-alt">Bitte geben Sie ihre E-Mail Adresse ein.</span>
                         </div>
@@ -63,7 +58,6 @@
                                 th:placeholder="#{login-register.email}"
                                 class="input input-bordered focus:outline-accent" required />
                         </div>
-
                         <div class="form-control mt-6">
                             <button class="btn btn-accent" type="submit" th:text="#{register.submit}">Register</button>
                         </div>
