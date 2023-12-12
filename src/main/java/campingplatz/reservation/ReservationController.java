@@ -75,7 +75,6 @@ class ReservationController {
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
-
 		// TODO: replace with a propper database query. this is slow an terrible
 		for (var reservation : reservations) {
 			if (plotReservationRepository.productIsAvailableIn(
@@ -89,14 +88,6 @@ class ReservationController {
 
 		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
 		sportItemReservationRepository.saveAll(sportReservations);
-
-		sportItemReservationRepository.saveAll(sportReservations);
-		for (SportItemReservation reservation : sportReservations) {
-			SportItem sportItem = reservation.getProduct();
-			sportItem.setAmount(sportItem.getAmount() - 1);
-			itemCatalog.save(sportItem);
-
-		}
 		sportItemCart.clear();
 
 		return "redirect:/orders";
