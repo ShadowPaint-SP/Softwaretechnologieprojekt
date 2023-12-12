@@ -23,6 +23,7 @@ Anmerkungen:
 2. Saisonplätze werden aktuell direkt reserviert und gehen nicht zuerst in den Einkaufswagen.
    Ob wir das so belassen oder ändern, diskutieren wir noch. Also nicht wundern.
 
-3. Unter "meine Reservierungen" werden aktuell nur die Platz reservierungen angezeigt.
-   Ob alle Reservierungen unter "meine Reservierungen" kommen, oder ob jede Reservierung seine
-   eigene Ansicht bekommt, diskutieren wir noch. Also nicht wundern.
+3. Unter "meine Reservierungen" und "Buchhaltung Management" werden aktuell nur die Platz reservierungen
+   angezeigt. Ob alle Reservierungen unter "meine Reservierungen" und "Buchhaltung Management" kommen, oder
+   ob jede Reservierung seine eigene Ansicht bekommt, diskutieren wir noch. Also nicht wundern.
+
