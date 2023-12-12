@@ -16,7 +16,7 @@ public class SportItemReservationDashboardController {
 
 	private SportItemReservationRepository sportItemReservations;
 
-	SportItemReservationDashboardController(SportItemReservationRepository sportItemReservations) {
+	public SportItemReservationDashboardController(SportItemReservationRepository sportItemReservations) {
 		this.sportItemReservations = sportItemReservations;
 	}
 
