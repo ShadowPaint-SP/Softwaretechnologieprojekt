@@ -1,10 +1,10 @@
 = Cross-Testing Feedback
 
-__Durchführende Gruppe:__
-__Anwendung von Gruppe:__
+__Durchführende Gruppe: 06__ +
+__Anwendung von Gruppe: 02__
 
 == Getestetes System
-Welche Aufgabe/Problemstellung löst die Anwendung.
+Below the Sun Campingplatz
 
 == Fehler-Report
 // See http://asciidoctor.org/docs/user-manual/#tables
@@ -26,6 +26,7 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
 |===
 
 == Sonstiges
+
 * Optik der Anwendung
 
 
@@ -52,6 +53,7 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
 - Die Mitarbeiter Platz Ansicht ist einfach besser als die Customer Platz ansicht? Die mal Übernehmen?
 - Im Cart eine Nachricht anzuzeigen, wenn mehrere Buchungen überlappend sind ist etwas dürftig. Besser verhindert man, dass Buchungen gemacht werden, die mit welchen im Cart überlappen
 
-== Fragen die Aufgekommen sind
+
+== Fragen die aufgekommen sind
 
  - Wenn der Mitarbeiter die Buchung als bezahlt markiert, muss der einen Betrag angeben. Dieser uss aber immer genau den Kosten entsprechen. Wieso muss der das dann noch angeben?
