@@ -12,9 +12,12 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 |===
 |Pfad |Parameter |Beschreibung |Rückgabe
 | view_campinglots/{id}|StartDate = nichts, EndDate = nichts | Versuch Reservierung ohne Angabe von Anfangs oder End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
+| view_campinglots/{id}|StartDate = heute, EndDate = 2023-12-16 | Versuch Reservierung mit heuteigem Tag als Anfangs in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
 | view_campinglots/{id}|StartDate = 2023-12-15, EndDate = 2023-12-12 | Versuch Reservierung mit Anfangs vor End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
 | view_campinglots/{id}|StartDate = 2023-12-12, EndDate = 2023-12-12 | Versuch Reservierung mit gleichem Anfangs und End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
 | view_campinglots/{id}| StartDate = 2023-12-13, EndDate = 2023-12-16 und StartDate = 2023-12-13, EndDate = 2023-12-14| Versuch in einem Bereich zu reservieren, der bereits reserviert ist, führt zu einer error Seite  | Whitelabel Error Page
+
+| bookings | paid-amount = NaN| haha, ein Mitarbeiter kann NaN in das Zahlungsbetrag-Feld eintragen, was zur error Seite führt   | Whitelabel Error Page
 
 | borrow-page|Date = 2023-16-12, StartTime = 15.15, EndTime = 15.15 | Versuch Reservierung mit gleicher Anfangs und End Zeit in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
 | change_password|Account: camping_lotte +
@@ -29,11 +32,26 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
 * Fehlende Features
     - man sollte vielleicht den Preis eines Platzes pro Tag sehen
 
+* Korrektheit
+    - Man kann beliebige Parkplätze auswählen, egal ob der Platz den hat oder nicht
+    - Unabhängig davon, welcher Parkplatz ausgewählt ist, sind die Parkkosten 2 Euro
 
 * Interaktion mit der Anwendung (Usability)
     - nachdem man einen Account erstellt möchte man angemeldet bleiben
-    - Feedback bei add-to-cart wäre nice
+    - Feedback bei add-to-cart wäre schön
     - kann man seine eigenen Buchungen sehen?
+
+* Rechtschreibfehler
+   - Nachricht, wenn im Cart die Zeiträume kollidieren (13tes Wort: istoder)
+
+* Sonstige Fehler
+
 
 == Verbesserungsvorschläge
 
+- Die Mitarbeiter Platz Ansicht ist einfach besser als die Customer Platz ansicht? Die mal Übernehmen?
+- Im Cart eine Nachricht anzuzeigen, wenn mehrere Buchungen überlappend sind ist etwas dürftig. Besser verhindert man, dass Buchungen gemacht werden, die mit welchen im Cart überlappen
+
+== Fragen die Aufgekommen sind
+
+ - Wenn der Mitarbeiter die Buchung als bezahlt markiert, muss der einen Betrag angeben. Dieser uss aber immer genau den Kosten entsprechen. Wieso muss der das dann noch angeben?
