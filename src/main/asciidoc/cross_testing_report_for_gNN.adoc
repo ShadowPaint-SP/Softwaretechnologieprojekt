@@ -32,10 +32,8 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
 
 * Interaktion mit der Anwendung (Usability)
     - nachdem man einen Account erstellt möchte man angemeldet bleiben
-
-* Feedback bei add-to-cart wäre nice
-
-* kann man seine eigenen Buchungen sehen?
+    - Feedback bei add-to-cart wäre nice
+    - kann man seine eigenen Buchungen sehen?
 
 == Verbesserungsvorschläge
 
