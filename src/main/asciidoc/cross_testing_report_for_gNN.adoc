@@ -33,6 +33,7 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
 * Fehlende Features
     - man sollte vielleicht den Preis eines Platzes pro Tag sehen
     - dem eingeloggten Nutzer fehlt eine Übersicht über seine getätigten Buchungen
+    - dem eingeloggten Nutzer fehlt eine Übersicht über seine ausgeliehenen Sportgeräten
 
 * Korrektheit
     - Man kann beliebige Parkplätze auswählen, egal ob der Platz den hat oder nicht
@@ -49,7 +50,7 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
    - Nachricht, wenn im Cart die Zeiträume kollidieren (13tes Wort: istoder)
 
 * Sonstige Fehler
-    - ein und derselbe Saisonale Stellplatz kann mehrfach, auch mit dem selben Parkplatz in den Warenkorb gelegt werden
+    - ein und derselbe Stellplatz (sowohl Saisonal als auch normal) kann mehrfach, auch mit dem selben Parkplatz in den Warenkorb gelegt werden
 
 
 == Verbesserungsvorschläge
