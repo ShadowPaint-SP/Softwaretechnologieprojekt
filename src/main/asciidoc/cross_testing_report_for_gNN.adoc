@@ -57,6 +57,7 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
 
 - Die Mitarbeiter Platz Ansicht ist einfach besser als die Customer Platz ansicht? Die mal Übernehmen?
 - Im Cart eine Nachricht anzuzeigen, wenn mehrere Buchungen überlappend sind ist etwas dürftig. Besser verhindert man, dass Buchungen gemacht werden, die mit welchen im Cart überlappen
+- Beim Sportgeräteverleih die grau eingetragenene Zeiten evtl übernehmen wenn nichts anderes eingegeben wird, so muss nicht immer die vollständige Zeit eingetragen werden 
 
 
 == Fragen die aufgekommen sind
