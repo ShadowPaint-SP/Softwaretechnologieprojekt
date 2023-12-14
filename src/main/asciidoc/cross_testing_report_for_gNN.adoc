@@ -42,6 +42,8 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
     - nachdem man einen Account erstellt möchte man angemeldet bleiben
     - Feedback bei add-to-cart wäre schön
     - kann man seine eigenen Buchungen sehen?
+    - es können in einer Kategorie keine zwei Filter zusammen gesetzt werden, nur jeweil ein Haken möglich
+    - zudem können bereits getätigte Haken nicht komplett zurückgenommen werden, nur versetzt
 
 * Rechtschreibfehler
    - Nachricht, wenn im Cart die Zeiträume kollidieren (13tes Wort: istoder)
