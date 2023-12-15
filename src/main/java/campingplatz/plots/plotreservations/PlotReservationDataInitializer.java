@@ -1,9 +1,7 @@
-package campingplatz.reservation;
+package campingplatz.plots.plotreservations;
 
 import campingplatz.customer.CustomerManagement;
 import campingplatz.plots.PlotCatalog;
-import campingplatz.plots.plotreservations.PlotReservation;
-import campingplatz.plots.plotreservations.PlotReservationRepository;
 
 import org.salespointframework.core.DataInitializer;
 import org.springframework.core.annotation.Order;
@@ -13,12 +11,12 @@ import java.time.LocalDate;
 
 @Component
 @Order(30)
-class ReservationDataInitializer implements DataInitializer {
+class PlotReservationDataInitializer implements DataInitializer {
     private final PlotReservationRepository reservationRepository;
     private final CustomerManagement customerManagement;
     private final PlotCatalog plotCatalog;
 
-    ReservationDataInitializer(
+    PlotReservationDataInitializer(
             PlotReservationRepository reservationRepository,
             CustomerManagement customerManagement,
             PlotCatalog plotCatalog) {

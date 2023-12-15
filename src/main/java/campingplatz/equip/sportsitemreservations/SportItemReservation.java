@@ -21,6 +21,7 @@ public class SportItemReservation extends Reservation<SportItem> {
 		super(userAccount, sportItem, arrival, departure);
 	}
 
+	@Override
 	public ChronoUnit getIntervalUnit() {
 		return ChronoUnit.HOURS;
 	}
