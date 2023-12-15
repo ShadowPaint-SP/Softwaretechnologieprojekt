@@ -19,7 +19,7 @@ import java.util.UUID;
 /**
  * The Base class of all Reservations.
  * <p>
- * Create more Reservations by inheriting from this class
+ * Create specific Reservations by inheriting from this class
  * and specifying the Type of the reservation. Keep in mind,
  * that this is done, because a JPA Entity cannot be generic
  * Because of that, you should not add any extensions to this

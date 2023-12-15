@@ -57,11 +57,8 @@ public class ReservationCartTests {
 	@Test
 	void testAdd() {
 
-		ReservationEntry<Plot> entry = new ReservationEntry<>(plot2,
-				LocalDate.of(2023, 12, 1).atStartOfDay());
-
-		cart.add(entry);
-		assertTrue(cart.contains(entry));
+		cart.addEntry(plot2, LocalDate.of(2023, 12, 1).atStartOfDay());
+		assertTrue(cart.containsEntry(plot2, LocalDate.of(2023, 12, 1).atStartOfDay()));
 
 		PlotReservation reservation = new PlotReservation(user, plot2,
 				LocalDate.of(2023, 12, 1).atStartOfDay(),
@@ -82,8 +79,11 @@ public class ReservationCartTests {
 		assertTrue(found);
 	}
 
+
+
 	@Test
 	void testRemove() {
+		assertTrue(cart.contains(reservation1));
 		cart.remove(reservation1);
 		assertFalse(cart.contains(reservation1));
 	}

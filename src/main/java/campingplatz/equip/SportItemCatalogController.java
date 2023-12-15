@@ -2,7 +2,8 @@ package campingplatz.equip;
 
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
-import campingplatz.reservation.ReservationEntry;
+import campingplatz.plots.Plot;
+import campingplatz.reservation.Cart;
 import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -104,12 +105,11 @@ public class SportItemCatalogController {
 
 		var currentDay = state.getDefaultedDay();
 		var time = currentDay.atStartOfDay().plusHours(9L + Long.valueOf(index));
-		var reservation = new ReservationEntry<SportItem>(sportItem, time);
 
-		if (!reservationCart.contains(reservation)) {
-			reservationCart.add(reservation);
+		if (!reservationCart.containsEntry(sportItem, time)) {
+			reservationCart.addEntry(sportItem, time);
 		} else {
-			reservationCart.remove(reservation);
+			reservationCart.removeEntry(sportItem, time);
 		}
 
 		return showSportItemDetails(model, Optional.ofNullable(user), state, sportItem, reservationCart);

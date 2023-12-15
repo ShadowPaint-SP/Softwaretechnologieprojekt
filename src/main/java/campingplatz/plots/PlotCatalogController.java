@@ -3,7 +3,6 @@ package campingplatz.plots;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
-import campingplatz.reservation.ReservationEntry;
 import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -113,12 +112,11 @@ class PlotCatalogController {
             @ModelAttribute("plotCart") PlotCart reservationCart) {
 
         var day = query.getDefaultedFirstWeekDate().plusDays(index).atStartOfDay();
-        var reservation = new ReservationEntry<Plot>(plot, day);
 
-        if (!reservationCart.contains(reservation)) {
-            reservationCart.add(reservation);
+        if (!reservationCart.containsEntry(plot, day)) {
+            reservationCart.addEntry(plot, day);
         } else {
-            reservationCart.remove(reservation);
+            reservationCart.removeEntry(plot, day);
         }
 
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
