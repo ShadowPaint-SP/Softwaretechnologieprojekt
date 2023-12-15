@@ -128,7 +128,7 @@ class PlotCatalogController {
 		).toList();
 		var evaluatedPlots = PlotCatalogController.evaluatePlots(availablePlots, query);
 		var filteredPlots = filterHits(evaluatedPlots);
-		var aproximatlyFilteredPlots = aproximateHits(evaluatedPlots);
+		var approximatelyFilteredPlots = aproximateHits(evaluatedPlots);
 
 
         var reservations = reservationRepository.findReservationsBetween(firstWeekDate.atStartOfDay(),
@@ -140,7 +140,7 @@ class PlotCatalogController {
                 .collapse();
 
         model.addAttribute("filteredPlots", filteredPlots);
-		model.addAttribute("aproximatlyFilteredPlots", aproximatlyFilteredPlots);
+		model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);
         model.addAttribute("availabilityTable", availabilityTable);
         model.addAttribute("searchQuery", query);
         model.addAttribute("weekDates", formatedWeekDates);

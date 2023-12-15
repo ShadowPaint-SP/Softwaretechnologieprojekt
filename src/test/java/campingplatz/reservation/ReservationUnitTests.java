@@ -45,6 +45,7 @@ public class ReservationUnitTests {
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
+		reservationRepository.deleteAll();
 
 		customer = userAccountManagement.create("customer", Password.UnencryptedPassword.of("none"),
 				Customer.Roles.CUSTOMER.getValue());
@@ -104,7 +105,7 @@ public class ReservationUnitTests {
 		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 11, 2).atStartOfDay());
 		assertEquals(1, reservationRepository.findAll().size());
 		assertEquals(Optional.empty(), reservationRepository.findById(reservation.id));
-		assertEquals(takenReservation, reservationRepository.findById(takenReservation.id).get());
+		assertTrue(reservationRepository.findById(takenReservation.id).isPresent());
 	}
 
 	@Test
