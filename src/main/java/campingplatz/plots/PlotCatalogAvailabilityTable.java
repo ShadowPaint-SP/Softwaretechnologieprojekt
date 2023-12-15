@@ -118,7 +118,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	 * Marks the periods between the arrival and deparure in the filter as
 	 * highlighted in the table
 	 */
-	public PlotCatalogAvailabilityTable addHighlights(PlotCatalog.SiteState query, Set<Plot> reservedPlots) {
+	public PlotCatalogAvailabilityTable addHighlights(PlotCatalogController.SiteState query, Set<Plot> reservedPlots) {
 		// fill the table with selections
 		for (var entry : this.entrySet()) {
 

@@ -2,6 +2,7 @@ package campingplatz.plots;
 
 import campingplatz.utils.DetailedProduct;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
@@ -11,6 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@EqualsAndHashCode(callSuper = false)
 public class Plot extends DetailedProduct {
 
     private Double size; // in square meters
