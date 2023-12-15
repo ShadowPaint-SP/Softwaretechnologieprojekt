@@ -83,7 +83,7 @@ public class Plot extends DetailedProduct {
     public enum State {
         OPERATIONAL(0, "state.ok"),
         DEFECTIVE(1, "state.broke"),
-        DELETED(2, "state.deleted");
+        HIDDEN(2, "state.deleted");
 
         public final Integer index;
         public final String label;
@@ -97,7 +97,7 @@ public class Plot extends DetailedProduct {
             return switch (i) {
                 case 0 -> OPERATIONAL;
                 case 1 -> DEFECTIVE;
-                case 2 -> DELETED;
+                case 2 -> HIDDEN;
                 default -> OPERATIONAL;
             };
 

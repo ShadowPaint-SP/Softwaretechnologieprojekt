@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -19,10 +20,12 @@ import static org.salespointframework.core.Currencies.EURO;
 public interface PlotCatalog extends Catalog<Plot> {
     static final Sort DEFAULT_SORT = Sort.sort(Plot.class).by(Plot::getName).descending();
 
+
+	List<Plot> findByState(Plot.State state);
     default List<Plot> filter(SiteState query) {
         // we just use filter, instead of specialized database queries.
         // the number of plots in the catalog is not big enough for it to matter
-        return findAll().filter(plot -> {
+        return findByState(Plot.State.OPERATIONAL).stream().filter(plot -> {
             boolean isMatch = true;
 
             // TODO evaluate why seasonalPlots are saved to both seasonal and normal
