@@ -54,9 +54,9 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
        -> wirft dann aber einen Fehler beim bestellen
 
 * Dauercamper
- - im Catalog kein Preis sichtbar
- - Preis im Einkaufswagen ziemlich hoch, S3 kostet 63900 für 2024-04-01 bis 2024-04-02
- - Preis für Dauercamper wird aktuell pro nacht festgelegt... fände pro Monat besser
+ - im Catalog kein Preis sichtbar // das haben wir schon bei fehlende Features
+ - Preis im Einkaufswagen ziemlich hoch, S3 kostet 63900 für 2024-04-01 bis 2024-04-02  // dass die daten komisch sind ist doch keine kritikpunkt
+ - Preis für Dauercamper wird aktuell pro nacht festgelegt, fände pro Monat besser
  - Die Abrechnung sollte wahlweise pro Monat oder Jahr erfolgen
   - Berechnung der Buchung erfolgt weder jährlich noch monatlich, sondern pro Nacht im Dashboard
   - Abrechnung der Strom- und Wasserkosten fehlt
@@ -66,12 +66,11 @@ Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das ri
 == Verbesserungsvorschläge
 
 - Die Mitarbeiter Platz Ansicht ist einfach besser als die Customer Platz ansicht? Die mal Übernehmen?
-- Im Cart eine Nachricht anzuzeigen, wenn mehrere Buchungen überlappend sind ist etwas dürftig. Besser verhindert man, dass Buchungen gemacht werden, die mit welchen im Cart überlappen
-- Beim Sportgeräteverleih die grau eingetragenene Zeiten evtl übernehmen wenn nichts anderes eingegeben wird, so muss nicht immer die vollständige Zeit eingetragen werden
-- Für die Überschaubarkeit wäre das  Persistieren der Filtereinstellungen nach Absenden des Formulares schön und nicht nur das Anzeigen in der Überschrift.
+- Es ist möglich, dass gleiche Objekt mehrmals in den Einkaufwagen zu legen. Auch wenn danach ein Fehler beim Buche kommt, wäre eine frühere Fehlermeldung schön.
+- Beim Sportgeräteverleih die grau eingetragenene Zeiten evtl übernehmen, wenn nichts anderes eingegeben wird, so muss nicht immer die vollständige Zeit eingetragen werden
+- Für die Überschaubarkeit wäre das Persistieren der Filtereinstellungen nach Absenden des Formulares schön und nicht nur das Anzeigen in der Überschrift.
 - etwas komplizierte Eingabe zur Bezahlung einer Buchung, da sowieso nur der richtige Betrag händisch eingegeben werden muss.
 - sehr schöner Graph bei den Finanzen, aber es ist nicht genau ersichtlich was der Graph aussagen soll (#Achsenbeschriftung)
-- es ist möglich, dass gleiche Objekt mehrmals in den Einkaufwagen zu legen. Auch wenn danach ein Fehler beim Buche kommt, wäre eine frühere Fehlermeldung schön.
 
 
 == Fragen die aufgekommen sind
