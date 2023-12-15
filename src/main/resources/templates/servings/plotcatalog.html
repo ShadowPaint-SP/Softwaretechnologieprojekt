@@ -33,7 +33,6 @@
                     <label class="label-text" th:text="#{plot.parking}">Parkplatz:</label>
                     <select class="select select-none w-full max-w-xs focus:outline-accent" name="parking"
                         onchange="this.form.submit()">
-                        <option disabled selected th:text="#{catalog.parking.select}">chose an option</option>
                         <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{catalog.parking.no}">
                         </option>
                         <option value="1" th:selected="${searchQuery.parking==1}" th:text="#{catalog.parking.bike}">
@@ -101,20 +100,23 @@
                     <tbody>
                         <tr th:each="plot, iStat : ${allPlots.get(availablePlotsTable)}">
                             <th class="flex">
-                                <div>
-                                    <img class="h-32 w-32" th:src="${plot.imagePath}" />
+                                <div class="pr-4">
+                                    <img class="h-32 w-32 mask mask-squircle" th:src="${plot.imagePath}" />
                                 </div>
-                                <div>
-                                    <div th:text="${plot.name}">Plotname</div>
-                                    <div>
-                                        <div th:text="'Kosten: '+${plot.priceString}"></div>
-                                        <div th:text="'Größe: '+${plot.sizeString}"></div>
-                                        <div th:text="#{${plot.parking.label}}"></div>
-                                        <div th:text="${plot.desc}"></div>
-                                    </div>
-                                    <!--<button type="submit" th:formaction="'/plotcatalog/select/' + ${plot.id}"
-                                        th:text="#{catalog.reserve}"></button>-->
+                                <div class="my-auto justify-between">
+                                    <a class="underline" th:text="${plot.name}" href=""></a>
+                                    <p class="text-neutral-500">Kosten: <span class="text-accent"
+                                            th:text="${plot.priceString}"></span>
+                                    </p>
+                                    <p class="text-neutral-500">Größe: <span class="text-accent"
+                                            th:text="${plot.sizeString}"></span></p>
+                                    <p class="text-neutral-500" th:text="#{${plot.parking.label}}"></p>
+
+                                    <button class="btn btn-sm btn-primary" type="submit"
+                                        th:formaction="'/plotcatalog/select/' + ${plot.id}"
+                                        th:text="#{catalog.highlight}"></button>
                                 </div>
+
                             </th>
                             <td></td>
                             <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"

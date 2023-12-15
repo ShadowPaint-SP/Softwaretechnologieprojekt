@@ -18,7 +18,6 @@
                     </div>
                     <select class="select select-none w-full max-w-xs focus:outline-accent" name="parking"
                         onchange="this.form.submit()">
-                        <option disabled selected th:text="#{catalog.parking.select}">chose an option</option>
                         <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{catalog.parking.no}">
                         </option>
                         <option value="1" th:selected="${searchQuery.parking==1}" th:text="#{catalog.parking.bike}">
@@ -80,20 +79,20 @@
                 </thead>
                 <tbody>
                     <tr th:each="plot : ${allSeasonalPlots.get(plotsavailable)}">
-                        <td class="flex">
-                            <div>
-                                <img class="h-32 w-32" th:src="${plot.imagePath}" />
+                        <th class="flex">
+                            <div class="pr-4">
+                                <img class="h-32 w-32 mask mask-squircle" th:src="${plot.imagePath}" />
                             </div>
-                            <div>
-                                <div th:text="${plot.name}">Plotname</div>
-                                <div>
-                                    <div th:text="'Kosten: '+${plot.priceString}"></div>
-                                    <div th:text="'Größe: '+${plot.sizeString}"></div>
-                                    <div th:text="#{${plot.parking.label}}"></div>
-                                    <div th:text="${plot.desc}"></div>
-                                </div>
+                            <div class="my-auto justify-between">
+                                <p class="underline" th:text="${plot.name}"></p>
+                                <p class="text-neutral-500">Kosten: <span class="text-accent"
+                                        th:text="${plot.priceString}"></span>
+                                </p>
+                                <p class="text-neutral-500">Größe: <span class="text-accent"
+                                        th:text="${plot.sizeString}"></span></p>
+                                <p class="text-neutral-500" th:text="#{${plot.parking.label}}"></p>
                             </div>
-                        </td>
+                        </th>
                         <td>
                             <div class="flex flex-row justify-around pb-4">
                                 <section th:text="#{arrival} + ': ' + ${plot.getArrivalStr(currentDate)}">Arrival
