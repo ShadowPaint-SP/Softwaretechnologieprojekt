@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@EqualsAndHashCode(callSuper = false)
 public class Plot extends DetailedProduct {
 
     private Double size; // in square meters

@@ -130,6 +130,9 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 					(ChronoUnit.DAYS.between(firstDay, query.getDefaultedDeparture())));
 
 			var row = entry.getValue();
+			if (row == null) {
+				continue;
+			}
 
 			// check that it is completly free
 			if (reservedPlots.contains(entry.getKey())) {
@@ -158,6 +161,10 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			int index = (int) (ChronoUnit.DAYS.between(firstDay, time));
 
 			var row = this.get(plot);
+			if (row == null) {
+				continue;
+			}
+
 			row[index] = FieldType.FREE_SELECTED;
 		}
 
