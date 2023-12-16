@@ -1,10 +1,7 @@
 package campingplatz.seasonalplots;
 
-import campingplatz.plots.Plot;
-import jakarta.validation.constraints.Null;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.salespointframework.catalog.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,11 +17,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class SeasonalPlotDashboardControllerIntegrationTest {
 	@Autowired
 	MockMvc mockMvc;
+
 	@BeforeEach
 	void setUp() {
 	}
@@ -33,24 +32,23 @@ class SeasonalPlotDashboardControllerIntegrationTest {
 	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
 	void seasonalPlots() throws Exception {
 		mockMvc.perform(get("/management/seasonalplot"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("seasonalPlots"));
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("seasonalPlots"));
 	}
 
 	@Test
 	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
 	void changeSeasonalPlotDetails() throws Exception {
-		//extract real plot
+		// extract real plot
 		MvcResult result = mockMvc.perform(get("/management/seasonalplot")).andReturn();
 
 		@SuppressWarnings("unchecked")
 		Streamable<SeasonalPlot> testList = (Streamable<SeasonalPlot>) Objects
-			.requireNonNull(result.getModelAndView())
-			.getModelMap()
-			.getAttribute("seasonalPlots");
+				.requireNonNull(result.getModelAndView())
+				.getModelMap()
+				.getAttribute("seasonalPlots");
 		assertNotNull(testList, "testList is null");
 		SeasonalPlot testItem = testList.stream().toList().get(0);
-
 
 		mockMvc.perform(post("/management/seasonalplot/updateSeasonalPlot")
 				.param("plotID", String.valueOf(testItem.getId()))
@@ -63,7 +61,7 @@ class SeasonalPlotDashboardControllerIntegrationTest {
 				.param("description", "so lange Beschreibung")
 				.param("picture", "picturePath")
 				.param("state", "1"))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 	}
 
 	@Test
@@ -79,26 +77,25 @@ class SeasonalPlotDashboardControllerIntegrationTest {
 				.param("description", "so lange Beschreibung")
 				.param("picture", "picturePath")
 				.param("state", "1"))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 	}
 
 	@Test
 	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
 	void deleteSeasonalPlot() throws Exception {
-		//extract real plot
+		// extract real plot
 		MvcResult result = mockMvc.perform(get("/management/seasonalplot")).andReturn();
 
 		@SuppressWarnings("unchecked")
 		Streamable<SeasonalPlot> testList = (Streamable<SeasonalPlot>) Objects
-			.requireNonNull(result.getModelAndView())
-			.getModelMap()
-			.getAttribute("seasonalPlots");
+				.requireNonNull(result.getModelAndView())
+				.getModelMap()
+				.getAttribute("seasonalPlots");
 		assertNotNull(testList, "testList is null");
 		SeasonalPlot testItem = testList.stream().toList().get(0);
 
-
 		mockMvc.perform(post("/management/seasonalplot/deleteSeasonalPlot")
 				.param("plotID", String.valueOf(testItem.getId())))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 	}
 }

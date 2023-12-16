@@ -6,8 +6,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,8 +20,8 @@ class AccountancyDashboardControllerIntegrationTest {
 	@WithMockUser(username = "boss@mail.de", roles = "BOSS")
 	void accountyncyTest() throws Exception {
 		mvc.perform(get("/management/accountancy"))
-			.andExpectAll(status().isOk(),
-				model().attributeExists("accountancy"));
+				.andExpectAll(status().isOk(),
+						model().attributeExists("accountancy"));
 
 	}
 }
