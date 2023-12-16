@@ -97,6 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- table rows -->
                         <tr th:each="plot, iStat : ${shownPlots}">
                             <th class="flex">
                                 <div>
@@ -127,11 +128,18 @@
                             </td>
                             <td></td>
                         </tr>
+
+                        <!-- if table is empty -->
+                        <tr th:if="${shownPlots.isEmpty()}">
+                            <td colspan="10" th:text="${emptyMessage}">
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
-            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${filteredPlots}, title=#{catalog.plots.available})}"></div>
-            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${approximatelyFilteredPlots}, title=#{catalog.plots.also-available})}"></div>
+            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${filteredPlots}, title=#{catalog.plots.available}, emptyMessage=#{catalog.plots.none-available})}"></div>
+            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${approximatelyFilteredPlots}, title=#{catalog.plots.also-available}, emptyMessage=#{catalog.plots.none-also-available})}"></div>
         </form>
         <div class="hidden">
             <span>Legende</span>
