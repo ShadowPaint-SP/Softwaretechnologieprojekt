@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{login.title})}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{title.login})}">
 
 <head></head>
 
@@ -21,7 +21,7 @@
 				<div class="card shrink-0 w-full max-w-md shadow-2xl bg-base-100">
 					<form class="card-body" id="form" th:action="@{/login}" method="post" role="form">
 						<div class="label pb-0">
-							<span class="label-text-alt">E-Mail</span>
+							<span class="label-text-alt text-neutral-500" th:text="#{login-register.emailplease}"></span>
 						</div>
 						<div class="form-control">
 							<input class="input input-bordered focus:outline-accent w-full" type="text"
@@ -29,7 +29,7 @@
 								autofocus="autofocus" />
 						</div>
 						<div class="label pb-0">
-							<span class="label-text-alt">Password</span>
+							<span class="label-text-alt text-neutral-500" th:text="#{login-register.passwordplease}"></span>
 						</div>
 						<div class="form-control">
 							<input class="input input-bordered focus:outline-accent w-full" type="password"
