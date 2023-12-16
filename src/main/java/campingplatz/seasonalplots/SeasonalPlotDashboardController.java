@@ -81,23 +81,6 @@ public class SeasonalPlotDashboardController {
 		return "dashboards/seasonalplot_management";
 	}
 
-	// TODO
-	@PostMapping("/management/seasonalplot/deleteSeasonalPlot")
-	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
-	String deleteSeasonalPlot(Model model, @Valid SeasonalPlotDashboardController.SeasonalPlotInformation info) {
-
-		// cannot just delete the entry, reservations might depend on it
-		try {
-			seasonalPlotCatalog.deleteById(info.getPlotID());
-		} catch (Exception e) {
-			// just continue
-		}
-
-		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
-		model.addAttribute("seasonalPlots", all);
-		return "dashboards/seasonalplot_management";
-	}
-
 	interface SeasonalPlotInformation {
 
 		Product.ProductIdentifier getPlotID();

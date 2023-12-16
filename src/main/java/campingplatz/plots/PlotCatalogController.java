@@ -122,10 +122,12 @@ class PlotCatalogController {
         return setupCatalog(model, Optional.ofNullable(user), query, reservationCart);
     }
 
-    @GetMapping("/seasonalplots")
-    String setupSeasonalCatalog(Model model, @Valid PlotCatalog.SiteState query) {
-        model.addAttribute("searchQuery", query);
-        return "servings/seasonalplotcatalog";
-    }
+    @GetMapping("/plotcatalog/details/{plot}")
+    public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
+            @Valid PlotCatalog.SiteState query, @PathVariable("plot") Plot plot,
+            @ModelAttribute("plotCart") PlotCart reservationCart) {
+        model.addAttribute("item", plot);
+        return "servings/plotdetails";
 
+    }
 }

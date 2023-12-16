@@ -104,7 +104,8 @@
                                     <img class="h-32 w-32 mask mask-squircle" th:src="${plot.imagePath}" />
                                 </div>
                                 <div class="my-auto justify-between">
-                                    <a class="underline" th:text="${plot.name}" href=""></a>
+                                    <a class="underline" th:text="${plot.name}"
+                                        th:href="@{/plotcatalog/details/{plot}(plot=${plot.id})}"></a>
                                     <p class="text-neutral-500">Kosten: <span class="text-accent"
                                             th:text="${plot.priceString}"></span>
                                     </p>

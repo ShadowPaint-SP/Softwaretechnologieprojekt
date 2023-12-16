@@ -1,13 +1,12 @@
 package campingplatz.reservation;
 
-import campingplatz.equip.SportItem;
-import campingplatz.equip.SportItemCatalog;
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -32,14 +31,15 @@ class ReservationController {
 
 	private final PlotReservationRepository plotReservationRepository;
 	private final SportItemReservationRepository sportItemReservationRepository;
-	private SportItemCatalog itemCatalog;
+	private final SeasonalPlotReservationRepository seasonalPlotReservationRepository;
 
 	ReservationController(PlotReservationRepository plotReservationRepository,
-			SportItemReservationRepository sportItemReservationRepository, SportItemCatalog itemCatalog) {
+			SportItemReservationRepository sportItemReservationRepository,
+			SeasonalPlotReservationRepository seasonalPlotReservationRepository) {
 
 		this.plotReservationRepository = plotReservationRepository;
 		this.sportItemReservationRepository = sportItemReservationRepository;
-		this.itemCatalog = itemCatalog;
+		this.seasonalPlotReservationRepository = seasonalPlotReservationRepository;
 	}
 
 	@ModelAttribute("plotCart")
@@ -75,7 +75,6 @@ class ReservationController {
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
-		// TODO: replace with a propper database query. this is slow an terrible
 		for (var reservation : reservations) {
 			if (plotReservationRepository.productIsAvailableIn(
 					reservation.getProduct(),
@@ -84,7 +83,7 @@ class ReservationController {
 				plotReservationRepository.save(reservation);
 			}
 		}
-        reservationCart.clear();
+		reservationCart.clear();
 
 		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
 		sportItemReservationRepository.saveAll(sportReservations);
@@ -95,12 +94,14 @@ class ReservationController {
 
 	@GetMapping("/orders")
 	String orders(Model model, @LoggedIn UserAccount user) {
-		var userReservations = plotReservationRepository.findByUserId(user.getId());
-		model.addAttribute("ordersCompleted", userReservations);
+		var plotReservations = plotReservationRepository.findByUserId(user.getId());
+		model.addAttribute("plotOrdersCompleted", plotReservations);
+		var sportReservations = sportItemReservationRepository.findByUserId(user.getId());
+		model.addAttribute("sportOrdersCompleted", sportReservations);
+		var seasonalReservations = seasonalPlotReservationRepository.findByUserId(user.getId());
+		model.addAttribute("seasonalOrdersCompleted", seasonalReservations);
 		return "servings/orders";
 	}
-
-
 
 	// we are scheduling a task to be executed at 10:00 AM every day of every month.
 	// were we are deleting the reservations older than the current day if they were

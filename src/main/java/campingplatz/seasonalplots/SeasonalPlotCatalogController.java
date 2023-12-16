@@ -103,14 +103,7 @@ public class SeasonalPlotCatalogController {
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 		reservationRepository.save(reservation);
 
-		return "redirect:/seasonalplotcatalog";
-	}
-
-	@GetMapping("/seasonalorders")
-	String orders(Model model, @LoggedIn UserAccount user) {
-		var userReservations = reservationRepository.findByUserId(user.getId());
-		model.addAttribute("ordersCompleted", userReservations);
-		return "servings/orders";
+		return "redirect:/orders";
 	}
 
 	@PostMapping("/updateseasonalplot/{plot}")
@@ -130,7 +123,6 @@ public class SeasonalPlotCatalogController {
 
 	@GetMapping("/forward/{days}")
 	String forwardTime(Model model, @PathVariable("days") int days) {
-
 		businessTime.forward(Duration.ofDays(days));
 
 		return "redirect:/seasonalplotcatalog";
