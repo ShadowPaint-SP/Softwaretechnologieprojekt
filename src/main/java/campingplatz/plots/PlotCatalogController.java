@@ -128,6 +128,5 @@ class PlotCatalogController {
             @ModelAttribute("plotCart") PlotCart reservationCart) {
         model.addAttribute("item", plot);
         return "servings/plotdetails";
-
     }
 }

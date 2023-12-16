@@ -43,7 +43,7 @@ class SportItemDashboardControllerIntegrationTest {
 				.getModelMap()
 				.getAttribute("items");
 
-		mockMvc.perform(post("/addSportItem")
+		mockMvc.perform(post("/management/sportsequipment/additem")
 				.param("name", "Flummi")
 				.param("price", "100")
 				.param("deposit", "50")
@@ -75,7 +75,7 @@ class SportItemDashboardControllerIntegrationTest {
 		SportItem testItem = testList.get(0);
 		// here one item should be extracted, which can be passed down
 
-		mockMvc.perform(post("/deleteSportItem")
+		mockMvc.perform(post("/management/sportsequipment/delete")
 				.param("itemName", testItem.getName()))
 				.andExpect(status().is3xxRedirection());
 
@@ -101,7 +101,7 @@ class SportItemDashboardControllerIntegrationTest {
 		SportItem testItem = testList.get(0);
 		// extract one item to change amount
 
-		mockMvc.perform(post("/changeSportItemAmount")
+		mockMvc.perform(post("/management/sportsequipment/changeamount")
 				.param("equip_id", String.valueOf(testItem.getId()))
 				.param("amountItem", String.valueOf(testAmount)))
 				.andExpect(status().is3xxRedirection());

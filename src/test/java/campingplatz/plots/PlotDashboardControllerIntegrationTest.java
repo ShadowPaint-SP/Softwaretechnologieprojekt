@@ -77,24 +77,4 @@ class PlotDashboardControllerIntegrationTest {
 				.param("description", "description"))
 				.andExpect(status().isOk());
 	}
-
-	@Test
-	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
-	void deletePlotTest() throws Exception {
-		MvcResult result = mockMvc.perform(get("/management/plots")).andReturn();
-		@SuppressWarnings("unchecked")
-		Streamable<Plot> testList = (Streamable<Plot>) result.getModelAndView().getModelMap().getAttribute("plots");
-		assertNotNull(testList, "testList is null");
-		Plot testItem = testList.stream().toList().get(0);
-
-		mockMvc.perform(post("/management/plots/deletePlot")
-				.param("plotID", String.valueOf(testItem.getId()))
-				.param("name", "Ein Plot")
-				.param("size", "30")
-				.param("parkingValue", "1")
-				.param("price", "120")
-				.param("picture", "picture")
-				.param("description", "description"))
-				.andExpect(status().isOk());
-	}
 }

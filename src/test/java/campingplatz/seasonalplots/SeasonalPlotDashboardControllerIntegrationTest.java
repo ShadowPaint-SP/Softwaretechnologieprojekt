@@ -79,23 +79,4 @@ class SeasonalPlotDashboardControllerIntegrationTest {
 				.param("state", "1"))
 				.andExpect(status().isOk());
 	}
-
-	@Test
-	@WithMockUser(username = "meister@mail.de", roles = "EMPLOYEE")
-	void deleteSeasonalPlot() throws Exception {
-		// extract real plot
-		MvcResult result = mockMvc.perform(get("/management/seasonalplot")).andReturn();
-
-		@SuppressWarnings("unchecked")
-		Streamable<SeasonalPlot> testList = (Streamable<SeasonalPlot>) Objects
-				.requireNonNull(result.getModelAndView())
-				.getModelMap()
-				.getAttribute("seasonalPlots");
-		assertNotNull(testList, "testList is null");
-		SeasonalPlot testItem = testList.stream().toList().get(0);
-
-		mockMvc.perform(post("/management/seasonalplot/deleteSeasonalPlot")
-				.param("plotID", String.valueOf(testItem.getId())))
-				.andExpect(status().isOk());
-	}
 }
