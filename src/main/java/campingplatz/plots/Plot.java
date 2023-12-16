@@ -1,11 +1,15 @@
 package campingplatz.plots;
 
 import campingplatz.utils.DetailedProduct;
-import jakarta.persistence.*;
+import campingplatz.utils.Comment;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -25,6 +29,9 @@ public class Plot extends DetailedProduct {
     @Setter
     @OneToMany
     private List<Issue> issueList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
 
@@ -102,6 +109,14 @@ public class Plot extends DetailedProduct {
             };
 
         }
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    public Iterable<Comment> getComments() {
+        return comments;
     }
 
 }

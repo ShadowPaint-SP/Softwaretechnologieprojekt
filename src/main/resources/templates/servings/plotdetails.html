@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{item.name})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=${item.name})}">
 
 <head></head>
 
@@ -17,7 +17,23 @@
                         </div>
                     </div>
                     <div class="mt-14">
-                        <!-- comment section? -->
+                        <form th:action="'/plotcatalog/details/'+${item.id}+'/comments'" method="post">
+                            <div class="rating">
+                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="1"
+                                    id="rating" />
+                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="2"
+                                    id="rating" />
+                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="3"
+                                    id="rating" />
+                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="4"
+                                    id="rating" />
+                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="5"
+                                    id="rating" checked />
+                            </div>
+                            <textarea name="comment" id="comment" class="textarea w-full max-h-24 resize-none"
+                                minlength="1" maxlength="255" placeholder="give a comment"></textarea>
+                            <button class="btn" type="submit">submit</button>
+                        </form>
                     </div>
                 </div>
                 <div class="rounded-box">
@@ -25,6 +41,18 @@
                         <img th:src="${item.imagePath}" />
                     </figure>
                 </div>
+            </div>
+        </div>
+        <div class="container mx-auto alert mt-4" th:each="comment : ${item.comments}">
+            <div class="rating items-start">
+                <span class="font-bold" th:text="${comment.rating}"></span>
+                <input disabled class="mask mask-star-2 bg-orange-400"></input>
+            </div>
+            <div>
+                <span th:text="${comment.text}"></span>
+            </div>
+            <div hidden>
+                <button class="btn btn-sm btn-error">Accept</button>
             </div>
         </div>
     </main>

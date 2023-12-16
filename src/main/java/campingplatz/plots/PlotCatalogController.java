@@ -3,7 +3,12 @@ package campingplatz.plots;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
+import campingplatz.utils.Comment;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Range;
+import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,10 +27,13 @@ class PlotCatalogController {
 
     PlotCatalog plotCatalog;
     PlotReservationRepository reservationRepository;
+    BusinessTime businessTime;
 
-    PlotCatalogController(PlotCatalog plotCatalog, PlotReservationRepository reservationRepository) {
+    PlotCatalogController(PlotCatalog plotCatalog, PlotReservationRepository reservationRepository,
+            BusinessTime businessTime) {
         this.plotCatalog = plotCatalog;
         this.reservationRepository = reservationRepository;
+        this.businessTime = businessTime;
     }
 
     @ModelAttribute("plotCart")
@@ -124,9 +132,23 @@ class PlotCatalogController {
 
     @GetMapping("/plotcatalog/details/{plot}")
     public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
-            @Valid PlotCatalog.SiteState query, @PathVariable("plot") Plot plot,
-            @ModelAttribute("plotCart") PlotCart reservationCart) {
+            @Valid PlotCatalog.SiteState query, @PathVariable Plot plot) {
         model.addAttribute("item", plot);
         return "servings/plotdetails";
+    }
+
+    @PostMapping("/plotcatalog/details/{plot}/comments")
+    public String comment(Model model, @PathVariable Plot plot, @Valid CommentInfo info) {
+        plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+        plotCatalog.save(plot);
+        return "redirect:/plotcatalog/details/" + plot.getId();
+    }
+
+    interface CommentInfo {
+        @NotEmpty
+        String getComment();
+
+        @Range(min = 1, max = 5)
+        int getRating();
     }
 }

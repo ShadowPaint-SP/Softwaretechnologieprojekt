@@ -1,11 +1,9 @@
 package campingplatz.seasonalplots;
 
-import campingplatz.plots.Plot;
-import campingplatz.plots.PlotCatalog;
-import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 import jakarta.validation.Valid;
+
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -126,8 +124,7 @@ public class SeasonalPlotCatalogController {
 
 	@GetMapping("/seasonalplotcatalog/details/{plot}")
 	public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
-			@Valid PlotCatalog.SiteState query, @PathVariable("plot") Plot plot,
-			@ModelAttribute("plotCart") PlotCart reservationCart) {
+			@Valid SeasonalPlotCatalog.SeasonalSiteState query, @PathVariable SeasonalPlot plot) {
 		model.addAttribute("item", plot);
 		return "servings/seasonalplotdetails";
 	}
@@ -138,5 +135,4 @@ public class SeasonalPlotCatalogController {
 
 		return "redirect:/seasonalplotcatalog";
 	}
-
 }
