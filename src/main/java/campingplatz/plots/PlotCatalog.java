@@ -12,10 +12,9 @@ import java.util.List;
 @Repository
 public interface PlotCatalog extends Catalog<Plot> {
 
-	List<Plot> findByState(Plot.State state);
+    List<Plot> findByState(Plot.State state);
 
     public class SiteState {
     }
-
 
 }

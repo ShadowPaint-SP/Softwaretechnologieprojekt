@@ -25,7 +25,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -44,73 +43,68 @@ class PlotCatalogController {
         this.businessTime = businessTime;
     }
 
+    // interface representing the state of the plot catalog site
+    // most notably the data of the plot filter query
+    interface SiteState {
 
-	// interface representing the state of the plot catalog site
-	// most notably the data of the plot filter query
-	interface SiteState {
+        ////////////////////
+        // plot filter query
 
-		////////////////////
-		// plot filter query
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate getArrival();
 
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		LocalDate getArrival();
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate getDeparture();
 
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		LocalDate getDeparture();
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        default LocalDate getDefaultedArrival() {
+            if (getArrival() == null) {
+                return LocalDate.now();
+            }
+            return getArrival();
+        }
 
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		default LocalDate getDefaultedArrival() {
-			if (getArrival() == null) {
-				return LocalDate.now();
-			}
-			return getArrival();
-		}
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        default LocalDate getDefaultedDeparture() {
+            if (getDeparture() == null) {
+                return LocalDate.now().plusDays(1);
+            }
+            return getDeparture();
+        }
 
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		default LocalDate getDefaultedDeparture() {
-			if (getDeparture() == null) {
-				return LocalDate.now().plusDays(1);
-			}
-			return getDeparture();
-		}
+        // used in plotcatalog.html for min arrival date.
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        default LocalDate minArrivalDate() {
+            return LocalDate.now();
+        }
 
-		// used in plotcatalog.html for min arrival date.
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		default LocalDate minArrivalDate() {
-			return LocalDate.now();
-		}
+        Double getSizeMin();
 
-		Double getSizeMin();
+        Double getSizeMax();
 
-		Double getSizeMax();
+        Double getPriceMin();
 
-		Double getPriceMin();
+        Double getPriceMax();
 
-		Double getPriceMax();
+        Integer getParking();
 
-		Integer getParking();
+        ////////////////////
+        // other site data
 
-		////////////////////
-		// other site data
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    LocalDate getFirstWeekDate();
 
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		LocalDate getFirstWeekDate();
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    void setFirstWeekDate(LocalDate value);
 
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		void setFirstWeekDate(LocalDate value);
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    default LocalDate getDefaultedFirstWeekDate() {
+      if (getArrival() == null) {
+        return getDefaultedArrival();
+      }
+      return getFirstWeekDate();
 
-		@DateTimeFormat(pattern = "yyyy-MM-dd")
-		default LocalDate getDefaultedFirstWeekDate() {
-			if (getArrival() == null) {
-			 	return getDefaultedArrival();
-			}
-			return getFirstWeekDate();
-
-		}
-
-	}
-
-
+    }
 
     @ModelAttribute("plotCart")
     PlotCart initializeCart() {
@@ -127,15 +121,12 @@ class PlotCatalogController {
 
         var operationalPlots = plotCatalog.findByState(Plot.State.OPERATIONAL);
         var reservedPlots = reservationRepository.findPlotsReservedBetween(
-                query.getDefaultedArrival().atStartOfDay(), query.getDefaultedDeparture().atStartOfDay()
-		);
-		var availablePlots = operationalPlots.stream().filter(plot ->
-			plot.getClass().equals(Plot.class) && !reservedPlots.contains(plot)
-		).toList();
-		var evaluatedPlots = PlotCatalogController.evaluatePlots(availablePlots, query);
-		var filteredPlots = filterHits(evaluatedPlots);
-		var approximatelyFilteredPlots = aproximateHits(evaluatedPlots);
-
+                query.getDefaultedArrival().atStartOfDay(), query.getDefaultedDeparture().atStartOfDay());
+        var availablePlots = operationalPlots.stream()
+                .filter(plot -> plot.getClass().equals(Plot.class) && !reservedPlots.contains(plot)).toList();
+        var evaluatedPlots = PlotCatalogController.evaluatePlots(availablePlots, query);
+        var filteredPlots = filterHits(evaluatedPlots);
+        var approximatelyFilteredPlots = aproximateHits(evaluatedPlots);
 
         var reservations = reservationRepository.findReservationsBetween(firstWeekDate.atStartOfDay(),
                 lastWeekDay.atStartOfDay());
@@ -146,7 +137,7 @@ class PlotCatalogController {
                 .collapse();
 
         model.addAttribute("filteredPlots", filteredPlots);
-		model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);
+        model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);
         model.addAttribute("availabilityTable", availabilityTable);
         model.addAttribute("searchQuery", query);
         model.addAttribute("weekDates", weekDates);
@@ -235,67 +226,59 @@ class PlotCatalogController {
         @Range(min = 1, max = 5)
         int getRating();
     }
-    @GetMapping("/seasonalplots")
-    String setupSeasonalCatalog(Model model, @Valid PlotCatalogController.SiteState query) {
-        model.addAttribute("searchQuery", query);
-        return "servings/seasonalplotcatalog";
+
+    public static List<Pair<Integer, Plot>> evaluatePlots(List<Plot> plots, SiteState query) {
+
+        // create a list of pairs, the first element of the pair being the amount of
+        // fails
+        return plots.stream().map(plot -> {
+            Integer fails = 0;
+
+            var priceMin = query.getPriceMin();
+            if (priceMin != null && plot.getPrice().isLessThan(Money.of(priceMin, EURO))) {
+                fails++;
+            }
+
+            var priceMax = query.getPriceMax();
+            if (priceMax != null && plot.getPrice().isGreaterThan(Money.of(priceMax, EURO))) {
+                fails++;
+            }
+
+            var sizeMin = query.getSizeMin();
+            if (sizeMin != null && plot.getSize() < sizeMin) {
+                fails++;
+            }
+
+            var sizeMax = query.getSizeMax();
+            if (sizeMax != null && plot.getSize() > sizeMax) {
+                fails++;
+            }
+
+            var parkingMin = query.getParking();
+            if (parkingMin != null && plot.getParking().size < parkingMin) {
+                fails++;
+            }
+
+            return new Pair<Integer, Plot>(fails, plot);
+        })
+                // sort the list by the lowest amount of fails
+                .sorted(Comparator.comparing(firstPair -> firstPair.first))
+                // return as a List
+                .toList();
     }
 
+    public static List<Plot> filterHits(List<Pair<Integer, Plot>> evalautedPlots) {
+        return evalautedPlots.stream()
+                .filter(pair -> pair.first == 0)
+                .map(pair -> pair.second)
+                .toList();
+    }
 
-	public static List<Pair<Integer, Plot>> evaluatePlots(List<Plot> plots, SiteState query) {
-
-		// create a list of pairs, the first element of the pair being the amount of fails
-		return plots.stream().map(plot -> {
-			Integer fails = 0;
-
-			var priceMin = query.getPriceMin();
-			if (priceMin != null && plot.getPrice().isLessThan(Money.of(priceMin, EURO))) {
-				fails++;
-			}
-
-			var priceMax = query.getPriceMax();
-			if (priceMax != null && plot.getPrice().isGreaterThan(Money.of(priceMax, EURO))) {
-				fails++;
-			}
-
-			var sizeMin = query.getSizeMin();
-			if (sizeMin != null && plot.getSize() < sizeMin) {
-				fails++;
-			}
-
-			var sizeMax = query.getSizeMax();
-			if (sizeMax != null && plot.getSize() > sizeMax) {
-				fails++;
-			}
-
-			var parkingMin = query.getParking();
-			if (parkingMin != null && plot.getParking().size < parkingMin) {
-				fails++;
-			}
-
-			return new Pair<Integer, Plot>(fails, plot);
-		})
-		// sort the list by the lowest amount of fails
-		.sorted(Comparator.comparing(firstPair -> firstPair.first))
-		// return as a List
-		.toList();
-	}
-
-	public static List<Plot> filterHits(List<Pair<Integer, Plot>> evalautedPlots){
-		return evalautedPlots.stream()
-			.filter(pair -> pair.first == 0)
-			.map(pair -> pair.second)
-			.toList();
-	}
-
-	public static List<Plot> aproximateHits(List<Pair<Integer, Plot>> evalautedPlots){
-		return evalautedPlots.stream()
-			.filter(pair -> pair.first != 0)
-			.map(pair -> pair.second)
-			.toList();
-	}
-
-
-
+    public static List<Plot> aproximateHits(List<Pair<Integer, Plot>> evalautedPlots) {
+        return evalautedPlots.stream()
+                .filter(pair -> pair.first != 0)
+                .map(pair -> pair.second)
+                .toList();
+    }
 
 }
