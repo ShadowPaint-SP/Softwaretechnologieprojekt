@@ -21,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -99,14 +98,12 @@ class PlotCatalogController {
 
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         default LocalDate getDefaultedFirstWeekDate() {
-            if (getFirstWeekDate() == null) {
-                var weekDay = getDefaultedArrival().getDayOfWeek().getValue() - 1;
-                var weekBegin = getDefaultedArrival().minusDays(weekDay);
-                return weekBegin;
+            if (getArrival() == null) {
+                return getDefaultedArrival();
             }
             return getFirstWeekDate();
-        }
 
+        }
     }
 
     @ModelAttribute("plotCart")
@@ -120,8 +117,7 @@ class PlotCatalogController {
 
         var firstWeekDate = query.getDefaultedFirstWeekDate();
         var lastWeekDay = firstWeekDate.plusDays(7);
-        var rawWeekDates = firstWeekDate.datesUntil(lastWeekDay);
-        var formatedWeekDates = rawWeekDates.map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM"))).toList();
+        var weekDates = firstWeekDate.datesUntil(lastWeekDay).toList();
 
         var operationalPlots = plotCatalog.findByState(Plot.State.OPERATIONAL);
         var reservedPlots = reservationRepository.findPlotsReservedBetween(
@@ -144,7 +140,7 @@ class PlotCatalogController {
         model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);
         model.addAttribute("availabilityTable", availabilityTable);
         model.addAttribute("searchQuery", query);
-        model.addAttribute("weekDates", formatedWeekDates);
+        model.addAttribute("weekDates", weekDates);
 
         return "servings/plotcatalog";
     }
@@ -152,6 +148,7 @@ class PlotCatalogController {
     @PostMapping("/plotcatalog/filter")
     String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalogController.SiteState query,
             @ModelAttribute("plotCart") PlotCart reservationCart) {
+        query.setFirstWeekDate(query.getDefaultedArrival());
         return setupCatalog(model, user, query, reservationCart);
     }
 
