@@ -101,12 +101,13 @@ class PlotCatalogController {
 
 		@DateTimeFormat(pattern = "yyyy-MM-dd")
 		default LocalDate getDefaultedFirstWeekDate() {
-			if (getFirstWeekDate() == null) {
-				var weekDay = getDefaultedArrival().getDayOfWeek().getValue() - 1;
-				var weekBegin = getDefaultedArrival().minusDays(weekDay);
-				return weekBegin;
-			}
-			return getFirstWeekDate();
+			// if (getArrival() == null) {
+			// 	var weekDay = getDefaultedArrival().getDayOfWeek().getValue() - 1;
+			// 	var weekBegin = getDefaultedArrival().minusDays(weekDay);
+			// 	return weekBegin;
+			// }
+			return getDefaultedArrival();
+
 		}
 
 	}
@@ -124,8 +125,8 @@ class PlotCatalogController {
 
         var firstWeekDate = query.getDefaultedFirstWeekDate();
         var lastWeekDay = firstWeekDate.plusDays(7);
-        var rawWeekDates = firstWeekDate.datesUntil(lastWeekDay);
-        var formatedWeekDates = rawWeekDates.map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM"))).toList();
+        var rawWeekDates = firstWeekDate.datesUntil(lastWeekDay).toList();
+        // var formatedWeekDates = rawWeekDates.map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM"))).toList();
 
         var operationalPlots = plotCatalog.findByState(Plot.State.OPERATIONAL);
         var reservedPlots = reservationRepository.findPlotsReservedBetween(
@@ -151,7 +152,9 @@ class PlotCatalogController {
 		model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);
         model.addAttribute("availabilityTable", availabilityTable);
         model.addAttribute("searchQuery", query);
-        model.addAttribute("weekDates", formatedWeekDates);
+        model.addAttribute("weekDates", rawWeekDates);
+        // model.addAttribute("weekDates", formatedWeekDates);
+        // LocalDate.now().getDayOfMonth()
 
         return "servings/plotcatalog";
     }

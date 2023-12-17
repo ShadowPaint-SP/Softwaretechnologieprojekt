@@ -88,7 +88,7 @@
                                     < </button>
                             </th>
                             <th class="w-[8%]" th:each="date, stat : ${weekDates}"
-                                th:utext=" #{'weekday.'+${stat.index}} + '<br/>' + ${date}">date</th>
+                                th:utext=" #{'weekday.'+${date.dayOfWeek.value -1}} + '<br/>' +${#temporals.format(date, 'dd.MM')}">date</th>
                             <th class="w-[5%]">
                                 <button type="submit" formaction="/plotcatalog/next-week#filter">>
                                 </button>
