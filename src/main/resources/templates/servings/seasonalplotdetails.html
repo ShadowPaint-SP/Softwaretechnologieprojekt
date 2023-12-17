@@ -16,8 +16,8 @@
                             <p th:text="${item.desc}"></p>
                         </div>
                     </div>
-                    <div class="mt-14">
-                        <!--<form th:action="'/seasonalplotcatalog/details/'+${item.id}+'/comments'" method="post">
+                    <div class="mt-14" sec:authorize="isAuthenticated()">
+                        <form th:action="'/seasonalplotcatalog/details/'+${item.id}+'/comments'" method="post">
                             <div class="rating">
                                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="1"
                                     id="rating" />
@@ -30,10 +30,12 @@
                                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="5"
                                     id="rating" checked />
                             </div>
-                            <textarea name="comment" id="comment" class="textarea w-full max-h-24 resize-none"
-                                minlength="1" maxlength="255" placeholder="give a comment"></textarea>
+                            <textarea name="comment" id="comment"
+                                class="textarea w-full min-h-full resize-none invalid:focus:outline-error focus:outline-accent"
+                                autofocus minlength="4" maxlength="255" placeholder="give a comment"
+                                required></textarea>
                             <button class="btn" type="submit">submit</button>
-                        </form>-->
+                        </form>
                     </div>
                 </div>
                 <div class="rounded-box">
@@ -43,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <!--<div class="container mx-auto alert mt-4" th:each="comment : ${item.comments}">
+        <div class="container mx-auto alert mt-4" th:each="comment : ${item.comments}">
             <div class="rating items-start">
                 <span class="font-bold" th:text="${comment.rating}"></span>
                 <input disabled class="mask mask-star-2 bg-orange-400"></input>
@@ -54,7 +56,7 @@
             <div hidden>
                 <button class="btn btn-sm btn-error">Accept</button>
             </div>
-        </div>-->
+        </div>
     </main>
 </body>
 

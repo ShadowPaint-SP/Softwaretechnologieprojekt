@@ -136,7 +136,7 @@
         </ul>
       </div>
       <div class="navbar-end">
-        <a href="/cart" sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE','CUSTOMER')">
+        <a href="/cart" sec:authorize="isAuthenticated()">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"

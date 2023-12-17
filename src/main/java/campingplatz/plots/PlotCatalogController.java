@@ -137,8 +137,9 @@ class PlotCatalogController {
         return "servings/plotdetails";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/plotcatalog/details/{plot}/comments")
-    public String comment(Model model, @PathVariable Plot plot, @Valid CommentInfo info) {
+    public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info) {
         plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
         plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();

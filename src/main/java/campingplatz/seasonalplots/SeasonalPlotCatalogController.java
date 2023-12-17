@@ -2,8 +2,11 @@ package campingplatz.seasonalplots;
 
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
+import campingplatz.utils.Comment;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Range;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -123,10 +126,26 @@ public class SeasonalPlotCatalogController {
 	}
 
 	@GetMapping("/seasonalplotcatalog/details/{plot}")
-	public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
-			@Valid SeasonalPlotCatalog.SeasonalSiteState query, @PathVariable SeasonalPlot plot) {
+	public String showSeasonalPlotDetails(Model model,
+			@Valid SeasonalPlotCatalog.SeasonalSiteState query, @PathVariable("plot") SeasonalPlot plot) {
 		model.addAttribute("item", plot);
 		return "servings/seasonalplotdetails";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/seasonalplotcatalog/details/{plot}/comments")
+	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info) {
+		plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+		seasonalPlotCatalog.save(plot);
+		return "redirect:/seasonalplotcatalog/details/" + plot.getId();
+	}
+
+	interface CommentInfo {
+		@NotEmpty
+		String getComment();
+
+		@Range(min = 1, max = 5)
+		int getRating();
 	}
 
 	@GetMapping("/forward/{days}")

@@ -115,7 +115,7 @@ public class Plot extends DetailedProduct {
         comments.add(comment);
     }
 
-    public Iterable<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 

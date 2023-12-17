@@ -11,6 +11,7 @@ import lombok.Getter;
 @Entity
 public class Comment implements Serializable {
 
+	@Getter
 	private @Id @GeneratedValue long id;
 
 	@Getter
