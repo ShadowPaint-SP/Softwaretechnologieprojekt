@@ -51,7 +51,7 @@ class ReservationIntegrationTests {
 		// hää wo wird hier executed?
 		mvc.perform(get("/plotcatalog"))
 				.andExpect(status().isOk())
-				.andExpect(model().attributeExists("allPlots"));
+				.andExpect(model().attributeExists("filteredPlots"));
 
 	}
 

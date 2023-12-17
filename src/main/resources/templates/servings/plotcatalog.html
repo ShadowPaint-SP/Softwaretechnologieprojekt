@@ -76,14 +76,12 @@
             </div>
 
             <div th:fragment="plot_table" class="overflow-x-auto container mx-auto rounded-box shadow-md mt-14">
-                <table th:if="${availablePlotsTable != null}" class="table table-zebra">
-                    <a th:id="${availablePlotsTable}"></a>
+                <table th:if="${shownPlots != null}" class="table table-zebra">
                     <thead class="bg-secondary">
                         <tr>
                             <input type="hidden" name="firstWeekDate" th:value="${searchQuery.defaultedFirstWeekDate}">
                             <th class="w-[34%]">
-                                <h2 th:if="${availablePlotsTable}" th:text="#{catalog.plots.available}"></h2>
-                                <h2 th:if="${!availablePlotsTable}" th:text="#{catalog.plots.reserved}"></h2>
+                                <h2 th:text="${title}"></h2>
                             </th>
                             <th class="w-[5%]">
                                 <button type="submit" formaction="/plotcatalog/prev-week#filter">
@@ -98,7 +96,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="plot, iStat : ${allPlots.get(availablePlotsTable)}">
+                        <!-- table rows -->
+                        <tr th:each="plot, iStat : ${shownPlots}">
                             <th class="flex">
                                 <div class="pr-4">
                                     <img class="h-32 w-32 mask mask-squircle" th:src="${plot.imagePath}" />
@@ -123,7 +122,7 @@
                             <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"
                                 th:each="fields : ${availabilityTable.get(plot)}">
                                 <button th:type="${fields.type.clickability}"
-                                    th:formaction="'/plotcatalog/select/'+${plot.id}+'/'+${fields.index}+'#'+${availablePlotsTable}"
+                                    th:formaction="'/plotcatalog/select/'+${plot.id}+'/'+${fields.index}"
                                     class="absolute top-0 right-0 bottom-0 left-0 w-full">
                                     <div>
                                         <text th:text="#{${fields.type.label}}"></text>
@@ -132,11 +131,18 @@
                             </td>
                             <td></td>
                         </tr>
+
+                        <!-- if table is empty -->
+                        <tr th:if="${shownPlots.isEmpty()}">
+                            <td colspan="10" th:text="${emptyMessage}">
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
-            <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=true)}"></div>
-            <div th:replace="~{servings/plotcatalog :: plot_table (availablePlotsTable=false)}"></div>
+            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${filteredPlots}, title=#{catalog.plots.available}, emptyMessage=#{catalog.plots.none-available})}"></div>
+            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${approximatelyFilteredPlots}, title=#{catalog.plots.also-available}, emptyMessage=#{catalog.plots.none-also-available})}"></div>
         </form>
         <div class="hidden">
             <span>Legende</span>

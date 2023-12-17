@@ -19,7 +19,7 @@ class PlotCatalogControllerIntegrationTest {
 	void TPK01() throws Exception{
 		//entspricht TPK01 aus dem Pflichtenheft
 		mockMvc.perform(get("/plotcatalog"))
-			.andExpect(model().attributeExists("allPlots"));
+			.andExpect(model().attributeExists("filteredPlots"));
 
 	}
 
