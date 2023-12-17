@@ -50,7 +50,7 @@ class PlotReservationDataInitializer implements DataInitializer {
         var departure4 = currentDay.plusDays(5);
         reservationRepository.save(new PlotReservation(userAccount, plot4, arrival4, departure4));
 
-        var plot7 = plotCatalog.findByName("Platz am See III").stream().findFirst().get();
+        var plot7 = plotCatalog.findByName("Platz auf dem See").stream().findFirst().get();
         var arrival7_1 = currentDay.plusDays(0);
         var departure7_1 = currentDay.plusDays(1);
         reservationRepository.save(new PlotReservation(userAccount, plot7, arrival7_1, departure7_1));
