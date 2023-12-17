@@ -104,6 +104,10 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
 
+	public List<U> getDiscountedReservationsOfUser(UserAccount user, ReservationDiscountStrategy<T, U> reservationDiscountStrategy) {
+		return reservationDiscountStrategy.discountAll(getReservationsOfUser(user));
+	}
+
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(U reservation) {
 
@@ -155,7 +159,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return true;
 	}
 
-	@Override
+
 	public MonetaryAmount getPrice() {
 
 		MonetaryAmount acuumulator = Money.of(0, EURO);
@@ -165,6 +169,18 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 		return acuumulator;
 	}
+
+
+	public MonetaryAmount getDiscountedPrice(ReservationDiscountStrategy<T, U> reservationDiscountStrategy) {
+
+		MonetaryAmount acuumulator = Money.of(0, EURO);
+		for (var reservation : getDiscountedReservationsOfUser(null, reservationDiscountStrategy)) {
+			acuumulator = acuumulator.add(reservation.getProduct().getPrice());
+		}
+
+		return acuumulator;
+	}
+
 
 	@EqualsAndHashCode
 	public class ReservationEntry implements Comparable<Cart<T, U>.ReservationEntry> {

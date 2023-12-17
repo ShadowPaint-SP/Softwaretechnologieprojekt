@@ -31,9 +31,12 @@ import java.util.UUID;
 @EqualsAndHashCode
 public abstract class Reservation<T extends Product> implements Priced {
 
+	@Id
     @Getter
-    @Id
     public UUID id;
+
+	@Getter
+	private double discount;
 
     @Getter
     @Setter
@@ -44,6 +47,7 @@ public abstract class Reservation<T extends Product> implements Priced {
     @Setter
     @ManyToOne
     private T product;
+
 
     @Getter
     @Setter
@@ -59,6 +63,10 @@ public abstract class Reservation<T extends Product> implements Priced {
     @Setter
     private State state;
 
+
+
+
+
     public Reservation() {
         this.id = UUID.randomUUID();
         this.state = State.NOT_TAKEN;
@@ -68,6 +76,7 @@ public abstract class Reservation<T extends Product> implements Priced {
 
         this.id = UUID.randomUUID();
         this.state = State.NOT_TAKEN;
+		this.discount = 0d;
 
         this.user = user;
         this.product = product;
@@ -76,10 +85,19 @@ public abstract class Reservation<T extends Product> implements Priced {
         this.end = end;
     }
 
+	public void setDiscount(double discount){
+		if (1 < discount || discount < 0){
+			throw new IllegalArgumentException("discount has to be between 0 and 1");
+		}
+
+		this.discount = discount;
+	}
+
+
     @Override
     public MonetaryAmount getPrice() {
         var price = product.getPrice();
-        return price.multiply(duration());
+        return price.multiply(duration()).multiply(1 - discount);
     }
 
     // meant to be overridden
@@ -97,7 +115,6 @@ public abstract class Reservation<T extends Product> implements Priced {
     public static enum State {
         NOT_TAKEN(0),
         TAKEN(1),
-
 		PAYED(2);
 
         private Integer value;
