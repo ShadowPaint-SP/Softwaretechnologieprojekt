@@ -21,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -91,19 +90,20 @@ class PlotCatalogController {
         ////////////////////
         // other site data
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDate getFirstWeekDate();
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate getFirstWeekDate();
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    void setFirstWeekDate(LocalDate value);
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        void setFirstWeekDate(LocalDate value);
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    default LocalDate getDefaultedFirstWeekDate() {
-      if (getArrival() == null) {
-        return getDefaultedArrival();
-      }
-      return getFirstWeekDate();
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        default LocalDate getDefaultedFirstWeekDate() {
+            if (getArrival() == null) {
+                return getDefaultedArrival();
+            }
+            return getFirstWeekDate();
 
+        }
     }
 
     @ModelAttribute("plotCart")
@@ -148,8 +148,8 @@ class PlotCatalogController {
     @PostMapping("/plotcatalog/filter")
     String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalogController.SiteState query,
             @ModelAttribute("plotCart") PlotCart reservationCart) {
-		query.setFirstWeekDate(query.getDefaultedArrival());
-		return setupCatalog(model, user, query, reservationCart);
+        query.setFirstWeekDate(query.getDefaultedArrival());
+        return setupCatalog(model, user, query, reservationCart);
     }
 
     @PostMapping("/plotcatalog/next-week")
