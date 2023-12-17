@@ -145,9 +145,17 @@
                         </th>
                         <td>
                             <div class="flex flex-row justify-around pb-4">
-                                <section th:text="#{arrival} + ': ' + ${plot.getArrivalStr(currentDate)}">Arrival
+                                <section th:text="#{arrival} + ': ' + ${
+                                    #temporals.format(
+                                        plot.getArrival(currentDate)
+                                        ,'dd.MM.yyyy')
+                                    }">Arrival
                                 </section>
-                                <section th:text="#{departure} + ': ' + ${plot.getDepartureStr(currentDate)}">Departure
+                                <section th:text="#{departure} + ': ' + ${
+                                    #temporals.format(
+                                        plot.getDeparture(currentDate)
+                                        ,'dd.MM.yyyy')
+                                    }">Departure
                                 </section>
                             </div>
                             <form class="flex flex-row justify-around" th:if="${plotsavailable}"
