@@ -139,7 +139,7 @@ class ReservationController {
 			}
 
 			// begin should not be before date.now()
-			if (reservation.getBegin().isBefore(LocalDateTime.now())){
+			if (reservation.getBegin().plusDays(1).isBefore(LocalDateTime.now())){
 				return false;
 			}
 
