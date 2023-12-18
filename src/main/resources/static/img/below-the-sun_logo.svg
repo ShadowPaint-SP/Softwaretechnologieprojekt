@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
-<svg width="210mm" height="297mm" viewBox="1 0 55 53" version="1.1" id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)" sodipodi:docname="below-the-sun_logo.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-   <sodipodi:namedview id="namedview7" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0"
-      inkscape:pageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:document-units="mm"
-      showgrid="false" inkscape:snap-text-baseline="false" inkscape:zoom="1.897079" inkscape:cx="-8.4340189"
-      inkscape:cy="133.89005" inkscape:window-width="1920" inkscape:window-height="1012" inkscape:window-x="0"
-      inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="layer1" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+height="50" width="50" viewBox="7 0 46 46">
 
    <defs>
-      <g id="tent">
+      <g id="tent"
+>
          <path
-            style="fill:#ffffff;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
             d="M 0,0
             C 12,25,18,30,20,30
        L 2,30 
        L 0,5" />
-         <path transform="scale(-1,1)"
-            style="fill:#ffffff;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         <path transform="scale(-1,1) translate (-0.1,0)"
             d="M 0,0
             C 12,25,18,30,20,30
        L 2,30 
        L 0,5" />
       </g>
    </defs>
-   <g inkscape:label="Ebene 1" inkscape:groupmode="layer" id="layer1">
-      <ellipse style="fill:#000000;fill-rule:evenodd;stroke-width:0.264583" id="path31" 
-      cx="30" cy="25"
-         rx="20" ry="20" />
-      <use xlink:href="#tent" x="30" y="10" />
-      <use xlink:href="#tent" x="30" y="10" transform="scale(-1,1)" />
+   <g >
+      <circle id="sun"
+      cx="30" cy="23"
+         r="20"/>
+
+      <circle id="grass"
+      cx="30" cy="72" r="40"/>
+
+      <use xlink:href="#tent" x="30" y="10" 
+                        />
+      
+/>
    </g>
+   <style>
+      #grass{
+         fill: green;
+      }
+      #tent{
+         fill: white;
+      }
+   </style>
 </svg>
