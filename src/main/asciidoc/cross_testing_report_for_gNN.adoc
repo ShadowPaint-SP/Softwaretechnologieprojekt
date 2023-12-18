@@ -70,6 +70,6 @@ Neues Passwort: 1234 |Beim Passwort ändern, nicht das richtige alte Passwort ei
 
 == Fragen die aufgekommen sind
  - Wenn der Mitarbeiter die Buchung als bezahlt markiert, muss der einen Betrag angeben. Dieser muss aber immer genau den Kosten entsprechen. Wieso muss der das dann noch angeben?
-- Realistische Werte sind zwar keine formale Anforderung, allerdings sollte man nicht bei eon paar Nächten den ganzen Campingplatz kaufen...
+- Realistische Werte sind zwar keine formale Anforderung, allerdings sollte man nicht bei ein paar Nächten den ganzen Campingplatz kaufen...
 
  
