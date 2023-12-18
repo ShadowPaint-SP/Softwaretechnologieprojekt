@@ -7,6 +7,55 @@
 
 <body>
     <main layout:fragment="input">
+
+
+        <div th:if="${ordersCompleted != null}" th:fragment="my_orders" class="overflow-x-auto container mx-auto mt-14 rounded-box">
+            <table class="table table-zebra">
+                <thead>
+                    <tr>
+                        <th>
+                            <span th:text="#{my_orders}"></span>
+                        </th>
+                        <th>
+                            <span>Reservieren</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${ordersCompleted}"> 
+                        <td class="flex">
+                            <div>
+                                <img class="h-32 w-32" th:src="${order.product.imagePath}" />
+                            </div>
+                            <div>
+                                <div th:text="${order.product.name}">Plotname</div>
+                                <div>
+                                    <div th:text="'Kosten: '+${order.product.priceString}"></div>
+                                    <div th:text="'Größe: '+${order.product.sizeString}"></div>
+                                    <div th:text="#{${order.product.parking.label}}"></div>
+                                    <div th:text="${order.product.desc}"></div>
+                                    <div th:text="#{arrival} + ' ' + ${order.begin.toString().substring(0,10)}">Arrival</div>
+                                    <div th:text="#{departure} + ' ' + ${order.end.toString().substring(0,10)}">Departure</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <form th:if="${order.isNextYearAvaible(currentDate)}" th:action="'/seasonalcheckout/' + ${order.product.id}" method="post">
+                                <div>
+                                    <label class="label-text">Bezahlart:</label>
+                                    <select name="payMethod" class="select w-full max-w-xs p-2 ">
+                                        <option value="1" th:text="#{seasonalcatalog.pay.yearly}"></option>
+                                        <option value="0" th:text="#{seasonalcatalog.pay.monthly}"></option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" type="submit" th:text="#{catalog.reserve.for_next_year}"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <form method="post" action="/seasonalplotcatalog/filter#top">
             <a id="top"></a>
             <button type="submit" hidden></button>
