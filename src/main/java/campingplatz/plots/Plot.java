@@ -12,13 +12,16 @@ import org.javamoney.moneta.Money;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
+
 @Entity
 public class Plot extends DetailedProduct {
 
+	@Setter
+	@Getter
     private Double size; // in square meters
 
+	@Setter
+	@Getter
     private ParkingLot parking;
 
     @Getter
@@ -30,6 +33,8 @@ public class Plot extends DetailedProduct {
     @OneToMany
     private List<Issue> issueList;
 
+	@Setter
+	@Getter
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

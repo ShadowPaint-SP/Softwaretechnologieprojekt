@@ -68,6 +68,15 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
         return !findPlotsReservedBetween(arrival, departure).contains(product);
     }
 
+	@Query("""
+                select distinct r.user from #{#entityName} r
+                where r = :product
+            """)
+	Set<UserAccount> findUsersOfProduct(T product);
+
+
+
+
     @Modifying
     @Transactional
     @Query("""
