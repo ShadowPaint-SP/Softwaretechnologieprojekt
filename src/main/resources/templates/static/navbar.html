@@ -74,7 +74,19 @@
         </div>
         <a class="btn btn-ghost no-animation text-xl" href="/" th:text="#{home.title}">Campingplatz
         </a>
-        <img style="width: 10mm;" src="img/below-the-sun_logo.svg" alt="logo">
+        <svg viewBox="0 0 50 50" width="50" xmlns="http://www.w3.org/2000/svg" >
+            <use xlink:href="img/below-the-sun_logo.svg#box" />
+            <style>
+              #grass {
+                 fill: green;
+              }
+        
+              #tent {
+                 fill: white;
+              }
+           </style>
+        </svg>
+
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1 z-50">
