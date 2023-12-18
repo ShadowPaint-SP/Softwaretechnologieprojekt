@@ -1,0 +1,33 @@
+= Protokoll Gruppe 06
+
+Treffen am 08.01.2024
+
+Ort:      --- +
+Beginn:   14:50 Uhr +
+Ende:     16:20 Uhr
+
+__Schriftführer:__
+Tom Fiedler
+
+*Nächstes Treffen:* +
+15.01.2024, 14.50 Uhr, ---
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Richard Karl Fuchs (Betreuer, Kunde)
+- Tom Fiedler (Scrum-Master)
+- Daniel Arsenev
+- Vincent Ponizil
+- Armin Stegner
+- Jannes Müller
+- Irina Drumeva
+- Richard Voigtmann
+
+== Bemerkungen
+
+== Retrospektive des letzten Sprints
+
+== Planung des nächsten Sprints
+|===
+
