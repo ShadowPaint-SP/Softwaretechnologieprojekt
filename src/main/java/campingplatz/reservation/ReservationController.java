@@ -25,7 +25,7 @@ import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes({ "plotCart", "SportItemCart" })
+@SessionAttributes({"plotCart", "SportItemCart"})
 @EnableScheduling
 class ReservationController {
 
@@ -34,8 +34,8 @@ class ReservationController {
 	private final SeasonalPlotReservationRepository seasonalPlotReservationRepository;
 
 	ReservationController(PlotReservationRepository plotReservationRepository,
-			SportItemReservationRepository sportItemReservationRepository,
-			SeasonalPlotReservationRepository seasonalPlotReservationRepository) {
+						  SportItemReservationRepository sportItemReservationRepository,
+						  SeasonalPlotReservationRepository seasonalPlotReservationRepository) {
 
 		this.plotReservationRepository = plotReservationRepository;
 		this.sportItemReservationRepository = sportItemReservationRepository;
@@ -54,8 +54,8 @@ class ReservationController {
 
 	@GetMapping("/cart")
 	String cart(Model model, @LoggedIn UserAccount userAccount,
-			@ModelAttribute("plotCart") PlotCart reservationCart,
-			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
+				@ModelAttribute("plotCart") PlotCart reservationCart,
+				@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		var plotReservations = reservationCart.getReservationsOfUser(userAccount);
 		model.addAttribute("plotReservations", plotReservations);
@@ -71,18 +71,12 @@ class ReservationController {
 
 	@PostMapping("/checkout")
 	String reservate(Model model, @LoggedIn UserAccount userAccount,
-			@ModelAttribute("plotCart") PlotCart reservationCart,
-			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
+					 @ModelAttribute("plotCart") PlotCart reservationCart,
+					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
-		List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
-		for (var reservation : reservations) {
-			if (plotReservationRepository.productIsAvailableIn(
-					reservation.getProduct(),
-					reservation.getBegin(),
-					reservation.getEnd())) {
-				plotReservationRepository.save(reservation);
-			}
-		}
+		var allReservations = reservationCart.getReservationsOfUser(userAccount);
+		var validReservation = validatePlotReservations(allReservations);
+		plotReservationRepository.saveAll(validReservation);
 		reservationCart.clear();
 
 		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
@@ -109,5 +103,30 @@ class ReservationController {
 	@Scheduled(cron = "0 00 10 * * ?")
 	public void periodicallyDeleteReservatinos() {
 		plotReservationRepository.deleteBeforeThan(LocalDateTime.now());
+	}
+
+
+
+
+	public List<PlotReservation> validatePlotReservations(List<PlotReservation> input) {
+		var validStream = input.stream().filter(reservation -> {
+			// end should not be before begin
+			if (reservation.getEnd().isBefore(reservation.getBegin())){
+				return false;
+			}
+
+			// begin should not be before date.now()
+			if (reservation.getBegin().isBefore(LocalDateTime.now())){
+				return false;
+			}
+
+			// should not have overlaps with existing reserved
+			return plotReservationRepository.productIsAvailableIn(
+				reservation.getProduct(),
+				reservation.getBegin(),
+				reservation.getEnd()
+			);
+		});
+		return validStream.toList();
 	}
 }
