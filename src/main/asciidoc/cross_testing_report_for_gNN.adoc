@@ -34,6 +34,7 @@ Neues Passwort: 1234 |Beim Passwort ändern, nicht das richtige alte Passwort ei
     - dem eingeloggten Nutzer fehlt eine Übersicht über seine getätigten Buchungen
     - dem eingeloggten Nutzer fehlt eine Übersicht über seine ausgeliehenen Sportgeräte
     - bei den Sportgeräten im Dashboard ist es nicht möglich, Sportgeräte zu entfernen (bzw. deren Anzahl zu senken).
+    - Abrechnung der Strom- und Wasserkosten bei Dauercampern fehlt
 
 
 * Korrektheit
@@ -41,7 +42,6 @@ Neues Passwort: 1234 |Beim Passwort ändern, nicht das richtige alte Passwort ei
     - unabhängig davon, welcher Parkplatz ausgewählt ist, sind die Parkkosten 2 Euro
     - Preis für Dauercamper wird aktuell pro Nacht festgelegt, je nach Absprache eventuell pro Monat
     - die Abrechnung von Dauercampern sollte wahlweise pro Monat oder Jahr erfolgen (aktuell pro Nacht im Dashboard)
-    - Abrechnung der Strom- und Wasserkosten bei Dauercampern fehlt
     - Vorkaufrecht für den Mieter der letzten Saison fehlt, da eine Buchung nach Ablauf der Saison sofort möglich ist für einen anderen Nutzer
 
 
