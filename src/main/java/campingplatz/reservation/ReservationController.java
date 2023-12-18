@@ -74,13 +74,14 @@ class ReservationController {
 					 @ModelAttribute("plotCart") PlotCart reservationCart,
 					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
-		var allReservations = reservationCart.getReservationsOfUser(userAccount);
-		var validReservation = validatePlotReservations(allReservations);
-		plotReservationRepository.saveAll(validReservation);
+		var allPlotReservations = reservationCart.getReservationsOfUser(userAccount);
+		var validPlotReservation = validatePlotReservations(allPlotReservations);
+		plotReservationRepository.saveAll(validPlotReservation);
 		reservationCart.clear();
 
-		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
-		sportItemReservationRepository.saveAll(sportReservations);
+		var allSportReservations = sportItemCart.getReservationsOfUser(userAccount);
+		var validSportReservation = validateSportItemReservations(allSportReservations);
+		sportItemReservationRepository.saveAll(validSportReservation);
 		sportItemCart.clear();
 
 		return "redirect:/orders";
@@ -116,7 +117,7 @@ class ReservationController {
 			}
 
 			// begin should not be before date.now()
-			if (reservation.getBegin().isBefore(LocalDateTime.now())){
+			if (reservation.getBegin().plusDays(1).isBefore(LocalDateTime.now())){
 				return false;
 			}
 
@@ -129,4 +130,24 @@ class ReservationController {
 		});
 		return validStream.toList();
 	}
+
+	public List<SportItemReservation> validateSportItemReservations(List<SportItemReservation> input) {
+		var validStream = input.stream().filter(reservation -> {
+			// end should not be before begin
+			if (reservation.getEnd().isBefore(reservation.getBegin())){
+				return false;
+			}
+
+			// begin should not be before date.now()
+			if (reservation.getBegin().isBefore(LocalDateTime.now())){
+				return false;
+			}
+
+			return true;
+		});
+		return validStream.toList();
+	}
+
+
+
 }
