@@ -9,7 +9,7 @@
     <main layout:fragment="input">
 
 
-        <div th:if="${ordersCompleted.size > 0}" th:fragment="my_orders" class="overflow-x-auto container mx-auto mt-14 rounded-box">
+        <div th:if="${ordersCompleted?.size?:0 > 0}" th:fragment="my_orders" class="overflow-x-auto container mx-auto mt-14 rounded-box">
             <table class="table table-zebra">
                 <thead>
                     <tr>

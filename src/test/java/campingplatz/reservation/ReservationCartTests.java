@@ -65,7 +65,8 @@ public class ReservationCartTests {
 				LocalDate.of(2023, 12, 10).atStartOfDay());
 		cart.add(reservation);
 
-		var reservations = cart.getReservationsOfUser(user);
+		cart.setUser(user);
+		var reservations = cart.getReservations();
 
 		var found = false;
 		for (var res : reservations) {

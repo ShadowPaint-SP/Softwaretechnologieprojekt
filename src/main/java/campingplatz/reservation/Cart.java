@@ -40,7 +40,13 @@ import static org.salespointframework.core.Currencies.EURO;
 public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry>
 		implements Priced {
 
+	@Getter
+	@Setter
+	UserAccount user;
+
 	Class<U> reservationType; // unfortunately needed to create an instance of U
+
+
 
 	public Cart(Class<U> reservationType) {
 		this.reservationType = reservationType;
@@ -58,7 +64,11 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return super.contains(new ReservationEntry(product, time));
 	}
 
-	public List<U> getReservationsOfUser(UserAccount user) {
+	public List<U> getReservations() {
+
+		if (user == null){
+			throw new NullPointerException("user is null, because it was not set with setUser");
+		}
 
 		// remember the ReservationEntries are sorted, as this is a sorted
 		// set. They are compared by name first and time second

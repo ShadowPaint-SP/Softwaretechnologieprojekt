@@ -2,6 +2,7 @@ package campingplatz.equip;
 
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
+import campingplatz.plots.plotreservations.PlotCart;
 import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -30,10 +31,12 @@ public class SportItemCatalogController {
 		this.reservationRepository = reservationRepository;
 	}
 
+
 	@ModelAttribute("SportItemCart")
 	SportItemCart initializeCart() {
 		return new SportItemCart();
 	}
+
 
 	@GetMapping("/sportitemcatalog")
 	String setupCatalog(Model model) {

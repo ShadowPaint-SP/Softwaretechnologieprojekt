@@ -114,6 +114,7 @@ class PlotCatalogController {
         return new PlotCart();
     }
 
+
     @GetMapping("/plotcatalog") // consider renaming the query argument and attribute to state
     String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalogController.SiteState query,
             @ModelAttribute("plotCart") PlotCart reservationCart) {
