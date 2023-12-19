@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -138,7 +139,7 @@ class PlotCatalogController {
                 .addReservations(user, reservations)
                 .addHighlights(query, reservedPlots)
                 .addSelections(reservationCart)
-                .collapse();
+                .addPastMarkings(LocalDate.now());
 
         model.addAttribute("filteredPlots", filteredPlots);
         model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);
