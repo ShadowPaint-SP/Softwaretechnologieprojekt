@@ -11,55 +11,65 @@ Below the Sun Campingplatz
 [options="header"]
 |===
 |Pfad |Parameter |Beschreibung |Rückgabe
-| view_campinglots/{id}|StartDate = nichts, EndDate = nichts | Versuch Reservierung ohne Angabe von Anfangs oder End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
-| view_campinglots/{id}|StartDate = heute, EndDate = 2023-12-16 | Versuch Reservierung mit heuteigem Tag als Anfangs in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
-| view_campinglots/{id}|StartDate = 2023-12-15, EndDate = 2023-12-12 | Versuch Reservierung mit Anfangs vor End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
-| view_campinglots/{id}|StartDate = 2023-12-12, EndDate = 2023-12-12 | Versuch Reservierung mit gleichem Anfangs und End Datum in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
-| view_campinglots/{id}| StartDate = 2023-12-13, EndDate = 2023-12-16 und StartDate = 2023-12-13, EndDate = 2023-12-14| Versuch in einem Bereich zu reservieren, der bereits reserviert ist, führt zu einer error Seite  | Whitelabel Error Page
-
-| bookings | paid-amount = NaN| haha, ein Mitarbeiter kann NaN in das Zahlungsbetrag-Feld eintragen, was zur error Seite führt   | Whitelabel Error Page
-
-| borrow-page|Date = 2023-16-12, StartTime = 15.15, EndTime = 15.15 | Versuch Reservierung mit gleicher Anfangs und End Zeit in den Wahrenkorb zu legen, führt zu einer error Seite | Whitelabel Error Page
-| change_password|Account: camping_lotte +
- Altes Passwort: abc +
-Neues Passwort: 1234 | Beim versuch das passwort zu ändern einfach nicht das richtige alte passwort eingeben. | Whitelabel Error Page
+| view_campinglots/+{id}+|StartDate = nichts, EndDate = nichts |Reservierung ohne Angabe von Anfangs oder End Datum in den Warenkorb zu legen| Whitelabel Error Page
+| view_campinglots/+{id}+|StartDate = heute, EndDate = 2023-12-16 |Reservierung mit heutigem Tag als Anfangs in den Warenkorb zu legen| Whitelabel Error Page
+| view_campinglots/+{id}+|StartDate = 2023-12-15, EndDate = 2023-12-12 |Reservierung mit Anfangs- vor dem Enddatum in den Warenkorb zu legen| Whitelabel Error Page
+| view_campinglots/+{id}+|StartDate = 2023-12-12, EndDate = 2023-12-12 |Reservierung mit gleichem Anfangs- und Enddatum in den Warenkorb zu legen| Whitelabel Error Page
+| view_campinglots/+{id}+|StartDate = 2023-12-13, EndDate = 2023-12-16 und StartDate = 2023-12-13, EndDate = 2023-12-14|Einen Bereich reservieren, der bereits reserviert ist| Whitelabel Error Page
+| bookings |paid-amount = NaN|ein Mitarbeiter kann NaN in das Zahlungsbetrag-Feld eintragen| Whitelabel Error Page
+|borrow-page|Date = 2023-16-12, StartTime = 15.15, EndTime = 15.15 |Reservierung mit gleicher Anfangs- und Endzeit in den Warenkorb zu legen| Whitelabel Error Page
+|change_password|Account: camping_lotte +
+Altes Passwort: abc +
+Neues Passwort: 1234 |Beim Passwort ändern, nicht das richtige alte Passwort eingeben| Whitelabel Error Page
 |===
 
 == Sonstiges
 
 * Optik der Anwendung
+    - die Empfehlungen auf der Startseite sind eine gute Idee
 
 
 * Fehlende Features
-    - man sollte vielleicht den Preis eines Platzes pro Tag sehen
+    - man sollte den Preis eines Platzes pro Tag/Nacht sehen
     - dem eingeloggten Nutzer fehlt eine Übersicht über seine getätigten Buchungen
-    - dem eingeloggten Nutzer fehlt eine Übersicht über seine ausgeliehenen Sportgeräten
+    - dem eingeloggten Nutzer fehlt eine Übersicht über seine ausgeliehenen Sportgeräte
+    - bei den Sportgeräten im Dashboard ist es nicht möglich, Sportgeräte zu entfernen (bzw. deren Anzahl zu senken).
+    - Abrechnung der Strom- und Wasserkosten bei Dauercampern fehlt
+
 
 * Korrektheit
-    - Man kann beliebige Parkplätze auswählen, egal ob der Platz den hat oder nicht
-    - Unabhängig davon, welcher Parkplatz ausgewählt ist, sind die Parkkosten 2 Euro
+    - man kann beliebige Parkplätze auswählen, egal ob ein Stellplatz diesen besitz oder nicht
+    - unabhängig davon, welcher Parkplatz ausgewählt ist, sind die Parkkosten 2 Euro
+    - Preis für Dauercamper wird aktuell pro Nacht festgelegt, je nach Absprache eventuell pro Monat
+    - die Abrechnung von Dauercampern sollte wahlweise pro Monat oder Jahr erfolgen (aktuell pro Nacht im Dashboard)
+    - Vorkaufrecht für den Mieter der letzten Saison fehlt, da eine Buchung nach Ablauf der Saison sofort möglich ist für einen anderen Nutzer
+
 
 * Interaktion mit der Anwendung (Usability)
-    - nachdem man einen Account erstellt möchte man angemeldet bleiben
     - Feedback bei add-to-cart wäre schön
-    - kann man seine eigenen Buchungen sehen?
-    - es können in einer Kategorie keine zwei Filter zusammen gesetzt werden, nur jeweil ein Haken möglich
-    - zudem können bereits getätigte Haken nicht komplett zurückgenommen werden, nur versetzt
+    - es können in einer Kategorie keine zwei Filter zusammen gesetzt werden, nur jeweils ein Haken möglich
+    - bereits getätigte Haken können nicht komplett zurückgenommen werden, nur versetzt werden
+    - es fehlt die Information über den Preis eines Sportgerätes
+    - es ist nicht einsehbar zu welchen Zeiten Sportgeräte ausgeliehen werden können
 
 * Rechtschreibfehler
-   - Nachricht, wenn im Cart die Zeiträume kollidieren (13tes Wort: istoder)
+    - Nachricht, wenn im Cart die Zeiträume kollidieren (13tes Wort: istoder)
 
-* Sonstige Fehler
-    - ein und derselbe Stellplatz (sowohl Saisonal als auch normal) kann mehrfach, auch mit dem selben Parkplatz in den Warenkorb gelegt werden
 
 
 == Verbesserungsvorschläge
-
-- Die Mitarbeiter Platz Ansicht ist einfach besser als die Customer Platz ansicht? Die mal Übernehmen?
-- Im Cart eine Nachricht anzuzeigen, wenn mehrere Buchungen überlappend sind ist etwas dürftig. Besser verhindert man, dass Buchungen gemacht werden, die mit welchen im Cart überlappen
-- Beim Sportgeräteverleih die grau eingetragenene Zeiten evtl übernehmen wenn nichts anderes eingegeben wird, so muss nicht immer die vollständige Zeit eingetragen werden 
+- Die Mitarbeiter-Platzansicht ist übersichtlicher als die Kunden-Platzansicht, diese eventuell übernehmen
+- Es ist möglich, dass gleiche Objekt mehrmals in den Einkaufwagen zu legen. Auch wenn danach ein Fehler beim Buchen kommt, wäre eine zusätzliche frühere Fehlermeldung schön.
+- Beim Sportgeräteverleih die grau eingetragenen Zeiten übernehmen, wenn nichts anderes eingegeben wird, so muss nicht immer die vollständige Zeit eingetragen werden
+- Für die Überschaubarkeit wäre das Beibehalten der Filtereinstellungen nach Absenden des Formulars schön und nicht nur das Anzeigen in der Überschrift.
+- etwas komplizierte Eingabe zur Bezahlung einer Buchung, da sowieso nur der richtige Betrag händisch eingegeben werden muss.
+- sehr schöner Graph bei den Finanzen, aber es ist nicht genau ersichtlich was der Graph aussagen soll (#Achsenbeschriftung)-
+- Beim Sportgeräteverleih, wenn der User nicht eingeloggt ist und dem Button "book now" klickt, wäre es besser, wenn die Login/Register-Seite direkt angezeigt wird, nicht nur die Nachricht.
+- Der Start Button in der Navbar, welcher zum Index führt, sollte entfernt werden und dessen Funktion durch Anklicken des Schriftzuges "Below The Sun" ausgeführt werden
 
 
 == Fragen die aufgekommen sind
+ - Wenn der Mitarbeiter die Buchung als bezahlt markiert, muss der einen Betrag angeben. Dieser muss aber immer genau den Kosten entsprechen. Wieso muss der das dann noch angeben?
+- Realistische Werte sind zwar keine formale Anforderung, allerdings sollte man nicht bei ein paar Nächten den ganzen Campingplatz kaufen...
 
- - Wenn der Mitarbeiter die Buchung als bezahlt markiert, muss der einen Betrag angeben. Dieser uss aber immer genau den Kosten entsprechen. Wieso muss der das dann noch angeben?
+ 

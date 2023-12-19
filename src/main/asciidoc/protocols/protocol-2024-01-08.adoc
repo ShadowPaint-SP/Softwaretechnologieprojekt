@@ -1,34 +1,33 @@
 = Protokoll Gruppe 06
 
-Treffen am 18.12.2023
+Treffen am 08.01.2024
 
-Ort:      SLUB 0.66 +
-Beginn:   15:00 Uhr +
-Ende:     16:40 Uhr
+Ort:      --- +
+Beginn:   14:50 Uhr +
+Ende:     16:20 Uhr
 
 __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-08.01.2024, 14.50 Uhr, ---
+15.01.2024, 14.50 Uhr, ---
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
 
+- Richard Karl Fuchs (Betreuer, Kunde)
 - Tom Fiedler (Scrum-Master)
 - Daniel Arsenev
 - Vincent Ponizil
+- Armin Stegner
 - Jannes Müller
+- Irina Drumeva
 - Richard Voigtmann
 
 == Bemerkungen
-Besprechung des Crosstestings +
-Festhalten was noch zutun ist
 
 == Retrospektive des letzten Sprints
-Anfertigung des Crosstesting-Protokolls
 
 == Planung des nächsten Sprints
-Ferien...
 |===
 
