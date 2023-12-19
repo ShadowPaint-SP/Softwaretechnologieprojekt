@@ -97,8 +97,14 @@ public abstract class Reservation<T extends Product> implements Priced {
     @Override
     public MonetaryAmount getPrice() {
         var price = product.getPrice();
-        return price.multiply(duration()).multiply(1 - discount);
+        return price.multiply(duration());
     }
+
+	public MonetaryAmount getDiscountedPrice() {
+		var price = product.getPrice();
+		return price.multiply(duration()).multiply(1 - discount);
+	}
+
 
     // meant to be overridden
     public abstract ChronoUnit getIntervalUnit();

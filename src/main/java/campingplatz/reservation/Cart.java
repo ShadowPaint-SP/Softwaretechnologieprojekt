@@ -114,8 +114,8 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-	public List<U> getDiscountedReservationsOfUser(UserAccount user, ReservationDiscountStrategy<T, U> reservationDiscountStrategy) {
-		return reservationDiscountStrategy.discountAll(getReservationsOfUser(user));
+	public List<U> getDiscountedReservations(ReservationDiscountStrategy<T, U> reservationDiscountStrategy) {
+		return reservationDiscountStrategy.discountAll(getReservations());
 	}
 
 	// convenience function, for adding whole Reservations into the Cart at once
@@ -184,8 +184,8 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 	public MonetaryAmount getDiscountedPrice(ReservationDiscountStrategy<T, U> reservationDiscountStrategy) {
 
 		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var reservation : getDiscountedReservationsOfUser(null, reservationDiscountStrategy)) {
-			acuumulator = acuumulator.add(reservation.getProduct().getPrice());
+		for (var reservation : getDiscountedReservations(reservationDiscountStrategy)) {
+			acuumulator = acuumulator.add(reservation.getDiscountedPrice());
 		}
 
 		return acuumulator;

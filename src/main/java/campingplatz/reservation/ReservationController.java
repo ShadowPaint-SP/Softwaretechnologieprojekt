@@ -3,6 +3,8 @@ package campingplatz.reservation;
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
+import campingplatz.plots.Plot;
+import campingplatz.plots.plotdiscounts.PlotReservationDiscountStrategy;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
