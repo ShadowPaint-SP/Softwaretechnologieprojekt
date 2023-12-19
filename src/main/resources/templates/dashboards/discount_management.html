@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{title.reservation})}">
+
+<head></head>
+
+<body>
+    <main layout:fragment="input">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg w-[50%]">
+            <table class="table table-zebra">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th></th>
+                        <th th:text="#{discount.plot.amount}">Amount</th>
+                        <th th:text="#{discount.plot.discount}">Discount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="discount, iStat : ${discounts}" class="hover">
+                        <form method="post">
+                            <th th:text="${iStat.count}"></th>
+                            <input type="hidden" name="UUID" th:value="${discount.id}">
+                            <td>
+                                <input type="number" name="amount" th:value="${discount.amount}" onchange="this.form.submit()">
+                            </td>
+                            <td>
+                                <input type="number" name="discount" th:value="${discount.discount}" onchange="this.form.submit()">
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
