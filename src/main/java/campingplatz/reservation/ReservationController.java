@@ -57,10 +57,14 @@ class ReservationController {
 			@ModelAttribute("plotCart") PlotCart reservationCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
-		var plotReservations = reservationCart.getReservationsOfUser(userAccount);
+		// dont forget to set the user account before getting the reservations
+		reservationCart.setUser(userAccount);
+		sportItemCart.setUser(userAccount);
+
+		var plotReservations = reservationCart.getReservations();
 		model.addAttribute("plotReservations", plotReservations);
 
-		var sportsReservations = sportItemCart.getReservationsOfUser(userAccount);
+		var sportsReservations = sportItemCart.getReservations();
 		model.addAttribute("sportsReservations", sportsReservations);
 
 		var total = reservationCart.getPrice().add(sportItemCart.getPrice());
@@ -74,7 +78,7 @@ class ReservationController {
 			@ModelAttribute("plotCart") PlotCart reservationCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
-		List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
+		List<PlotReservation> reservations = reservationCart.getReservations();
 		for (var reservation : reservations) {
 			if (plotReservationRepository.productIsAvailableIn(
 					reservation.getProduct(),
@@ -85,7 +89,7 @@ class ReservationController {
 		}
 		reservationCart.clear();
 
-		List<SportItemReservation> sportReservations = sportItemCart.getReservationsOfUser(userAccount);
+		List<SportItemReservation> sportReservations = sportItemCart.getReservations();
 		sportItemReservationRepository.saveAll(sportReservations);
 		sportItemCart.clear();
 
