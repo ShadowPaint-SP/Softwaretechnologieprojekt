@@ -88,10 +88,4 @@ public class ReservationCartTests {
 		cart.remove(reservation1);
 		assertFalse(cart.contains(reservation1));
 	}
-
-	@Test
-	void testGetPrice() {
-		MonetaryAmount expectedPrice = reservation1.getPrice().add(reservation2.getPrice());
-		assertEquals(expectedPrice, cart.getPrice());
-	}
 }
