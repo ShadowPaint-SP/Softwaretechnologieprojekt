@@ -26,7 +26,15 @@
                         <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
                         <td th:text="${#temporals.format(item.end.plusDays(1), 'dd.MM.yyyy | 11:00')}">daparture</td>
                         <td th:text="${item.duration}">one day</td>
-                        <td th:text="${item.price}">50</td>
+                        <td>
+                            <div th:if="${item.discount == 0}">
+                                <text th:text="${item.price}"></text>
+                            </div>
+                            <div th:unless="${item.discount == 0}">
+                                <s th:text="${item.price}"></s> &nbsp;
+                                <b th:text="${item.discountedPrice}"></b>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -49,11 +57,11 @@
                 <tbody>
                     <tr th:each="item, iStat : ${sportsReservations}" class="hover">
                         <th th:text="${iStat.count}">1</th>
-                        <td th:text="${item.product.name}">Cy Ganderton</td>
-                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
-                        <td th:text="${#temporals.format(item.end, 'dd.MM.yyyy | HH:mm')}">daparture</td>
-                        <td th:text="${item.duration}">Quality Control Specialist</td>
-                        <td th:text="${item.price}">Blue</td>
+                        <td th:text="${item.product.name}">football</td>
+                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">begin</td>
+                        <td th:text="${#temporals.format(item.end, 'dd.MM.yyyy | HH:mm')}">end</td>
+                        <td th:text="${item.duration}">1</td>
+                        <td th:text="${item.price}">EUR 1</td>
                     </tr>
                 </tbody>
             </table>
@@ -62,7 +70,15 @@
         <div class="card w-96 bg-base-300 text-neutral-content container mx-auto mt-10 shadow-lg">
             <div class="card-body items-center text-center">
                 <h2 class="card-title text-neutral font-bold" th:text="#{cart.total}">Your Total</h2>
-                <div class="badge badge-lg badge-secondary" th:text="${{total}}">987,654</div>
+                <div class="badge badge-lg badge-secondary">
+                    <div th:if="${totalPrice.isEqualTo(totalDiscountedPrice)}">
+                        <text th:text="${{totalPrice}}">987,654</text>
+                    </div>
+                    <div th:unless="${totalPrice.isEqualTo(totalDiscountedPrice)}">
+                        <s th:text="${totalPrice}"></s> &nbsp;
+                        <b th:text="${totalDiscountedPrice}"></b>
+                    </div>
+                </div>
                 <div class="card-actions justify-end">
                     <form method="post" th:action="@{/checkout}">
                         <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>

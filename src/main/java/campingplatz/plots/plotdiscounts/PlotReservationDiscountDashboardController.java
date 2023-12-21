@@ -45,7 +45,7 @@ public class PlotReservationDiscountDashboardController {
 		var discount = plotReservationDiscounts.findById(info.getUUID()).get();
 
 		discount.setAmount(info.getAmount());
-		discount.setDiscount(info.getDiscount());
+		discount.setDiscountPercent(info.getDiscount());
 
 		plotReservationDiscounts.save(discount);
 

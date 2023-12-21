@@ -4,12 +4,15 @@ import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
 import campingplatz.plots.Plot;
-import campingplatz.plots.plotdiscounts.PlotReservationDiscountStrategy;
+import campingplatz.plots.plotdiscounts.PlotReservationDiscount;
+import campingplatz.plots.plotdiscounts.PlotReservationDiscountRepository;
+import campingplatz.plots.plotdiscounts.PlotReservationDiscounter;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 
+import campingplatz.utils.Utils;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -35,13 +38,18 @@ class ReservationController {
 	private final SportItemReservationRepository sportItemReservationRepository;
 	private final SeasonalPlotReservationRepository seasonalPlotReservationRepository;
 
+	private final PlotReservationDiscountRepository plotReservationDiscountRepository;
+
 	ReservationController(PlotReservationRepository plotReservationRepository,
 			SportItemReservationRepository sportItemReservationRepository,
-			SeasonalPlotReservationRepository seasonalPlotReservationRepository) {
+			SeasonalPlotReservationRepository seasonalPlotReservationRepository,
+			PlotReservationDiscountRepository plotReservationDiscountRepository) {
 
 		this.plotReservationRepository = plotReservationRepository;
 		this.sportItemReservationRepository = sportItemReservationRepository;
 		this.seasonalPlotReservationRepository = seasonalPlotReservationRepository;
+
+		this.plotReservationDiscountRepository = plotReservationDiscountRepository;
 	}
 
 	@ModelAttribute("plotCart")
@@ -59,18 +67,30 @@ class ReservationController {
 			@ModelAttribute("plotCart") PlotCart reservationCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
-		// dont forget to set the user account before getting the reservations
+		// dont forget to set the user account before getting the reservations.
+		// unfortunately this is the best I can come up with, as I cannot find a way
+		// to initialize model attributes only for logged-in users or something similar
 		reservationCart.setUser(userAccount);
 		sportItemCart.setUser(userAccount);
 
 		var plotReservations = reservationCart.getReservations();
+		var plotDiscounts = plotReservationDiscountRepository.findAll();
+		var plotDiscounter = new PlotReservationDiscounter(plotReservations, plotDiscounts);
+		plotDiscounter.applyDiscountToAll(plotReservations);
 		model.addAttribute("plotReservations", plotReservations);
 
 		var sportsReservations = sportItemCart.getReservations();
 		model.addAttribute("sportsReservations", sportsReservations);
 
-		var total = reservationCart.getPrice().add(sportItemCart.getPrice());
-		model.addAttribute("total", total);
+		var plotFullPrice = Utils.getPrice(plotReservations);
+		var sportsFullPrice = Utils.getPrice(sportsReservations);
+		var totalFullPrice = plotFullPrice.add(sportsFullPrice);
+		model.addAttribute("totalPrice", totalFullPrice);
+
+		var plotDiscountedPrice = Utils.getDiscountedPrice(plotReservations);
+		var sportsDiscountedPrice = Utils.getDiscountedPrice(sportsReservations);
+		var totalDiscountedPrice = plotDiscountedPrice.add(sportsDiscountedPrice);
+		model.addAttribute("totalDiscountedPrice", totalDiscountedPrice);
 
 		return "servings/cart";
 	}

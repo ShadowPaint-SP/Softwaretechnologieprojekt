@@ -85,12 +85,27 @@ public abstract class Reservation<T extends Product> implements Priced {
         this.end = end;
     }
 
+	public Reservation(Reservation<T> original) {
+
+		this.id = UUID.randomUUID();
+		this.state = original.state;
+		this.discount = original.discount;
+
+		this.user = original.user;
+		this.product = original.product;
+
+		this.begin = original.begin;
+		this.end = original.end;
+	}
+
 	public void setDiscount(double discount){
-		if (1 < discount || discount < 0){
-			throw new IllegalArgumentException("discount has to be between 0 and 1");
+		if (0 <= discount && discount <= 1){
+			this.discount = discount;
+		}
+		else {
+			throw new IllegalArgumentException("discount has to be between 0 and 1, but was " + discount);
 		}
 
-		this.discount = discount;
 	}
 
 
@@ -100,6 +115,7 @@ public abstract class Reservation<T extends Product> implements Priced {
         return price.multiply(duration());
     }
 
+	@Override
 	public MonetaryAmount getDiscountedPrice() {
 		var price = product.getPrice();
 		return price.multiply(duration()).multiply(1 - discount);

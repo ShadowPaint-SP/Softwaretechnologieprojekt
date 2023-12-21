@@ -11,9 +11,14 @@ import javax.money.MonetaryAmount;
 public interface Priced {
 
     /**
-     * Returns the price of the item.
-     *
-     * @return
+     * Returns the (undiscounted) price of the item.
      */
     MonetaryAmount getPrice();
+
+	/**
+	 * Returns the discounted price of the item.
+	 */
+	default MonetaryAmount getDiscountedPrice(){
+		return getPrice();
+	}
 }

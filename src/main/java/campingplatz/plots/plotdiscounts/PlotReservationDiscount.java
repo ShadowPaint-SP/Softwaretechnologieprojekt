@@ -20,8 +20,7 @@ public class PlotReservationDiscount {
 	@Setter
 	private Integer amount;
 
-	// getter below
-	// setter below
+	@Getter
 	private Double discount;
 
 
@@ -35,14 +34,17 @@ public class PlotReservationDiscount {
 		this.discount = discount;
 	}
 
-
-	public Long getDiscount() {
-		return round(this.discount * 100);
+	public Long getDiscountPercent(){
+		return round(discount * 100);
 	}
 
-	public void setDiscount(Integer discountPercent) {
-		var discountMultiplier = ((double) discountPercent / 100);
-		var clampedDiscount = min(1, max(0, discountMultiplier));
+	public void setDiscountPercent(Integer discountPercent) {
+		var discount = ((double) discountPercent / 100);
+		this.setDiscount(discount);
+	}
+
+	public void setDiscount(double discount) {
+		var clampedDiscount = min(1, max(0, discount));
 		this.discount = clampedDiscount;
 	}
 }

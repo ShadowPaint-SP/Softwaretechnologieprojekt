@@ -37,8 +37,7 @@ import static org.salespointframework.core.Currencies.EURO;
  * The function getReservationsOfUser recombines the individual
  * ReservationEntries back into Reservations
  */
-public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry>
-		implements Priced {
+public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry> {
 
 	@Getter
 	@Setter
@@ -114,9 +113,6 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-	public List<U> getDiscountedReservations(ReservationDiscountStrategy<T, U> reservationDiscountStrategy) {
-		return reservationDiscountStrategy.discountAll(getReservations());
-	}
 
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(U reservation) {
@@ -168,29 +164,6 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 		return true;
 	}
-
-
-	public MonetaryAmount getPrice() {
-
-		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var entry : this) {
-			acuumulator = acuumulator.add(entry.getProduct().getPrice());
-		}
-
-		return acuumulator;
-	}
-
-
-	public MonetaryAmount getDiscountedPrice(ReservationDiscountStrategy<T, U> reservationDiscountStrategy) {
-
-		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var reservation : getDiscountedReservations(reservationDiscountStrategy)) {
-			acuumulator = acuumulator.add(reservation.getDiscountedPrice());
-		}
-
-		return acuumulator;
-	}
-
 
 	@EqualsAndHashCode
 	public class ReservationEntry implements Comparable<Cart<T, U>.ReservationEntry> {
