@@ -16,4 +16,7 @@ public interface PlotReservationDiscountRepository extends CrudRepository<PlotRe
 	@Override
 	List<PlotReservationDiscount> findAll();
 
+
+	List<PlotReservationDiscount> findAllByAmount(Integer amount);
+
 }

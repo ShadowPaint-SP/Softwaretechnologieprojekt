@@ -53,6 +53,37 @@ public class PlotReservationDiscountDashboardController {
 	}
 
 
+	@PostMapping("/management/discount/createDiscount")
+	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
+	String createDiscount(Model model, @Valid DiscountInformation info) {
+
+		var preexisting = plotReservationDiscounts.findAllByAmount(info.getAmount());
+
+		PlotReservationDiscount discount;
+		if (preexisting.isEmpty()){
+			discount = new PlotReservationDiscount();
+			discount.setAmount(info.getAmount());
+		}
+		else {
+			discount = preexisting.get(0);
+		}
+
+		discount.setDiscountPercent(info.getDiscount());
+
+		plotReservationDiscounts.save(discount);
+		return discount(model);
+	}
+
+	@PostMapping("/management/discount/deleteDiscount")
+	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
+	String deleteDiscount(Model model, @Valid DiscountInformation info) {
+
+		plotReservationDiscounts.deleteById(info.getUUID());
+
+		return discount(model);
+	}
+
+
 
 
 

@@ -12,7 +12,7 @@ import static java.lang.Math.floor;
 import static java.lang.Math.round;
 
 
-public class PlotReservationDiscounter implements ReservationDiscounter<Plot, PlotReservation> {
+public class PlotReservationDiscounter extends ReservationDiscounter<Plot, PlotReservation> {
 
 	List<PlotReservation> reservations;
 	List<PlotReservationDiscount> discounts;
@@ -22,6 +22,7 @@ public class PlotReservationDiscounter implements ReservationDiscounter<Plot, Pl
 		this.discounts = discounts;
 	}
 
+	@Override
 	public void applyDiscount(PlotReservation reservation){
 
 		var totalOverlappingLength = 0d;
