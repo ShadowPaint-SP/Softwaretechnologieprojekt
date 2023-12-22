@@ -105,12 +105,21 @@ class ReservationController {
 					 @ModelAttribute("plotCart") PlotCart reservationCart,
 					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
-		var allPlotReservations = reservationCart.getReservationsOfUser(userAccount);
+		// dont forget to set the user account before getting the reservations.
+		// unfortunately this is the best I can come up with, as I cannot find a way
+		// to initialize model attributes only for logged-in users or something similar
+		reservationCart.setUser(userAccount);
+		sportItemCart.setUser(userAccount);
+
+		var allPlotReservations = reservationCart.getReservations();
 		var validPlotReservation = validatePlotReservations(allPlotReservations);
+		var plotDiscounts = plotReservationDiscountRepository.findAll();
+		var plotDiscounter = new PlotReservationDiscounter(allPlotReservations, plotDiscounts);
+		plotDiscounter.applyDiscountToAll(validPlotReservation);
 		plotReservationRepository.saveAll(validPlotReservation);
 		reservationCart.clear();
 
-		var allSportReservations = sportItemCart.getReservationsOfUser(userAccount);
+		var allSportReservations = sportItemCart.getReservations();
 		var validSportReservation = validateSportItemReservations(allSportReservations);
 		sportItemReservationRepository.saveAll(validSportReservation);
 		sportItemCart.clear();
