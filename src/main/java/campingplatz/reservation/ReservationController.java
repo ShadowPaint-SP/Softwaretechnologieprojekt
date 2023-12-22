@@ -3,6 +3,7 @@ package campingplatz.reservation;
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
+import campingplatz.plots.PlotCatalogAvailabilityTable;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -122,7 +126,7 @@ class ReservationController {
 			}
 
 			// should not have overlaps with existing reserved
-			return plotReservationRepository.productIsAvailableIn(
+			return !plotReservationRepository.productIsReservedIn(
 				reservation.getProduct(),
 				reservation.getBegin(),
 				reservation.getEnd()
@@ -143,7 +147,38 @@ class ReservationController {
 				return false;
 			}
 
+			var length = (int) ChronoUnit.HOURS.between(reservation.getBegin(), reservation.getEnd()) + 1;
+
+			var counts = new ArrayList<Integer>(Collections.nCopies(length, reservation.getProduct().getAmount()));
+			var reservations = sportItemReservationRepository.findReservationsBetween(
+				reservation.getBegin(),
+				reservation.getEnd()
+			);
+			reservations.addAll(input);
+
+			for (var foreignReservation : reservations) {
+				if (!foreignReservation.getProduct().equals(reservation.getProduct())){
+					continue;
+				}
+
+				// calculate begin and end index.
+				// we do this, because we need numbers relative to zero
+				// for indexing into an array
+				int beginIndex = (int) Math.max(0, (ChronoUnit.HOURS.between(reservation.getBegin(), reservation.getBegin())));
+				int endIndex = (int) Math.min((long) length - 1, (ChronoUnit.HOURS.between(reservation.getEnd(), reservation.getEnd())));
+
+				for (int i = beginIndex; i <= endIndex; i++) {
+					var curr = counts.get(i);
+					counts.set(i, curr - 1);
+
+					if (curr < 1){
+						return false;
+					}
+				}
+			}
+
 			return true;
+
 		});
 		return validStream.toList();
 	}
