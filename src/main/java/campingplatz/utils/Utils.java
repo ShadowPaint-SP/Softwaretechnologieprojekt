@@ -26,19 +26,6 @@ public class Utils {
 	}
 
 
-	public static <T extends Priced> MonetaryAmount getPrice(List<T> input){
-		return input.stream()
-			.map(Priced::getPrice)
-			.reduce(MonetaryAmount::add)
-			.orElse(Money.of(0, EURO));
-	}
-
-	public static <T extends Priced> MonetaryAmount getDiscountedPrice(List<T> input){
-		return input.stream()
-			.map(Priced::getDiscountedPrice)
-			.reduce(MonetaryAmount::add)
-			.orElse(Money.of(0, EURO));
-	}
 
 
 	public static LocalDateTime min(LocalDateTime first, LocalDateTime second){

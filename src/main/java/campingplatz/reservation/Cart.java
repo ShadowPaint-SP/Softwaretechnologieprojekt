@@ -1,18 +1,14 @@
 package campingplatz.reservation;
 
-import campingplatz.utils.Priced;
+import campingplatz.utils.ListOfPriced;
 import campingplatz.utils.Utils;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import one.util.streamex.StreamEx;
-import org.javamoney.moneta.Money;
-
-import javax.money.MonetaryAmount;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import java.util.List;
 import java.util.TreeSet;
@@ -21,8 +17,6 @@ import java.util.stream.Collectors;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 /**
  * Abstraction of a shopping cart.
@@ -63,7 +57,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return super.contains(new ReservationEntry(product, time));
 	}
 
-	public List<U> getReservations() {
+	public ListOfPriced<U> getReservations() {
 
 		if (user == null){
 			throw new NullPointerException("user is null, because it was not set with setUser");
@@ -110,7 +104,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		});
 
 		// collect from stream into ArrayList
-		return reservations.collect(Collectors.toCollection(ArrayList::new));
+		return reservations.collect(Collectors.toCollection(ListOfPriced::new));
 	}
 
 

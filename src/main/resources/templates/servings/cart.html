@@ -27,12 +27,12 @@
                         <td th:text="${#temporals.format(item.end.plusDays(1), 'dd.MM.yyyy | 11:00')}">daparture</td>
                         <td th:text="${item.duration}">one day</td>
                         <td>
-                            <div th:if="${item.discount == 0}">
-                                <text th:text="${item.price}"></text>
+                            <div th:if="${item.hasDiscount()}">
+                                <s th:text="${item.preDiscountPrice}"></s> &nbsp;
+                                <b th:text="${item.price}"></b>
                             </div>
-                            <div th:unless="${item.discount == 0}">
-                                <s th:text="${item.price}"></s> &nbsp;
-                                <b th:text="${item.discountedPrice}"></b>
+                            <div th:unless="${item.hasDiscount()}">
+                                <text th:text="${item.price}"></text>
                             </div>
                         </td>
                     </tr>
@@ -71,12 +71,12 @@
             <div class="card-body items-center text-center">
                 <h2 class="card-title text-neutral font-bold" th:text="#{cart.total}">Your Total</h2>
                 <div class="badge badge-lg badge-secondary">
-                    <div th:if="${totalPrice.isEqualTo(totalDiscountedPrice)}">
-                        <text th:text="${{totalPrice}}">987,654</text>
+                    <div th:if="${totalHasDiscount}">
+                        <s th:text="${totalPreDiscountPrice}"></s> &nbsp;
+                        <b th:text="${totalPrice}"></b>
                     </div>
-                    <div th:unless="${totalPrice.isEqualTo(totalDiscountedPrice)}">
-                        <s th:text="${totalPrice}"></s> &nbsp;
-                        <b th:text="${totalDiscountedPrice}"></b>
+                    <div th:unless="${totalHasDiscount}">
+                        <text th:text="${totalPrice}">987,654</text>
                     </div>
                 </div>
                 <div class="card-actions justify-end">

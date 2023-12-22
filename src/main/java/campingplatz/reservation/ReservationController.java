@@ -82,15 +82,20 @@ class ReservationController {
 		var sportsReservations = sportItemCart.getReservations();
 		model.addAttribute("sportsReservations", sportsReservations);
 
-		var plotFullPrice = Utils.getPrice(plotReservations);
-		var sportsFullPrice = Utils.getPrice(sportsReservations);
-		var totalFullPrice = plotFullPrice.add(sportsFullPrice);
-		model.addAttribute("totalPrice", totalFullPrice);
+		var plotPrice = plotReservations.getPrice();
+		var sportsPrice = sportsReservations.getPrice();
+		var totalDiscountedPrice = plotPrice.add(sportsPrice);
+		model.addAttribute("totalPrice", totalDiscountedPrice);
 
-		var plotDiscountedPrice = Utils.getDiscountedPrice(plotReservations);
-		var sportsDiscountedPrice = Utils.getDiscountedPrice(sportsReservations);
-		var totalDiscountedPrice = plotDiscountedPrice.add(sportsDiscountedPrice);
-		model.addAttribute("totalDiscountedPrice", totalDiscountedPrice);
+		var plotFullPrice = plotReservations.getPreDiscountPrice();
+		var sportsFullPrice = sportsReservations.getPreDiscountPrice();
+		var totalFullPrice = plotFullPrice.add(sportsFullPrice);
+		model.addAttribute("totalPreDiscountPrice", totalFullPrice);
+
+		var plotHasDiscount = plotReservations.hasDiscount();
+		var sportsHasDiscount = sportsReservations.hasDiscount();
+		var totalHasDiscount = plotHasDiscount || sportsHasDiscount;
+		model.addAttribute("totalHasDiscount", totalHasDiscount);
 
 		return "servings/cart";
 	}
@@ -120,12 +125,16 @@ class ReservationController {
 
 	@GetMapping("/orders")
 	String orders(Model model, @LoggedIn UserAccount user) {
+
 		var plotReservations = plotReservationRepository.findByUserId(user.getId());
 		model.addAttribute("plotOrdersCompleted", plotReservations);
+
 		var sportReservations = sportItemReservationRepository.findByUserId(user.getId());
 		model.addAttribute("sportOrdersCompleted", sportReservations);
+
 		var seasonalReservations = seasonalPlotReservationRepository.findByUserId(user.getId());
 		model.addAttribute("seasonalOrdersCompleted", seasonalReservations);
+
 		return "servings/orders";
 	}
 

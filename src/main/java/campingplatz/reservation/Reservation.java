@@ -110,15 +110,20 @@ public abstract class Reservation<T extends Product> implements Priced {
 
 
     @Override
-    public MonetaryAmount getPrice() {
+    public MonetaryAmount getPreDiscountPrice() {
         var price = product.getPrice();
         return price.multiply(duration());
     }
 
 	@Override
-	public MonetaryAmount getDiscountedPrice() {
+	public MonetaryAmount getPrice() {
 		var price = product.getPrice();
 		return price.multiply(duration()).multiply(1 - discount);
+	}
+
+	@Override
+	public Boolean hasDiscount(){
+		return discount != 0;
 	}
 
 

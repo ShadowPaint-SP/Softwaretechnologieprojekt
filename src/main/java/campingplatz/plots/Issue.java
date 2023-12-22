@@ -41,4 +41,9 @@ public class Issue implements Priced {
 	public MonetaryAmount getPrice() {
 		return this.cost;
 	}
+
+	@Override
+	public MonetaryAmount getPreDiscountPrice() {
+		return this.cost;
+	}
 }
