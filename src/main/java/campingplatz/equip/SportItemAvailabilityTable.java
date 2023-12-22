@@ -25,7 +25,9 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 		FREE_COMPLETELY(0, "catalog.fields.free.completely", "submit", "bg-transparent"),
 		FREE_SELECTED(1, "catalog.fields.free.selected", "submit", "bg-green-500"),
 		RESERVED_OTHER(2, "catalog.fields.reserved.other", "button", "bg-red-500"),
-		RESERVED_SELF(3, "catalog.fields.reserved.self", "button", "bg-yellow-600");
+		RESERVED_SELF(3, "catalog.fields.reserved.self", "button", "bg-yellow-600"),
+		BACK_IN_TIME(4, "catalog.fields.past", "button", "bg-red-500");
+
 
 		public final String clickability;
 		public final Integer value;
@@ -144,5 +146,23 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 
 		return this;
 	}
+
+
+	public SportItemAvailabilityTable addPastMarkings(LocalDateTime cutofTime) {
+
+		for (int i = 0; i < length; i++) {
+			var currentTime =  firstTime.plusHours(i);
+			var currentField = this.get(i);
+
+			if (currentTime.isBefore(cutofTime) && currentField.type == FieldType.FREE_COMPLETELY){
+				var newValue = new Field(FieldType.BACK_IN_TIME, currentField.index, currentField.amount);
+				this.set(i, newValue);
+			}
+
+		}
+
+		return this;
+	}
+
 
 }

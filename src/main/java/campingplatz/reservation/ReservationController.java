@@ -30,7 +30,7 @@ import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes({ "plotCart", "SportItemCart" })
+@SessionAttributes({"plotCart", "SportItemCart"})
 @EnableScheduling
 class ReservationController {
 
@@ -102,22 +102,17 @@ class ReservationController {
 
 	@PostMapping("/checkout")
 	String reservate(Model model, @LoggedIn UserAccount userAccount,
-			@ModelAttribute("plotCart") PlotCart reservationCart,
-			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
+					 @ModelAttribute("plotCart") PlotCart reservationCart,
+					 @ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
-		List<PlotReservation> reservations = reservationCart.getReservations();
-		for (var reservation : reservations) {
-			if (plotReservationRepository.productIsAvailableIn(
-					reservation.getProduct(),
-					reservation.getBegin(),
-					reservation.getEnd())) {
-				plotReservationRepository.save(reservation);
-			}
-		}
+		var allPlotReservations = reservationCart.getReservationsOfUser(userAccount);
+		var validPlotReservation = validatePlotReservations(allPlotReservations);
+		plotReservationRepository.saveAll(validPlotReservation);
 		reservationCart.clear();
 
-		List<SportItemReservation> sportReservations = sportItemCart.getReservations();
-		sportItemReservationRepository.saveAll(sportReservations);
+		var allSportReservations = sportItemCart.getReservationsOfUser(userAccount);
+		var validSportReservation = validateSportItemReservations(allSportReservations);
+		sportItemReservationRepository.saveAll(validSportReservation);
 		sportItemCart.clear();
 
 		return "redirect:/orders";
@@ -145,4 +140,49 @@ class ReservationController {
 	public void periodicallyDeleteReservatinos() {
 		plotReservationRepository.deleteBeforeThan(LocalDateTime.now());
 	}
+
+
+
+
+	public List<PlotReservation> validatePlotReservations(List<PlotReservation> input) {
+		var validStream = input.stream().filter(reservation -> {
+			// end should not be before begin
+			if (reservation.getEnd().isBefore(reservation.getBegin())){
+				return false;
+			}
+
+			// begin should not be before date.now()
+			if (reservation.getBegin().plusDays(1).isBefore(LocalDateTime.now())){
+				return false;
+			}
+
+			// should not have overlaps with existing reserved
+			return plotReservationRepository.productIsAvailableIn(
+				reservation.getProduct(),
+				reservation.getBegin(),
+				reservation.getEnd()
+			);
+		});
+		return validStream.toList();
+	}
+
+	public List<SportItemReservation> validateSportItemReservations(List<SportItemReservation> input) {
+		var validStream = input.stream().filter(reservation -> {
+			// end should not be before begin
+			if (reservation.getEnd().isBefore(reservation.getBegin())){
+				return false;
+			}
+
+			// begin should not be before date.now()
+			if (reservation.getBegin().plusDays(1).isBefore(LocalDateTime.now())){
+				return false;
+			}
+
+			return true;
+		});
+		return validStream.toList();
+	}
+
+
+
 }

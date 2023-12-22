@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,8 @@ public class SportItemCatalogController {
 		var availabilityTable = new SportItemAvailabilityTable(opening, closing, sportItem)
 				.addMaxAmount(sportItem.getAmount())
 				.addReservations(user, reservations)
-				.addSelections(reservationCart);
+				.addSelections(reservationCart)
+			    .addPastMarkings(LocalDateTime.now());
 
 		model.addAttribute("item", sportItem);
 		model.addAttribute("times", formatedTimes);
