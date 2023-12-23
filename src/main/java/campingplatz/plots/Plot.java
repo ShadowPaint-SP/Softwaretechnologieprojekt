@@ -52,7 +52,7 @@ public class Plot extends DetailedProduct {
 
     // a third getter for in inherited field price. returns a formatted String
     public String getPriceString() {
-        return getPriceDouble().toString() + " Euro";
+        return String.format("%.2f", getPriceDouble()) + " Euro";
     }
 
     // a second getter for size. returns a formatted String
