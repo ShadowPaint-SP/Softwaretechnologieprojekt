@@ -40,10 +40,10 @@ public class SeasonalPlotCatalogController {
 		var reservedSeasonalPlots = reservationRepository.findPlotsAll();
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
 				seasonalPlot -> !reservedSeasonalPlots.contains(seasonalPlot)));
+		var available = new ArrayList<SeasonalPlotReservation>();
 
 		if (user.isPresent()) {
 			var userReservations = reservationRepository.findByUserId(user.get().getId());
-			var available = new ArrayList<SeasonalPlotReservation>();
 			for (SeasonalPlotReservation reservation : userReservations) {
 				if (businessTime.getTime().isAfter(reservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
 					if (reservation.isShow()) {
@@ -55,9 +55,8 @@ public class SeasonalPlotCatalogController {
 					available.add(reservation);
 				}
 			}
-			model.addAttribute("ordersCompleted", available);
 		}
-
+		model.addAttribute("ordersCompleted", available);
 		model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
 		model.addAttribute("searchQuery", query);
 		model.addAttribute("currentDate", businessTime.getTime());
