@@ -3283,28 +3283,20 @@ html {
   height: 2rem;
 }
 
-.h-10 {
-  height: 2.5rem;
-}
-
-.max-h-24 {
-  max-height: 6rem;
+.min-h-full {
+  min-height: 100%;
 }
 
 .min-h-screen {
   min-height: 100vh;
 }
 
-.min-h-full {
-  min-height: 100%;
-}
-
-.min-h-\[400px\] {
-  min-height: 400px;
-}
-
 .w-10 {
   width: 2.5rem;
+}
+
+.w-12 {
+  width: 3rem;
 }
 
 .w-32 {
@@ -3752,6 +3744,23 @@ html {
 
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+#grass {
+  fill: green;
+}
+
+#tent {
+  fill: white;
+}
+
+#sun {
+  transition: .5s ease-in-out;
+  transform-origin: 40% 50%;
+}
+
+#box:hover #sun {
+  transform: rotate(45deg);
 }
 
 .hover\:bg-secondary:hover {
