@@ -15,7 +15,6 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +22,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -35,7 +36,8 @@ class PlotCatalogController {
     PlotCatalog plotCatalog;
     PlotReservationRepository reservationRepository;
     BusinessTime businessTime;
-
+    Set<UserAccount> commentarySet = new HashSet<>();
+    
     PlotCatalogController(PlotCatalog plotCatalog, PlotReservationRepository reservationRepository,
             BusinessTime businessTime) {
         this.plotCatalog = plotCatalog;
@@ -216,11 +218,23 @@ class PlotCatalogController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/plotcatalog/details/{plot}/comments")
-    public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info) {
-        plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+    public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info, @LoggedIn UserAccount currUserAccount) {
+        commentarySet=reservationRepository.findUsersOfProduct(plot);
+        if(commentarySet.contains(currUserAccount)){
+            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
         plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
+        }else return "servings/plotdetails";
+        
     }
+
+    // @PreAuthorize("isAuthenticated()")
+    // @PostMapping("/plotcatalog/details/{plot}/comments")
+    // public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info) {
+    //     plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+    //     plotCatalog.save(plot);
+    //     return "redirect:/plotcatalog/details/" + plot.getId();   
+    // }
 
     interface CommentInfo {
         @NotEmpty
