@@ -71,7 +71,7 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
 
 	@Query("""
                 select distinct r.user from #{#entityName} r
-                where (r = :product)
+                where (r.product = :product)
                 and (r.state != 0)
             """)
 	Set<UserAccount> findUsersOfProduct(T product);
