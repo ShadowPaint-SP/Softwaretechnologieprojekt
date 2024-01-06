@@ -36,7 +36,7 @@ class PlotCatalogController {
     PlotCatalog plotCatalog;
     PlotReservationRepository reservationRepository;
     BusinessTime businessTime;
-    Set<UserAccount> commentarySet = new HashSet<>();
+
     
     PlotCatalogController(PlotCatalog plotCatalog, PlotReservationRepository reservationRepository,
             BusinessTime businessTime) {
@@ -219,12 +219,15 @@ class PlotCatalogController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/plotcatalog/details/{plot}/comments")
     public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info, @LoggedIn UserAccount currUserAccount) {
-        commentarySet=reservationRepository.findUsersOfProduct(plot);
-        if(commentarySet.contains(currUserAccount)){
+        Set<UserAccount> commentarySet = reservationRepository.findUsersOfProduct(plot);
+        if (commentarySet.contains(currUserAccount)){
             plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
-        plotCatalog.save(plot);
-        return "redirect:/plotcatalog/details/" + plot.getId();
-        }else return "servings/plotdetails";
+            plotCatalog.save(plot);
+            return "redirect:/plotcatalog/details/" + plot.getId();
+        }
+        else {
+            return "servings/plotdetails";
+        }
         
     }
 
