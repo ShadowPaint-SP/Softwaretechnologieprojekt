@@ -120,6 +120,14 @@ public class Plot extends DetailedProduct {
         comments.add(comment);
     }
 
+    public void deleteComment(Long commentILong){
+        for (int i=0; i<comments.size(); i++) {
+            if(comments.get(i).getId()== commentILong){
+                comments.remove(i);
+            }
+        }
+    }
+
     public List<Comment> getComments() {
         return comments;
     }

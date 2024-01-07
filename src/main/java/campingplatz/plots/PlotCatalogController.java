@@ -221,11 +221,20 @@ class PlotCatalogController {
     public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info, @LoggedIn UserAccount currUserAccount) {
         commentarySet=reservationRepository.findUsersOfProduct(plot);
         if(commentarySet.contains(currUserAccount)){
-            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),currUserAccount.getFirstname(), currUserAccount.getLastname()));
         plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
-        }else return "servings/plotdetails";
+        }else{
+            model.addAttribute("error", "Benutzer hat Platz noch nicht besucht");
+            return "redirect:/plotcatalog/details/" + plot.getId();
+        }
         
+    }
+
+    @PostMapping("/plotcatalog/details/{plot}/comments/{commentId}")
+    public String deleteComment(@PathVariable("plot") Plot plot, @PathVariable Long commentId) {
+        plot.deleteComment(commentId);
+        return "redirect:/plotcatalog/details/" + plot.getId();
     }
 
     // @PreAuthorize("isAuthenticated()")

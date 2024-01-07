@@ -32,9 +32,12 @@
                             </div>
                             <textarea name="comment" id="comment"
                                 class="textarea w-full min-h-full resize-none invalid:focus:outline-error focus:outline-accent"
-                                autofocus minlength="4" maxlength="255" placeholder="give a comment"
+                                autofocus minlength="4" maxlength="255" placeholder="Hinterlasse einen Kommentar zu diesen Platz."
                                 required></textarea>
-                            <button class="btn" type="submit">submit</button>
+                            <button class="btn" type="submit">Kommentar absenden</button>
+    
+                            <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+                            
                         </form>
                     </div>
                 </div>
@@ -51,13 +54,18 @@
                 <input disabled class="mask mask-star-2 bg-orange-400"></input>
             </div>
             <div>
+                <strong th:text="${comment.firstName+' '+comment.lastName}"></strong>
+                <br/>
                 <span th:text="${comment.text}"></span>
             </div>
-            <!--<div sec:authorize="hasRole('BOSS')">
+            <div>
+                <span th:text="${comment.time}" style="float: right;"></span>
+            </div>
+            <div sec:authorize="hasRole('BOSS')">
                 <form method="post" th:action="'/plotcatalog/details/'+${item.id}+'/comments/'+${comment}">
-                    <button class="btn btn-primary" type="submit">Delete Post</button>
+                    <button class="btn btn-primary" type="submit">Kommentar löschen</button>
                 </form>
-            </div>-->
+            </div>
         </div>
     </main>
 </body>
