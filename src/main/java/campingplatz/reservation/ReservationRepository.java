@@ -77,8 +77,6 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
 	Set<UserAccount> findUsersOfProduct(T product);
 
 
-
-
     @Modifying
     @Transactional
     @Query("""
