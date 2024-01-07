@@ -222,7 +222,7 @@ class PlotCatalogController {
         Set<UserAccount> commentarySet=reservationRepository.findUsersOfProduct(plot);
         if(commentarySet.contains(currUserAccount)){
             plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),currUserAccount.getFirstname(), currUserAccount.getLastname()));
-        plotCatalog.save(plot);
+            plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
         }else{
             model.addAttribute("error", "Benutzer hat Platz noch nicht besucht");
