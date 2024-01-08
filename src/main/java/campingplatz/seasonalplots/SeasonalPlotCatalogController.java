@@ -2,7 +2,11 @@ package campingplatz.seasonalplots;
 
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
+import campingplatz.utils.Comment;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Range;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -36,10 +40,10 @@ public class SeasonalPlotCatalogController {
 		var reservedSeasonalPlots = reservationRepository.findPlotsAll();
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
 				seasonalPlot -> !reservedSeasonalPlots.contains(seasonalPlot)));
+		var available = new ArrayList<SeasonalPlotReservation>();
 
 		if (user.isPresent()) {
 			var userReservations = reservationRepository.findByUserId(user.get().getId());
-			var available = new ArrayList<SeasonalPlotReservation>();
 			for (SeasonalPlotReservation reservation : userReservations) {
 				if (businessTime.getTime().isAfter(reservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
 					if (reservation.isShow()) {
@@ -51,9 +55,8 @@ public class SeasonalPlotCatalogController {
 					available.add(reservation);
 				}
 			}
-			model.addAttribute("ordersCompleted", available);
 		}
-
+		model.addAttribute("ordersCompleted", available);
 		model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
 		model.addAttribute("searchQuery", query);
 		model.addAttribute("currentDate", businessTime.getTime());
@@ -103,14 +106,7 @@ public class SeasonalPlotCatalogController {
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 		reservationRepository.save(reservation);
 
-		return "redirect:/seasonalplotcatalog";
-	}
-
-	@GetMapping("/seasonalorders")
-	String orders(Model model, @LoggedIn UserAccount user) {
-		var userReservations = reservationRepository.findByUserId(user.getId());
-		model.addAttribute("ordersCompleted", userReservations);
-		return "servings/orders";
+		return "redirect:/orders";
 	}
 
 	@PostMapping("/updateseasonalplot/{plot}")
@@ -128,12 +124,33 @@ public class SeasonalPlotCatalogController {
 		return "redirect:/seasonalplotcatalog";
 	}
 
+	@GetMapping("/seasonalplotcatalog/details/{plot}")
+	public String showSeasonalPlotDetails(Model model,
+			@Valid SeasonalPlotCatalog.SeasonalSiteState query, @PathVariable("plot") SeasonalPlot plot) {
+		model.addAttribute("item", plot);
+		return "servings/seasonalplotdetails";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/seasonalplotcatalog/details/{plot}/comments")
+	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info) {
+		plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+		seasonalPlotCatalog.save(plot);
+		return "redirect:/seasonalplotcatalog/details/" + plot.getId();
+	}
+
+	interface CommentInfo {
+		@NotEmpty
+		String getComment();
+
+		@Range(min = 1, max = 5)
+		int getRating();
+	}
+
 	@GetMapping("/forward/{days}")
 	String forwardTime(Model model, @PathVariable("days") int days) {
-
 		businessTime.forward(Duration.ofDays(days));
 
 		return "redirect:/seasonalplotcatalog";
 	}
-
 }

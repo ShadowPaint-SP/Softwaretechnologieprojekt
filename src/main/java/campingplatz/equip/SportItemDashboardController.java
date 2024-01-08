@@ -16,7 +16,6 @@ import static org.salespointframework.core.Currencies.EURO;
 @Controller
 public class SportItemDashboardController {
 
-
 	private SportItemCatalog itemCatalog;
 
 	SportItemDashboardController(SportItemCatalog itemCatalog) {
@@ -30,33 +29,30 @@ public class SportItemDashboardController {
 		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
 
 		model.addAttribute("items", listo);
-		//model.addAttribute("first", listo.get(0));
+		// model.addAttribute("first", listo.get(0));
 		model.addAttribute("cate", listo.get(0).getCategories().stream().toList().get(0));
 
 		return "dashboards/sportsequipment_management";
 	}
 
-
-
-	//TODO: improve urls to be of the same style used everywhere else
-	@PostMapping("/addSportItem")
+	@PostMapping("/management/sportsequipment/additem")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String addSportItem(@RequestParam String name,
-							   @RequestParam double price,
-							   @RequestParam double deposit,
-							   @RequestParam int amount,
-							   @RequestParam String category,
-							   @RequestParam String imagePath,
-							   @RequestParam String desc) {
+			@RequestParam double price,
+			@RequestParam double deposit,
+			@RequestParam int amount,
+			@RequestParam String category,
+			@RequestParam String imagePath,
+			@RequestParam String desc) {
 
 		SportItem item = itemCatalog.findByName(name).stream().findFirst().orElse(null);
 		if (item == null) {
 			itemCatalog.save(new SportItem(name,
-				Money.of(price, EURO),
-				Money.of(deposit, EURO),
-				category, amount,
-				imagePath,
-				desc));
+					Money.of(price, EURO),
+					Money.of(deposit, EURO),
+					category, amount,
+					imagePath,
+					desc));
 		} else {
 			item.setName(name);
 			item.setPrice(Money.of(price, EURO));
@@ -70,10 +66,10 @@ public class SportItemDashboardController {
 		return "redirect:/management/sportsequipment";
 	}
 
-	@PostMapping("/changeSportItemAmount")
+	@PostMapping("/management/sportsequipment/changeamount")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String changeSportItemAmount(@RequestParam int amountItem,
-										@RequestParam(required = false) Product.ProductIdentifier equip_id) {
+			@RequestParam(required = false) Product.ProductIdentifier equip_id) {
 
 		if (equip_id != null) {
 			SportItem item = itemCatalog.findById(equip_id).stream().findFirst().orElse(null);
@@ -84,13 +80,12 @@ public class SportItemDashboardController {
 			}
 		}
 		return "redirect:/management/sportsequipment";
-
 	}
 
-	@PostMapping("/deleteSportItem")
+	@PostMapping("/management/sportsequipment/delete")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String deleteSportItem(@RequestParam String itemName,
-								  @RequestParam(required = false) Product.ProductIdentifier id) {
+			@RequestParam(required = false) Product.ProductIdentifier id) {
 		SportItem item = itemCatalog.findByName(itemName).stream().findFirst().orElse(null);
 		if (item != null && item.getId() != null) {
 			itemCatalog.deleteById(item.getId());

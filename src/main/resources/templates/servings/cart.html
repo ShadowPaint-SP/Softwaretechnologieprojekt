@@ -1,12 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{cart.title})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{title.cart})}">
 
 <head></head>
 
 <body>
     <main layout:fragment="input">
         <!-- plot cart-->
-        <div class="overflow-x-auto container mx-auto mt-14 rounded-box" th:unless="${plotReservations.isEmpty()}">
+        <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md"
+            th:unless="${plotReservations.isEmpty()}">
             <table class="table table-zebra">
                 <thead class="bg-secondary">
                     <tr>
@@ -22,8 +23,8 @@
                     <tr th:each="item, iStat : ${plotReservations}" class="hover">
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.product.name}">place on the lake</td>
-                        <td th:text="${item.begin.plusHours(12)}">today</td>
-                        <td th:text="${item.end.plusDays(1).plusHours(11)}">tomorrow</td>
+                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
+                        <td th:text="${#temporals.format(item.end.plusDays(1), 'dd.MM.yyyy | 11:00')}">daparture</td>
                         <td th:text="${item.duration}">one day</td>
                         <td th:text="${item.price}">50</td>
                     </tr>
@@ -32,7 +33,8 @@
         </div>
 
         <!-- sportsitem cart-->
-        <div class="overflow-x-auto container mx-auto mt-14 rounded-box" th:unless="${sportsReservations.isEmpty()}">
+        <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md"
+            th:unless="${sportsReservations.isEmpty()}">
             <table class="table table-zebra">
                 <thead class="bg-secondary">
                     <tr>
@@ -48,8 +50,8 @@
                     <tr th:each="item, iStat : ${sportsReservations}" class="hover">
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.product.name}">Cy Ganderton</td>
-                        <td th:text="${item.begin}">Quality Control Specialist</td>
-                        <td th:text="${item.end}">Quality Control Specialist</td>
+                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
+                        <td th:text="${#temporals.format(item.end, 'dd.MM.yyyy | HH:mm')}">daparture</td>
                         <td th:text="${item.duration}">Quality Control Specialist</td>
                         <td th:text="${item.price}">Blue</td>
                     </tr>
@@ -57,7 +59,7 @@
             </table>
         </div>
 
-        <div class="card w-96 bg-base-300 text-neutral-content container mx-auto mt-10">
+        <div class="card w-96 bg-base-300 text-neutral-content container mx-auto mt-10 shadow-lg">
             <div class="card-body items-center text-center">
                 <h2 class="card-title text-neutral font-bold" th:text="#{cart.total}">Your Total</h2>
                 <div class="badge badge-lg badge-secondary" th:text="${{total}}">987,654</div>

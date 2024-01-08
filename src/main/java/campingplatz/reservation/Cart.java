@@ -2,7 +2,6 @@ package campingplatz.reservation;
 
 import campingplatz.utils.Priced;
 import campingplatz.utils.Utils;
-import jakarta.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collectors;
 
 import org.salespointframework.catalog.Product;
@@ -43,28 +40,23 @@ import static org.salespointframework.core.Currencies.EURO;
 public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry>
 		implements Priced {
 
-
-	Class<U> reservationType;   // unfortunately needed to create an instance of U
+	Class<U> reservationType; // unfortunately needed to create an instance of U
 
 	public Cart(Class<U> reservationType) {
 		this.reservationType = reservationType;
 	}
 
-
-
-	public void addEntry(T product, LocalDateTime time){
+	public void addEntry(T product, LocalDateTime time) {
 		super.add(new ReservationEntry(product, time));
 	}
 
-	public void removeEntry(T product, LocalDateTime time){
+	public void removeEntry(T product, LocalDateTime time) {
 		super.remove(new ReservationEntry(product, time));
 	}
 
-	public boolean containsEntry(T product, LocalDateTime time){
+	public boolean containsEntry(T product, LocalDateTime time) {
 		return super.contains(new ReservationEntry(product, time));
 	}
-
-
 
 	public List<U> getReservationsOfUser(UserAccount user) {
 
@@ -112,8 +104,6 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-
-
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(U reservation) {
 
@@ -156,7 +146,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		var len = begin.until(end, reservation.getIntervalUnit()) + 1;
 		for (int i = 0; i < len; i++) {
 			var time = begin.plus(i, reservation.getIntervalUnit());
-			if (!this.containsEntry(prod, time)){
+			if (!this.containsEntry(prod, time)) {
 				return false;
 			}
 
@@ -164,8 +154,6 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 		return true;
 	}
-
-
 
 	@Override
 	public MonetaryAmount getPrice() {
@@ -177,9 +165,6 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 		return acuumulator;
 	}
-
-
-
 
 	@EqualsAndHashCode
 	public class ReservationEntry implements Comparable<Cart<T, U>.ReservationEntry> {

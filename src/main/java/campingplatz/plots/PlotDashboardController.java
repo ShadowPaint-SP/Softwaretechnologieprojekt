@@ -45,8 +45,6 @@ public class PlotDashboardController {
 			plot.setImagePath(info.getPicture());
 			plot.setDesc(info.getDescription());
 			plot.setState(Plot.State.fromNumber(info.getState()));
-			
-			// dont forget to save
 			plotCatalog.save(plot);
 
 			Streamable<Plot> all = plotCatalog.findAll();
@@ -70,23 +68,6 @@ public class PlotDashboardController {
 
 		// dont forget to save
 		plotCatalog.save(plot);
-
-		Streamable<Plot> all = plotCatalog.findAll();
-		model.addAttribute("plots", all);
-		return "dashboards/plot_management";
-	}
-
-	// TODO
-	@PostMapping("/management/plots/deletePlot")
-	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
-	String deletePlot(Model model, @Valid PlotInformation info) {
-
-		// cannot just delete the entry, reservations might depend on it
-		try {
-			plotCatalog.deleteById(info.getPlotID());
-		} catch (Exception e) {
-			// just continue
-		}
 
 		Streamable<Plot> all = plotCatalog.findAll();
 		model.addAttribute("plots", all);

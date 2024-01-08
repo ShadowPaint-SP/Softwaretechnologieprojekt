@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout.html(title=#{seasonalcatalog.title})}">
+    layout:decorate="~{layout.html(title=#{title.seasonalcatalog})}">
 
 <head></head>
 
 <body>
     <main layout:fragment="input">
+
+        <div th:if="${ordersCompleted.size > 0}" th:fragment="my_orders"
+            class="overflow-x-auto container mx-auto mt-14 rounded-box">
+            <table class="table table-zebra">
+                <thead>
+                    <tr>
+                        <th>
+                            <span th:text="#{my_orders}"></span>
+                        </th>
+                        <th>
+                            <span>Reservieren</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${ordersCompleted}">
+                        <td class="flex">
+                            <div>
+                                <img class="h-32 w-32" th:src="${order.product.imagePath}" />
+                            </div>
+                            <div>
+                                <div th:text="${order.product.name}">Plotname</div>
+                                <div>
+                                    <div th:text="'Kosten: '+${order.product.priceString}"></div>
+                                    <div th:text="'Größe: '+${order.product.sizeString}"></div>
+                                    <div th:text="#{${order.product.parking.label}}"></div>
+                                    <div th:text="${order.product.desc}"></div>
+                                    <div th:text="#{arrival} + ' ' + ${order.begin.toString().substring(0,10)}">Arrival
+                                    </div>
+                                    <div th:text="#{departure} + ' ' + ${order.end.toString().substring(0,10)}">
+                                        Departure</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <form th:if="${order.isNextYearAvaible(currentDate)}"
+                                th:action="'/seasonalcheckout/' + ${order.product.id}" method="post">
+                                <div>
+                                    <label class="label-text">Bezahlart:</label>
+                                    <select name="payMethod" class="select w-full max-w-xs p-2 ">
+                                        <option value="1" th:text="#{seasonalcatalog.pay.yearly}"></option>
+                                        <option value="0" th:text="#{seasonalcatalog.pay.monthly}"></option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" type="submit"
+                                    th:text="#{catalog.reserve.for_next_year}"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <form method="post" action="/seasonalplotcatalog/filter#top">
             <a id="top"></a>
             <button type="submit" hidden></button>
@@ -18,7 +71,6 @@
                     </div>
                     <select class="select select-none w-full max-w-xs focus:outline-accent" name="parking"
                         onchange="this.form.submit()">
-                        <option disabled selected th:text="#{catalog.parking.select}">chose an option</option>
                         <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{catalog.parking.no}">
                         </option>
                         <option value="1" th:selected="${searchQuery.parking==1}" th:text="#{catalog.parking.bike}">
@@ -80,25 +132,34 @@
                 </thead>
                 <tbody>
                     <tr th:each="plot : ${allSeasonalPlots.get(plotsavailable)}">
-                        <td class="flex">
-                            <div>
-                                <img class="h-32 w-32" th:src="${plot.imagePath}" />
+                        <th class="flex">
+                            <div class="pr-4">
+                                <img class="h-32 w-32 mask mask-squircle" th:src="${plot.imagePath}" />
                             </div>
-                            <div>
-                                <div th:text="${plot.name}">Plotname</div>
-                                <div>
-                                    <div th:text="'Kosten: '+${plot.priceString}"></div>
-                                    <div th:text="'Größe: '+${plot.sizeString}"></div>
-                                    <div th:text="#{${plot.parking.label}}"></div>
-                                    <div th:text="${plot.desc}"></div>
-                                </div>
+                            <div class="my-auto justify-between">
+                                <a class="underline" th:text="${plot.name}"
+                                    th:href="@{/seasonalplotcatalog/details/{plot}(plot=${plot.id})}"></a>
+                                <p class="text-neutral-500">Kosten: <span class="text-accent"
+                                        th:text="${plot.priceString}"></span>
+                                </p>
+                                <p class="text-neutral-500">Größe: <span class="text-accent"
+                                        th:text="${plot.sizeString}"></span></p>
+                                <p class="text-neutral-500" th:text="#{${plot.parking.label}}"></p>
                             </div>
-                        </td>
+                        </th>
                         <td>
                             <div class="flex flex-row justify-around pb-4">
-                                <section th:text="#{arrival} + ': ' + ${plot.getArrivalStr(currentDate)}">Arrival
+                                <section th:text="#{arrival} + ': ' + ${
+                                    #temporals.format(
+                                        plot.getArrival(currentDate)
+                                        ,'dd.MM.yyyy')
+                                    }">Arrival
                                 </section>
-                                <section th:text="#{departure} + ': ' + ${plot.getDepartureStr(currentDate)}">Departure
+                                <section th:text="#{departure} + ': ' + ${
+                                    #temporals.format(
+                                        plot.getDeparture(currentDate)
+                                        ,'dd.MM.yyyy')
+                                    }">Departure
                                 </section>
                             </div>
                             <form class="flex flex-row justify-around" th:if="${plotsavailable}"

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{login.title})}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{title.login})}">
 
 <head></head>
 
@@ -17,11 +17,19 @@
 						excepturi exercitationem quasi. In deleniti eaque aut repudiandae
 						et a id nisi.
 					</p>
+					<div th:if="${param.error}" role="alert" class="alert alert-error">
+						<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+							viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+						</svg>
+						<span>Login failed. Please try again.</span>
+					</div>
 				</div>
 				<div class="card shrink-0 w-full max-w-md shadow-2xl bg-base-100">
 					<form class="card-body" id="form" th:action="@{/login}" method="post" role="form">
 						<div class="label pb-0">
-							<span class="label-text-alt">E-Mail</span>
+							<span class="label-text-alt text-neutral-500" th:text="#{login-register.emailplease}"></span>
 						</div>
 						<div class="form-control">
 							<input class="input input-bordered focus:outline-accent w-full" type="text"
@@ -29,7 +37,7 @@
 								autofocus="autofocus" />
 						</div>
 						<div class="label pb-0">
-							<span class="label-text-alt">Password</span>
+							<span class="label-text-alt text-neutral-500" th:text="#{login-register.passwordplease}"></span>
 						</div>
 						<div class="form-control">
 							<input class="input input-bordered focus:outline-accent w-full" type="password"

@@ -26,13 +26,6 @@ class CustomerController {
 
     @PostMapping("/register")
     String registerNew(@Valid RegistrationForm form, Errors result, Model model) {
-
-        // boolean checkbox1 = form.isDauercamper();
-        // form.validate(result);
-
-        // if (result.hasErrors()) {
-        // return "static/register";
-        // }
         try {
             customerManagement.create(form.getEmail(),
                     Password.UnencryptedPassword.of(form.getPassword()),
@@ -43,13 +36,6 @@ class CustomerController {
             model.addAttribute("errorMessage", "User with this email already exists!");
             return "static/register";
         }
-
-        //// Falls alles in Ordnung ist legen wir einen Customer an
-        // customerManagement.create(form.getEmail(),
-        // Password.UnencryptedPassword.of(form.getPassword()),
-        // Customer.Roles.CUSTOMER.getValue(),
-        // form.getName(),
-        // form.getLast());
 
         return "redirect:/default/login";
     }

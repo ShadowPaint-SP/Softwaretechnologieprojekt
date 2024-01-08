@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{register.title})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{title.register})}">
 
 <head> </head>
 
@@ -30,7 +30,7 @@
                             <span th:text="${errorMessage}">Error!</span>
                         </div>
                         <div class="label pb-0">
-                            <span class="label-text-alt">Geben Sie Ihren Namen ein.</span>
+                            <span class="label-text-alt text-neutral-500" th:text="#{register.nameplease}"></span>
                         </div>
                         <div class="flex join">
                             <input id="firstname" th:field="*{name}" th:errorclass="fieldError" type="text"
@@ -43,7 +43,7 @@
                                 required />
                         </div>
                         <div class="label pb-0">
-                            <span class="label-text-alt">Bitte geben Sie Ihr Passwort ein.</span>
+                            <span class="label-text-alt text-neutral-500" th:text="#{register.passwordplease}"></span>
                         </div>
                         <div class="form-control">
                             <input id="password" th:field="*{password}" th:errorclass="fieldError" type="password"
@@ -51,7 +51,7 @@
                                 class="input input-bordered focus:outline-accent" required />
                         </div>
                         <div class="label pb-0">
-                            <span class="label-text-alt">Bitte geben Sie ihre E-Mail Adresse ein.</span>
+                            <span class="label-text-alt text-neutral-500" th:text="#{register.emailplease}"></span>
                         </div>
                         <div class="form-control">
                             <input id="email" th:field="*{email}" th:errorclass="fieldError" type="email"

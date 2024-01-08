@@ -7,14 +7,12 @@ import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +33,14 @@ public class SportItemAvailabilityTableTest {
 	public SportItemAvailabilityTable table;
 	public static final Integer MAX_AMOUNT = 23;
 
-
 	@BeforeEach
-	void before_each(){
+	void before_each() {
 		customer = userAccountManagement.create("customer",
-			Password.UnencryptedPassword.of("none"),
-			Customer.Roles.CUSTOMER.getValue()
-		);
+				Password.UnencryptedPassword.of("none"),
+				Customer.Roles.CUSTOMER.getValue());
 		other = userAccountManagement.create("other customer",
-			Password.UnencryptedPassword.of("none"),
-			Customer.Roles.CUSTOMER.getValue()
-		);
+				Password.UnencryptedPassword.of("none"),
+				Customer.Roles.CUSTOMER.getValue());
 	}
 
 	@AfterEach
@@ -53,18 +48,18 @@ public class SportItemAvailabilityTableTest {
 		userAccountManagement.delete(customer);
 		userAccountManagement.delete(other);
 	}
+
 	@Test
-	public void runThrough(){
+	public void runThrough() {
 		LocalDateTime firstTime = LocalDateTime.of(2023, 11, 1, 8, 0);
 		LocalDateTime lastTime = LocalDateTime.of(2023, 11, 1, 17, 0);
 		SportItem sportItem = new SportItem("Ballo",
-			Money.of(10, EURO),
-			Money.of(100, EURO),
-			"Ballero",
-			1000,
-			"empty",
-			"empty");
-
+				Money.of(10, EURO),
+				Money.of(100, EURO),
+				"Ballero",
+				1000,
+				"empty",
+				"empty");
 
 		this.table = new SportItemAvailabilityTable(firstTime, lastTime, sportItem);
 		testConstructorAndAddMaxAmount();
@@ -72,11 +67,10 @@ public class SportItemAvailabilityTableTest {
 		testAddSelections(sportItem);
 	}
 
-
-	public void testConstructorAndAddMaxAmount(){
+	public void testConstructorAndAddMaxAmount() {
 		this.table.addMaxAmount(MAX_AMOUNT);
 
-		for (int i = 0; i < table.length; i++){
+		for (int i = 0; i < table.length; i++) {
 			var field = table.get(i);
 			assertEquals(MAX_AMOUNT, field.amount);
 			assertEquals(SportItemAvailabilityTable.FieldType.FREE_COMPLETELY, field.type);
@@ -84,51 +78,49 @@ public class SportItemAvailabilityTableTest {
 		}
 	}
 
-	public void testAddReservation(SportItem sportItem){
+	public void testAddReservation(SportItem sportItem) {
 		List<SportItemReservation> reservations = new ArrayList<>();
 		reservations.add(new SportItemReservation(customer, sportItem,
-			LocalDateTime.of(2023, 11, 1, 8, 0),
-			LocalDateTime.of(2023, 11, 1, 13, 0)
+				LocalDateTime.of(2023, 11, 1, 8, 0),
+				LocalDateTime.of(2023, 11, 1, 13, 0)
 
 		));
 		reservations.add(new SportItemReservation(other, sportItem,
-			LocalDateTime.of(2023, 11, 1, 11, 0),
-			LocalDateTime.of(2023, 11, 1, 15, 0)
-		));
-		for (var i = 0; i < MAX_AMOUNT; i++){
+				LocalDateTime.of(2023, 11, 1, 11, 0),
+				LocalDateTime.of(2023, 11, 1, 15, 0)));
+		for (var i = 0; i < MAX_AMOUNT; i++) {
 			reservations.add(new SportItemReservation(other, sportItem,
-				LocalDateTime.of(2023, 11, 1, 17, 0),
-				LocalDateTime.of(2023, 11, 1, 17, 0)
-			));
+					LocalDateTime.of(2023, 11, 1, 17, 0),
+					LocalDateTime.of(2023, 11, 1, 17, 0)));
 		}
 
 		this.table.addReservations(Optional.of(customer), reservations);
 
-		for (int i = 0; i < 3; i++){
+		for (int i = 0; i < 3; i++) {
 			var field = table.get(i);
 
 			assertEquals(MAX_AMOUNT - 1, field.amount);
 			assertEquals(SportItemAvailabilityTable.FieldType.RESERVED_SELF, field.type);
 		}
-		for (int i = 3; i < 6; i++){
+		for (int i = 3; i < 6; i++) {
 			var field = table.get(i);
 
 			assertEquals(MAX_AMOUNT - 2, field.amount);
 			assertEquals(SportItemAvailabilityTable.FieldType.RESERVED_SELF, field.type);
 		}
-		for (int i = 6; i < 8; i++){
+		for (int i = 6; i < 8; i++) {
 			var field = table.get(i);
 
 			assertEquals(MAX_AMOUNT - 1, field.amount);
 			assertEquals(SportItemAvailabilityTable.FieldType.FREE_COMPLETELY, field.type);
 		}
-		for (int i = 8; i < 9; i++){
+		for (int i = 8; i < 9; i++) {
 			var field = table.get(i);
 
 			assertEquals(MAX_AMOUNT, field.amount);
 			assertEquals(SportItemAvailabilityTable.FieldType.FREE_COMPLETELY, field.type);
 		}
-		for (int i = 9; i < 10; i++){
+		for (int i = 9; i < 10; i++) {
 			var field = table.get(i);
 
 			assertEquals(0, field.amount);
@@ -136,35 +128,30 @@ public class SportItemAvailabilityTableTest {
 		}
 	}
 
-	public void testAddSelections(SportItem sportItem){
+	public void testAddSelections(SportItem sportItem) {
 
 		SportItemCart cart = new SportItemCart();
 
 		cart.add(new SportItemReservation(null, sportItem,
-			LocalDateTime.of(2023, 11, 1, 14, 0),
-			LocalDateTime.of(2023, 11, 1, 16, 0)
-		));
+				LocalDateTime.of(2023, 11, 1, 14, 0),
+				LocalDateTime.of(2023, 11, 1, 16, 0)));
 
 		this.table.addSelections(cart);
 
-		for (int i = 0; i < 6; i++){
+		for (int i = 0; i < 6; i++) {
 			var field = table.get(i);
 			assertNotEquals(SportItemAvailabilityTable.FieldType.FREE_SELECTED, field.type);
 		}
-		for (int i = 6; i < 9; i++){
+		for (int i = 6; i < 9; i++) {
 			var field = table.get(i);
 			assertEquals(SportItemAvailabilityTable.FieldType.FREE_SELECTED, field.type);
 		}
 
-		for (int i = 9; i < 10; i++){
+		for (int i = 9; i < 10; i++) {
 			var field = table.get(i);
 			assertNotEquals(SportItemAvailabilityTable.FieldType.FREE_SELECTED, field.type);
 		}
 
-
 	}
-
-
-
 
 }

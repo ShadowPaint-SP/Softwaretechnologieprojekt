@@ -1,28 +1,78 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{orders.title})}">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{title.orders})}">
 
 <head></head>
 
 <body>
     <main layout:fragment="input">
-        <div class="overflow-x-auto container mx-auto mt-14 rounded-box">
+        <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md">
             <table class="table table-zebra">
                 <thead class="bg-secondary">
                     <tr>
                         <th></th>
-                        <th>Titel</th>
+                        <th>Plot</th>
                         <th>arrival</th>
+                        <th>departure</th>
                         <th>Anzahl</th>
                         <th>Preis</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="item, iStat : ${ordersCompleted}" class="hover">
+                    <tr th:each="plot, iStat : ${plotOrdersCompleted}" class="hover">
                         <th th:text="${iStat.count}">1</th>
-                        <td th:text="${item.product.name}">name</td>
-                        <td th:text="${item.begin}">arrival</td>
-                        <td th:text="${item.duration}">days</td>
-                        <td th:text="${item.getPrice}">price</td>
+                        <td th:text="${plot.product.name}">name</td>
+                        <td th:text="${#temporals.format(plot.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
+                        <td th:text="${#temporals.format(plot.end, 'dd.MM.yyyy | 11:00')}">daparture</td>
+                        <td th:text="${plot.duration}">days</td>
+                        <td th:text="${plot.getPrice}">price</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md">
+            <table class="table table-zebra">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th></th>
+                        <th>SeasonalPlot</th>
+                        <th>arrival</th>
+                        <th>departure</th>
+                        <th>Anzahl</th>
+                        <th>Preis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="seasonalplot, iStat : ${seasonalOrdersCompleted}">
+                        <th th:text="${iStat.count}">1</th>
+                        <td th:text="${seasonalplot.product.name}"></td>
+                        <td th:text="${#temporals.format(seasonalplot.begin, 'dd.MM.yyyy')}">arrival</td>
+                        <td th:text="${#temporals.format(seasonalplot.end, 'dd.MM.yyyy')}">daparture</td>
+                        <td th:text="${seasonalplot.duration}"></td>
+                        <td th:text="${seasonalplot.getPrice}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md">
+            <table class="table table-zebra">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th></th>
+                        <th>sportitem</th>
+                        <th>arrival</th>
+                        <th>departure</th>
+                        <th>Anzahl</th>
+                        <th>Preis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sportitems, iStat : ${sportOrdersCompleted}">
+                        <th th:text="${iStat.count}">1</th>
+                        <td th:text="${sportitems.product.name}"></td>
+                        <td th:text="${#temporals.format(sportitems.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
+                        <td th:text="${#temporals.format(sportitems.end, 'dd.MM.yyyy | HH:mm')}">daparture</td>                        <td th:text="${sportitems.duration}"></td>
+                        <td th:text="${sportitems.duration}"></td>
+                        <td th:text="${sportitems.getPrice}"></td>
                     </tr>
                 </tbody>
             </table>

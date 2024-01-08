@@ -2,8 +2,6 @@ package campingplatz.equip;
 
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
-import campingplatz.plots.Plot;
-import campingplatz.reservation.Cart;
 import jakarta.validation.Valid;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;

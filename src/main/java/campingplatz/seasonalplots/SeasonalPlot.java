@@ -50,12 +50,9 @@ public class SeasonalPlot extends Plot {
 		// at the first day of next month
 		LocalDateTime arrival = now.plusMonths(1).withDayOfMonth(1);
 
-		// in April next year if the season is over
-		if (arrival.getMonthValue() > 10) {
+		if (arrival.getMonthValue() > 10) { // in April next year if the season is over
 			arrival = arrival.plusYears(1).withMonth(4);
-		}
-		// in April if the season hasn't started jet
-		else if (arrival.getMonthValue() < 4) {
+		} else if (arrival.getMonthValue() < 4) { // in April if the season hasn't started jet
 			arrival = arrival.withMonth(4);
 		}
 

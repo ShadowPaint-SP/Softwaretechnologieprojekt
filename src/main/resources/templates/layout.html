@@ -7,16 +7,17 @@
 	<script th:src="@{/webjars/jquery/jquery.min.js}" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<link th:href="@{/css/output.css}" rel="stylesheet" href="../static/css/output.css" type="text/css">
 	<title th:text="${#strings.isEmpty(title)} ? #{home.title} : ${title}">Campingplatz</title>
-	
-    <link rel="shortcut icon" type="image/x-icon" href="img/below-the-sun_logo.svg">
-    <link rel="apple-touch-icon" href="img/below-the-sun_logo.png">
+
+	<link rel="shortcut icon" type="image/x-icon" href="img/below-the-sun_logo.svg">
+	<link rel="apple-touch-icon" href="img/below-the-sun_logo.png">
 </head>
 
 <body>
 	<nav th:replace="~{static/navbar :: navbar}"></nav>
 	<main layout:fragment="input" class="min-h-screen"></main>
 	<footer th:replace="~{static/footer :: footer}"></footer>
-	<dialog id="my_modal_3" class="modal" th:insert="~{static/login :: login}"></dialog>
+	<dialog sec:authorize="!isAuthenticated()" id="my_modal_3" class="modal" th:insert="~{static/login :: login}">
+	</dialog>
 </body>
 <script th:src="@{/js/themeSwitcher.js}" src="../static/js/themeSwitcher.js"></script>
 <script>

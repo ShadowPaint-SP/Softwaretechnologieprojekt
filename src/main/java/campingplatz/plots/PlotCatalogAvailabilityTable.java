@@ -118,7 +118,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	 * Marks the periods between the arrival and deparure in the filter as
 	 * highlighted in the table
 	 */
-	public PlotCatalogAvailabilityTable addHighlights(PlotCatalog.SiteState query, Set<Plot> reservedPlots) {
+	public PlotCatalogAvailabilityTable addHighlights(PlotCatalogController.SiteState query, Set<Plot> reservedPlots) {
 		// fill the table with selections
 		for (var entry : this.entrySet()) {
 
@@ -130,6 +130,9 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 					(ChronoUnit.DAYS.between(firstDay, query.getDefaultedDeparture())));
 
 			var row = entry.getValue();
+			if (row == null) {
+				continue;
+			}
 
 			// check that it is completly free
 			if (reservedPlots.contains(entry.getKey())) {
@@ -158,6 +161,10 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			int index = (int) (ChronoUnit.DAYS.between(firstDay, time));
 
 			var row = this.get(plot);
+			if (row == null) {
+				continue;
+			}
+
 			row[index] = FieldType.FREE_SELECTED;
 		}
 
