@@ -25,9 +25,13 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
+Besprechung des Restpraktikums+
+
 
 == Retrospektive des letzten Sprints
+Ferien...
 
 == Planung des nächsten Sprints
+Dokumentation vervollständigen, Bugs fixen, Tests schreiben, Java Doc
 |===
 
