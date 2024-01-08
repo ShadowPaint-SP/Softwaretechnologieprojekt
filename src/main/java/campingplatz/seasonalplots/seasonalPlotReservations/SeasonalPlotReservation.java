@@ -47,7 +47,6 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 	}
 
 	public boolean isNextYearAvaible(LocalDateTime date) {
-		/* return LocalDateTime.now().isAfter(getEnd()); */
 		return date.isAfter(getEnd());
 	}
 

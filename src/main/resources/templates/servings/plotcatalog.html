@@ -16,13 +16,13 @@
                     <label class="label-text" th:text="#{catalog.plot.timeframe}">Timeframe:</label>
                     <div class="flex flex-row">
                         <div class="flex flex-col justify-around p-2">
-                            <label class="text-sm" th:text="#{catalog.plot.arrival}">arrival</label>
+                            <label class="text-sm" th:text="#{plot.begin}">arrival</label>
                             <input class="input focus:outline-accent" type="date" name="arrival"
                                 th:value="${searchQuery.defaultedArrival}" th:min="${searchQuery.minArrivalDate}"
                                 onchange="this.form.submit()">
                         </div>
                         <div class="flex flex-col justify-around p-2">
-                            <label class="text-sm" th:text="#{catalog.plot.departure}">departure</label>
+                            <label class="text-sm" th:text="#{plot.end}">departure</label>
                             <input class="input focus:outline-accent" type="date" name="departure"
                                 th:value="${searchQuery.defaultedDeparture}" th:min="${searchQuery.defaultedArrival}"
                                 onchange="this.form.submit()">
