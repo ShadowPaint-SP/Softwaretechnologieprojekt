@@ -25,7 +25,7 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
-Besprechung des Restpraktikums+
+Besprechung des Restpraktikums
 
 
 == Retrospektive des letzten Sprints
