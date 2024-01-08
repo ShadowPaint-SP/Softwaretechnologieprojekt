@@ -4,18 +4,20 @@
 
 
 #grass {
-	fill: green;
+  fill: green;
 }
 
-#tent {
-	fill: white;
+#tent, [data-theme] {
+  fill: yellow;
+  fill: var(--fallback-bc,oklch(var(--b2)/1));
 }
 
 #sun {
-	transition: .5s ease-in-out;
-	transform-origin: 40% 50%;
+  fill: var(--fallback-bc,oklch(var(--bc)/1));
+  transition: .5s ease-in-out;
+  transform-origin: 40% 50%;
 }
 
 #box:hover #sun {
-	transform: rotate(45deg);
+  transform: rotate(45deg);
 }
