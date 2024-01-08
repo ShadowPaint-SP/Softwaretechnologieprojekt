@@ -103,7 +103,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		// collect from stream into ArrayList
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
-
+	
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(U reservation) {
 
@@ -123,6 +123,10 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 	// convenience function, for removing whole Reservations into the Cart at once
 	public boolean remove(U reservation) {
 
+		if (reservation == null) {
+			return false;
+		}
+
 		var prod = reservation.getProduct();
 		var begin = reservation.getBegin();
 		var end = reservation.getEnd();
@@ -135,7 +139,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 		return true;
 	}
-
+	
 	// convenience function, for removing whole Reservations into the Cart at once
 	public boolean contains(U reservation) {
 
