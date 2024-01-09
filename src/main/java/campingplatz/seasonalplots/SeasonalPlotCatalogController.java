@@ -17,19 +17,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
 public class SeasonalPlotCatalogController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
 	SeasonalPlotReservationRepository reservationRepository;
+	Set<SeasonalPlotReservation> activReservationRepository;
 	BusinessTime businessTime;
 
 	public SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog,
 			SeasonalPlotReservationRepository reservationRepository, BusinessTime businessTime) {
 		this.seasonalPlotCatalog = seasonalPlotCatalog;
 		this.reservationRepository = reservationRepository;
+		this.activReservationRepository = new HashSet<>();
 		this.businessTime = businessTime;
 	}
 
@@ -37,28 +41,30 @@ public class SeasonalPlotCatalogController {
 	String setupSeasonalCatalog(Model model, @LoggedIn Optional<UserAccount> user,
 			@Valid SeasonalPlotCatalog.SeasonalSiteState query) {
 		var filteredSeasonalPlots = seasonalPlotCatalog.seasonalFilter(query);
-		var reservedSeasonalPlots = reservationRepository.findPlotsAll();
+		var activeReservedSeasonalPlots = new HashSet<SeasonalPlot>();
+		for (SeasonalPlotReservation activeReservation : activReservationRepository) {
+			activeReservedSeasonalPlots.add(activeReservation.getProduct());
+		}
 		var freeSeasonalPlots = filteredSeasonalPlots.stream().collect(Collectors.partitioningBy(
-				seasonalPlot -> !reservedSeasonalPlots.contains(seasonalPlot)));
+			seasonalPlot -> !activeReservedSeasonalPlots.contains(seasonalPlot)));
 		var available = new ArrayList<SeasonalPlotReservation>();
 
-		if (user.isPresent()) {
-			var userReservations = reservationRepository.findByUserId(user.get().getId());
-			for (SeasonalPlotReservation reservation : userReservations) {
-				if(!reservation.isShow()){
-					freeSeasonalPlots.get(true).add(reservation.getProduct());
-				}
-				if (businessTime.getTime().isAfter(reservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
-					if (reservation.isShow()) {
-						freeSeasonalPlots.get(true).add(reservation.getProduct());
+		var active = new HashSet<>(activReservationRepository);
+		for (SeasonalPlotReservation activeReservation : active) {
+			if (businessTime.getTime().isAfter(activeReservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
+				activReservationRepository.remove(activeReservation);
+				freeSeasonalPlots.get(true).add(activeReservation.getProduct());
+			} else {
+				try {
+					if (activeReservation.getUser().getId().equals(user.get().getId())) {
+						available.add(activeReservation);
 					}
-					reservation.setShow(false);
-				}
-				if (reservation.isShow()) {
-					available.add(reservation);
+				} catch (Exception e) {
 				}
 			}
 		}
+
+
 		model.addAttribute("ordersCompleted", available);
 		model.addAttribute("allSeasonalPlots", freeSeasonalPlots);
 		model.addAttribute("searchQuery", query);
@@ -76,19 +82,7 @@ public class SeasonalPlotCatalogController {
 	@PostMapping("/seasonalcheckout/{plot}")
 	String reservate(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot,
 			Integer payMethod) {
-		/*
-		 * // seasonal Plots are offered from April to October
-		 * // the reservation will start on the next possible date
-		 * var inApril = LocalDateTime.now().withMonth(4).withDayOfMonth(1);
-		 * int monthNow = LocalDateTime.now().getMonthValue();
-		 * // take next year if the season is over
-		 * if (monthNow >= 10) {
-		 * inApril = inApril.plusYears(1);
-		 * } else if (monthNow > 4) {
-		 * inApril = LocalDateTime.now();
-		 * }
-		 * var inOctober = inApril.withMonth(10).withDayOfMonth(31);
-		 */
+
 		var inApril = businessTime.getTime().withMonth(4).withDayOfMonth(1);
 		int monthNow = businessTime.getTime().getMonthValue();
 		// take next year if the season is over
@@ -97,15 +91,19 @@ public class SeasonalPlotCatalogController {
 		} else if (monthNow > 4) {
 			inApril = businessTime.getTime();
 		}
-		var userReservations = reservationRepository.findByUserId(user.getId());
-		for (SeasonalPlotReservation reservation : userReservations) {
-			if (reservation.getProduct().getId() == seasonalPlot.getId()) {
-				reservation.setShow(false);
-			}
-		}
+
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(user, seasonalPlot,
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
+
+		var active = new HashSet<>(activReservationRepository);
+		for(SeasonalPlotReservation activeReservation : active) {
+			if(activeReservation.getProduct().equals(seasonalPlot))
+				activReservationRepository.remove(activeReservation);
+		}
+
+
+		activReservationRepository.add(reservation);
 		reservationRepository.save(reservation);
 
 		return "redirect:/orders";
@@ -114,11 +112,10 @@ public class SeasonalPlotCatalogController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcancel/{plot}")
 	String cancel(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot) {
-		var userReservations = reservationRepository.findByUserId(user.getId());
-		for (SeasonalPlotReservation reservation : userReservations) {
-			if (reservation.getProduct().getId() == seasonalPlot.getId()) {
-				reservation.setShow(false);
-				reservationRepository.save(reservation);
+
+		for (SeasonalPlotReservation reservation : activReservationRepository) {
+			if (reservation.getProduct().getId().equals(seasonalPlot.getId()) && reservation.getUser().equals(user)) {
+				activReservationRepository.remove(reservation);
 			}
 		}
 		return "redirect:/seasonalplotcatalog";
