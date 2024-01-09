@@ -919,10 +919,9 @@ html {
 }
 
 .btn-circle {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 9999px;
-  padding: 0px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 3%;
 }
 
 :where(.btn:is(input[type="checkbox"])),
