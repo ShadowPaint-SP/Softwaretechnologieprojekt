@@ -51,7 +51,7 @@
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.product.name}">Cy Ganderton</td>
                         <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
-                        <td th:text="${#temporals.format(item.end, 'dd.MM.yyyy | HH:mm')}">daparture</td>
+                        <td th:text="${#temporals.format(item.end.plusHours(1), 'dd.MM.yyyy | HH:mm')}">daparture</td>
                         <td th:text="${item.duration}">Quality Control Specialist</td>
                         <td th:text="${item.price}">Blue</td>
                     </tr>
