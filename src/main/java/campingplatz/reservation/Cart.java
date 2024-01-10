@@ -1,28 +1,21 @@
 package campingplatz.reservation;
 
-import campingplatz.utils.Priced;
+import campingplatz.utils.ListOfPriced;
 import campingplatz.utils.Utils;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import one.util.streamex.StreamEx;
-import org.javamoney.moneta.Money;
-
-import javax.money.MonetaryAmount;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
-import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 /**
  * Abstraction of a shopping cart.
@@ -37,8 +30,11 @@ import static org.salespointframework.core.Currencies.EURO;
  * The function getReservationsOfUser recombines the individual
  * ReservationEntries back into Reservations
  */
-public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry>
-		implements Priced {
+public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry> {
+
+	@Getter
+	@Setter
+	UserAccount user;
 
 	Class<U> reservationType; // unfortunately needed to create an instance of U
 
@@ -58,7 +54,11 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return super.contains(new ReservationEntry(product, time));
 	}
 
-	public List<U> getReservationsOfUser(UserAccount user) {
+	public ListOfPriced<U> getReservations() {
+
+		if (user == null) {
+			throw new NullPointerException("user is null, because it was not set with setUser");
+		}
 
 		// remember the ReservationEntries are sorted, as this is a sorted
 		// set. They are compared by name first and time second
@@ -101,9 +101,9 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		});
 
 		// collect from stream into ArrayList
-		return reservations.collect(Collectors.toCollection(ArrayList::new));
+		return reservations.collect(Collectors.toCollection(ListOfPriced::new));
 	}
-	
+
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(U reservation) {
 
@@ -139,7 +139,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 		return true;
 	}
-	
+
 	// convenience function, for removing whole Reservations into the Cart at once
 	public boolean contains(U reservation) {
 
@@ -157,17 +157,6 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		}
 
 		return true;
-	}
-
-	@Override
-	public MonetaryAmount getPrice() {
-
-		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var entry : this) {
-			acuumulator = acuumulator.add(entry.getProduct().getPrice());
-		}
-
-		return acuumulator;
 	}
 
 	@EqualsAndHashCode

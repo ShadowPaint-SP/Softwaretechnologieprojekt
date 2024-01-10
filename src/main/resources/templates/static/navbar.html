@@ -44,8 +44,12 @@
                     th:text="#{nav.dashboard.plots}">Plot management</a>
                 </li>
                 <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
-                  <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
+                  <a href="../dashboards/discount_management.html" th:href="@{/management/discount}"
                     th:text="#{nav.dashboard.reservations.plots}">Reservations management</a>
+                </li>
+                <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
+                  <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
+                     th:text="#{nav.dashboard.discounts.plots}">Groupdiscounts management</a>
                 </li>
                 <li class="text-sm text-neutral-300 font-bold">SeasonalPlots</li>
                 <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
@@ -113,6 +117,10 @@
                 <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
                   <a href="../dashboards/reservation_management.html" th:href="@{/management/reservation}"
                     th:text="#{nav.dashboard.reservations.plots}">Reservations management</a>
+                </li>
+                <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
+                  <a href="../dashboards/discount_management.html" th:href="@{/management/discount}"
+                     th:text="#{nav.dashboard.discounts.plots}">Reservations management</a>
                 </li>
                 <li class="text-sm text-neutral-300 font-bold">SeasonalPlots</li>
                 <li sec:authorize="hasAnyRole('BOSS', 'EMPLOYEE')">
