@@ -76,7 +76,9 @@ class ReservationController {
 		var seasonalReservations = seasonalPlotCart.getReservationsOfUser(userAccount);
 		model.addAttribute("seasonalReservations", seasonalReservations);
 
-		var total = reservationCart.getPrice().add(sportItemCart.getPrice());
+		var total = reservationCart.getPrice()
+			.add(seasonalPlotCart.getPrice())
+			.add(sportItemCart.getPrice());
 		model.addAttribute("total", total);
 
 		return "servings/cart";
@@ -129,12 +131,16 @@ class ReservationController {
 
 	@GetMapping("/orders")
 	String orders(Model model, @LoggedIn UserAccount user) {
+
 		var plotReservations = plotReservationRepository.findByUserId(user.getId());
 		model.addAttribute("plotOrdersCompleted", plotReservations);
+
 		var sportReservations = sportItemReservationRepository.findByUserId(user.getId());
 		model.addAttribute("sportOrdersCompleted", sportReservations);
+
 		var seasonalReservations = seasonalPlotReservationRepository.findByUserId(user.getId());
 		model.addAttribute("seasonalOrdersCompleted", seasonalReservations);
+
 		return "servings/orders";
 	}
 

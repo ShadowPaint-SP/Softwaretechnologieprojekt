@@ -81,14 +81,15 @@ public class SeasonalPlotCatalogController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcheckout/{plot}")
 	String reservate(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot,
-			Integer payMethod, SeasonalPlotCart seasonalPlotCart) {
+			Integer payMethod, @ModelAttribute("seasonalCart") SeasonalPlotCart seasonalPlotCart) {
 
 		var inApril = businessTime.getTime().withMonth(4).withDayOfMonth(1);
 		int monthNow = businessTime.getTime().getMonthValue();
 		// take next year if the season is over
 		if (monthNow >= 10) {
 			inApril = inApril.plusYears(1);
-		} else if (monthNow > 4) {
+		}
+		else if (monthNow > 4) {
 			inApril = businessTime.getTime();
 		}
 		var userReservations = reservationRepository.findByUserId(user.getId());
@@ -101,7 +102,6 @@ public class SeasonalPlotCatalogController {
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(user, seasonalPlot,
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
-		// reservationRepository.save(reservation);
 
 
         seasonalPlotCart.add(reservation);

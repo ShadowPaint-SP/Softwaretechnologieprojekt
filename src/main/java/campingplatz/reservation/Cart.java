@@ -12,6 +12,7 @@ import javax.money.MonetaryAmount;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -77,7 +78,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 			}
 
 			U reservation = Utils.createInstance(reservationType);
-			var intervall = Duration.of(1, reservation.getIntervalUnit());
+			var intervall = reservation.getIntervalAmount();
 			var firstTime = first.getTime().plus(intervall);
 			var secondTime = second.getTime();
 			var sameReservation = !firstTime.isBefore(secondTime);
