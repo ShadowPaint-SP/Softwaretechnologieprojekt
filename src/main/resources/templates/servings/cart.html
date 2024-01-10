@@ -29,7 +29,8 @@
                         <td th:text="${item.duration}">one day</td>
                         <td th:text="${item.price}">50</td>
                         <td>
-                            <form method="post" th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
+                            <form method="post"
+                                th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
                                 <button type="submit" class="btn btn-primary" th:text="#{cart.remove}">remove</button>
                             </form>
                         </td>
@@ -37,21 +38,21 @@
                 </tbody>
             </table>
         </div>
-        
+
         <!-- sportsitem cart-->
         <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md"
         th:unless="${sportsReservations.isEmpty()}">
-        <table class="table table-zebra">
-            <thead class="bg-secondary">
-                <tr>
-                    <th class="w-[5%]"></th>
-                    <th class="w-[20%]">Titel</th>
-                    <th class="w-[20%]">Ausleihe</th>
-                    <th class="w-[20%]">Abgabe</th>
-                    <th>Stunden</th>
-                    <th class="w-[10%]">Preis</th>
-                    <th></th>
-                </tr>
+            <table class="table table-zebra">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th class="w-[5%]"></th>
+                        <th class="w-[20%]">Titel</th>
+                        <th class="w-[20%]">Ausleihe</th>
+                        <th class="w-[20%]">Abgabe</th>
+                        <th>Stunden</th>
+                        <th class="w-[10%]">Preis</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr th:each="item, iStat : ${sportsReservations}" class="hover">
@@ -62,7 +63,42 @@
                         <td th:text="${item.duration}">Quality Control Specialist</td>
                         <td th:text="${item.price}">Blue</td>
                         <td>
-                            <form method="post" th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
+                            <form method="post"
+                            th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
+                            <button type="submit" class="btn btn-primary" th:text="#{cart.remove}">remove</button>
+                        </form>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- saesonal plot cart-->
+        <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md"
+        th:unless="${seasonalReservations.isEmpty()}">
+        <table class="table table-zebra">
+            <thead class="bg-secondary">
+                <tr>
+                    <th class="w-[5%]"></th>
+                    <th class="w-[20%]">Titel</th>
+                    <th class="w-[20%]">Ankunft</th>
+                    <th class="w-[20%]">Abfahrt</th>
+                        <th>Übernachtungen</th>
+                        <th class="w-[10%]">Preis</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item, iStat : ${seasonalReservations}" class="hover">
+                        <th th:text="${iStat.count}">1</th>
+                        <td th:text="${item.product.name}">place on the lake</td>
+                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
+                        <td th:text="${#temporals.format(item.end.plusDays(1), 'dd.MM.yyyy | 11:00')}">daparture</td>
+                        <td th:text="${item.duration}">one day</td>
+                        <td th:text="${item.price}">50</td>
+                        <td>
+                            <form method="post"
+                                th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
                                 <button type="submit" class="btn btn-primary" th:text="#{cart.remove}">remove</button>
                             </form>
                         </td>
@@ -70,40 +106,7 @@
                 </tbody>
             </table>
         </div>
-
-                <!-- saesonal plot cart-->
-                <div class="overflow-x-auto container mx-auto rounded-box mt-14 shadow-md"
-                th:unless="${sportsReservations.isEmpty()}">
-                <table class="table table-zebra">
-                    <thead class="bg-secondary">
-                        <tr>
-                            <th class="w-[5%]"></th>
-                            <th class="w-[20%]">Titel</th>
-                            <th class="w-[20%]">Ausleihe</th>
-                            <th class="w-[20%]">Abgabe</th>
-                            <th>Stunden</th>
-                            <th class="w-[10%]">Preis</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="item, iStat : ${seasonalReservations}" class="hover">
-                                <th th:text="${iStat.count}">1</th>
-                                <td th:text="${item.product.name}">Cy Ganderton</td>
-                                <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
-                                <td th:text="${#temporals.format(item.end, 'dd.MM.yyyy | HH:mm')}">daparture</td>
-                                <td th:text="${item.duration}">Quality Control Specialist</td>
-                                <td th:text="${item.price}">Blue</td>
-                                <td>
-                                    <form method="post" th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
-                                        <button type="submit" class="btn btn-primary" th:text="#{cart.remove}">remove</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+        
         <div class="card w-96 bg-base-300 text-neutral-content container mx-auto mt-10 shadow-lg">
             <div class="card-body items-center text-center">
                 <h2 class="card-title text-neutral font-bold" th:text="#{cart.total}">Your Total</h2>
