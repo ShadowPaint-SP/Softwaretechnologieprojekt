@@ -44,17 +44,7 @@ public class SeasonalPlotReservationDashboardController {
 		// var oldState = reservation.getState();
 
 		var newState = Reservation.State.fromNumber(info.getStateValue());
-
-		// if (oldState == Reservation.State.PAYED && newState !=
-		// Reservation.State.PAYED){
-		// var entry = new PlotReservationDeductionEntry(reservation);
-		// accountancy.add(entry);
-		// }
-		// if (oldState != Reservation.State.PAYED && newState ==
-		// Reservation.State.PAYED){
-		// var entry = new PlotReservationAccountancyEntry(reservation);
-		// accountancy.add(entry);
-		// }
+		var costsMeter = reservation.getTotalPrice(info.getNewElectricityMeter(), info.getNewWaterMeter());
 
 		// update and save
 		reservation.setState(newState);
@@ -65,11 +55,12 @@ public class SeasonalPlotReservationDashboardController {
 		return "redirect:/management/seasonalreservation";
 	}
 
+
 	interface ReservationChangeInformation {
 		UUID getReservationUUID();
-
 		Integer getStateValue();
-
+		Double getNewElectricityMeter();
+		Double getNewWaterMeter();
 	}
 
 }
