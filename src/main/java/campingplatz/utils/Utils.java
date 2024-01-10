@@ -16,4 +16,16 @@ public class Utils {
 		}
 	}
 
+
+
+	// truncate a string to a length of 255 at max
+	public String clampLength(String input){
+		if (input.length() > 255){
+			return input.substring(0, 255);
+		}
+		else {
+			return input;
+		}
+	}
+
 }
