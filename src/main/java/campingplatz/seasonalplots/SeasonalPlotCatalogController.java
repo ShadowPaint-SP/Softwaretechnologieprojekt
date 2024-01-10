@@ -1,5 +1,8 @@
 package campingplatz.seasonalplots;
 
+import campingplatz.plots.plotreservations.PlotCart;
+import campingplatz.plots.plotreservations.PlotReservation;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 import campingplatz.utils.Comment;
@@ -21,17 +24,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
+@SessionAttributes("seasonalCart")
 public class SeasonalPlotCatalogController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
 	SeasonalPlotReservationRepository reservationRepository;
 	BusinessTime businessTime;
-
+	
 	public SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog,
 			SeasonalPlotReservationRepository reservationRepository, BusinessTime businessTime) {
 		this.seasonalPlotCatalog = seasonalPlotCatalog;
 		this.reservationRepository = reservationRepository;
 		this.businessTime = businessTime;
-	}
+			}
+
+	@ModelAttribute("seasonalCart")
+    SeasonalPlotCart initializeSeasonalCart() {
+        return new SeasonalPlotCart();
+    }
 
 	@GetMapping("/seasonalplotcatalog")
 	String setupSeasonalCatalog(Model model, @LoggedIn Optional<UserAccount> user,
@@ -72,20 +81,8 @@ public class SeasonalPlotCatalogController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcheckout/{plot}")
 	String reservate(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot,
-			Integer payMethod) {
-		/*
-		 * // seasonal Plots are offered from April to October
-		 * // the reservation will start on the next possible date
-		 * var inApril = LocalDateTime.now().withMonth(4).withDayOfMonth(1);
-		 * int monthNow = LocalDateTime.now().getMonthValue();
-		 * // take next year if the season is over
-		 * if (monthNow >= 10) {
-		 * inApril = inApril.plusYears(1);
-		 * } else if (monthNow > 4) {
-		 * inApril = LocalDateTime.now();
-		 * }
-		 * var inOctober = inApril.withMonth(10).withDayOfMonth(31);
-		 */
+			Integer payMethod, SeasonalPlotCart seasonalPlotCart) {
+
 		var inApril = businessTime.getTime().withMonth(4).withDayOfMonth(1);
 		int monthNow = businessTime.getTime().getMonthValue();
 		// take next year if the season is over
@@ -104,9 +101,13 @@ public class SeasonalPlotCatalogController {
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(user, seasonalPlot,
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
-		reservationRepository.save(reservation);
+		// reservationRepository.save(reservation);
 
-		return "redirect:/orders";
+
+        seasonalPlotCart.add(reservation);
+
+
+		return "redirect:/cart";
 	}
 
 	@PostMapping("/updateseasonalplot/{plot}")
