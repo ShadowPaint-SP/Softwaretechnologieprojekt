@@ -66,7 +66,7 @@ public class ReservationCartTests {
 		cart.add(reservation);
 
 		cart.setUser(user);
-		var reservations = cart.getReservations();
+		var reservations = cart.getReservations(user);
 
 		var found = false;
 		for (var res : reservations) {
@@ -79,8 +79,6 @@ public class ReservationCartTests {
 
 		assertTrue(found);
 	}
-
-
 
 	@Test
 	void testRemove() {

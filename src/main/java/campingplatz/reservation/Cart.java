@@ -54,7 +54,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return super.contains(new ReservationEntry(product, time));
 	}
 
-	public ListOfPriced<U> getReservations() {
+	public ListOfPriced<U> getReservations(UserAccount user) {
 
 		if (user == null) {
 			throw new NullPointerException("user is null, because it was not set with setUser");

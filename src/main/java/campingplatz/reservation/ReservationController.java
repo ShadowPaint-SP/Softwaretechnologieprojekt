@@ -3,17 +3,13 @@ package campingplatz.reservation;
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
-import campingplatz.plots.Plot;
-import campingplatz.plots.plotdiscounts.PlotReservationDiscount;
 import campingplatz.plots.plotdiscounts.PlotReservationDiscountRepository;
 import campingplatz.plots.plotdiscounts.PlotReservationDiscounter;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
-import campingplatz.reservation.Reservation;
 
-import campingplatz.utils.Utils;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -75,13 +71,13 @@ class ReservationController {
 		reservationCart.setUser(userAccount);
 		sportItemCart.setUser(userAccount);
 
-		var plotReservations = reservationCart.getReservations();
+		var plotReservations = reservationCart.getReservations(userAccount);
 		var plotDiscounts = plotReservationDiscountRepository.findAll();
 		var plotDiscounter = new PlotReservationDiscounter(plotReservations, plotDiscounts);
 		plotDiscounter.applyDiscountToAll(plotReservations);
 		model.addAttribute("plotReservations", plotReservations);
 
-		var sportsReservations = sportItemCart.getReservations();
+		var sportsReservations = sportItemCart.getReservations(userAccount);
 		model.addAttribute("sportsReservations", sportsReservations);
 
 		var plotPrice = plotReservations.getPrice();
@@ -110,12 +106,12 @@ class ReservationController {
 
 		if (type.equals("PlotReservation")) {
 
-			var cart = reservationCart.getReservationsOfUser(userAccount);
+			var cart = reservationCart.getReservations(userAccount);
 			var item = cart.get(index - 1);
 			reservationCart.remove(item);
 		} else if (type.equals("SportItemReservation")) {
 
-			var cart = sportItemCart.getReservationsOfUser(userAccount);
+			var cart = sportItemCart.getReservations(userAccount);
 			var item = cart.get(index - 1);
 			sportItemCart.remove(item);
 		}
@@ -134,7 +130,7 @@ class ReservationController {
 		reservationCart.setUser(userAccount);
 		sportItemCart.setUser(userAccount);
 
-		var allPlotReservations = reservationCart.getReservations();
+		var allPlotReservations = reservationCart.getReservations(userAccount);
 		var validPlotReservation = validatePlotReservations(allPlotReservations);
 		var plotDiscounts = plotReservationDiscountRepository.findAll();
 		var plotDiscounter = new PlotReservationDiscounter(allPlotReservations, plotDiscounts);
@@ -142,7 +138,7 @@ class ReservationController {
 		plotReservationRepository.saveAll(validPlotReservation);
 		reservationCart.clear();
 
-		var allSportReservations = sportItemCart.getReservations();
+		var allSportReservations = sportItemCart.getReservations(userAccount);
 		var validSportReservation = validateSportItemReservations(allSportReservations);
 		sportItemReservationRepository.saveAll(validSportReservation);
 		sportItemCart.clear();
