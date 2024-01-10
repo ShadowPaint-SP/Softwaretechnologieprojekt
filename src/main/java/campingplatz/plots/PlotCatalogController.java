@@ -21,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -126,7 +125,7 @@ class PlotCatalogController {
         var formatedWeekDates = rawWeekDates.map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM"))).toList();
 
         var operationalPlots = plotCatalog.findByState(Plot.State.OPERATIONAL);
-        var reservedPlots = reservationRepository.findPlotsReservedBetween(
+        var reservedPlots = reservationRepository.findProductsReservedBetween(
                 query.getDefaultedArrival().atStartOfDay(), query.getDefaultedDeparture().atStartOfDay());
         var availablePlots = operationalPlots.stream()
                 .filter(plot -> plot.getClass().equals(Plot.class) && !reservedPlots.contains(plot)).toList();

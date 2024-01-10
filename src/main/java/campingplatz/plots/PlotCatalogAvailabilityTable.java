@@ -107,10 +107,10 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, ArrayList<PlotCa
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				if (user.isEmpty() || reservation.getUser() != user.get()) {
-					var prototype = new Field(FieldType.FREE_COMPLETELY, i);
+					var prototype = new Field(FieldType.RESERVED_OTHER, i);
 					row.set(i, prototype);
 				} else {
-					var prototype = new Field(FieldType.FREE_COMPLETELY, i);
+					var prototype = new Field(FieldType.RESERVED_SELF, i);
 					row.set(i, prototype);
 				}
 			}
