@@ -14,6 +14,13 @@
                             <h2 class="text-2xl font-bold" th:text="${item.name}"></h2>
                             <p th:text="'Preis: '+${{item.price}}"></p>
                             <p th:text="${item.desc}"></p>
+
+                            <div th:if="${plot.averageRating == 0}">
+                                <strong>Es wurde noch keine Bewertung zu diesem Platz abgegeben.</strong>
+                            </div>
+                            <div th:if="${plot.averageRating > 0}">
+                                <strong th:text="'Durchschnittliche Platzbewertung: '+ ${plot.averageRating}+'/5 Sternen'"></strong>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-14" sec:authorize="isAuthenticated()">
@@ -32,9 +39,12 @@
                             </div>
                             <textarea name="comment" id="comment"
                                 class="textarea w-full min-h-full resize-none invalid:focus:outline-error focus:outline-accent"
-                                autofocus minlength="4" maxlength="255" placeholder="give a comment"
+                                autofocus minlength="4" maxlength="255" placeholder="Hinterlasse einen Kommentar zu diesen Platz."
                                 required></textarea>
-                            <button class="btn" type="submit">submit</button>
+                            <button class="btn" type="submit">Kommentar absenden</button>
+
+                            <p th:if="${error}" style="color: red;">Sie müssen den Platz besucht haben um ein Kommentar zu hinterlassen.</p>
+
                         </form>
                     </div>
                 </div>
@@ -51,10 +61,17 @@
                 <input disabled class="mask mask-star-2 bg-orange-400"></input>
             </div>
             <div>
+                <strong th:text="${comment.firstName+' '+comment.lastName}"></strong>
+                <br/>
                 <span th:text="${comment.text}"></span>
             </div>
-            <div hidden>
-                <button class="btn btn-sm btn-error">Accept</button>
+            <div>
+                <span th:text="${comment.time}" style="float: right;"></span>
+            </div>
+            <div sec:authorize="hasRole('BOSS')">
+                <form method="post" th:action="'/seasonalplotcatalog/details/'+${item.id}+'/comments/'+${comment.id}">
+                    <button class="btn btn-primary" type="submit">Kommentar löschen</button>
+                </form>
             </div>
         </div>
     </main>
