@@ -1,9 +1,6 @@
 package campingplatz.plots.plotdiscounts;
 
-
-import campingplatz.plots.plotreservations.PlotReservation;
 import jakarta.validation.Valid;
-import org.salespointframework.catalog.Product;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +15,9 @@ public class PlotReservationDiscountDashboardController {
 
 	private PlotReservationDiscountRepository plotReservationDiscounts;
 
-	public PlotReservationDiscountDashboardController(PlotReservationDiscountRepository plotReservationDiscounts){
+	public PlotReservationDiscountDashboardController(PlotReservationDiscountRepository plotReservationDiscounts) {
 		this.plotReservationDiscounts = plotReservationDiscounts;
 	}
-
 
 	@GetMapping("/management/discount")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
@@ -34,10 +30,11 @@ public class PlotReservationDiscountDashboardController {
 
 	interface DiscountInformation {
 		UUID getUUID();
+
 		Integer getAmount();
+
 		Integer getDiscount();
 	}
-
 
 	@PostMapping("/management/discount")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
@@ -52,7 +49,6 @@ public class PlotReservationDiscountDashboardController {
 		return discount(model);
 	}
 
-
 	@PostMapping("/management/discount/createDiscount")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String createDiscount(Model model, @Valid DiscountInformation info) {
@@ -60,11 +56,10 @@ public class PlotReservationDiscountDashboardController {
 		var preexisting = plotReservationDiscounts.findAllByAmount(info.getAmount());
 
 		PlotReservationDiscount discount;
-		if (preexisting.isEmpty()){
+		if (preexisting.isEmpty()) {
 			discount = new PlotReservationDiscount();
 			discount.setAmount(info.getAmount());
-		}
-		else {
+		} else {
 			discount = preexisting.get(0);
 		}
 
@@ -82,9 +77,5 @@ public class PlotReservationDiscountDashboardController {
 
 		return discount(model);
 	}
-
-
-
-
 
 }

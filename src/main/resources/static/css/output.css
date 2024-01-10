@@ -919,9 +919,10 @@ html {
 }
 
 .btn-circle {
-  aspect-ratio: 1;
-  border-radius: 50%;
-  padding: 3%;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 9999px;
+  padding: 0px;
 }
 
 :where(.btn:is(input[type="checkbox"])),
@@ -3387,10 +3388,6 @@ html {
   max-width: 20rem;
 }
 
-.flex-1 {
-  flex: 1 1 0%;
-}
-
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -3766,6 +3763,11 @@ html {
 
 #box:hover #sun {
   transform: rotate(45deg);
+}
+
+#myButton:hover ~ #highlightDiv.bg-blue-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 58 138 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-secondary:hover {

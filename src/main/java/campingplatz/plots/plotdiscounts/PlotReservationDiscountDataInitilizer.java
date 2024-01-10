@@ -1,15 +1,8 @@
 package campingplatz.plots.plotdiscounts;
 
-import campingplatz.customer.CustomerManagement;
-import campingplatz.plots.PlotCatalog;
-import campingplatz.plots.plotreservations.PlotReservation;
-import campingplatz.plots.plotreservations.PlotReservationRepository;
 import org.salespointframework.core.DataInitializer;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-
 
 @Component
 @Order(30)

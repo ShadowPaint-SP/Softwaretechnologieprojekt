@@ -1,7 +1,5 @@
 package campingplatz.reservation;
 
-import javax.money.MonetaryAmount;
-
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

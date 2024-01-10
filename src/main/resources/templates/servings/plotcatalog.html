@@ -98,7 +98,7 @@
                     <tbody>
                         <!-- table rows -->
                         <tr th:each="plot, iStat : ${shownPlots}">
-                            <th class="flex">
+                            <th id="myButton" class="flex">
                                 <div class="pr-4">
                                     <img class="h-32 w-32 mask mask-squircle" th:src="${plot.imagePath}" />
                                 </div>
@@ -119,13 +119,13 @@
 
                             </th>
                             <td></td>
-                            <td class="hover:bg-secondary p-0 relative" th:classappend="${fields.type.color}"
-                                th:each="fields : ${availabilityTable.get(plot)}">
+                            <td id="highlightDiv" class="hover:bg-secondary p-0 relative"
+                                th:classappend="${fields.type.color}" th:each="fields : ${availabilityTable.get(plot)}">
                                 <button th:type="${fields.type.clickability}"
                                     th:formaction="'/plotcatalog/select/'+${plot.id}+'/'+${fields.index}"
                                     class="absolute top-0 right-0 bottom-0 left-0 w-full">
                                     <div>
-                                        <text th:text="#{${fields.type.label}}"></text>
+                                        <text class="font-bold" th:text="#{${fields.type.label}}"></text>
                                     </div>
                                 </button>
                             </td>
@@ -141,8 +141,12 @@
                     </tbody>
                 </table>
             </div>
-            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${filteredPlots}, title=#{catalog.plots.available}, emptyMessage=#{catalog.plots.none-available})}"></div>
-            <div th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${approximatelyFilteredPlots}, title=#{catalog.plots.also-available}, emptyMessage=#{catalog.plots.none-also-available})}"></div>
+            <div
+                th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${filteredPlots}, title=#{catalog.plots.available}, emptyMessage=#{catalog.plots.none-available})}">
+            </div>
+            <div
+                th:replace="~{servings/plotcatalog :: plot_table (shownPlots=${approximatelyFilteredPlots}, title=#{catalog.plots.also-available}, emptyMessage=#{catalog.plots.none-also-available})}">
+            </div>
         </form>
         <div class="hidden">
             <span>Legende</span>

@@ -1,6 +1,5 @@
 package campingplatz.plots;
 
-import campingplatz.equip.SportItemAvailabilityTable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,13 +9,10 @@ import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Optional;
 
@@ -178,16 +174,14 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, ArrayList<PlotCa
 		return this;
 	}
 
-
-
 	public PlotCatalogAvailabilityTable addPastMarkings(LocalDate cutofTime) {
 
-		for (var row : this.values()){
+		for (var row : this.values()) {
 			for (int i = 0; i < length; i++) {
-				var currentTime =  firstDay.plusDays(i);
+				var currentTime = firstDay.plusDays(i);
 				var currentField = row.get(i);
 
-				if (currentTime.isBefore(cutofTime) && currentField.type == FieldType.FREE_COMPLETELY){
+				if (currentTime.isBefore(cutofTime) && currentField.type == FieldType.FREE_COMPLETELY) {
 					var prototype = new Field(FieldType.BACK_IN_TIME, i);
 					row.set(i, prototype);
 				}
