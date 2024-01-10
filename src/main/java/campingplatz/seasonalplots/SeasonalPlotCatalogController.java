@@ -134,8 +134,8 @@ public class SeasonalPlotCatalogController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalplotcatalog/details/{plot}/comments")
-	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info) {
-		plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info, @LoggedIn UserAccount currUserAccount) {
+		plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),currUserAccount.getFirstname(), currUserAccount.getLastname()));
 		seasonalPlotCatalog.save(plot);
 		return "redirect:/seasonalplotcatalog/details/" + plot.getId();
 	}
