@@ -14,7 +14,16 @@
                             <h2 class="text-2xl font-bold" th:text="${item.name}"></h2>
                             <p th:text="'Preis: '+${{item.price}}"></p>
                             <p th:text="${item.desc}"></p>
+                            <p></p>
+                            <!-- <strong th:text="'Durchschnittliche Platzbewertung: '+ ${plot.averageRating}+'/5 Sternen'"></strong> -->
+                            <div th:if="${plot.averageRating == 0}">
+                                <strong>Es wurde noch keine Bewertung zu diesem Platz abgegeben.</strong>
+                            </div>
+                            <div th:if="${plot.averageRating > 0}">
+                                <strong th:text="'Durchschnittliche Platzbewertung: '+ ${plot.averageRating}+'/5 Sternen'"></strong>
+                            </div>
                         </div>
+                        
                     </div>
                     <div class="mt-14" sec:authorize="isAuthenticated()">
                         <form th:action="'/plotcatalog/details/'+${item.id}+'/comments'" method="post">
@@ -36,7 +45,14 @@
                                 required></textarea>
                             <button class="btn" type="submit">Kommentar absenden</button>
     
-                            <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+                            <p th:if="${error}">test</p>
+                            <p th:if="${error}" th:text="${error}" style="color: red;">
+
+                                <!-- <div th:if="${error}">
+                                    <strong th:text="${plotdetails.error}">test</strong>
+                                </div> -->
+                            </p>
                             
                         </form>
                     </div>
@@ -62,7 +78,7 @@
                 <span th:text="${comment.time}" style="float: right;"></span>
             </div>
             <div sec:authorize="hasRole('BOSS')">
-                <form method="post" th:action="'/plotcatalog/details/'+${item.id}+'/comments/'+${comment}">
+                <form method="post" th:action="'/plotcatalog/details/'+${item.id}+'/comments/'+${comment.id}">
                     <button class="btn btn-primary" type="submit">Kommentar löschen</button>
                 </form>
             </div>

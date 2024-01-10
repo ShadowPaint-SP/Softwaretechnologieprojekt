@@ -38,6 +38,10 @@ public class Plot extends DetailedProduct {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @Setter
+    @Getter
+    private int averageRating = 0;
+
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
 
         super(name, price, imagePath, description);
@@ -118,11 +122,16 @@ public class Plot extends DetailedProduct {
 
     public void addComment(Comment comment) {
         comments.add(comment);
+        int zwRating=0;
+        for (int i=0; i<comments.size(); i++){
+            zwRating=zwRating+comments.get(i).getRating();
+        }
+        averageRating=zwRating/comments.size();
     }
 
     public void deleteComment(Long commentILong){
         for (int i=0; i<comments.size(); i++) {
-            if(comments.get(i).getId()== commentILong){
+            if(comments.get(i).getId() == commentILong){
                 comments.remove(i);
             }
         }

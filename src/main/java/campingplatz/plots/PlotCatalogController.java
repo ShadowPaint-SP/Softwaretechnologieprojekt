@@ -213,6 +213,10 @@ class PlotCatalogController {
     public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
             @Valid PlotCatalog.SiteState query, @PathVariable Plot plot) {
         model.addAttribute("item", plot);
+        if(model.containsAttribute("error"))
+            System.out.println("model contains error");
+        else
+                System.out.println("doesn't contain");
         return "servings/plotdetails";
     }
 
@@ -225,8 +229,12 @@ class PlotCatalogController {
             plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
         }else{
-            model.addAttribute("error", "Benutzer hat Platz noch nicht besucht");
-            return "redirect:/plotcatalog/details/" + plot.getId();
+            model.addAttribute("error", true);
+            boolean error = true;
+            plotCatalog.save(plot);
+            model.addAttribute("item", plot);
+
+            return "servings/plotdetails";
         }
         
     }
@@ -234,6 +242,7 @@ class PlotCatalogController {
     @PostMapping("/plotcatalog/details/{plot}/comments/{commentId}")
     public String deleteComment(@PathVariable("plot") Plot plot, @PathVariable Long commentId) {
         plot.deleteComment(commentId);
+        plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
     }
 
