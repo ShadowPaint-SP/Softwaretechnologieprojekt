@@ -8,6 +8,7 @@ import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 import campingplatz.reservation.Reservation;
 
@@ -109,6 +110,7 @@ class ReservationController {
 	@PostMapping("/checkout")
 	String reservate(Model model, @LoggedIn UserAccount userAccount,
 			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("seasonalCart") SeasonalPlotCart seasonPlotCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		List<PlotReservation> reservations = reservationCart.getReservationsOfUser(userAccount);
@@ -126,6 +128,10 @@ class ReservationController {
 		sportItemReservationRepository.saveAll(sportReservations);
 		sportItemCart.clear();
 
+		List<SeasonalPlotReservation> seasonalPlotReservations = seasonPlotCart.getReservationsOfUser(userAccount);
+		seasonalPlotReservationRepository.saveAll(seasonalPlotReservations);
+		seasonPlotCart.clear();
+		
 		return "redirect:/orders";
 	}
 
