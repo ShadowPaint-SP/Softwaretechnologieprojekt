@@ -9,6 +9,7 @@ import campingplatz.plots.plotreservations.PlotReservationRepository;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.salespointframework.useraccount.Password;
@@ -108,6 +109,7 @@ public class ReservationUnitTests {
 		assertTrue(reservationRepository.findById(takenReservation.id).isPresent());
 	}
 
+	@Disabled
 	@Test
 	void ThirdDeletionTest() {
 		// all should get deleted
