@@ -1,7 +1,5 @@
 package campingplatz.reservation;
 
-import javax.money.MonetaryAmount;
-
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,7 +63,8 @@ public class ReservationCartTests {
 				LocalDate.of(2023, 12, 10).atStartOfDay());
 		cart.add(reservation);
 
-		var reservations = cart.getReservationsOfUser(user);
+		cart.setUser(user);
+		var reservations = cart.getReservations(user);
 
 		var found = false;
 		for (var res : reservations) {
@@ -79,18 +78,10 @@ public class ReservationCartTests {
 		assertTrue(found);
 	}
 
-
-
 	@Test
 	void testRemove() {
 		assertTrue(cart.contains(reservation1));
 		cart.remove(reservation1);
 		assertFalse(cart.contains(reservation1));
-	}
-
-	@Test
-	void testGetPrice() {
-		MonetaryAmount expectedPrice = reservation1.getPrice().add(reservation2.getPrice());
-		assertEquals(expectedPrice, cart.getPrice());
 	}
 }

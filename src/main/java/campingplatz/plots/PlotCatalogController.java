@@ -114,6 +114,7 @@ class PlotCatalogController {
         return new PlotCart();
     }
 
+
     @GetMapping("/plotcatalog") // consider renaming the query argument and attribute to state
     String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalogController.SiteState query,
             @ModelAttribute("plotCart") PlotCart reservationCart) {
@@ -124,7 +125,7 @@ class PlotCatalogController {
         var formatedWeekDates = rawWeekDates.map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM"))).toList();
 
         var operationalPlots = plotCatalog.findByState(Plot.State.OPERATIONAL);
-        var reservedPlots = reservationRepository.findPlotsReservedBetween(
+        var reservedPlots = reservationRepository.findProductsReservedBetween(
                 query.getDefaultedArrival().atStartOfDay(), query.getDefaultedDeparture().atStartOfDay());
         var availablePlots = operationalPlots.stream()
                 .filter(plot -> plot.getClass().equals(Plot.class) && !reservedPlots.contains(plot)).toList();
@@ -138,7 +139,7 @@ class PlotCatalogController {
                 .addReservations(user, reservations)
                 .addHighlights(query, reservedPlots)
                 .addSelections(reservationCart)
-                .collapse();
+                .addPastMarkings(LocalDate.now());
 
         model.addAttribute("filteredPlots", filteredPlots);
         model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);

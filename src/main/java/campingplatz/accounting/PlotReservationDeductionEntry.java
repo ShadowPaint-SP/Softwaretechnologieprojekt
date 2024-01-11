@@ -12,10 +12,11 @@ public class PlotReservationDeductionEntry extends AccountancyEntry {
 
 		String ret = "";
 
-		ret += "Product Name: " + reservation.getProduct().getName() + ",\n";
+		ret += "Produkt Name: " + reservation.getProduct().getName() + ",\n";
 		ret += "Nutzer Name: " + reservation.getUser().getUsername() + ",\n";
 		ret += "von: " + reservation.getBegin() + ",\n";
-		ret += "bis: " + reservation.getEnd();
+		ret += "bis: " + reservation.getEnd() + ",\n";
+		ret += "rabatt: " + reservation.getDiscount();
 
 		return ret;
 	}

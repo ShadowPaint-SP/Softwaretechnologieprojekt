@@ -3388,10 +3388,6 @@ html {
   max-width: 20rem;
 }
 
-.flex-1 {
-  flex: 1 1 0%;
-}
-
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -3767,6 +3763,11 @@ html {
 
 #box:hover #sun {
   transform: rotate(45deg);
+}
+
+#myButton:hover ~ #highlightDiv.bg-blue-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 58 138 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-secondary:hover {

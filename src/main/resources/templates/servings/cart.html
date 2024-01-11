@@ -17,6 +17,7 @@
                         <th class="w-[20%]">Abfahrt</th>
                         <th>Übernachtungen</th>
                         <th class="w-[10%]">Preis</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +27,21 @@
                         <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
                         <td th:text="${#temporals.format(item.end.plusDays(1), 'dd.MM.yyyy | 11:00')}">daparture</td>
                         <td th:text="${item.duration}">one day</td>
-                        <td th:text="${item.price}">50</td>
+                        <td>
+                            <div th:if="${item.hasDiscount()}">
+                                <s th:text="${item.preDiscountPrice}"></s> &nbsp;
+                                <b th:text="${item.price}"></b>
+                            </div>
+                            <div th:unless="${item.hasDiscount()}">
+                                <text th:text="${item.price}"></text>
+                            </div>
+                        </td>
+                        <td>
+                            <form method="post"
+                                th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
+                                <button type="submit" class="btn btn-primary" th:text="#{cart.remove}">remove</button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -44,16 +59,23 @@
                         <th class="w-[20%]">Abgabe</th>
                         <th>Stunden</th>
                         <th class="w-[10%]">Preis</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="item, iStat : ${sportsReservations}" class="hover">
                         <th th:text="${iStat.count}">1</th>
-                        <td th:text="${item.product.name}">Cy Ganderton</td>
-                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
-                        <td th:text="${#temporals.format(item.end.plusHours(1), 'dd.MM.yyyy | HH:mm')}">daparture</td>
-                        <td th:text="${item.duration}">Quality Control Specialist</td>
-                        <td th:text="${item.price}">Blue</td>
+                        <td th:text="${item.product.name}">football</td>
+                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">begin</td>
+                        <td th:text="${#temporals.format(item.end.plusHours(1), 'dd.MM.yyyy | HH:mm')}">end</td>
+                        <td th:text="${item.duration}">1</td>
+                        <td th:text="${item.price}">EUR 1</td>
+                        <td>
+                            <form method="post"
+                                th:action="@{/cart/remove/} + ${item.getClass().getSimpleName()} + @{/} + ${iStat.count}">
+                                <button type="submit" class="btn btn-primary" th:text="#{cart.remove}">remove</button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -62,7 +84,15 @@
         <div class="card w-96 bg-base-300 text-neutral-content container mx-auto mt-10 shadow-lg">
             <div class="card-body items-center text-center">
                 <h2 class="card-title text-neutral font-bold" th:text="#{cart.total}">Your Total</h2>
-                <div class="badge badge-lg badge-secondary" th:text="${{total}}">987,654</div>
+                <div class="badge badge-lg badge-secondary">
+                    <div th:if="${totalHasDiscount}">
+                        <s th:text="${totalPreDiscountPrice}"></s> &nbsp;
+                        <b th:text="${totalPrice}"></b>
+                    </div>
+                    <div th:unless="${totalHasDiscount}">
+                        <text th:text="${totalPrice}">987,654</text>
+                    </div>
+                </div>
                 <div class="card-actions justify-end">
                     <form method="post" th:action="@{/checkout}">
                         <button type="submit" class="btn btn-primary" th:text="#{cart.buy}">Buy</button>

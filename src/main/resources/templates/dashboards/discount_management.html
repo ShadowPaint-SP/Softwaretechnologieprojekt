@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html(title=#{title.reservation})}">
+
+<head></head>
+
+<body>
+    <main layout:fragment="input">
+
+        <form method="post" action="/management/discount/createDiscount">
+            <div class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20 shadow-lg w-[50%]">
+                <div>
+                    <label class="label-text" th:text="#{discount.plot.amount}"></label>
+                    <input class="input input-sm w-full focus:outline-accent" type="number" placeholder="0" name="amount" required>
+                </div>
+                <div>
+                    <label class="label-text" th:text="#{discount.plot.discount}"></label>
+                    <input class="input input-sm w-full focus:outline-accent" type="number" placeholder="0" name="discount"  required>
+                </div>
+                <div class="flex justify-around">
+                    <button th:text="#{discount.plot.add}" class="btn btn-accent"></button>
+                </div>
+            </div>
+        </form>
+
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg w-[50%]">
+            <table class="table table-zebra">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th></th>
+                        <th th:text="#{discount.plot.amount}">Amount</th>
+                        <th th:text="#{discount.plot.discount}">Discount</th>
+                        <th th:text="#{discount.plot.delete}">Discount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="discount, iStat : ${discounts}" class="hover">
+                        <form method="post">
+                            <th th:text="${iStat.count}"></th>
+                            <input type="hidden" name="UUID" th:value="${discount.id}">
+                            <td>
+                                <input type="number" name="amount" th:value="${discount.amount}" onchange="this.form.submit()">
+                            </td>
+                            <td>
+                                <input type="number" name="discount" th:value="${discount.discountPercent}" onchange="this.form.submit()">
+                            </td>
+                            <td>
+                                <button class="btn btn-error btn-sm" type="submit" formaction="/management/discount/deleteDiscount"
+                                    th:text="#{discount.plot.delete}"> Delete Discount </button>
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

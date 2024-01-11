@@ -12,9 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Optional;
 
@@ -26,14 +24,15 @@ import java.util.Optional;
  * constructing it into multiple smaller functions for practicality.
  * they should be called in order that they are declared here
  */
-public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvailabilityTable.FieldType[]> {
+public class PlotCatalogAvailabilityTable extends HashMap<Plot, ArrayList<PlotCatalogAvailabilityTable.Field>> {
 
 	public static enum FieldType {
 		FREE_COMPLETELY(0, "catalog.fields.free.completely", "submit", "bg-transparent"),
 		FREE_HIGHLIGHTED(1, "catalog.fields.free.highlighted", "submit", "bg-blue-300"),
 		FREE_SELECTED(2, "catalog.fields.free.selected", "submit", "bg-green-500"),
 		RESERVED_OTHER(3, "catalog.fields.reserved.other", "button", "bg-red-500"),
-		RESERVED_SELF(4, "catalog.fields.reserved.self", "button", "bg-yellow-600");
+		RESERVED_SELF(4, "catalog.fields.reserved.self", "button", "bg-yellow-600"),
+		BACK_IN_TIME(5, "catalog.fields.past", "button", "bg-red-500");
 
 		public final String clickability;
 		public final Integer value;
@@ -52,7 +51,7 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 	}
 
 	@AllArgsConstructor
-	public static class Fields {
+	public static class Field {
 		@Getter
 		@Setter
 		FieldType type;
@@ -61,9 +60,6 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 		@Setter
 		Integer index;
 
-		@Getter
-		@Setter
-		Integer amount;
 	}
 
 	// just some "global" variables stored for convenience
@@ -78,8 +74,11 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 
 		// create a row in the table for every plot in the
 		for (var plot : plots) {
-			var row = new FieldType[length];
-			Arrays.fill(row, FieldType.FREE_COMPLETELY);
+			var row = new ArrayList<Field>();
+			for (int i = 0; i < length; i++) {
+				var prototype = new Field(FieldType.FREE_COMPLETELY, i);
+				row.add(prototype);
+			}
 			this.put(plot, row);
 		}
 	}
@@ -104,9 +103,11 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 
 			for (int i = beginIndex; i <= endIndex; i++) {
 				if (user.isEmpty() || reservation.getUser() != user.get()) {
-					row[i] = FieldType.RESERVED_OTHER;
+					var prototype = new Field(FieldType.RESERVED_OTHER, i);
+					row.set(i, prototype);
 				} else {
-					row[i] = FieldType.RESERVED_SELF;
+					var prototype = new Field(FieldType.RESERVED_SELF, i);
+					row.set(i, prototype);
 				}
 			}
 		}
@@ -140,7 +141,8 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 			}
 
 			for (int i = beginIndex; i <= endIndex; i++) {
-				row[i] = FieldType.FREE_HIGHLIGHTED;
+				var prototype = new Field(FieldType.FREE_HIGHLIGHTED, i);
+				row.set(i, prototype);
 			}
 		}
 
@@ -165,41 +167,29 @@ public class PlotCatalogAvailabilityTable extends HashMap<Plot, PlotCatalogAvail
 				continue;
 			}
 
-			row[index] = FieldType.FREE_SELECTED;
+			var prototype = new Field(FieldType.FREE_SELECTED, index);
+			row.set(index, prototype);
 		}
 
 		return this;
 	}
 
-	// currently not used
-	public Map<Plot, List<Fields>> collapse() {
+	public PlotCatalogAvailabilityTable addPastMarkings(LocalDate cutofTime) {
 
-		Map<Plot, List<Fields>> ret = new HashMap<>();
+		for (var row : this.values()) {
+			for (int i = 0; i < length; i++) {
+				var currentTime = firstDay.plusDays(i);
+				var currentField = row.get(i);
 
-		for (var entry : this.entrySet()) {
-			List<Fields> collapsedRow = new ArrayList<>();
-
-			Integer index = 0;
-			FieldType prev = null;
-			for (var elem : entry.getValue()) {
-
-				var isCollapsed = false;
-				if (!isCollapsed || !elem.equals(prev)) {
-					var fields = new Fields(elem, index, 0);
-					collapsedRow.add(fields);
-					prev = elem;
+				if (currentTime.isBefore(cutofTime) && currentField.type == FieldType.FREE_COMPLETELY) {
+					var prototype = new Field(FieldType.BACK_IN_TIME, i);
+					row.set(i, prototype);
 				}
 
-				var currentFields = collapsedRow.get(collapsedRow.size() - 1);
-				currentFields.amount += 1;
-				index++;
-
 			}
-
-			ret.put(entry.getKey(), collapsedRow);
 		}
 
-		return ret;
+		return this;
 	}
 
 }
