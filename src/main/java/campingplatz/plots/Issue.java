@@ -10,11 +10,10 @@ import org.javamoney.moneta.Money;
 import javax.money.MonetaryAmount;
 import java.util.UUID;
 
-
-
 @Entity
 public class Issue implements Priced {
 
+	@Getter
 	private @Id UUID id;
 
 	@Getter
@@ -25,7 +24,6 @@ public class Issue implements Priced {
 	@Setter
 	private String description;
 
-
 	public Issue() {
 		this.id = UUID.randomUUID();
 	}
@@ -35,7 +33,6 @@ public class Issue implements Priced {
 		this.cost = cost;
 		this.description = description;
 	}
-
 
 	@Override
 	public MonetaryAmount getPrice() {
