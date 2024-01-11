@@ -15,7 +15,6 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +22,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -113,7 +114,6 @@ class PlotCatalogController {
     PlotCart initializeCart() {
         return new PlotCart();
     }
-
 
     @GetMapping("/plotcatalog") // consider renaming the query argument and attribute to state
     String setupCatalog(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalogController.SiteState query,
@@ -212,13 +212,37 @@ class PlotCatalogController {
     public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
             @Valid PlotCatalog.SiteState query, @PathVariable Plot plot) {
         model.addAttribute("item", plot);
+        if (model.containsAttribute("error"))
+            System.out.println("model contains error");
+        else
+            System.out.println("doesn't contain");
         return "servings/plotdetails";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/plotcatalog/details/{plot}/comments")
-    public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info) {
-        plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+    public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info,
+            @LoggedIn UserAccount currUserAccount) {
+        Set<UserAccount> commentarySet = reservationRepository.findUsersOfProduct(plot);
+        if (commentarySet.contains(currUserAccount)) {
+            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),
+                    currUserAccount.getFirstname(), currUserAccount.getLastname()));
+            plotCatalog.save(plot);
+            return "redirect:/plotcatalog/details/" + plot.getId();
+        } else {
+            model.addAttribute("error", true);
+            boolean error = true;
+            plotCatalog.save(plot);
+            model.addAttribute("item", plot);
+
+            return "servings/plotdetails";
+        }
+
+    }
+
+    @PostMapping("/plotcatalog/details/{plot}/comments/{commentId}")
+    public String deleteComment(@PathVariable("plot") Plot plot, @PathVariable Long commentId) {
+        plot.deleteComment(commentId);
         plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
     }

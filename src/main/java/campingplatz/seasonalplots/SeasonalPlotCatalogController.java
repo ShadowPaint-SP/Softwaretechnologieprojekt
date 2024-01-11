@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -133,10 +134,20 @@ public class SeasonalPlotCatalogController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalplotcatalog/details/{plot}/comments")
-	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info) {
-		plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
-		seasonalPlotCatalog.save(plot);
-		return "redirect:/seasonalplotcatalog/details/" + plot.getId();
+	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info, @LoggedIn UserAccount currUserAccount) {
+        Set<UserAccount> commentarySet=reservationRepository.findUsersOfProduct(plot);
+        if(commentarySet.contains(currUserAccount)){
+            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),currUserAccount.getFirstname(), currUserAccount.getLastname()));
+            seasonalPlotCatalog.save(plot);
+        return "redirect:/plotcatalog/details/" + plot.getId();
+        }else{
+            model.addAttribute("error", true);
+            boolean error = true;
+            seasonalPlotCatalog.save(plot);
+            model.addAttribute("item", plot);
+
+			return "servings/seasonalplotdetails";
+        }
 	}
 
 	interface CommentInfo {
