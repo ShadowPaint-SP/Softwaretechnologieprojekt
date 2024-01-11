@@ -22,7 +22,7 @@
 								1
 							</td>
 							<td>
-								<label th:text="${entry.date.get()}" class="input input-sm w-full focus:outline-accent"></label>
+								<label th:text="${#temporals.format(entry.date.get(), 'dd.MM.yyyy | HH:mm')}" class="input input-sm w-full focus:outline-accent"></label>
 							</td>
 							<td>
 								<label th:text="${entry.value}" class="input input-sm w-full focus:outline-accent"></label>

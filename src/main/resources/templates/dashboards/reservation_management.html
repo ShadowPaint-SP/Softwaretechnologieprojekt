@@ -39,8 +39,8 @@
 						<td th:text="${reservation.user.firstname}"></td>
 						<td th:text="${reservation.user.lastname}"></td>
 						<td th:text="${reservation.product.name}"></td>
-						<td th:text="${reservation.begin}"></td>
-						<td th:text="${reservation.end}"></td>
+                        <td th:text="${#temporals.format(reservation.begin, 'dd.MM.yyyy')}">arrival</td>
+                        <td th:text="${#temporals.format(reservation.end, 'dd.MM.yyyy')}">departure</td>
 						<td th:text="${reservation.price}"></td>
 					</tr>
 				</tbody>
