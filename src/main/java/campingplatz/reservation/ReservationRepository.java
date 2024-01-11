@@ -29,7 +29,6 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
      */
     List<U> findByUserId(UserAccount.UserAccountIdentifier id);
 
-
     @Query("""
             select distinct r.product from #{#entityName} r
             where r.state = 0 or r.state = 1
@@ -66,20 +65,19 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
         return findProductsReservedBetween(arrival, departure).contains(product);
     }
 
-
-	@Query("""
+    @Query("""
                 select distinct r.user from #{#entityName} r
                 where (r.product = :product)
                 and (r.state != 0)
             """)
-	Set<UserAccount> findUsersOfProduct(T product);
-
+    Set<UserAccount> findUsersOfProduct(T product);
 
     @Modifying
     @Transactional
     @Query("""
                 delete #{#entityName} r
-                where r.state = 0 and r.begin < :time
+                where (r.state = 0 and r.begin < :time)
+                or (r.state != 0 and r.end < :time)
             """)
     void deleteBeforeThan(LocalDateTime time);
 

@@ -109,11 +109,10 @@ public class ReservationUnitTests {
 		assertTrue(reservationRepository.findById(takenReservation.id).isPresent());
 	}
 
-	@Disabled
 	@Test
 	void ThirdDeletionTest() {
 		// all should get deleted
-		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 11, 20).atStartOfDay());
+		reservationRepository.deleteBeforeThan(LocalDate.of(2023, 11, 11).atStartOfDay());
 		assertEquals(0, reservationRepository.findAll().size());
 	}
 
