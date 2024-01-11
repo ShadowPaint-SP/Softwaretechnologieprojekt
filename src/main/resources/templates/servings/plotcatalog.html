@@ -11,19 +11,17 @@
             <a id="top"></a>
             <button type="submit" class="hidden"></button>
             <div
-                class="grid sm:grid-cols-4 grid-flow-row gap-3 container rounded-box shadow-lg bg-base-300 mx-auto justify-center p-4 mt-20">
+                class="grid lg:grid-cols-4 grid-flow-row gap-3 container rounded-box shadow-lg bg-base-300 mx-auto max-w-fit justify-around p-4 mt-20">
                 <div class="flex flex-col justify-around items-center">
                     <label class="label-text" th:text="#{catalog.plot.timeframe}">Timeframe:</label>
                     <div class="flex flex-row">
-                        <div class="flex flex-col justify-around p-2">
-                            <label class="text-sm" th:text="#{catalog.plot.arrival}">arrival</label>
-                            <input class="input focus:outline-accent" type="date" name="arrival"
+                        <div class="px-2 tooltip tooltip-bottom" th:data-tip="#{catalog.plot.arrival}">
+                            <input class="input input-sm focus:outline-accent" type="date" name="arrival"
                                 th:value="${searchQuery.defaultedArrival}" th:min="${searchQuery.minArrivalDate}"
                                 onchange="this.form.submit()">
                         </div>
-                        <div class="flex flex-col justify-around p-2">
-                            <label class="text-sm" th:text="#{catalog.plot.departure}">departure</label>
-                            <input class="input focus:outline-accent" type="date" name="departure"
+                        <div class="px-2 tooltip tooltip-bottom" th:data-tip="#{catalog.plot.departure}">
+                            <input class="input input-sm focus:outline-accent" type="date" name="departure"
                                 th:value="${searchQuery.defaultedDeparture}" th:min="${searchQuery.defaultedArrival}"
                                 onchange="this.form.submit()">
                         </div>
@@ -31,7 +29,7 @@
                 </div>
                 <div class="flex flex-col justify-around items-center">
                     <label class="label-text" th:text="#{plot.parking}">Parkplatz:</label>
-                    <select class="select select-none w-full max-w-xs focus:outline-accent" name="parking"
+                    <select class="select select-sm select-none w-52 focus:outline-accent" name="parking"
                         onchange="this.form.submit()">
                         <option value="0" th:selected="${searchQuery.parking==0}" th:text="#{catalog.parking.no}">
                         </option>
@@ -47,13 +45,13 @@
                     <label class="label-text" th:text="#{catalog.plot.size}">Größe in Quadratmeter:</label>
                     <div class="flex flex-row">
                         <div class="px-2">
-                            <input class="input w-full max-w-[180px] focus:outline-accent" type="number" name="sizeMin"
-                                th:value="${searchQuery.sizeMin}" th:placeholder="#{catalog.ranges.from-size}"
+                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="sizeMin"
+                                th:value="${searchQuery.sizeMin}" th:placeholder="#{catalog.ranges.from}"
                                 onchange="this.form.submit()">
                         </div>
                         <div class="px-2">
-                            <input class="input w-full max-w-[180px] focus:outline-accent" type="number" name="sizeMax"
-                                th:value="${searchQuery.sizeMax}" th:placeholder="#{catalog.ranges.to-size}"
+                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="sizeMax"
+                                th:value="${searchQuery.sizeMax}" th:placeholder="#{catalog.ranges.to}"
                                 onchange="this.form.submit()">
                         </div>
                     </div>
@@ -62,13 +60,13 @@
                     <label class="label-text" th:text="#{catalog.plot.price}">Price:</label>
                     <div class="flex flex-row">
                         <div class="px-2">
-                            <input class="input w-full max-w-[150px] focus:outline-accent" type="number" name="priceMin"
-                                th:value="${searchQuery.priceMin}" th:placeholder="#{catalog.ranges.from-price}"
+                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="priceMin"
+                                th:value="${searchQuery.priceMin}" th:placeholder="#{catalog.ranges.from}"
                                 onchange="this.form.submit()">
                         </div>
                         <div class="px-2">
-                            <input class="input w-full max-w-[150px] focus:outline-accent" type="number" name="priceMax"
-                                th:value="${searchQuery.priceMax}" th:placeholder="#{catalog.ranges.to-price}"
+                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="priceMax"
+                                th:value="${searchQuery.priceMax}" th:placeholder="#{catalog.ranges.to}"
                                 onchange="this.form.submit()">
                         </div>
                     </div>
