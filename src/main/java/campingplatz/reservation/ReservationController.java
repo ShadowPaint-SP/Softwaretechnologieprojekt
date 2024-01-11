@@ -3,10 +3,12 @@ package campingplatz.reservation;
 import campingplatz.equip.sportsitemreservations.SportItemCart;
 import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
+import campingplatz.plots.Plot;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
+import campingplatz.reservation.Reservation;
 
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -67,6 +70,28 @@ class ReservationController {
 		model.addAttribute("total", total);
 
 		return "servings/cart";
+	}
+
+	@PostMapping("/cart/remove/{type}/{index}")
+	String removeCartItem(Model model, @LoggedIn UserAccount userAccount, @PathVariable("index") int index, @PathVariable("type") String type, 
+			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
+
+		if (type.equals("PlotReservation")){
+
+			var cart = reservationCart.getReservationsOfUser(userAccount);
+			var item = cart.get(index - 1);
+			reservationCart.remove(item);
+		}
+		else if (type.equals("SportItemReservation")){
+
+			var cart = sportItemCart.getReservationsOfUser(userAccount);
+			var item = cart.get(index - 1);
+			sportItemCart.remove(item);
+		}
+
+		
+		return "redirect:/cart";
 	}
 
 	@PostMapping("/checkout")

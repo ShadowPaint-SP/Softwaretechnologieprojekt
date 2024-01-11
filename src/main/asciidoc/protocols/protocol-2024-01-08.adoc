@@ -2,7 +2,7 @@
 
 Treffen am 08.01.2024
 
-Ort:      --- +
+Ort:      0.66 SLUB +
 Beginn:   14:50 Uhr +
 Ende:     16:20 Uhr
 
@@ -25,9 +25,13 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
+Besprechung des Restpraktikums
+
 
 == Retrospektive des letzten Sprints
+Ferien...
 
 == Planung des nächsten Sprints
+Dokumentation vervollständigen, Bugs fixen, Tests schreiben, Java Doc
 |===
 
