@@ -43,6 +43,8 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 			.add(Config.getWaterCosts().multiply(waterDifference));
 	}
 
+
+
 	public boolean isNextYearAvaible(LocalDateTime date) {
 		return date.isAfter(getEnd());
 	}
@@ -60,10 +62,10 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 	}
 
 	public void setElectricityDifference(Double newElectricityMeter) {
-		this.electricityDifference = getProduct().settlementElectricity(newElectricityMeter);
+		this.electricityDifference = this.electricityDifference + getProduct().settlementElectricity(newElectricityMeter, electricityDifference);
 	}
 
 	public void setWaterDifference(Double newWaterMeter) {
-		this.waterDifference = getProduct().settlementWater(newWaterMeter);
+		this.waterDifference = this.waterDifference + getProduct().settlementWater(newWaterMeter, waterDifference);
 	}
 }
