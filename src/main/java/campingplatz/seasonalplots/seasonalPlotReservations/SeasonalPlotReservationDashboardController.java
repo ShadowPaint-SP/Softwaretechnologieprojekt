@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import campingplatz.accounting.SeasonalPlotReservationAccountancyEntry;
+import campingplatz.accounting.SeasonalPlotReservationDeductionEntry;
 import campingplatz.reservation.Reservation;
 import campingplatz.seasonalplots.SeasonalPlotCatalog;
 import jakarta.validation.Valid;
@@ -49,8 +51,20 @@ public class SeasonalPlotReservationDashboardController {
 		reservation.setWaterDifference(info.getNewWaterMeter());
 		seasonalPlotCatalog.save(plot);
 
+		var oldState = reservation.getState();
+
 		var newState = Reservation.State.fromNumber(info.getStateValue());
 		var costsMeter = reservation.getPrice();
+
+
+		if (oldState == Reservation.State.PAYED && newState != Reservation.State.PAYED) {
+			var entry = new SeasonalPlotReservationDeductionEntry(reservation);
+			accountancy.add(entry);
+		}
+		if (oldState != Reservation.State.PAYED && newState == Reservation.State.PAYED) {
+			var entry = new SeasonalPlotReservationAccountancyEntry(reservation);
+			accountancy.add(entry);
+		}
 
 		// update and save
 		reservation.setState(newState);
