@@ -22,7 +22,8 @@
                     <tr th:each="reservation, iStat : ${reservationsSportItem}" class="hover">
                         <td th:text="${reservation.user.firstname}"></td>
                         <td th:text="${reservation.user.lastname}"></td>
-                        <td th:text="${reservation.product.name}"></td>
+                        <td><a th:text="${reservation.product.name}"
+                                th:href="@{/sportitem/{sportitem}(sportitem=${reservation.product.id})}"></a></td>
                         <td th:text="${reservation.begin}"></td>
                         <td th:text="${reservation.end}"></td>
                         <td th:text="${reservation.duration()}"></td>
