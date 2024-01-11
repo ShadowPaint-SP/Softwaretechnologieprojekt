@@ -20,10 +20,11 @@
                                 <strong>Es wurde noch keine Bewertung zu diesem Platz abgegeben.</strong>
                             </div>
                             <div th:if="${plot.averageRating > 0}">
-                                <strong th:text="'Durchschnittliche Platzbewertung: '+ ${plot.averageRating}+'/5 Sternen'"></strong>
+                                <strong
+                                    th:text="'Durchschnittliche Platzbewertung: '+ ${plot.averageRating}+'/5 Sternen'"></strong>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="mt-14" sec:authorize="isAuthenticated()">
                         <form th:action="'/plotcatalog/details/'+${item.id}+'/comments'" method="post">
@@ -41,19 +42,20 @@
                             </div>
                             <textarea name="comment" id="comment"
                                 class="textarea w-full min-h-full resize-none invalid:focus:outline-error focus:outline-accent"
-                                autofocus minlength="4" maxlength="255" placeholder="Hinterlasse einen Kommentar zu diesen Platz."
-                                required></textarea>
+                                autofocus minlength="4" maxlength="255"
+                                placeholder="Hinterlasse einen Kommentar zu diesen Platz." required></textarea>
                             <button class="btn" type="submit">Kommentar absenden</button>
-    
 
-                            <p th:if="${error}" style="color: red;">Sie müssen den Platz besucht haben um ein Kommentar zu hinterlassen.</p>
+
+                            <p th:if="${error}" style="color: red;">Sie müssen den Platz besucht haben um ein Kommentar
+                                zu hinterlassen.</p>
                             <!-- <p th:if="${error}" th:text="${error}" style="color: red;"> -->
 
-                                <!-- <div th:if="${error}">
+                            <!-- <div th:if="${error}">
                                     <strong th:text="${plotdetails.error}">test</strong>
                                 </div> -->
                             </p>
-                            
+
                         </form>
                     </div>
                 </div>
@@ -71,11 +73,11 @@
             </div>
             <div>
                 <strong th:text="${comment.firstName+' '+comment.lastName}"></strong>
-                <br/>
+                <br />
                 <span th:text="${comment.text}"></span>
             </div>
             <div>
-                <span th:text="${comment.time}" style="float: right;"></span>
+                <span th:text="${#temporals.format(comment.time, 'dd.MM.yyyy | HH:mm')}" style="float: right;"></span>
             </div>
             <div sec:authorize="hasRole('BOSS')">
                 <form method="post" th:action="'/plotcatalog/details/'+${item.id}+'/comments/'+${comment.id}">
