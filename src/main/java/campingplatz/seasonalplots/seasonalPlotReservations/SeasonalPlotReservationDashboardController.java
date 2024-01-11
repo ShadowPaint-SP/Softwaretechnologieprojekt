@@ -47,8 +47,10 @@ public class SeasonalPlotReservationDashboardController {
 		var uuid = info.getReservationUUID();
 		var reservation = plotReservations.findById(uuid).get();
 		var plot = reservation.getProduct();
-		reservation.setElectricityDifference(info.getNewElectricityMeter());
-		reservation.setWaterDifference(info.getNewWaterMeter());
+		try{ // is null if reservation is payed
+			reservation.setElectricityDifference(info.getNewElectricityMeter());
+			reservation.setWaterDifference(info.getNewWaterMeter());
+		} catch (Exception e){}
 		seasonalPlotCatalog.save(plot);
 
 		var oldState = reservation.getState();

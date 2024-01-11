@@ -37,14 +37,17 @@
 									</option>
 								</select>
 							</td>
-							<td>
+							<td th:if="${reservation.state.value != 2}">
 								<input class="input input-sm w-full focus:outline-accent" type="number" name="newElectricityMeter"
 									th:value="${reservation.product.electricityMeter}" onchange="this.form.submit()">
 							</td>
-							<td>
+							<td th:if="${reservation.state.value == 2}" th:text="${reservation.product.electricityMeter}"></td>
+
+							<td th:if="${reservation.state.value != 2}">
 								<input class="input input-sm w-full focus:outline-accent" type="number" name="newWaterMeter"
 									th:value="${reservation.product.waterMeter}" onchange="this.form.submit()">
 							</td>
+							<td th:if="${reservation.state.value == 2}" th:text="${reservation.product.waterMeter}"></td>
 						</form>
 						<td th:text="${reservation.user.firstname}"></td>
 						<td th:text="${reservation.user.lastname}"></td>
