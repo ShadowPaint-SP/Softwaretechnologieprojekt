@@ -26,7 +26,7 @@
 						<th th:text="${iStat.count}"></th>
 						<form method="post" action="/management/seasonalreservation/updateReservation">
 							<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
-							<th>
+							<td>
 								<select onchange="this.form.submit()" name="stateValue"
 									class="select select-xs w-full max-w-xs focus:outline-accent">
 									<option value="0" th:selected="${reservation.state.value == 0}"
@@ -34,24 +34,22 @@
 									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}">
 									</option>
 								</select>
-							</th>
+							</td>
 							<td>
 								<input class="input input-sm w-full focus:outline-accent" type="number" name="newElectricityMeter"
-									   th:value="${reservation.getNewElectricityMeter}" onchange="this.form.submit()">
+									th:value="${reservation.product.electricityMeter}" onchange="this.form.submit()">
 							</td>
 							<td>
 								<input class="input input-sm w-full focus:outline-accent" type="number" name="newWaterMeter"
-									   th:value="${reservation.getNewWaterMeter}" onchange="this.form.submit()">
+									th:value="${reservation.product.waterMeter}" onchange="this.form.submit()">
 							</td>
-
-
-							<td th:text="${reservation.user.firstname}"></td>
-							<td th:text="${reservation.user.lastname}"></td>
-							<td th:text="${reservation.product.name}"></td>
-							<td th:text="${reservation.begin}"></td>
-							<td th:text="${reservation.end}"></td>
-							<td th:text="${reservation.price}"></td>
 						</form>
+						<td th:text="${reservation.user.firstname}"></td>
+						<td th:text="${reservation.user.lastname}"></td>
+						<td th:text="${reservation.product.name}"></td>
+						<td th:text="${reservation.begin}"></td>
+						<td th:text="${reservation.end}"></td>
+						<td th:text="${reservation.price}"></td>
 					</tr>
 				</tbody>
 			</table>
