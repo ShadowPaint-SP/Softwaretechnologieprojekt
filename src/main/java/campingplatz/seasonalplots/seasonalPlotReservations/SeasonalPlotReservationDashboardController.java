@@ -44,7 +44,7 @@ public class SeasonalPlotReservationDashboardController {
 		// var oldState = reservation.getState();
 
 		var newState = Reservation.State.fromNumber(info.getStateValue());
-		var costsMeter = reservation.getTotalPrice(info.getNewElectricityMeter(), info.getNewWaterMeter());
+		var costsMeter = reservation.getPrice();
 
 		// update and save
 		reservation.setState(newState);
