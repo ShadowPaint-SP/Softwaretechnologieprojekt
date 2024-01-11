@@ -39,6 +39,7 @@
                         <th th:text="#{plot.end}">departure</th>
                         <th th:text="#{plot.month}">months</th>
                         <th th:text="#{plot.getPrice}">price</th>
+                        <th th:text="#{plot.payMethod}">payment iterval</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,8 @@
                         <td th:text="${#temporals.format(seasonalplot.end, 'dd.MM.yyyy')}">departure</td>
                         <td th:text="${seasonalplot.duration}"></td>
                         <td th:text="${seasonalplot.getPrice}"></td>
+                        <td th:if="${seasonalplot.payMethod.index == 0}" th:text="#{seasonalcatalog.pay.monthly}">monthly</td>
+                        <td th:if="${seasonalplot.payMethod.index == 1}" th:text="#{seasonalcatalog.pay.yearly}">yearly</td>
                     </tr>
                 </tbody>
             </table>

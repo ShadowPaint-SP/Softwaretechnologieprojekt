@@ -3,7 +3,10 @@ package campingplatz.seasonalplots.seasonalPlotReservations;
 import campingplatz.reservation.Reservation;
 import campingplatz.seasonalplots.Config;
 import campingplatz.seasonalplots.SeasonalPlot;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation.PayMethod;
 import jakarta.persistence.Entity;
+import lombok.Getter;
+
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.money.MonetaryAmount;
@@ -14,6 +17,7 @@ import java.time.temporal.ChronoUnit;
 @Entity
 public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
+	@Getter
 	private PayMethod payMethod;
 
 	private Double electricityDifference;
@@ -56,7 +60,17 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 	}
 
 	public enum PayMethod {
-		MONTHLY, YEARLY;
+
+        MONTHLY(0, "monthly"),
+        YEARLY(1, "yearly");
+
+        public final Integer index;
+        public final String label;
+
+        PayMethod(Integer index, String label) {
+            this.index = index;
+            this.label = label;
+        }
 
 		public static PayMethod fromNumberPayMethod(Integer i) {
 			return switch (i) {
