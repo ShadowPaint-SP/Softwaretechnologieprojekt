@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -212,10 +211,11 @@ class PlotCatalogController {
     public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
             @Valid PlotCatalog.SiteState query, @PathVariable Plot plot) {
         model.addAttribute("item", plot);
-        if (model.containsAttribute("error"))
+        if (model.containsAttribute("error")) {
             System.out.println("model contains error");
-        else
+        } else {
             System.out.println("doesn't contain");
+        }
         return "servings/plotdetails";
     }
 
@@ -231,7 +231,6 @@ class PlotCatalogController {
             return "redirect:/plotcatalog/details/" + plot.getId();
         } else {
             model.addAttribute("error", true);
-            boolean error = true;
             plotCatalog.save(plot);
             model.addAttribute("item", plot);
 

@@ -1,9 +1,5 @@
 package campingplatz.plots.plotdiscounts;
 
-
-import campingplatz.equip.SportItem;
-import campingplatz.equip.sportsitemreservations.SportItemReservation;
-import campingplatz.reservation.ReservationRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +11,6 @@ public interface PlotReservationDiscountRepository extends CrudRepository<PlotRe
 
 	@Override
 	List<PlotReservationDiscount> findAll();
-
 
 	List<PlotReservationDiscount> findAllByAmount(Integer amount);
 

@@ -5,7 +5,6 @@ import campingplatz.equip.sportsitemreservations.SportItemReservation;
 import campingplatz.equip.sportsitemreservations.SportItemReservationRepository;
 import campingplatz.plots.plotdiscounts.PlotReservationDiscountRepository;
 import campingplatz.plots.plotdiscounts.PlotReservationDiscounter;
-import campingplatz.plots.PlotCatalogAvailabilityTable;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
