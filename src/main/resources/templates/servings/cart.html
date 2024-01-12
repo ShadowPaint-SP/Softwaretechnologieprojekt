@@ -67,7 +67,7 @@
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.product.name}">football</td>
                         <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | HH:mm')}">begin</td>
-                        <td th:text="${#temporals.format(item.end, 'dd.MM.yyyy | HH:mm')}">end</td>
+                        <td th:text="${#temporals.format(item.end.plusHours(1), 'dd.MM.yyyy | HH:mm')}">end</td>
                         <td th:text="${item.duration}">1</td>
                         <td th:text="${item.price}">EUR 1</td>
                         <td>

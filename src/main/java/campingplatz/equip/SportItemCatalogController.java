@@ -106,6 +106,11 @@ public class SportItemCatalogController {
 		var currentDay = state.getDefaultedDay();
 		var time = currentDay.atStartOfDay().plusHours(9L + Long.valueOf(index));
 
+		if (time.isBefore(LocalDateTime.now())) {
+			model.addAttribute("error", "Selected time cannot be in the past.");
+			return showSportItemDetails(model, Optional.ofNullable(user), state, sportItem, reservationCart);
+		}
+
 		if (!reservationCart.containsEntry(sportItem, time)) {
 			reservationCart.addEntry(sportItem, time);
 		} else {

@@ -10,6 +10,10 @@
             <div class="grid grid-cols-2 gap-2">
                 <div class="m-2">
                     <form method="post" th:action="'/sportitem/'+${item.id}">
+                        <div th:if="${error}" class="alert alert-danger" role="alert">
+                            <span th:text="${error}"></span>
+                        </div>
+
                         <div class="grid grid-flow-col justify-around items-center">
                             <div>
                                 <h2 class="text-2xl font-bold" th:text="${item.name}">test</h2>
@@ -17,7 +21,8 @@
                                 <span class="p-2" th:text="'Kaution: '+${{item.deposit}}"></span>
                             </div>
                             <input class="input focus:outline-accent bg-base-200" type="date" name="day"
-                                th:value="${state.defaultedDay}" onchange="this.form.submit()">
+                                   th:value="${state.defaultedDay}" onchange="this.form.submit()"
+                                   min="${#temporals.createNow().format('yyyy-MM-dd')}">
                         </div>
                         <div class="mt-14">
                             <table class="table">
