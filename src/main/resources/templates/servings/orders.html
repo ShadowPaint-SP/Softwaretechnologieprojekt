@@ -62,8 +62,8 @@
                     <tr>
                         <th></th>
                         <th>sportitem</th>
-                        <th>arrival</th>
-                        <th>departure</th>
+                        <th>begin</th>
+                        <th>end</th>
                         <th>Anzahl</th>
                         <th>Preis</th>
                     </tr>
@@ -75,7 +75,8 @@
                                 th:href="@{/sportitem/{sportitem}(sportitem=${sportitems.product.id})}"></a>
                         </td>
                         <td th:text="${#temporals.format(sportitems.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
-                        <td th:text="${#temporals.format(sportitems.end, 'dd.MM.yyyy | HH:mm')}">daparture</td>
+                        <td th:text="${#temporals.format(sportitems.end.plusHours(1), 'dd.MM.yyyy | HH:mm')}">daparture
+                        </td>
                         <td th:text="${sportitems.duration}"></td>
                         <td th:text="${sportitems.getPrice}"></td>
                     </tr>

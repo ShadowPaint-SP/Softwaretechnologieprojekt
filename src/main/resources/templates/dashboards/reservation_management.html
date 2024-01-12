@@ -40,8 +40,8 @@
 						<td th:text="${reservation.user.lastname}"></td>
 						<td><a th:text="${reservation.product.name}"
 								th:href="@{/plotcatalog/details/{plot}(plot=${reservation.product.id})}"></a></td>
-						<td th:text="${reservation.begin}"></td>
-						<td th:text="${reservation.end}"></td>
+						<td th:text="${#temporals.format(reservation.begin, 'dd.MM.yyyy | 12:00')}"></td>
+						<td th:text="${#temporals.format(reservation.end, 'dd.MM.yyyy | 11:00')}"></td>
 						<td th:text="${reservation.price}"></td>
 					</tr>
 				</tbody>
