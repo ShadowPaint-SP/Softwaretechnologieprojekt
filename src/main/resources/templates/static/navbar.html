@@ -152,7 +152,7 @@
         <a href="/cart" sec:authorize="isAuthenticated()">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
             <div class="indicator">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -163,7 +163,7 @@
             </div>
           </div>
         </a>
-        <div class="pt-2">
+        <div>
           <label class="swap swap-rotate btn-ghost btn-circle">
             <input type="checkbox" class="dark-mode-checkbox" />
             <div class="swap-on tooltip tooltip-bottom" th:data-tip="#{darkmode}">
@@ -180,29 +180,18 @@
             </div>
           </label>
         </div>
-        <div class="dropdown dropdown-end">
+        <div class="dropdown dropdown-end h-12">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
             <div class="avatar placeholder">
-              <div class="rounded-full w-10">
-                <!-- <span>AN</span> -->
-                <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <g id="test">
+              <div class="rounded-full">
+                <svg viewBox="0 0 24 24" fill="none" class="stroke-current w-8 h-8" xmlns="http://www.w3.org/2000/svg">
+                  <g>
                     <path
-                       d="M 12,7  a3 3 0 0 1 1.5 5.5 l3 0 a1 1 0 0 1 1 1 l 0 7 A 10 10 0 0 0 12 2"  />
-                    <path
-                       d="M 12.1,7  a3 3 0 0 0 -1.5 5.5 l-3 0 a1 1 0 0 0 -1 1 l 0 7 A 10 10 0 0 1 12.1 2"  />
-                    
-                 </g>
-              
-                 <style>
-                    *{
-              
-                       stroke-width: .5px;
-                       stroke: black;
-                       fill: black;
-                    }
-                 </style>
+                      d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
                 </svg>
               </div>
             </div>
