@@ -81,32 +81,34 @@
                 </div>
                 <div class="flex flex-col justify-around items-center">
                     <label class="label-text" th:text="#{catalog.plot.size}">Größe in Quadratmeter:</label>
-                    <div class="flex flex-row">
-                        <div class="px-2">
-                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="sizeMin"
-                                th:value="${searchQuery.sizeMin}" th:placeholder="#{catalog.ranges.from}"
-                                onchange="this.form.submit()">
+                    <div class="flex flex-row join">
+                        <input class="input input-sm w-24 focus:outline-accent join-item" type="number" name="sizeMin"
+                            th:value="${searchQuery.sizeMin}" th:placeholder="#{catalog.ranges.from}"
+                            onchange="this.form.submit()">
+                        <div class="join-item bg-base-100 w-2 fill-current flex justify-center">
+                            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1z"></path>
+                            </svg>
                         </div>
-                        <div class="px-2">
-                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="sizeMax"
-                                th:value="${searchQuery.sizeMax}" th:placeholder="#{catalog.ranges.to}"
-                                onchange="this.form.submit()">
-                        </div>
+                        <input class="input input-sm w-24 focus:outline-accent join-item" type="number" name="sizeMax"
+                            th:value="${searchQuery.sizeMax}" th:placeholder="#{catalog.ranges.to}"
+                            onchange="this.form.submit()">
                     </div>
                 </div>
                 <div class="flex flex-col justify-around items-center">
                     <label class="label-text" th:text="#{catalog.plot.price}">Price:</label>
-                    <div class="flex flex-row">
-                        <div class="px-2">
-                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="priceMin"
-                                th:value="${searchQuery.priceMin}" th:placeholder="#{catalog.ranges.from}"
-                                onchange="this.form.submit()">
+                    <div class="flex flex-row join">
+                        <input class="input input-sm w-24 focus:outline-accent join-item" type="number" name="priceMin"
+                            th:value="${searchQuery.priceMin}" th:placeholder="#{catalog.ranges.from}"
+                            onchange="this.form.submit()">
+                        <div class="join-item bg-base-100 w-2 fill-current flex justify-center">
+                            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1z"></path>
+                            </svg>
                         </div>
-                        <div class="px-2">
-                            <input class="input input-sm w-24 focus:outline-accent" type="number" name="priceMax"
-                                th:value="${searchQuery.priceMax}" th:placeholder="#{catalog.ranges.to}"
-                                onchange="this.form.submit()">
-                        </div>
+                        <input class="input input-sm w-24 focus:outline-accent join-item" type="number" name="priceMax"
+                            th:value="${searchQuery.priceMax}" th:placeholder="#{catalog.ranges.to}"
+                            onchange="this.form.submit()">
                     </div>
                 </div>
             </div>

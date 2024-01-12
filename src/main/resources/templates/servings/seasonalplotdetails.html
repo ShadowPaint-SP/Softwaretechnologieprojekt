@@ -8,45 +8,53 @@
     <main layout:fragment="input">
         <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
             <div class="grid grid-cols-2 gap-2">
-                <div class="m-2">
+                <div class="m-2 flex flex-col justify-between">
                     <div class="grid grid-flow-col justify-around items-center">
                         <div>
                             <h2 class="text-2xl font-bold" th:text="${item.name}"></h2>
                             <p th:text="'Preis: '+${{item.price}}"></p>
                             <p th:text="${item.desc}"></p>
-
                             <div th:if="${plot.averageRating == 0}">
-                                <strong>Es wurde noch keine Bewertung zu diesem Platz abgegeben.</strong>
+                                <span class="font-bold">Es wurde noch keine Bewertung zu diesem Platz abgegeben.</span>
                             </div>
                             <div th:if="${plot.averageRating > 0}">
-                                <strong
-                                    th:text="'Durchschnittliche Platzbewertung: '+ ${plot.averageRating}+'/5 Sternen'"></strong>
+                                <span class="font-bold"
+                                    th:text="'Durchschnittliche Platzbewertung: '+ ${plot.averageRating}+'/5'"></span>
+
+                                <input disabled class="mask mask-star-2 bg-orange-400 h-5 w-5"></input>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-14" sec:authorize="isAuthenticated()">
+                    <div sec:authorize="isAuthenticated()">
                         <form th:action="'/seasonalplotcatalog/details/'+${item.id}+'/comments'" method="post">
-                            <div class="rating">
-                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="1"
-                                    id="rating" />
-                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="2"
-                                    id="rating" />
-                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="3"
-                                    id="rating" />
-                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="4"
-                                    id="rating" />
-                                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="5"
-                                    id="rating" checked />
+                            <div th:if="${error}" role="alert" class="alert alert-error mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6"
+                                    fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Sie müssen den Platz besucht haben um ein Kommentar
+                                    zu hinterlassen.</span>
                             </div>
                             <textarea name="comment" id="comment"
                                 class="textarea w-full min-h-full resize-none invalid:focus:outline-error focus:outline-accent"
                                 autofocus minlength="4" maxlength="255"
                                 placeholder="Hinterlasse einen Kommentar zu diesen Platz." required></textarea>
-                            <button class="btn" type="submit">Kommentar absenden</button>
-
-                            <p th:if="${error}" style="color: red;">Sie müssen den Platz besucht haben um ein Kommentar
-                                zu hinterlassen.</p>
-
+                            <div class="flex flex-row justify-between pt-4">
+                                <div class="rating my-auto">
+                                    <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="1"
+                                        id="rating" />
+                                    <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="2"
+                                        id="rating" />
+                                    <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="3"
+                                        id="rating" />
+                                    <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="4"
+                                        id="rating" />
+                                    <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="5"
+                                        id="rating" checked />
+                                </div>
+                                <button class="btn btn-secondary" type="submit">Kommentar absenden</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -57,23 +65,42 @@
                 </div>
             </div>
         </div>
-        <div class="container mx-auto alert mt-4" th:each="comment : ${item.comments}">
-            <div class="rating items-start">
-                <span class="font-bold" th:text="${comment.rating}"></span>
-                <input disabled class="mask mask-star-2 bg-orange-400"></input>
+        <div class="chat chat-start container mx-auto mt-4" th:each="comment : ${item.comments}">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full bg-base-300">
+                    <svg viewBox="0 0 24 24" fill="none" class="stroke-current" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
             </div>
-            <div>
-                <strong th:text="${comment.firstName+' '+comment.lastName}"></strong>
-                <br />
+            <div class="chat-header">
+                <div class="rating items-start">
+                    <span class="font-bold" th:text="${comment.rating}"></span>
+                    <input disabled class="mask mask-star-2 bg-orange-400 h-5 w-5"></input>
+                    <div sec:authorize="hasRole('BOSS')">
+                        <form method="post" th:action="'/plotcatalog/details/'+${item.id}+'/comments/'+${comment.id}">
+                            <button class="btn btn-xs btn-ghost" type="submit">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 41.336 41.336">
+                                    <path
+                                        d="M36.335,5.668h-8.167V1.5c0-0.828-0.672-1.5-1.5-1.5h-12c-0.828,0-1.5,0.672-1.5,1.5v4.168H5.001c-1.104,0-2,0.896-2,2 s0.896,2,2,2h2.001v29.168c0,1.381,1.119,2.5,2.5,2.5h22.332c1.381,0,2.5-1.119,2.5-2.5V9.668h2.001c1.104,0,2-0.896,2-2 S37.438,5.668,36.335,5.668z M14.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21c0-0.828,0.672-1.5,1.5-1.5 s1.5,0.672,1.5,1.5V35.67z M22.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21c0-0.828,0.672-1.5,1.5-1.5 s1.5,0.672,1.5,1.5V35.67z M25.168,5.668h-9V3h9V5.668z M30.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21 c0-0.828,0.672-1.5,1.5-1.5s1.5,0.672,1.5,1.5V35.67z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <span th:text="${comment.firstName+' '+comment.lastName}"></span>
+                <time class="text-xs opacity-50"
+                    th:text="${#temporals.format(comment.time, 'dd.MM.yyyy | HH:mm')}">12:45</time>
+            </div>
+            <div class="chat-bubble">
                 <span th:text="${comment.text}"></span>
-            </div>
-            <div>
-                <span th:text="${#temporals.format(comment.time, 'dd.MM.yyyy | HH:mm')}" style="float: right;"></span>
-            </div>
-            <div sec:authorize="hasRole('BOSS')">
-                <form method="post" th:action="'/seasonalplotcatalog/details/'+${item.id}+'/comments/'+${comment.id}">
-                    <button class="btn btn-primary" type="submit">Kommentar löschen</button>
-                </form>
+
             </div>
         </div>
     </main>
