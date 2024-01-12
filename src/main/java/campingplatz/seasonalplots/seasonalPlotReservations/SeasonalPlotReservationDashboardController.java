@@ -4,7 +4,12 @@ import java.util.List;
 import java.util.UUID;
 
 import org.salespointframework.accountancy.Accountancy;
+import org.salespointframework.time.BusinessTime;
+import org.salespointframework.time.BusinessTime.DayHasPassed;
+import org.salespointframework.time.BusinessTime.MonthHasPassed;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +27,16 @@ public class SeasonalPlotReservationDashboardController {
 	SeasonalPlotReservationRepository plotReservations;
 	Accountancy accountancy;
 	SeasonalPlotCatalog seasonalPlotCatalog;
+	BusinessTime businessTime;
 
 	SeasonalPlotReservationDashboardController(
 			SeasonalPlotReservationRepository plotReservations,
+			BusinessTime businessTime,
 			Accountancy accountancy, SeasonalPlotCatalog plotCatalog) {
 		this.plotReservations = plotReservations;
 		this.accountancy = accountancy;
 		this.seasonalPlotCatalog = plotCatalog;
+		this.businessTime = businessTime;
 	}
 
 	@GetMapping("/management/seasonalreservation")
@@ -86,5 +94,6 @@ public class SeasonalPlotReservationDashboardController {
 
 		Double getNewWaterMeter();
 	}
+
 
 }

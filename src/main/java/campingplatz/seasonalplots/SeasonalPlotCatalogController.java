@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
@@ -159,10 +158,5 @@ public class SeasonalPlotCatalogController {
 		int getRating();
 	}
 
-	@GetMapping("/forward/{days}")
-	String forwardTime(Model model, @PathVariable("days") int days) {
-		businessTime.forward(Duration.ofDays(days));
 
-		return "redirect:/seasonalplotcatalog";
-	}
 }
