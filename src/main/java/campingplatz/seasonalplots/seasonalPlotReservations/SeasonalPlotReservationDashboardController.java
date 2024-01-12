@@ -96,4 +96,30 @@ public class SeasonalPlotReservationDashboardController {
 	}
 
 
+
+	public void dayHasPassed(){
+		System.out.println("Day has passed");
+
+		List<SeasonalPlotReservation> all = plotReservations.findAll();
+		for (var plot : all){
+			plot.updateMonthlyPayment(businessTime.getTime());
+			plotReservations.save(plot);
+		}
+
+	}
+
+	@Component
+	class TimedEventListener {
+
+		@EventListener
+		void on(DayHasPassed event) {
+			dayHasPassed();
+			// Code to be triggered daily goes here
+		}
+
+		@EventListener
+		void on(MonthHasPassed event) {
+			// Code to be triggered monthly goes here
+		}
+	}
 }

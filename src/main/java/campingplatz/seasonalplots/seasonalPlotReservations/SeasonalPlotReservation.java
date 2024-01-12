@@ -3,7 +3,6 @@ package campingplatz.seasonalplots.seasonalPlotReservations;
 import campingplatz.reservation.Reservation;
 import campingplatz.seasonalplots.Config;
 import campingplatz.seasonalplots.SeasonalPlot;
-import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation.PayMethod;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 
@@ -19,6 +18,10 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
 	@Getter
 	private PayMethod payMethod;
+
+	@Getter
+	private int payed_months;
+	//we need to wich moth is payed for payMethod.MONTHLY
 
 	private Double electricityDifference;
 	private Double waterDifference;
@@ -88,4 +91,12 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 	public void setWaterDifference(Double newWaterMeter) {
 		this.waterDifference = this.waterDifference + getProduct().settlementWater(newWaterMeter, waterDifference);
 	}
+
+	void updateMonthlyPayment(LocalDateTime date){
+		/* reset PAYED status if month has passed and PayMethod is MONTHLY */
+		if (date.isAfter(this.getBegin().plusMonths(payed_months)) && getState() == State.PAYED && payMethod == PayMethod.MONTHLY){
+			this.setState(State.TAKEN);
+		}
+	}
+
 }
