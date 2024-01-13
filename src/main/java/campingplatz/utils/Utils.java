@@ -1,5 +1,8 @@
 package campingplatz.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Utils {
 
 	// hide constructor
@@ -14,6 +17,10 @@ public class Utils {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public static String formatDate(LocalDateTime date){
+		return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")).replace("-", ".").replace(" ", " | ");
 	}
 
 }
