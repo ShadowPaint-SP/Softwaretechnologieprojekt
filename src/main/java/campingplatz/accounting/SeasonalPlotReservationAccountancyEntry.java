@@ -4,8 +4,6 @@ import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservati
 import campingplatz.utils.Utils;
 import jakarta.persistence.Entity;
 
-import java.time.format.DateTimeFormatter;
-
 import org.salespointframework.accountancy.AccountancyEntry;
 
 @Entity
@@ -14,7 +12,7 @@ public class SeasonalPlotReservationAccountancyEntry extends AccountancyEntry {
 	private static String description(SeasonalPlotReservation reservation) {
 
 		String ret = "";
-		String format = "|%1$-60s|%2$-20s|%3$-17s|%4$-17s|\n";
+		String format = "%1$-40s,%2$-20s,%3$-17s,%4$-17s\n";
 
 		ret += String.format(format, 
 			"Product Name: ",
@@ -30,9 +28,7 @@ public class SeasonalPlotReservationAccountancyEntry extends AccountancyEntry {
 			Utils.formatDate(reservation.getEnd())
 		);
 		
-		System.out.format(ret);
 		return ret;
-
 	}
 
 	public SeasonalPlotReservationAccountancyEntry(SeasonalPlotReservation reservation) {

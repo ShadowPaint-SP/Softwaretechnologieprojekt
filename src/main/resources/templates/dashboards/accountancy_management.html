@@ -28,7 +28,11 @@
 								<label th:text="${entry.value}" class="input input-sm w-full focus:outline-accent"></label>
 							</td>
 							<td>
-								<p style="white-space: pre;" th:text="${entry.description}" ></p>
+								<table >
+									<tr th:each="each : ${entry.description.split('\n')}" >
+										<td th:each="each : ${each.split(',')}" th:text="${each}"></td>
+									</tr>
+								</table>
 							</td>
 						</form>
 					</tr>
