@@ -10,11 +10,11 @@
                 <thead class="bg-secondary">
                     <tr>
                         <th></th>
-                        <th>Plot</th>
-                        <th>arrival</th>
-                        <th>departure</th>
-                        <th>Anzahl</th>
-                        <th>Preis</th>
+                        <th th:text="#{plot}">name</th>
+                        <th th:text="#{plot.begin}">arrival</th>
+                        <th th:text="#{plot.end}">departure</th>
+                        <th th:text="#{plot.days}">days</th>
+                        <th th:text="#{plot.getPrice}">price</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,7 +22,7 @@
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${plot.product.name}">name</td>
                         <td th:text="${#temporals.format(plot.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
-                        <td th:text="${#temporals.format(plot.end, 'dd.MM.yyyy | 11:00')}">daparture</td>
+                        <td th:text="${#temporals.format(plot.end, 'dd.MM.yyyy | 11:00')}">departure</td>
                         <td th:text="${plot.duration}">days</td>
                         <td th:text="${plot.getPrice}">price</td>
                     </tr>
@@ -34,11 +34,11 @@
                 <thead class="bg-secondary">
                     <tr>
                         <th></th>
-                        <th>SeasonalPlot</th>
-                        <th>arrival</th>
-                        <th>departure</th>
-                        <th>Anzahl</th>
-                        <th>Preis</th>
+                        <th th:text="#{seasonalplot}">name</th>
+                        <th th:text="#{plot.begin}">arrival</th>
+                        <th th:text="#{plot.end}">departure</th>
+                        <th th:text="#{plot.month}">months</th>
+                        <th th:text="#{plot.getPrice}">price</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${seasonalplot.product.name}"></td>
                         <td th:text="${#temporals.format(seasonalplot.begin, 'dd.MM.yyyy')}">arrival</td>
-                        <td th:text="${#temporals.format(seasonalplot.end, 'dd.MM.yyyy')}">daparture</td>
+                        <td th:text="${#temporals.format(seasonalplot.end, 'dd.MM.yyyy')}">departure</td>
                         <td th:text="${seasonalplot.duration}"></td>
                         <td th:text="${seasonalplot.getPrice}"></td>
                     </tr>
@@ -58,11 +58,11 @@
                 <thead class="bg-secondary">
                     <tr>
                         <th></th>
-                        <th>sportitem</th>
-                        <th>arrival</th>
-                        <th>departure</th>
-                        <th>Anzahl</th>
-                        <th>Preis</th>
+                        <th th:text="#{sport.name}">name</th>
+                        <th th:text="#{sport.begin}">begin</th>
+                        <th th:text="#{sport.end}">end</th>
+                        <th th:text="#{sport.hours}">duration</th>
+                        <th th:text="#{plot.getPrice}">price</th>
                     </tr>
                 </thead>
                 <tbody>

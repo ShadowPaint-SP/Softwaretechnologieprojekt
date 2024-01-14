@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import campingplatz.reservation.Reservation;
+import campingplatz.seasonalplots.SeasonalPlotCatalog;
 import jakarta.validation.Valid;
 
 @Controller
@@ -18,12 +19,14 @@ public class SeasonalPlotReservationDashboardController {
 
 	SeasonalPlotReservationRepository plotReservations;
 	Accountancy accountancy;
+	SeasonalPlotCatalog seasonalPlotCatalog;
 
 	SeasonalPlotReservationDashboardController(
 			SeasonalPlotReservationRepository plotReservations,
-			Accountancy accountancy) {
+			Accountancy accountancy, SeasonalPlotCatalog plotCatalog) {
 		this.plotReservations = plotReservations;
 		this.accountancy = accountancy;
+		this.seasonalPlotCatalog = plotCatalog;
 	}
 
 	@GetMapping("/management/seasonalreservation")
@@ -41,20 +44,13 @@ public class SeasonalPlotReservationDashboardController {
 
 		var uuid = info.getReservationUUID();
 		var reservation = plotReservations.findById(uuid).get();
-		// var oldState = reservation.getState();
+		var plot = reservation.getProduct();
+		plot.setElectricityMeter(info.getNewElectricityMeter());
+		plot.setWaterMeter(info.getNewWaterMeter());
+		seasonalPlotCatalog.save(plot);
 
 		var newState = Reservation.State.fromNumber(info.getStateValue());
-
-		// if (oldState == Reservation.State.PAYED && newState !=
-		// Reservation.State.PAYED){
-		// var entry = new PlotReservationDeductionEntry(reservation);
-		// accountancy.add(entry);
-		// }
-		// if (oldState != Reservation.State.PAYED && newState ==
-		// Reservation.State.PAYED){
-		// var entry = new PlotReservationAccountancyEntry(reservation);
-		// accountancy.add(entry);
-		// }
+		var costsMeter = reservation.getPrice();
 
 		// update and save
 		reservation.setState(newState);
@@ -70,6 +66,9 @@ public class SeasonalPlotReservationDashboardController {
 
 		Integer getStateValue();
 
+		Double getNewElectricityMeter();
+
+		Double getNewWaterMeter();
 	}
 
 }
