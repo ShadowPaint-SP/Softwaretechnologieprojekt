@@ -20,6 +20,9 @@ public class Utils {
 	}
 
 	public static String formatDate(LocalDateTime date){
+		return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")).replace("-", ".");
+	}
+	public static String formatDateTime(LocalDateTime date){
 		return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")).replace("-", ".").replace(" ", " | ");
 	}
 

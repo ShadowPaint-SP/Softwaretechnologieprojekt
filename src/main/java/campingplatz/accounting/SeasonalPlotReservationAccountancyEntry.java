@@ -14,13 +14,25 @@ public class SeasonalPlotReservationAccountancyEntry extends AccountancyEntry {
 	private static String description(SeasonalPlotReservation reservation) {
 
 		String ret = "";
+		String format = "|%1$-60s|%2$-20s|%3$-17s|%4$-17s|\n";
 
-		ret += "Product Name: " + reservation.getProduct().getName() + ",\n";
-		ret += "Nutzer Name: " + reservation.getUser().getUsername() + ",\n";
-		ret += "von: " + Utils.formatDate(reservation.getBegin()) + ",\n";
-		ret += "bis: " + Utils.formatDate(reservation.getEnd());
+		ret += String.format(format, 
+			"Product Name: ",
+			"Nutzer Name: ",
+			"von: ",
+			"bis: "
+		);
 
+		ret += String.format(format, 
+			reservation.getProduct().getName().replace("\n", " "),
+			reservation.getUser().getUsername(),
+			Utils.formatDate(reservation.getBegin()),
+			Utils.formatDate(reservation.getEnd())
+		);
+		
+		System.out.format(ret);
 		return ret;
+
 	}
 
 	public SeasonalPlotReservationAccountancyEntry(SeasonalPlotReservation reservation) {
