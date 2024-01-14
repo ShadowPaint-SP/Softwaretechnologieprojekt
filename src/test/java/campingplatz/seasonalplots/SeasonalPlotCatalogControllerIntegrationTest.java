@@ -55,7 +55,7 @@ class SeasonalPlotCatalogControllerIntegrationTest {
 	void forwardTime() throws Exception {
 		// isn't this the dev function?
 		int days = 10;
-		mockMvc.perform(get("/forward/" + days))
+		mockMvc.perform(get("/forward/" + days + "/seasonalplotcatalog"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/seasonalplotcatalog"));
 	}
