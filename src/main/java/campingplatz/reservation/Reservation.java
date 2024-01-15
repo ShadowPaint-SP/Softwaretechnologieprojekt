@@ -123,7 +123,7 @@ public abstract class Reservation<T extends Product> implements Priced {
 
 	@Override
 	public Boolean hasDiscount(){
-		return discount <= 0;
+		return discount > 0;
 	}
 
 
