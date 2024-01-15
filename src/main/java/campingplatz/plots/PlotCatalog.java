@@ -14,7 +14,4 @@ public interface PlotCatalog extends Catalog<Plot> {
 
     List<Plot> findByState(Plot.State state);
 
-    public class SiteState {
-    }
-
 }
