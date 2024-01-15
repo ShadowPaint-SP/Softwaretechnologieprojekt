@@ -209,7 +209,7 @@ class PlotCatalogController {
 
     @GetMapping("/plotcatalog/details/{plot}")
     public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
-            @Valid PlotCatalog.SiteState query, @PathVariable Plot plot) {
+            @Valid SiteState query, @PathVariable Plot plot) {
         model.addAttribute("item", plot);
         if (model.containsAttribute("error")) {
             System.out.println("model contains error");
