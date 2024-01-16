@@ -8,6 +8,8 @@ import campingplatz.plots.plotdiscounts.PlotReservationDiscounter;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 
 import org.salespointframework.useraccount.UserAccount;
@@ -31,7 +33,7 @@ import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes({ "plotCart", "SportItemCart" })
+@SessionAttributes({ "plotCart", "SportItemCart", "seasonalCart"})
 @EnableScheduling
 class ReservationController {
 
@@ -63,9 +65,15 @@ class ReservationController {
 		return new SportItemCart();
 	}
 
+	@ModelAttribute("seasonalCart")
+    SeasonalPlotCart initializeSeasonalCart() {
+        return new SeasonalPlotCart();
+    }
+
 	@GetMapping("/cart")
 	String cart(Model model, @LoggedIn UserAccount userAccount,
 			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("seasonalCart") SeasonalPlotCart seasonalPlotCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		// dont forget to set the user account before getting the reservations.
@@ -82,6 +90,9 @@ class ReservationController {
 
 		var sportsReservations = sportItemCart.getReservations(userAccount);
 		model.addAttribute("sportsReservations", sportsReservations);
+		
+		var seasonalReservations = seasonalPlotCart.getReservations(userAccount);
+		model.addAttribute("seasonalReservations", seasonalReservations);
 
 		var plotPrice = plotReservations.getPrice();
 		var sportsPrice = sportsReservations.getPrice();
@@ -125,6 +136,7 @@ class ReservationController {
 	@PostMapping("/checkout")
 	String reservate(Model model, @LoggedIn UserAccount userAccount,
 			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("seasonalCart") SeasonalPlotCart seasonPlotCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		// dont forget to set the user account before getting the reservations.
@@ -146,6 +158,10 @@ class ReservationController {
 		sportItemReservationRepository.saveAll(validSportReservation);
 		sportItemCart.clear();
 
+		List<SeasonalPlotReservation> seasonalPlotReservations = seasonPlotCart.getReservations(userAccount);
+		seasonalPlotReservationRepository.saveAll(seasonalPlotReservations);
+		seasonPlotCart.clear();
+		
 		return "redirect:/orders";
 	}
 
