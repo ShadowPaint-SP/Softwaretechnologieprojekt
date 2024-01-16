@@ -16,15 +16,15 @@ import java.time.temporal.ChronoUnit;
 @Entity
 public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
-	@Getter
-	private PayMethod payMethod;
 
 	@Getter
 	private int payed_months;
 	// we need to wich moth is payed for payMethod.MONTHLY
 
-	private Double electricityDifference;
-	private Double waterDifference;
+	private PayMethod payMethod = PayMethod.YEARLY;
+
+	private Double electricityDifference = 0.0;
+	private Double waterDifference = 0.0;
 
 	public SeasonalPlotReservation() {
 		super();
@@ -34,8 +34,6 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 			PayMethod payMethod) {
 		super(user, product, begin, end);
 		this.payMethod = payMethod;
-		this.electricityDifference = 0.0;
-		this.waterDifference = 0.0;
 	}
 
 	@Override

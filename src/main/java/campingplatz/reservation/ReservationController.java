@@ -8,6 +8,9 @@ import campingplatz.plots.plotdiscounts.PlotReservationDiscounter;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
+import campingplatz.seasonalplots.SeasonalPlotCatalogController;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 
 import org.salespointframework.useraccount.UserAccount;
@@ -31,7 +34,7 @@ import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes({ "plotCart", "SportItemCart" })
+@SessionAttributes({ "plotCart", "SportItemCart", "seasonalCart"})
 @EnableScheduling
 class ReservationController {
 
@@ -63,9 +66,15 @@ class ReservationController {
 		return new SportItemCart();
 	}
 
+	@ModelAttribute("seasonalCart")
+    SeasonalPlotCart initializeSeasonalCart() {
+        return new SeasonalPlotCart();
+    }
+
 	@GetMapping("/cart")
 	String cart(Model model, @LoggedIn UserAccount userAccount,
 			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("seasonalCart") SeasonalPlotCart seasonalPlotCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		// dont forget to set the user account before getting the reservations.
@@ -82,6 +91,9 @@ class ReservationController {
 
 		var sportsReservations = sportItemCart.getReservations(userAccount);
 		model.addAttribute("sportsReservations", sportsReservations);
+		
+		var seasonalReservations = seasonalPlotCart.getReservations(userAccount);
+		model.addAttribute("seasonalReservations", seasonalReservations);
 
 		var plotPrice = plotReservations.getPrice();
 		var sportsPrice = sportsReservations.getPrice();
@@ -105,6 +117,7 @@ class ReservationController {
 	String removeCartItem(Model model, @LoggedIn UserAccount userAccount, @PathVariable("index") int index,
 			@PathVariable("type") String type,
 			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("seasonalCart") SeasonalPlotCart seasonalPlotCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		if (type.equals("PlotReservation")) {
@@ -118,6 +131,12 @@ class ReservationController {
 			var item = cart.get(index - 1);
 			sportItemCart.remove(item);
 		}
+		else if (type.equals("SeasonalPlotReservation")){
+			var cart = seasonalPlotCart.getReservationsOfUser(userAccount);
+			var item = cart.get(index - 1);
+			seasonalPlotCart.remove(item);
+
+		}
 
 		return "redirect:/cart";
 	}
@@ -125,6 +144,7 @@ class ReservationController {
 	@PostMapping("/checkout")
 	String reservate(Model model, @LoggedIn UserAccount userAccount,
 			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("seasonalCart") SeasonalPlotCart seasonPlotCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		// dont forget to set the user account before getting the reservations.
@@ -146,6 +166,11 @@ class ReservationController {
 		sportItemReservationRepository.saveAll(validSportReservation);
 		sportItemCart.clear();
 
+		List<SeasonalPlotReservation> seasonalPlotReservations = seasonPlotCart.getReservationsOfUser(userAccount);
+		
+		seasonalPlotReservationRepository.saveAll(seasonalPlotReservations);
+		seasonPlotCart.clear();
+		
 		return "redirect:/orders";
 	}
 
