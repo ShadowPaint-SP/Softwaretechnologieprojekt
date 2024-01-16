@@ -22,13 +22,17 @@
 								1
 							</td>
 							<td>
-								<label th:text="${entry.date.get()}" class="input input-sm w-full focus:outline-accent"></label>
+								<label th:text="${#temporals.format(entry.date.get(), 'dd.MM.yyyy | HH:mm')}" class="input input-sm w-full focus:outline-accent"></label>
 							</td>
 							<td>
 								<label th:text="${entry.value}" class="input input-sm w-full focus:outline-accent"></label>
 							</td>
 							<td>
-								<label th:text="${entry.description}" class="input input-sm w-full focus:outline-accent"></label>
+								<table >
+									<tr th:each="each : ${entry.description.split('\n')}" >
+										<td th:each="each : ${each.split(',')}" th:text="${each}"></td>
+									</tr>
+								</table>
 							</td>
 						</form>
 					</tr>

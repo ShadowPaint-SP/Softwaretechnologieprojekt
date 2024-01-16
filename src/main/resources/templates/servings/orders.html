@@ -10,11 +10,11 @@
                 <thead class="bg-secondary">
                     <tr>
                         <th></th>
-                        <th>Plot</th>
-                        <th>arrival</th>
-                        <th>departure</th>
-                        <th>Anzahl</th>
-                        <th>Preis</th>
+                        <th th:text="#{plot}">name</th>
+                        <th th:text="#{plot.begin}">arrival</th>
+                        <th th:text="#{plot.end}">departure</th>
+                        <th th:text="#{plot.days}">days</th>
+                        <th th:text="#{plot.getPrice}">price</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,7 +23,7 @@
                         <td><a th:text="${plot.product.name}"
                                 th:href="@{/plotcatalog/details/{plot}(plot=${plot.product.id})}"></a></td>
                         <td th:text="${#temporals.format(plot.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
-                        <td th:text="${#temporals.format(plot.end, 'dd.MM.yyyy | 11:00')}">daparture</td>
+                        <td th:text="${#temporals.format(plot.end, 'dd.MM.yyyy | 11:00')}">departure</td>
                         <td th:text="${plot.duration}">days</td>
                         <td th:text="${plot.price}">price</td>
                     </tr>
@@ -35,11 +35,12 @@
                 <thead class="bg-secondary">
                     <tr>
                         <th></th>
-                        <th>SeasonalPlot</th>
-                        <th>arrival</th>
-                        <th>departure</th>
-                        <th>Anzahl</th>
-                        <th>Preis</th>
+                        <th th:text="#{seasonalplot}">name</th>
+                        <th th:text="#{plot.begin}">arrival</th>
+                        <th th:text="#{plot.end}">departure</th>
+                        <th th:text="#{plot.month}">months</th>
+                        <th th:text="#{plot.getPrice}">price</th>
+                        <th th:text="#{plot.payMethod}">payment iterval</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,9 +50,11 @@
                                 th:href="@{/plotcatalog/details/{seasonplot}(seasonplot=${seasonalplot.product.id})}"></a>
                         </td>
                         <td th:text="${#temporals.format(seasonalplot.begin, 'dd.MM.yyyy')}">arrival</td>
-                        <td th:text="${#temporals.format(seasonalplot.end, 'dd.MM.yyyy')}">daparture</td>
+                        <td th:text="${#temporals.format(seasonalplot.end, 'dd.MM.yyyy')}">departure</td>
                         <td th:text="${seasonalplot.duration}"></td>
                         <td th:text="${seasonalplot.getPrice}"></td>
+                        <td th:if="${seasonalplot.payMethod.index == 0}" th:text="#{seasonalcatalog.pay.monthly}">monthly</td>
+                        <td th:if="${seasonalplot.payMethod.index == 1}" th:text="#{seasonalcatalog.pay.yearly}">yearly</td>
                     </tr>
                 </tbody>
             </table>
@@ -61,11 +64,11 @@
                 <thead class="bg-secondary">
                     <tr>
                         <th></th>
-                        <th>sportitem</th>
-                        <th>begin</th>
-                        <th>end</th>
-                        <th>Anzahl</th>
-                        <th>Preis</th>
+                        <th th:text="#{sport.name}">name</th>
+                        <th th:text="#{sport.begin}">begin</th>
+                        <th th:text="#{sport.end}">end</th>
+                        <th th:text="#{sport.hours}">duration</th>
+                        <th th:text="#{plot.getPrice}">price</th>
                     </tr>
                 </thead>
                 <tbody>

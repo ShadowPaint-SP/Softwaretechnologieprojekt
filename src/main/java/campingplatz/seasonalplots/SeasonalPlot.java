@@ -33,17 +33,23 @@ public class SeasonalPlot extends Plot {
 	public SeasonalPlot() {
 	}
 
-	public MonetaryAmount settlementElectricity(double electricityMeter) { // returns the electricity costs for this
+	public Double settlementElectricity(double electricityMeter, Double difference) { // returns the electricity difference for this
 		// time period
 		double electricity = electricityMeter - this.electricityMeter;
+		if(electricity + difference < 0.0) {
+			return 0.0;
+		}
 		this.electricityMeter = electricityMeter;
-		return Config.getElectricityCosts().multiply(electricity);
+		return electricity;
 	}
 
-	public MonetaryAmount settlementWater(double waterMeter) { // returns the water costs for this time period
+	public Double settlementWater(double waterMeter, Double difference) { // returns the water differnce for this time period
 		double water = waterMeter - this.waterMeter;
+		if(water + difference < 0.0) {
+			return 0.0;
+		}
 		this.waterMeter = waterMeter;
-		return Config.getWaterCosts().multiply(water);
+		return water;
 	}
 
 	public static LocalDateTime getArrival(LocalDateTime now) {
