@@ -64,6 +64,7 @@ package campingplatz{
         -userAccounts: UserAccountManagement
         +CustomerManagement(CustomerRepository customers, UserAccountManagement userAccounts)
         +create(String email, UnencryptedPassword password, Role roles, String firstname, String lastname): Customer
+        +save(Customer customer): void
         +findAll(): Streamable<Customer>
         +findByUUID(UUID id): Optional<Customer>
         }
@@ -86,7 +87,14 @@ Roles -r-+ Customer
 CustomerDataInitializer -[hidden]u- CustomerDashboardController
 CustomerManagement -[hidden]u- CustomerDataInitializer
 CustomerDataInitializer --|> org.salespointframework.core.DataInitializer
-CustomerDashboardController -[hidden]r- CustomerRepository
+
 CustomerRepository --|> org.springframework.data.repository.CrudRepository: <<bind T->Customer, ID->UUID>>
 RegistrationForm -[hidden]d- CustomerManagement
+CustomerController ..> RegistrationForm : <<use>>
+CustomerDataInitializer ..> CustomerManagement : <<use>>
+CustomerDashboardController ..> CustomerManagement : <<use>>
+CustomerManagement .r.> CustomerRepository : <<use>>
+CustomerManagement ..> Customer : <<use>>
+CustomerController ..> CustomerManagement : <<use>>
+
 @enduml
