@@ -84,6 +84,7 @@ class ReservationController {
 		sportItemCart.setUser(userAccount);
 
 		var plotReservations = reservationCart.getReservations(userAccount);
+		var seasonalReservations = seasonalPlotCart.getReservations(userAccount);
 		var plotDiscounts = plotReservationDiscountRepository.findAll();
 		var plotDiscounter = new PlotReservationDiscounter(plotReservations, plotDiscounts);
 		plotDiscounter.applyDiscountToAll(plotReservations);
@@ -92,12 +93,13 @@ class ReservationController {
 		var sportsReservations = sportItemCart.getReservations(userAccount);
 		model.addAttribute("sportsReservations", sportsReservations);
 		
-		var seasonalReservations = seasonalPlotCart.getReservations(userAccount);
-		model.addAttribute("seasonalReservations", seasonalReservations);
+		var seasonalOrders = seasonalPlotCart.getReservationsOfUser(userAccount);
+		model.addAttribute("seasonalReservations", seasonalOrders);
 
 		var plotPrice = plotReservations.getPrice();
 		var sportsPrice = sportsReservations.getPrice();
-		var totalDiscountedPrice = plotPrice.add(sportsPrice);
+		var seasonalPrice = seasonalReservations.getPrice();
+		var totalDiscountedPrice = plotPrice.add(sportsPrice).add(seasonalPrice);
 		model.addAttribute("totalPrice", totalDiscountedPrice);
 
 		var plotFullPrice = plotReservations.getPreDiscountPrice();
