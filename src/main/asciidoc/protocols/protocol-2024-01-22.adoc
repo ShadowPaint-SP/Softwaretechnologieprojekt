@@ -1,0 +1,30 @@
+= Protokoll Gruppe 06
+
+Treffen am 22.01.2024
+
+Ort:      0.46 SLUB +
+Beginn:   14:50 Uhr +
+Ende:     16:20 Uhr
+
+__Schriftführer:__
+Tom Fiedler
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Fiedler (Scrum-Master)
+- Daniel Arsenev
+- Vincent Ponizil
+- Armin Stegner
+- Jannes Müller
+- Irina Drumeva
+- Richard Voigtmann
+
+== Bemerkungen
+
+== Retrospektive des letzten Sprints
+
+== Planung des nächsten Sprints
+
+|===
+
