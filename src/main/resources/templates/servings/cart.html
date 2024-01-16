@@ -100,8 +100,8 @@
                     <tr th:each="item, iStat : ${seasonalReservations}" class="hover">
                         <th th:text="${iStat.count}">1</th>
                         <td th:text="${item.product.name}">place on the lake</td>
-                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy | 12:00')}">arrival</td>
-                        <td th:text="${#temporals.format(item.end.plusDays(1), 'dd.MM.yyyy | 11:00')}">daparture</td>
+                        <td th:text="${#temporals.format(item.begin, 'dd.MM.yyyy')}">arrival</td>
+                        <td th:text="${#temporals.format(item.end, 'dd.MM.yyyy')}">daparture</td>
                         <td th:text="${item.duration}">one day</td>
                         <td th:text="${item.price}">50</td>
                         <td>

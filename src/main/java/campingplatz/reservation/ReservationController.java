@@ -8,6 +8,7 @@ import campingplatz.plots.plotdiscounts.PlotReservationDiscounter;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
+import campingplatz.seasonalplots.SeasonalPlotCatalogController;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
@@ -116,6 +117,7 @@ class ReservationController {
 	String removeCartItem(Model model, @LoggedIn UserAccount userAccount, @PathVariable("index") int index,
 			@PathVariable("type") String type,
 			@ModelAttribute("plotCart") PlotCart reservationCart,
+			@ModelAttribute("seasonalCart") SeasonalPlotCart seasonalPlotCart,
 			@ModelAttribute("SportItemCart") SportItemCart sportItemCart) {
 
 		if (type.equals("PlotReservation")) {
@@ -128,6 +130,12 @@ class ReservationController {
 			var cart = sportItemCart.getReservations(userAccount);
 			var item = cart.get(index - 1);
 			sportItemCart.remove(item);
+		}
+		else if (type.equals("SeasonalPlotReservation")){
+			var cart = seasonalPlotCart.getReservationsOfUser(userAccount);
+			var item = cart.get(index - 1);
+			seasonalPlotCart.remove(item);
+
 		}
 
 		return "redirect:/cart";
@@ -158,7 +166,8 @@ class ReservationController {
 		sportItemReservationRepository.saveAll(validSportReservation);
 		sportItemCart.clear();
 
-		List<SeasonalPlotReservation> seasonalPlotReservations = seasonPlotCart.getReservations(userAccount);
+		List<SeasonalPlotReservation> seasonalPlotReservations = seasonPlotCart.getReservationsOfUser(userAccount);
+		
 		seasonalPlotReservationRepository.saveAll(seasonalPlotReservations);
 		seasonPlotCart.clear();
 		
