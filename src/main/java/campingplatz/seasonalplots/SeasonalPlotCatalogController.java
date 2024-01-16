@@ -104,14 +104,14 @@ public class SeasonalPlotCatalogController {
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(user, seasonalPlot,
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 
-		var active = new HashSet<>(activReservationRepository);
-		for (SeasonalPlotReservation activeReservation : active) {
-			if (activeReservation.getProduct().equals(seasonalPlot))
-				activReservationRepository.remove(activeReservation);
-		}
+		// var active = new HashSet<>(activReservationRepository);
+		// for (SeasonalPlotReservation activeReservation : active) {
+		// 	if (activeReservation.getProduct().equals(seasonalPlot))
+		// 		activReservationRepository.remove(activeReservation);
+		// }
 
-		activReservationRepository.add(reservation);
-		reservationRepository.save(reservation);
+		// activReservationRepository.add(reservation);
+		// reservationRepository.save(reservation);
 		seasonalPlotCart.add(reservation);
 
 		return "redirect:/cart";
