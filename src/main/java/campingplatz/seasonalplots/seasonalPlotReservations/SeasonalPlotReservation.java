@@ -21,6 +21,7 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 	private int payed_months;
 	// we need to wich moth is payed for payMethod.MONTHLY
 
+	@Getter
 	private PayMethod payMethod = PayMethod.YEARLY;
 
 	private Double electricityDifference = 0.0;
