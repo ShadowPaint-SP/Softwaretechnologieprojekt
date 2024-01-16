@@ -19,19 +19,18 @@ __Teilnehmer:__
 - Tom Fiedler (Scrum-Master)
 - Daniel Arsenev
 - Vincent Ponizil
-- Armin Stegner
 - Jannes Müller
 - Irina Drumeva
 - Richard Voigtmann
 
 == Bemerkungen
-
+Erläuterungen zu Evoluationen und zur Abschlusspräsentation
 
 == Retrospektive des letzten Sprints
-
+Bugfixes und kleine fehlende Features
 
 == Planung des nächsten Sprints
-
+Bugfixes und kleine fehlende Features
 
 |===
 
