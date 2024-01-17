@@ -7,7 +7,7 @@
 
 <body>
     <main layout:fragment="input">
-
+        <div th:text="${currentDate}" >Date</div>
         <div th:if="${ordersCompleted.size > 0}" th:fragment="my_orders"
             class="overflow-x-auto container mx-auto mt-14 rounded-box">
             <table class="table table-zebra">
@@ -52,7 +52,12 @@
                                     </select>
                                 </div>
                                 <button class="btn btn-primary" type="submit"
-                                    th:text="#{catalog.reserve.for_next_year}"></button>
+                                    th:text="#{seasonalplot.again}"></button>
+                            </form>
+                            <form th:if="${order.isNextYearAvaible(currentDate)}"
+                                  th:action="'/seasonalcancel/' + ${order.product.id}" method="post">
+                                  <button class="btn btn-primary" type="submit"
+                                    th:text="#{seasonalplot.nagain}"></button>
                             </form>
                         </td>
                     </tr>

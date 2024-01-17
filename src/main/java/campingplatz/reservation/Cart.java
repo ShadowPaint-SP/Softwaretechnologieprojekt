@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import one.util.streamex.StreamEx;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -77,7 +77,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 			}
 
 			U reservation = Utils.createInstance(reservationType);
-			var intervall = Duration.of(1, reservation.getIntervalUnit());
+			var intervall = reservation.getIntervalAmount();
 			var firstTime = first.getTime().plus(intervall);
 			var secondTime = second.getTime();
 			var sameReservation = !firstTime.isBefore(secondTime);
@@ -103,6 +103,53 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		// collect from stream into ArrayList
 		return reservations.collect(Collectors.toCollection(ListOfPriced::new));
 	}
+
+	public List<U> getReservationsOfUser(UserAccount user) {
+
+		// remember the ReservationEntries are sorted, as this is a sorted
+		// set. They are compared by name first and time second
+
+		// groups all consecutive ReservationEntries belonging to the same
+		// reservation together. If two entries have differing products, they
+		// can not be of the same reservation. If the two times are more than
+		// the smallest unit apart, they can not be of the same reservation
+		var stream = StreamEx.of(this.stream());
+		var groupedReservationEntries = stream.groupRuns((first, second) -> {
+			var firstName = first.getProduct().getName();
+			var secondName = second.getProduct().getName();
+			var equalNames = firstName.equals(secondName);
+			if (!equalNames) {
+				return false;
+			}
+
+			U reservation = Utils.createInstance(reservationType);
+			var intervall = reservation.getIntervalAmount();
+			var firstTime = first.getTime().plus(intervall);
+			var secondTime = second.getTime();
+			var sameReservation = !firstTime.isBefore(secondTime);
+
+			return sameReservation;
+
+		});
+
+		// construct the List of reservations
+		var reservations = groupedReservationEntries.map(list -> {
+			var firstElement = list.get(0);
+			var lastElement = list.get(list.size() - 1);
+
+			U reservation = Utils.createInstance(reservationType);
+			reservation.setUser(user);
+			reservation.setProduct(firstElement.getProduct());
+			reservation.setBegin(firstElement.getTime());
+			reservation.setEnd(lastElement.getTime());
+
+			return reservation;
+		});
+
+		// collect from stream into ArrayList
+		return reservations.collect(Collectors.toCollection(ArrayList::new));
+	}
+
 
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(U reservation) {

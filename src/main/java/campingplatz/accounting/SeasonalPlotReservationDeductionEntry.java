@@ -1,14 +1,15 @@
 package campingplatz.accounting;
 
-import campingplatz.plots.plotreservations.PlotReservation;
-import campingplatz.utils.Utils;
 import jakarta.persistence.Entity;
 import org.salespointframework.accountancy.AccountancyEntry;
 
-@Entity
-public class PlotReservationAccountancyEntry extends AccountancyEntry {
+import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
+import campingplatz.utils.Utils;
 
-	private static String description(PlotReservation reservation) {
+@Entity
+public class SeasonalPlotReservationDeductionEntry extends AccountancyEntry {
+
+	private static String description(SeasonalPlotReservation reservation) {
 
 		String ret = "";
 		String format = "%1$-40s,%2$-20s,%3$-17s,%4$-17s\n";
@@ -30,14 +31,13 @@ public class PlotReservationAccountancyEntry extends AccountancyEntry {
 		return ret;
 	}
 
-	public PlotReservationAccountancyEntry(PlotReservation reservation) {
-		super(reservation.getPrice(), description(reservation));
+	public SeasonalPlotReservationDeductionEntry(SeasonalPlotReservation reservation) {
+		super(reservation.getPrice().multiply(-1), description(reservation));
 	}
 
 	// need default constructor
 	@SuppressWarnings("deprecation")
-	public PlotReservationAccountancyEntry() {
+	public SeasonalPlotReservationDeductionEntry() {
 
 	}
-
 }

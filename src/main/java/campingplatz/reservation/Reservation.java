@@ -1,6 +1,7 @@
 package campingplatz.reservation;
 
 import campingplatz.utils.Priced;
+import campingplatz.utils.Utils;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
@@ -14,6 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
 import java.util.UUID;
 
 /**
@@ -123,12 +125,16 @@ public abstract class Reservation<T extends Product> implements Priced {
 
 	@Override
 	public Boolean hasDiscount(){
-		return discount != 0;
+		return discount > 0;
 	}
 
 
     // meant to be overridden
     public abstract ChronoUnit getIntervalUnit();
+
+	public TemporalAmount getIntervalAmount(){
+		return Utils.unitToTemporalAmount(getIntervalUnit());
+	}
 
     /**
      * Get the duration between begin and end. The unit of the duration

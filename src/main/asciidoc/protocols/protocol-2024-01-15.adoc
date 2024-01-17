@@ -1,8 +1,8 @@
 = Protokoll Gruppe 06
 
-Treffen am 08.01.2024
+Treffen am 15.01.2024
 
-Ort:      0.66 SLUB +
+Ort:      0.43/0.47 SLUB +
 Beginn:   14:50 Uhr +
 Ende:     16:20 Uhr
 
@@ -10,7 +10,7 @@ __Schriftführer:__
 Tom Fiedler
 
 *Nächstes Treffen:* +
-15.01.2024, 14.50 Uhr, SLUB 0.43/0.47
+22.01.2024, 14.50 Uhr, 0.46 SLUB
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
@@ -19,19 +19,18 @@ __Teilnehmer:__
 - Tom Fiedler (Scrum-Master)
 - Daniel Arsenev
 - Vincent Ponizil
-- Armin Stegner
 - Jannes Müller
 - Irina Drumeva
 - Richard Voigtmann
 
 == Bemerkungen
-Besprechung des Restpraktikums
-
+Erläuterungen zu Evoluationen und zur Abschlusspräsentation
 
 == Retrospektive des letzten Sprints
-Ferien...
+Bugfixes und kleine fehlende Features
 
 == Planung des nächsten Sprints
-Dokumentation vervollständigen, Bugs fixen, Tests schreiben, Java Doc
+Bugfixes und kleine fehlende Features
+
 |===
 

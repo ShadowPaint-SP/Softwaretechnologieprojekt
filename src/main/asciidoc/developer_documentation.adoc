@@ -11,7 +11,7 @@
 |===
 |Version | Bearbeitungsdatum   | Autor 
 |0.5	 | 11.11.2023          |
-|1.0     | 13.11.2021          |  Arsenev, Daniel +
+|1.0     | 13.11.2023          |  Arsenev, Daniel +
 Ponizil, Vincent +
 Stegner, Armin +
 Müller, Jannes +
@@ -19,6 +19,7 @@ Voigtmann, Richard  +
 Fiedler, Tom +
 Drumeva, Irina
 |1.1      | 10.12.2023   | Fiedler, Tom
+|1.2| 19.01.2024 | Fiedler, Tom
 
 |===
 
