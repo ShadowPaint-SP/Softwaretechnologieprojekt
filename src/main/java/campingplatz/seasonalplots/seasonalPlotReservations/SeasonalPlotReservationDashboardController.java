@@ -55,17 +55,17 @@ public class SeasonalPlotReservationDashboardController {
 		var uuid = info.getReservationUUID();
 		var reservation = plotReservations.findById(uuid).get();
 		var plot = reservation.getProduct();
-		try{ // is null if reservation is payed
+		try { // is null if reservation is payed
 			reservation.setElectricityDifference(info.getNewElectricityMeter());
 			reservation.setWaterDifference(info.getNewWaterMeter());
-		} catch (Exception e){}
+		} catch (Exception e) {
+		}
 		seasonalPlotCatalog.save(plot);
 
 		var oldState = reservation.getState();
 
 		var newState = Reservation.State.fromNumber(info.getStateValue());
 		var costsMeter = reservation.getPrice();
-
 
 		if (oldState == Reservation.State.PAYED && newState != Reservation.State.PAYED) {
 			var entry = new SeasonalPlotReservationDeductionEntry(reservation);
@@ -95,13 +95,11 @@ public class SeasonalPlotReservationDashboardController {
 		Double getNewWaterMeter();
 	}
 
-
-
-	public void dayHasPassed(){
+	public void dayHasPassed() {
 		System.out.println("Day has passed");
 
 		List<SeasonalPlotReservation> all = plotReservations.findAll();
-		for (var plot : all){
+		for (var plot : all) {
 			plot.updateMonthlyPayment(businessTime.getTime());
 			plotReservations.save(plot);
 		}

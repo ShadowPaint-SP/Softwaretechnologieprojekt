@@ -3,35 +3,27 @@ package campingplatz.accounting;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.utils.Utils;
 import jakarta.persistence.Entity;
-import org.salespointframework.accountancy.AccountancyEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class PlotReservationAccountancyEntry extends AccountancyEntry {
+public class PlotReservationAccountancyEntry extends ExtendedAccountancyEntry {
 
-	private static String description(PlotReservation reservation) {
+	private static List<String> descriptions(PlotReservation reservation) {
 
-		String ret = "";
-		String format = "%1$-40s,%2$-20s,%3$-17s,%4$-17s\n";
+		List<String> ret = new ArrayList<>();
 
-		ret += String.format(format, 
-			"Product Name: ",
-			"Nutzer Name: ",
-			"von: ",
-			"bis: "
-		);
+		ret.add(reservation.getProduct().getName().replace("\n", " "));
+		ret.add(reservation.getUser().getUsername());
+		ret.add(Utils.formatDate(reservation.getBegin()));
+		ret.add(Utils.formatDate(reservation.getEnd()));
 
-		ret += String.format(format, 
-			reservation.getProduct().getName().replace("\n", " "),
-			reservation.getUser().getUsername(),
-			Utils.formatDate(reservation.getBegin()),
-			Utils.formatDate(reservation.getEnd())
-		);
-		
 		return ret;
 	}
 
 	public PlotReservationAccountancyEntry(PlotReservation reservation) {
-		super(reservation.getPrice(), description(reservation));
+		super(reservation.getPrice(), descriptions(reservation));
 	}
 
 	// need default constructor

@@ -1,38 +1,30 @@
 package campingplatz.accounting;
 
 import jakarta.persistence.Entity;
-import org.salespointframework.accountancy.AccountancyEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.utils.Utils;
 
 @Entity
-public class SeasonalPlotReservationDeductionEntry extends AccountancyEntry {
+public class SeasonalPlotReservationDeductionEntry extends ExtendedAccountancyEntry {
 
-	private static String description(SeasonalPlotReservation reservation) {
+	private static List<String> descriptions(SeasonalPlotReservation reservation) {
 
-		String ret = "";
-		String format = "%1$-40s,%2$-20s,%3$-17s,%4$-17s\n";
+		List<String> ret = new ArrayList<>();
 
-		ret += String.format(format, 
-			"Product Name: ",
-			"Nutzer Name: ",
-			"von: ",
-			"bis: "
-		);
+		ret.add(reservation.getProduct().getName().replace("\n", " "));
+		ret.add(reservation.getUser().getUsername());
+		ret.add(Utils.formatDate(reservation.getBegin()));
+		ret.add(Utils.formatDate(reservation.getEnd()));
 
-		ret += String.format(format, 
-			reservation.getProduct().getName().replace("\n", " "),
-			reservation.getUser().getUsername(),
-			Utils.formatDate(reservation.getBegin()),
-			Utils.formatDate(reservation.getEnd())
-		);
-		
 		return ret;
 	}
 
 	public SeasonalPlotReservationDeductionEntry(SeasonalPlotReservation reservation) {
-		super(reservation.getPrice().multiply(-1), description(reservation));
+		super(reservation.getPrice().multiply(-1), descriptions(reservation));
 	}
 
 	// need default constructor

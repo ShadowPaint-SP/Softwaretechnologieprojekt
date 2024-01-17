@@ -1,7 +1,5 @@
 package campingplatz.seasonalplots;
 
-import campingplatz.plots.plotreservations.PlotCart;
-import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
@@ -62,9 +60,10 @@ public class SeasonalPlotCatalogController {
 			if (businessTime.getTime().isAfter(activeReservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
 				activReservationRepository.remove(activeReservation);
 				freeSeasonalPlots.get(true).add(activeReservation.getProduct());
-					 } else {
+			} else {
 				try {
-					if (activeReservation.getUser().getId().equals(user.get().getId()) && reservationRepository.existsById(activeReservation.getId())) {
+					if (activeReservation.getUser().getId().equals(user.get().getId())
+							&& reservationRepository.existsById(activeReservation.getId())) {
 						myOrders.add(activeReservation);
 					}
 				} catch (Exception e) {
@@ -111,10 +110,9 @@ public class SeasonalPlotCatalogController {
 
 		activReservationRepository.add(reservation);
 		seasonalPlotCart.add(reservation);
-		
+
 		return "redirect:/cart";
 	}
-	
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcancel/{plot}")
@@ -152,20 +150,21 @@ public class SeasonalPlotCatalogController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalplotcatalog/details/{plot}/comments")
-	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info, @LoggedIn UserAccount currUserAccount) {
-        Set<UserAccount> commentarySet=reservationRepository.findUsersOfProduct(plot);
-        if(commentarySet.contains(currUserAccount)){
-            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),currUserAccount.getFirstname(), currUserAccount.getLastname()));
-            seasonalPlotCatalog.save(plot);
-        return "redirect:/plotcatalog/details/" + plot.getId();
-        }else{
-            model.addAttribute("error", true);
-            boolean error = true;
-            seasonalPlotCatalog.save(plot);
-            model.addAttribute("item", plot);
+	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info,
+			@LoggedIn UserAccount currUserAccount) {
+		Set<UserAccount> commentarySet = reservationRepository.findUsersOfProduct(plot);
+		if (commentarySet.contains(currUserAccount)) {
+			plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),
+					currUserAccount.getFirstname(), currUserAccount.getLastname()));
+			seasonalPlotCatalog.save(plot);
+			return "redirect:/plotcatalog/details/" + plot.getId();
+		} else {
+			model.addAttribute("error", true);
+			seasonalPlotCatalog.save(plot);
+			model.addAttribute("item", plot);
 
 			return "servings/seasonalplotdetails";
-        }
+		}
 	}
 
 	interface CommentInfo {
@@ -175,6 +174,5 @@ public class SeasonalPlotCatalogController {
 		@Range(min = 1, max = 5)
 		int getRating();
 	}
-
 
 }

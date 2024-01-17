@@ -2,6 +2,8 @@ package campingplatz.seasonalplots;
 
 import campingplatz.plots.Plot;
 import jakarta.validation.Valid;
+import lombok.NonNull;
+
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.springframework.data.util.Streamable;
@@ -11,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.money.MonetaryAmount;
 import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
