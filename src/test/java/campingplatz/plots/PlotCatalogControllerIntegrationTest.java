@@ -1,10 +1,14 @@
 package campingplatz.plots;
 
 import org.junit.jupiter.api.Test;
+import org.salespointframework.catalog.Product.ProductIdentifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -22,5 +26,33 @@ class PlotCatalogControllerIntegrationTest {
 			.andExpect(model().attributeExists("filteredPlots"));
 
 	}
+
+
+	@Autowired 
+	PlotCatalog plotCatalog;
+	
+	
+	@Test
+    @WithMockUser 
+    void TPK02() throws Exception {
+		ProductIdentifier testId =plotCatalog.findAll().iterator().next().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/plotcatalog/details/{plot}", testId))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("item"))
+                .andExpect(view().name("servings/plotdetails"));
+    }
+
+    @Test
+    @WithMockUser
+    void TPK03() throws Exception {
+		ProductIdentifier testId =plotCatalog.findAll().iterator().next().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/plotcatalog/details/{plot}/comments", testId)
+                .param("comment", "Test comment")
+                .param("rating", "5"))
+                .andExpect(status().is2xxSuccessful());
+    }
+
 
 }
