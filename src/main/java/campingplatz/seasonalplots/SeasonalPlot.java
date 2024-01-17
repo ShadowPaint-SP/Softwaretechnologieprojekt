@@ -31,25 +31,25 @@ public class SeasonalPlot extends Plot {
 	public SeasonalPlot() {
 	}
 
-	public Double settlementElectricity(double electricityMeter, Double difference) { // returns the electricity
-																																										// difference for this
-		// time period
+	public Double settlementElectricity(double electricityMeter, Double difference) { //set new electricity meter
+
+        // returns the electricity difference for this time period
+
 		double electricity = electricityMeter - this.electricityMeter;
 		if (electricity + difference < 0.0) {
 			return 0.0;
 		}
 		this.electricityMeter = electricityMeter;
-		return electricity;
+		return electricity; //electricity difference for this time period
 	}
 
-	public Double settlementWater(double waterMeter, Double difference) { // returns the water differnce for this time
-																																				// period
+	public Double settlementWater(double waterMeter, Double difference) { //set new water meter
 		double water = waterMeter - this.waterMeter;
 		if (water + difference < 0.0) {
 			return 0.0;
 		}
 		this.waterMeter = waterMeter;
-		return water;
+		return water; //water difference for this time period
 	}
 
 	public static LocalDateTime getArrival(LocalDateTime now) {
@@ -65,16 +65,7 @@ public class SeasonalPlot extends Plot {
 		return arrival;
 	}
 
-	public String getArrivalStr(LocalDateTime now) {
-		return getArrival(now).toString().substring(0, 10);
-	}
-
 	public LocalDateTime getDeparture(LocalDateTime now) {
 		return getArrival(now).withMonth(10).withDayOfMonth(31);
 	}
-
-	public String getDepartureStr(LocalDateTime now) {
-		return getDeparture(now).toString().substring(0, 10);
-	}
-
 }

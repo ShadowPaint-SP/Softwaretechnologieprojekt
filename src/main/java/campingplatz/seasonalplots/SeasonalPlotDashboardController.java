@@ -2,7 +2,6 @@ package campingplatz.seasonalplots;
 
 import campingplatz.plots.Plot;
 import jakarta.validation.Valid;
-import lombok.NonNull;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
@@ -58,6 +57,8 @@ public class SeasonalPlotDashboardController {
 
 			Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 			model.addAttribute("seasonalPlots", all);
+            model.addAttribute("electricityCosts", Config.getElectricityCosts());
+            model.addAttribute("waterCosts", Config.getWaterCosts());
 		}
 
 		return "dashboards/seasonalplot_management";
@@ -82,14 +83,22 @@ public class SeasonalPlotDashboardController {
 
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 		model.addAttribute("seasonalPlots", all);
+        model.addAttribute("electricityCosts", Config.getElectricityCosts());
+        model.addAttribute("waterCosts", Config.getWaterCosts());
 		return "dashboards/seasonalplot_management";
 	}
 
 	@PostMapping("/management/seasonalplot/setCosts")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
-	String changeCosts(Model model, @Valid Double electricityCosts, @Valid Double waterCosts) {
-		Config.setElectricityCosts(Money.of(electricityCosts, "EURO"));
-		Config.setWaterCosts((Money.of(waterCosts, "EURO")));
+	String changeCosts(Model model, @Valid SeasonalPlotDashboardController.CostsInfo costsInfo) {
+        //TODO Anzeigen
+		Config.setElectricityCosts(Money.of(costsInfo.getElectricityCosts(), EURO));
+		Config.setWaterCosts((Money.of(costsInfo.getWaterCosts(), EURO)));
+
+        Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
+        model.addAttribute("seasonalPlots", all);
+        model.addAttribute("electricityCosts", Config.getElectricityCosts());
+        model.addAttribute("waterCosts", Config.getWaterCosts());
 		return "dashboards/seasonalplot_management";
 	}
 
@@ -115,4 +124,11 @@ public class SeasonalPlotDashboardController {
 
 		Integer getState();
 	}
+
+    interface CostsInfo {
+
+        Double getElectricityCosts();
+
+        Double getWaterCosts();
+    }
 }

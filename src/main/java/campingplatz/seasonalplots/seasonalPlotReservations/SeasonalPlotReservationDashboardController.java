@@ -65,7 +65,6 @@ public class SeasonalPlotReservationDashboardController {
 		var oldState = reservation.getState();
 
 		var newState = Reservation.State.fromNumber(info.getStateValue());
-		var costsMeter = reservation.getPrice();
 
 		if (oldState == Reservation.State.PAYED && newState != Reservation.State.PAYED) {
 			var entry = new SeasonalPlotReservationDeductionEntry(reservation);

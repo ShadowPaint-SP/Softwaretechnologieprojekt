@@ -16,10 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -55,6 +52,7 @@ public class SeasonalPlotCatalogController {
 				seasonalPlot -> !activeReservedSeasonalPlots.contains(seasonalPlot)));
 		var myOrders = new ArrayList<SeasonalPlotReservation>();
 
+        //checks whether the active reservations have already expired or need to be updated
 		var active = new HashSet<>(activReservationRepository);
 		for (SeasonalPlotReservation activeReservation : active) {
 			if (businessTime.getTime().isAfter(activeReservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
@@ -98,10 +96,12 @@ public class SeasonalPlotCatalogController {
 			inApril = businessTime.getTime();
 		}
 
+        //set end of period to 31.10.
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(user, seasonalPlot,
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 
+        //saves all active Reservation in one HashSet
 		var active = new HashSet<>(activReservationRepository);
 		for (SeasonalPlotReservation activeReservation : active) {
 			if (activeReservation.getProduct().equals(seasonalPlot))
@@ -117,15 +117,18 @@ public class SeasonalPlotCatalogController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcancel/{plot}")
 	String cancel(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot) {
-
-		for (SeasonalPlotReservation reservation : activReservationRepository) {
-			if (reservation.getProduct().getId().equals(seasonalPlot.getId()) && reservation.getUser().equals(user)) {
-				activReservationRepository.remove(reservation);
-			}
+    //TODO Bei Löschuing einer Reservierung aus dem Repo stürzt die Schleife ab
+		Iterator<SeasonalPlotReservation> iterator = activReservationRepository.iterator();
+        while(iterator.hasNext()) {
+            SeasonalPlotReservation reservation = iterator.next();
+            if (reservation.getProduct().getId().equals(seasonalPlot.getId()) && reservation.getUser().equals(user)) {
+                activReservationRepository.remove(reservation);
+            }
 		}
 		return "redirect:/seasonalplotcatalog";
 	}
 
+    /*
 	@PostMapping("/updateseasonalplot/{plot}")
 	String updateSeasonalPlot(Model model, @LoggedIn UserAccount user,
 			@PathVariable("plot") SeasonalPlotReservation seasonalplotreservation) {
@@ -139,7 +142,7 @@ public class SeasonalPlotCatalogController {
 			}
 		}
 		return "redirect:/seasonalplotcatalog";
-	}
+	}*/
 
 	@GetMapping("/seasonalplotcatalog/details/{plot}")
 	public String showSeasonalPlotDetails(Model model,
