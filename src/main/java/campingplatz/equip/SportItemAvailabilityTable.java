@@ -35,6 +35,8 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 		public final String label;
 		public final String color;
 
+
+
 		FieldType(Integer size, String arg, String clickability, String color) {
 			this.value = size;
 			this.css = arg + ".css";
@@ -70,6 +72,13 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 	Integer length;
 	SportItem currentItem;
 
+    /**
+     * Constructs a SportItemAvailabilityTable with the given parameters.
+     *
+     * @param firstTime   The start time for the availability table.
+     * @param lastDay     The end time for the availability table.
+     * @param currentItem The sport item associated with the table.
+     */
 	public SportItemAvailabilityTable(LocalDateTime firstTime, LocalDateTime lastDay, SportItem currentItem) {
 		this.length = (int) (ChronoUnit.HOURS.between(firstTime, lastDay) + 1);
 		this.firstTime = firstTime;
@@ -77,6 +86,12 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 		this.currentItem = currentItem;
 	}
 
+    /**
+     * Adds maximum availability amount for each hour to the table.
+     *
+     * @param n The maximum amount to be added.
+     * @return The updated SportItemAvailabilityTable.
+     */
 	public SportItemAvailabilityTable addMaxAmount(Integer n) {
 		this.clear();
 
@@ -88,6 +103,14 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 		return this;
 	}
 
+
+    /**
+     * Adds reservations to the availability table.
+     *
+     * @param user         The user associated with the reservations.
+     * @param reservations The list of sport item reservations.
+     * @return The updated SportItemAvailabilityTable.
+     */
 	public SportItemAvailabilityTable addReservations(Optional<UserAccount> user,
 			List<SportItemReservation> reservations) {
 
@@ -123,6 +146,12 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 		return this;
 	}
 
+    /**
+     * Adds selections from a SportItemCart to the availability table.
+     *
+     * @param reservationCart The cart containing sport item selections.
+     * @return The updated SportItemAvailabilityTable.
+     */
 	public SportItemAvailabilityTable addSelections(SportItemCart reservationCart) {
 
 		for (var field : reservationCart) {
@@ -148,7 +177,14 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 	}
 
 
-	public SportItemAvailabilityTable addPastMarkings(LocalDateTime cutofTime) {
+    /**
+     * Adds past markings to the availability table.
+     *
+     * @param cutofTime The cutoff time for past markings.
+     * @return The updated SportItemAvailabilityTable.
+     */
+
+    public SportItemAvailabilityTable addPastMarkings(LocalDateTime cutofTime) {
 
 		for (int i = 0; i < length; i++) {
 			var currentTime =  firstTime.plusHours(i);

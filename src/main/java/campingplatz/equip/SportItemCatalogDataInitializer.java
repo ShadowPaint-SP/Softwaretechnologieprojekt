@@ -6,14 +6,33 @@ import org.springframework.stereotype.Component;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+
+/**
+ * Data initializer for populating the {@link SportItemCatalog} with predefined sport items.
+ * <p>
+ * This class implements the {@link DataInitializer} interface to provide a mechanism for initializing
+ * the sport item catalog with predefined items when the application starts.
+ * </p>
+ */
 @Component
 public class SportItemCatalogDataInitializer implements DataInitializer {
 	private SportItemCatalog sportItemCatalog;
 
+    /**
+     * Constructs a {@code SportItemCatalogDataInitializer} with the specified {@link SportItemCatalog}.
+     *
+     * @param sportItemCatalog The catalog to be initialized with sport items.
+     */
 	SportItemCatalogDataInitializer(SportItemCatalog sportItemCatalog) {
 		this.sportItemCatalog = sportItemCatalog;
 	}
 
+    /**
+     * Initializes the sport item catalog with predefined sport items.
+     * <p>
+     * This method is called during the application startup to add predefined sport items to the catalog.
+     * </p>
+     */
 	@Override
 	public void initialize() {
 		sportItemCatalog.save(new SportItem("Fußball", Money.of(0.5, EURO),
