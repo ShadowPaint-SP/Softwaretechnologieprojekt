@@ -2,7 +2,6 @@ package campingplatz.utils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +20,7 @@ public class Comment implements Serializable {
 	 * The unique identifier for the comment.
 	 */
 	@Getter
-	private @Id @GeneratedValue UUID id;
+	private @Id @GeneratedValue long id;
 
 	/**
 	 * The text content of the comment.
