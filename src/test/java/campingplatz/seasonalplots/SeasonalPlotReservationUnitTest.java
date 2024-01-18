@@ -102,7 +102,7 @@ public class SeasonalPlotReservationUnitTest {
 
     @Test
     void isNextYearAvaible() {
-        assertEquals(true, reservation.isNextYearAvaible(LocalDate.of(2023, 11, 1).atStartOfDay()), "reservation.isNextYearAvaible, is wrong should be true");
+        assertTrue(reservation.isNextYearAvaible(LocalDate.of(2023, 11, 1).atStartOfDay()), "reservation.isNextYearAvaible, is wrong should be true");
     }
 
     @Test

@@ -51,7 +51,7 @@ public class SeasonalPlot extends Plot {
 		this.waterMeter = waterMeter;
 		return water; //water difference for this time period
 	}
-
+/*
 	public static LocalDateTime getArrival(LocalDateTime now) {
 		// at the first day of next month
 		LocalDateTime arrival = now.plusMonths(1).withDayOfMonth(1);
@@ -67,5 +67,5 @@ public class SeasonalPlot extends Plot {
 
 	public LocalDateTime getDeparture(LocalDateTime now) {
 		return getArrival(now).withMonth(10).withDayOfMonth(31);
-	}
+	}*/
 }
