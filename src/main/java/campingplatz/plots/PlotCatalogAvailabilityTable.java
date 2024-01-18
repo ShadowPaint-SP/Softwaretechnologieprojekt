@@ -26,29 +26,32 @@ import java.util.Optional;
  */
 public class PlotCatalogAvailabilityTable extends HashMap<Plot, ArrayList<PlotCatalogAvailabilityTable.Field>> {
 
-	public static enum FieldType {
-		FREE_COMPLETELY(0, "catalog.fields.free.completely", "submit", "bg-transparent"),
-		FREE_HIGHLIGHTED(1, "catalog.fields.free.highlighted", "submit", "bg-blue-300"),
-		FREE_SELECTED(2, "catalog.fields.free.selected", "submit", "bg-green-500"),
-		RESERVED_OTHER(3, "catalog.fields.reserved.other", "button", "bg-red-500"),
-		RESERVED_SELF(4, "catalog.fields.reserved.self", "button", "bg-yellow-600"),
-		BACK_IN_TIME(5, "catalog.fields.past", "button", "bg-red-500");
 
-		public final String clickability;
-		public final Integer value;
-		public final String css;
-		public final String label;
-		public final String color;
 
-		FieldType(Integer size, String arg, String clickability, String color) {
-			this.value = size;
-			this.css = arg + ".css";
-			this.label = arg + ".label";
-			this.clickability = clickability;
-			this.color = color;
-		}
+    public static enum FieldType {
+        FREE_COMPLETELY (0, "catalog.fields.free.completely" , "bg-transparent", true, false),
+        FREE_HIGHLIGHTED(1, "catalog.fields.free.highlighted", "bg-blue-300"   , true, true),
+        FREE_SELECTED   (2, "catalog.fields.free.selected"   , "bg-green-500"  , true, false),
+        RESERVED_OTHER  (3, "catalog.fields.reserved.other"  , "bg-red-500"    , false, false),
+        RESERVED_SELF   (4, "catalog.fields.reserved.self"   , "bg-yellow-600" , false, false),
+        BACK_IN_TIME    (5, "catalog.fields.past"            , "bg-red-500"    , false, false);
 
-	}
+
+        public final Integer value;
+        public final String label;
+        public final String color;
+        public final String clickability;
+        public final String highlight;
+
+        FieldType(Integer value, String label, String color, Boolean clickability, Boolean highlighted) {
+            this.value = value;
+            this.label = label + ".label";
+            this.color = color;
+            this.clickability = clickability ? "submit" : "button";
+            this.highlight = highlighted ? " highlight" : "";
+            //          note the space here ^ important as html classes are space seperated
+        }
+    }
 
 	@AllArgsConstructor
 	public static class Field {

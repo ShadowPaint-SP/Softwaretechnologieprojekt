@@ -103,8 +103,8 @@
                     </thead>
                     <tbody>
                         <!-- table rows -->
-                        <tr th:each="plot, iStat : ${shownPlots}">
-                            <th id="myButton" class="flex">
+                        <tr th:each="plot, iStat : ${shownPlots}" class="tableRow">
+                            <th class="flex">
                                 <div class="pr-4">
                                     <img class="h-32 w-32 mask mask-squircle" th:src="${plot.imagePath}" />
                                 </div>
@@ -118,15 +118,16 @@
                                             th:text="${plot.sizeString}"></span></p>
                                     <p class="text-neutral-500" th:text="#{${plot.parking.label}}"></p>
 
-                                    <button class="btn btn-sm btn-primary" type="submit"
+                                    <button id="selectAllButton" class="btn btn-sm btn-primary" type="submit"
                                         th:formaction="'/plotcatalog/select/' + ${plot.id}"
                                         th:text="#{catalog.highlight}"></button>
                                 </div>
 
                             </th>
                             <td></td>
-                            <td id="highlightDiv" class="hover:bg-secondary p-0 relative"
-                                th:classappend="${fields.type.color}" th:each="fields : ${availabilityTable.get(plot)}">
+                            <td class="hover:bg-secondary p-0 relative"
+                                th:classappend="${fields.type.color + fields.type.highlight}"
+                                th:each="fields : ${availabilityTable.get(plot)}">
                                 <button th:type="${fields.type.clickability}"
                                     th:formaction="'/plotcatalog/select/'+${plot.id}+'/'+${fields.index}"
                                     class="absolute top-0 right-0 bottom-0 left-0 w-full">
