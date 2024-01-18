@@ -77,7 +77,7 @@ public class SportItemReservationDashboardControllerIntegrationTest {
 		SportItemReservationRepository mockRepository = mock(SportItemReservationRepository.class);
 		doReturn(reservations).when(mockRepository).findAll();
 
-		SportItemReservationDashboardController controller = new SportItemReservationDashboardController(mockRepository);
+		SportItemReservationDashboardController controller = new SportItemReservationDashboardController(mockRepository, null);
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 

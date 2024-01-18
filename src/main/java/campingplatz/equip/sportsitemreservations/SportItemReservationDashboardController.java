@@ -1,6 +1,9 @@
 package campingplatz.equip.sportsitemreservations;
 
+import campingplatz.accounting.PlotReservationDeductionEntry;
+import campingplatz.accounting.SportsItemAccountancyEntry;
 import jakarta.validation.Valid;
+import org.salespointframework.accountancy.Accountancy;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +19,14 @@ import java.util.UUID;
 @Controller
 public class SportItemReservationDashboardController {
 
-	private SportItemReservationRepository sportItemReservations;
+    SportItemReservationRepository sportItemReservations;
+    Accountancy accountancy;
 
-	public SportItemReservationDashboardController(SportItemReservationRepository sportItemReservations) {
+	public SportItemReservationDashboardController(SportItemReservationRepository sportItemReservations,
+            Accountancy accountancy) {
 		this.sportItemReservations = sportItemReservations;
-	}
+        this.accountancy = accountancy;
+    }
 
 
     /**
@@ -51,6 +57,9 @@ public class SportItemReservationDashboardController {
 
 		UUID id = information.getReservationUUID();
 		SportItemReservation reservation = sportItemReservations.findById(id).get();
+
+        var entry = new SportsItemAccountancyEntry(reservation);
+        accountancy.add(entry);
 
 		sportItemReservations.delete(reservation);
 
