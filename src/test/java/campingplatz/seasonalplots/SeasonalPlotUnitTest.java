@@ -62,6 +62,10 @@ public class SeasonalPlotUnitTest {
         assertEquals(LocalDate.of(2023, 7,1),
                 LocalDate.of(second.getYear(), second.getMonth(), second.getDayOfMonth()),
             "arrival after 1.4. is not first Day of next month");
+        var third = SeasonalPlot.getArrival(LocalDateTime.of(2022, 11, 1, 0, 0));
+        assertEquals(LocalDate.of(2023, 4,1),
+                LocalDate.of(third.getYear(), third.getMonth(), third.getDayOfMonth()),
+                "arrival after 31.10. is not 1.4.");
     }
      @Test
     void getDepartureTest() {
