@@ -2,15 +2,14 @@ package campingplatz.seasonalplots;
 
 import campingplatz.plots.Plot;
 
-import campingplatz.reservation.Reservation;
-import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
-import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
 import org.javamoney.moneta.Money;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.salespointframework.core.Currencies.EURO;
@@ -52,5 +51,23 @@ public class SeasonalPlotUnitTest {
         assertEquals(-5.0, plot.settlementElectricity(15, 10.0),
                 "seasonalplot.settlementwater, set the Difference not back when the first was to high");
     }
+
+    @Test
+    void getArrivalTest() {
+        var first = SeasonalPlot.getArrival(LocalDateTime.of(2023, 3, 1, 0, 0));
+        assertEquals(LocalDate.of(2023, 4,1),
+                LocalDate.of(first.getYear(), first.getMonth(), first.getDayOfMonth()),
+            "arrival before 1.4. is not 1.4.");
+        var second = SeasonalPlot.getArrival(LocalDateTime.of(2023, 6, 1, 0, 0));
+        assertEquals(LocalDate.of(2023, 7,1),
+                LocalDate.of(second.getYear(), second.getMonth(), second.getDayOfMonth()),
+            "arrival after 1.4. is not first Day of next month");
+    }
+     @Test
+    void getDepartureTest() {
+        var first = plot.getDeparture(LocalDateTime.now());
+        assertEquals(LocalDate.now().withMonth(10).withDayOfMonth(31),
+                LocalDate.of(first.getYear(), first.getMonth(), first.getDayOfMonth()), "departure is wrong");
+     }
 
 }
