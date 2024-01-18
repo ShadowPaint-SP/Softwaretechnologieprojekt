@@ -6,6 +6,7 @@ import campingplatz.seasonalplots.SeasonalPlot;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 
+import lombok.Setter;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.money.MonetaryAmount;
@@ -22,9 +23,13 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 	// we need to wich moth is payed for payMethod.MONTHLY
 
 	@Getter
+    @Setter
 	private PayMethod payMethod = PayMethod.YEARLY;
 
+    @Getter
 	private Double electricityDifference = 0.0;
+
+    @Getter
 	private Double waterDifference = 0.0;
 
 	public SeasonalPlotReservation() {
@@ -91,7 +96,7 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 		this.waterDifference = this.waterDifference + getProduct().settlementWater(newWaterMeter, waterDifference);
 	}
 
-	void updateMonthlyPayment(LocalDateTime date) {
+	public void updateMonthlyPayment(LocalDateTime date) {
 		/* reset PAYED status if month has passed and PayMethod is MONTHLY */
 		if (date.isAfter(this.getBegin().plusMonths(payed_months)) && getState() == State.PAYED
 				&& payMethod == PayMethod.MONTHLY && payed_months < duration()) {
