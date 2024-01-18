@@ -117,14 +117,13 @@ public class SeasonalPlotCatalogController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcancel/{plot}")
 	String cancel(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot) {
-    //TODO Bei Löschuing einer Reservierung aus dem Repo stürzt die Schleife ab
-		Iterator<SeasonalPlotReservation> iterator = activReservationRepository.iterator();
-        while(iterator.hasNext()) {
-            SeasonalPlotReservation reservation = iterator.next();
-            if (reservation.getProduct().getId().equals(seasonalPlot.getId()) && reservation.getUser().equals(user)) {
+
+        for (SeasonalPlotReservation reservation : activReservationRepository) {
+            if (Objects.equals(reservation.getProduct().getId(), seasonalPlot.getId()) && reservation.getUser().equals(user)) {
                 activReservationRepository.remove(reservation);
+                break;
             }
-		}
+        }
 		return "redirect:/seasonalplotcatalog";
 	}
 
