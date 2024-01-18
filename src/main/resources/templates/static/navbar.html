@@ -195,7 +195,7 @@
             </div>
           </div>
           <ul class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52">
-            <li>
+            <li sec:authorize="isAuthenticated()" class="menu-title font-bold">
               <span sec:authentication="name"></span>
             </li>
             <li sec:authorize="isAuthenticated()">

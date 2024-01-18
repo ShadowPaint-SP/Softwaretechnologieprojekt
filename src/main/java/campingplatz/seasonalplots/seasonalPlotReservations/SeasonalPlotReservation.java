@@ -48,11 +48,12 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 			var price = getProduct().getPrice()
 					.add(Config.getElectricityCosts().multiply(electricityDifference))
 					.add(Config.getWaterCosts().multiply(waterDifference));
-			return price;
+			return price; //return correct price if you pay monthly
 		}
 		return super.getPrice()
 				.add(Config.getElectricityCosts().multiply(electricityDifference))
 				.add(Config.getWaterCosts().multiply(waterDifference));
+            //return correct price if you pay yearly
 	}
 
 	public boolean isNextYearAvaible(LocalDateTime date) {

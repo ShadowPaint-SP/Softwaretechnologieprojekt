@@ -1,7 +1,5 @@
 package campingplatz.seasonalplots;
 
-import campingplatz.plots.plotreservations.PlotCart;
-import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
@@ -18,10 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -57,14 +52,16 @@ public class SeasonalPlotCatalogController {
 				seasonalPlot -> !activeReservedSeasonalPlots.contains(seasonalPlot)));
 		var myOrders = new ArrayList<SeasonalPlotReservation>();
 
+        //checks whether the active reservations have already expired or need to be updated
 		var active = new HashSet<>(activReservationRepository);
 		for (SeasonalPlotReservation activeReservation : active) {
 			if (businessTime.getTime().isAfter(activeReservation.getEnd().plusYears(1).withMonth(3).withMonth(3))) {
 				activReservationRepository.remove(activeReservation);
 				freeSeasonalPlots.get(true).add(activeReservation.getProduct());
-					 } else {
+			} else {
 				try {
-					if (activeReservation.getUser().getId().equals(user.get().getId()) && reservationRepository.existsById(activeReservation.getId())) {
+					if (activeReservation.getUser().getId().equals(user.get().getId())
+							&& reservationRepository.existsById(activeReservation.getId())) {
 						myOrders.add(activeReservation);
 					}
 				} catch (Exception e) {
@@ -99,10 +96,12 @@ public class SeasonalPlotCatalogController {
 			inApril = businessTime.getTime();
 		}
 
+        //set end of period to 31.10.
 		var inOctober = inApril.withMonth(10).withDayOfMonth(31);
 		SeasonalPlotReservation reservation = new SeasonalPlotReservation(user, seasonalPlot,
 				inApril, inOctober, SeasonalPlotReservation.PayMethod.fromNumberPayMethod(payMethod));
 
+        //saves all active Reservation in one HashSet
 		var active = new HashSet<>(activReservationRepository);
 		for (SeasonalPlotReservation activeReservation : active) {
 			if (activeReservation.getProduct().equals(seasonalPlot))
@@ -111,23 +110,25 @@ public class SeasonalPlotCatalogController {
 
 		activReservationRepository.add(reservation);
 		seasonalPlotCart.add(reservation);
-		
+
 		return "redirect:/cart";
 	}
-	
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcancel/{plot}")
 	String cancel(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot) {
-
-		for (SeasonalPlotReservation reservation : activReservationRepository) {
-			if (reservation.getProduct().getId().equals(seasonalPlot.getId()) && reservation.getUser().equals(user)) {
-				activReservationRepository.remove(reservation);
-			}
+    //TODO Bei Löschuing einer Reservierung aus dem Repo stürzt die Schleife ab
+		Iterator<SeasonalPlotReservation> iterator = activReservationRepository.iterator();
+        while(iterator.hasNext()) {
+            SeasonalPlotReservation reservation = iterator.next();
+            if (reservation.getProduct().getId().equals(seasonalPlot.getId()) && reservation.getUser().equals(user)) {
+                activReservationRepository.remove(reservation);
+            }
 		}
 		return "redirect:/seasonalplotcatalog";
 	}
 
+    /*
 	@PostMapping("/updateseasonalplot/{plot}")
 	String updateSeasonalPlot(Model model, @LoggedIn UserAccount user,
 			@PathVariable("plot") SeasonalPlotReservation seasonalplotreservation) {
@@ -141,7 +142,7 @@ public class SeasonalPlotCatalogController {
 			}
 		}
 		return "redirect:/seasonalplotcatalog";
-	}
+	}*/
 
 	@GetMapping("/seasonalplotcatalog/details/{plot}")
 	public String showSeasonalPlotDetails(Model model,
@@ -152,20 +153,21 @@ public class SeasonalPlotCatalogController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalplotcatalog/details/{plot}/comments")
-	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info, @LoggedIn UserAccount currUserAccount) {
-        Set<UserAccount> commentarySet=reservationRepository.findUsersOfProduct(plot);
-        if(commentarySet.contains(currUserAccount)){
-            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),currUserAccount.getFirstname(), currUserAccount.getLastname()));
-            seasonalPlotCatalog.save(plot);
-        return "redirect:/plotcatalog/details/" + plot.getId();
-        }else{
-            model.addAttribute("error", true);
-            boolean error = true;
-            seasonalPlotCatalog.save(plot);
-            model.addAttribute("item", plot);
+	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info,
+			@LoggedIn UserAccount currUserAccount) {
+		Set<UserAccount> commentarySet = reservationRepository.findUsersOfProduct(plot);
+		if (commentarySet.contains(currUserAccount)) {
+			plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),
+					currUserAccount.getFirstname(), currUserAccount.getLastname()));
+			seasonalPlotCatalog.save(plot);
+			return "redirect:/plotcatalog/details/" + plot.getId();
+		} else {
+			model.addAttribute("error", true);
+			seasonalPlotCatalog.save(plot);
+			model.addAttribute("item", plot);
 
 			return "servings/seasonalplotdetails";
-        }
+		}
 	}
 
 	interface CommentInfo {
@@ -175,6 +177,5 @@ public class SeasonalPlotCatalogController {
 		@Range(min = 1, max = 5)
 		int getRating();
 	}
-
 
 }

@@ -8,7 +8,6 @@ import campingplatz.plots.plotdiscounts.PlotReservationDiscounter;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
-import campingplatz.seasonalplots.SeasonalPlotCatalogController;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
@@ -34,7 +33,7 @@ import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
-@SessionAttributes({ "plotCart", "SportItemCart", "seasonalCart"})
+@SessionAttributes({ "plotCart", "SportItemCart", "seasonalCart" })
 @EnableScheduling
 class ReservationController {
 
@@ -67,9 +66,9 @@ class ReservationController {
 	}
 
 	@ModelAttribute("seasonalCart")
-    SeasonalPlotCart initializeSeasonalCart() {
-        return new SeasonalPlotCart();
-    }
+	SeasonalPlotCart initializeSeasonalCart() {
+		return new SeasonalPlotCart();
+	}
 
 	@GetMapping("/cart")
 	String cart(Model model, @LoggedIn UserAccount userAccount,
@@ -92,7 +91,7 @@ class ReservationController {
 
 		var sportsReservations = sportItemCart.getReservations(userAccount);
 		model.addAttribute("sportsReservations", sportsReservations);
-		
+
 		var seasonalOrders = seasonalPlotCart.getReservationsOfUser(userAccount);
 		model.addAttribute("seasonalReservations", seasonalOrders);
 
@@ -132,8 +131,7 @@ class ReservationController {
 			var cart = sportItemCart.getReservations(userAccount);
 			var item = cart.get(index - 1);
 			sportItemCart.remove(item);
-		}
-		else if (type.equals("SeasonalPlotReservation")){
+		} else if (type.equals("SeasonalPlotReservation")) {
 			var cart = seasonalPlotCart.getReservationsOfUser(userAccount);
 			var item = cart.get(index - 1);
 			seasonalPlotCart.remove(item);
@@ -169,10 +167,10 @@ class ReservationController {
 		sportItemCart.clear();
 
 		List<SeasonalPlotReservation> seasonalPlotReservations = seasonPlotCart.getReservationsOfUser(userAccount);
-		
+
 		seasonalPlotReservationRepository.saveAll(seasonalPlotReservations);
 		seasonPlotCart.clear();
-		
+
 		return "redirect:/orders";
 	}
 
