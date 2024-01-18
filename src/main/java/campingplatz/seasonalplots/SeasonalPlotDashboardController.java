@@ -29,8 +29,8 @@ public class SeasonalPlotDashboardController {
 	String seasonalPlots(Model model) {
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 		model.addAttribute("seasonalPlots", all);
-		model.addAttribute("electricityCosts", Config.getElectricityCosts());
-		model.addAttribute("waterCosts", Config.getWaterCosts());
+        model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+        model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
 		return "dashboards/seasonalplot_management";
 	}
 
@@ -57,8 +57,8 @@ public class SeasonalPlotDashboardController {
 
 			Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 			model.addAttribute("seasonalPlots", all);
-            model.addAttribute("electricityCosts", Config.getElectricityCosts());
-            model.addAttribute("waterCosts", Config.getWaterCosts());
+            model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+            model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
 		}
 
 		return "dashboards/seasonalplot_management";
@@ -83,8 +83,8 @@ public class SeasonalPlotDashboardController {
 
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 		model.addAttribute("seasonalPlots", all);
-        model.addAttribute("electricityCosts", Config.getElectricityCosts());
-        model.addAttribute("waterCosts", Config.getWaterCosts());
+        model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+        model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
 		return "dashboards/seasonalplot_management";
 	}
 
@@ -97,8 +97,8 @@ public class SeasonalPlotDashboardController {
 
         Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
         model.addAttribute("seasonalPlots", all);
-        model.addAttribute("electricityCosts", Config.getElectricityCosts());
-        model.addAttribute("waterCosts", Config.getWaterCosts());
+        model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+        model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
 		return "dashboards/seasonalplot_management";
 	}
 
