@@ -13,6 +13,11 @@ import java.util.List;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+
+/**
+ * Controller for managing sports equipment.
+ * Handles operations such as viewing, adding, modifying, and deleting sport items in the management dashboard.
+ */
 @Controller
 public class SportItemDashboardController {
 
@@ -22,6 +27,13 @@ public class SportItemDashboardController {
 		this.itemCatalog = itemCatalog;
 	}
 
+
+    /**
+     * Sets up the sports equipment management dashboard for authorized users.
+     *
+     * @param model The Spring MVC model for passing data to the view.
+     * @return The view name for the sports equipment management dashboard.
+     */
 	@GetMapping("/management/sportsequipment")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String setup(Model model) {
@@ -35,6 +47,19 @@ public class SportItemDashboardController {
 		return "dashboards/sportsequipment_management";
 	}
 
+
+    /**
+     * Handles the addition or modification of a sport item in the catalog.
+     *
+     * @param name      The name of the sport item.
+     * @param price     The price of the sport item.
+     * @param deposit   The deposit required for the sport item.
+     * @param amount    The quantity of the sport item.
+     * @param category  The category of the sport item.
+     * @param imagePath The image path for the sport item.
+     * @param desc      The description of the sport item.
+     * @return A redirect to the sports equipment management dashboard.
+     */
 	@PostMapping("/management/sportsequipment/additem")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String addSportItem(@RequestParam String name,
@@ -66,6 +91,14 @@ public class SportItemDashboardController {
 		return "redirect:/management/sportsequipment";
 	}
 
+
+    /**
+     * Handles the modification of the quantity of a sport item in the catalog.
+     *
+     * @param amountItem The new quantity of the sport item.
+     * @param equip_id   The product identifier of the sport item.
+     * @return A redirect to the sports equipment management dashboard.
+     */
 	@PostMapping("/management/sportsequipment/changeamount")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String changeSportItemAmount(@RequestParam int amountItem,
@@ -82,6 +115,14 @@ public class SportItemDashboardController {
 		return "redirect:/management/sportsequipment";
 	}
 
+
+    /**
+     * Handles the deletion of a sport item from the catalog.
+     *
+     * @param itemName The name of the sport item to be deleted.
+     * @param id       The product identifier of the sport item.
+     * @return A redirect to the sports equipment management dashboard.
+     */
 	@PostMapping("/management/sportsequipment/delete")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	public String deleteSportItem(@RequestParam String itemName,

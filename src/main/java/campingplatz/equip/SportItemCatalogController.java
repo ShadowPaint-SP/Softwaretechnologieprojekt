@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Controller for managing the Sport Item Catalog in the campingplatz application.
+ * Provides functionality for users to view available sport items, make reservations,
+ * and manage the sport item inventory.
+ */
 @Controller
 @SessionAttributes("SportItemCart")
 public class SportItemCatalogController {
@@ -31,11 +37,23 @@ public class SportItemCatalogController {
 		this.reservationRepository = reservationRepository;
 	}
 
+    /**
+     * Initializes the SportItemCart as a session attribute.
+     *
+     * @return A new instance of SportItemCart.
+     */
 	@ModelAttribute("SportItemCart")
 	SportItemCart initializeCart() {
 		return new SportItemCart();
 	}
 
+
+    /**
+     * Prepares and displays the Sport Item Catalog for users.
+     *
+     * @param model The Spring MVC model to convey data to the view.
+     * @return The view name corresponding to the sport equipment catalog.
+     */
 	@GetMapping("/sportitemcatalog")
 	String setupCatalog(Model model) {
 		List<SportItem> listo = this.itemCatalog.findAll().stream().toList();
