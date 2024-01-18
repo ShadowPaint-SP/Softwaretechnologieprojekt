@@ -18,7 +18,7 @@
                         <div class="tooltip tooltip-bottom join-item bg-base-100" th:data-tip="#{catalog.plot.arrival}">
                             <input class="input input-sm focus:outline-accent join-item" type="date" name="arrival"
                                 th:value="${searchQuery.defaultedArrival}" th:min="${searchQuery.minArrivalDate}"
-                                onchange="this.form.submit()">
+                                   th:max="${searchQuery.defaultedDeparture}" onchange="this.form.submit()">
                         </div>
                         <div class="join-item bg-base-100 w-2 fill-current flex justify-center">
                             <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">

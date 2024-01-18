@@ -152,6 +152,10 @@ class PlotCatalogController {
     @PostMapping("/plotcatalog/filter")
     String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalogController.SiteState query,
             @ModelAttribute("plotCart") PlotCart reservationCart) {
+
+        // set first week date to null to make the defaulted first week date recalculate
+        query.setFirstWeekDate(null);
+
         return setupCatalog(model, user, query, reservationCart);
     }
 
