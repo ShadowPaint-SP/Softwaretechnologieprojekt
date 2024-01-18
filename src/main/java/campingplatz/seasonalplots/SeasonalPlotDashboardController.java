@@ -1,9 +1,11 @@
 package campingplatz.seasonalplots;
 
+import campingplatz.accounting.PlotRepairAccountancyEntry;
 import campingplatz.plots.Plot;
 import jakarta.validation.Valid;
 
 import org.javamoney.moneta.Money;
+import org.salespointframework.accountancy.Accountancy;
 import org.salespointframework.catalog.Product;
 import org.springframework.data.util.Streamable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +21,11 @@ import static org.salespointframework.core.Currencies.EURO;
 @Controller
 public class SeasonalPlotDashboardController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
+    Accountancy accountancy;
 
-	SeasonalPlotDashboardController(SeasonalPlotCatalog plotCatalog) {
+	SeasonalPlotDashboardController(SeasonalPlotCatalog plotCatalog, Accountancy accountancy) {
 		this.seasonalPlotCatalog = plotCatalog;
+        this.accountancy = accountancy;
 	}
 
 	@GetMapping("/management/seasonalplot")
@@ -50,9 +54,18 @@ public class SeasonalPlotDashboardController {
 			plot.setImagePath(info.getPicture());
 			plot.setDesc(info.getDescription());
 
-			// dont forget to save
-			plot.setState(Plot.State.fromNumber(info.getState()));
+            // if the state is null the plot was repaired
+            if (info.getState() == null){
+                accountancy.add(
+                        new PlotRepairAccountancyEntry(info.getRepairCost(), plot)
+                );
+                plot.setState(Plot.State.OPERATIONAL);
+            }
+            else {
+                plot.setState(Plot.State.fromNumber(info.getState()));
+            }
 
+			// dont forget to save
 			seasonalPlotCatalog.save(plot);
 
 			Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
@@ -123,6 +136,8 @@ public class SeasonalPlotDashboardController {
 		String getPicture();
 
 		Integer getState();
+
+        Double getRepairCost();
 	}
 
     interface CostsInfo {

@@ -150,12 +150,19 @@
                                         th:value="${plot.imagePath}" onchange="this.form.submit()">
                                 </td>
                                 <th>
-                                    <select name="state" onchange="this.form.submit()"
-                                        class="select select-xs w-full max-w-xs focus:outline-accent">
-                                        <option value="0" th:selected="${plot.state.index == 0}" th:text="#{plot.state.operational}">operational</option>
-                                        <option value="1" th:selected="${plot.state.index == 1}" th:text="#{plot.state.defective}">defectiv</option>
-                                        <option value="2" th:selected="${plot.state.index == 2}" th:text="#{plot.state.deleted}">deleted</option>
-                                    </select>
+                                    <div th:if="${plot.state.index != 1}">
+                                        <select name="state" onchange="this.form.submit()"
+                                                class="select select-xs w-full max-w-xs focus:outline-accent">
+                                            <option value="0" th:selected="${plot.state.index == 0}">operational</option>
+                                            <option value="1" th:selected="${plot.state.index == 1}">defectiv</option>
+                                            <option value="2" th:selected="${plot.state.index == 2}">hidden</option>
+                                        </select>
+                                    </div>
+                                    <div th:if="${plot.state.index == 1}">
+                                        <input class="input input-sm w-full focus:outline-accent" type="number" name="repairCost"
+                                               th:placeholder="#{management.plot.repaircost}">
+                                        <input type="submit" hidden />
+                                    </div>
                                 </th>
                             </form>
                         </tr>
