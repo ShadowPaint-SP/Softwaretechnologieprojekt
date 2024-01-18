@@ -1,6 +1,5 @@
-package campingplatz.reservation;
+package campingplatz.seasonalplots;
 
-import campingplatz.seasonalplots.SeasonalPlot;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import org.javamoney.moneta.Money;
