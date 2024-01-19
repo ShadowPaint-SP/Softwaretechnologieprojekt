@@ -6,6 +6,10 @@ import javax.money.MonetaryAmount;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * The class contains the variables
+ * for the water and electricity costs
+ */
 public class Config {
 	private static MonetaryAmount electricityCosts = Money.of(0.29, EURO); // per kWh in Euro
 	private static MonetaryAmount waterCosts = Money.of(2.59,EURO); // per m^3 in Euro

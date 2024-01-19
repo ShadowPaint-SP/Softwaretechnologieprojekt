@@ -39,6 +39,9 @@ public class SeasonalPlotReservationDashboardController {
 		this.businessTime = businessTime;
 	}
 
+    /**
+     *Loads all reservations.
+     */
 	@GetMapping("/management/seasonalreservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String reservations(Model model) {
@@ -48,6 +51,13 @@ public class SeasonalPlotReservationDashboardController {
 		return "dashboards/reservation_seasonalPlot_management";
 	}
 
+    /**
+     * The meter readings and the status of the reservation
+     * can be changed to complete the reservation last.
+     * Adds the completed reservation to the accounting system.
+     *
+     * @param info Data for statuf of reservation and new meter reading
+     */
 	@PostMapping("/management/seasonalreservation/updateReservation")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String updateReservations(Model model, @Valid ReservationChangeInformation info) {
@@ -94,8 +104,11 @@ public class SeasonalPlotReservationDashboardController {
 		Double getNewWaterMeter();
 	}
 
+    /**
+     * Checks whether a new month has started
+     * for the monthly payment method.
+     */
 	public void dayHasPassed() {
-		System.out.println("Day has passed");
 
 		List<SeasonalPlotReservation> all = plotReservations.findAll();
 		for (var plot : all) {

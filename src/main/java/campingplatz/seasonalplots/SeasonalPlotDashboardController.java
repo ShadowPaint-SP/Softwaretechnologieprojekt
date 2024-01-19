@@ -16,6 +16,9 @@ import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * Contains functions for managing and creating plots.
+ */
 @Controller
 public class SeasonalPlotDashboardController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
@@ -24,9 +27,13 @@ public class SeasonalPlotDashboardController {
 		this.seasonalPlotCatalog = plotCatalog;
 	}
 
+    /**
+     * Find all plots.
+     */
 	@GetMapping("/management/seasonalplot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String seasonalPlots(Model model) {
+
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 		model.addAttribute("seasonalPlots", all);
         model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
@@ -34,6 +41,12 @@ public class SeasonalPlotDashboardController {
 		return "dashboards/seasonalplot_management";
 	}
 
+    /**
+     * Can change name, size, price, parking method, meters,
+     * picture path, description.
+     *
+     * @param info  Contains the value for change
+     */
 	@PostMapping("/management/seasonalplot/updateSeasonalPlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String changeSeasonalPlotDetails(Model model, @Valid SeasonalPlotDashboardController.SeasonalPlotInformation info) {
@@ -64,6 +77,11 @@ public class SeasonalPlotDashboardController {
 		return "dashboards/seasonalplot_management";
 	}
 
+    /**
+     * Create a new permanent camper plot.
+     *
+     * @param info Contains all data for the new plot
+     */
 	@PostMapping("/management/seasonalplot/createSeasonalPlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String createSeasonalPlot(Model model, @Valid SeasonalPlotDashboardController.SeasonalPlotInformation info) {
@@ -88,10 +106,15 @@ public class SeasonalPlotDashboardController {
 		return "dashboards/seasonalplot_management";
 	}
 
+    /**
+     * The fixed costs for electricity and water can be changed.
+     *
+     * @param costsInfo Contains the new value for water and electricity.
+     */
 	@PostMapping("/management/seasonalplot/setCosts")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String changeCosts(Model model, @Valid SeasonalPlotDashboardController.CostsInfo costsInfo) {
-        //TODO Anzeigen
+
 		Config.setElectricityCosts(Money.of(costsInfo.getElectricityCosts(), EURO));
 		Config.setWaterCosts((Money.of(costsInfo.getWaterCosts(), EURO)));
 

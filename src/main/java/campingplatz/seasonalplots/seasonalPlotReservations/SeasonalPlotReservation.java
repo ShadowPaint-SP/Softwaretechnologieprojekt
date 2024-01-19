@@ -13,7 +13,10 @@ import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-
+/**
+ * A reservation of one plot for one season
+ * is an extension of {@link Reservation}.
+ */
 @Entity
 public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 
@@ -47,6 +50,12 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 		return ChronoUnit.MONTHS;
 	}
 
+    /**
+     * Calculates the price provided for the payment method
+     * using the monthly costs plus the costs for electricity and water
+     *
+     * @return  Price to paid for month or complete season
+     */
 	@Override
 	public MonetaryAmount getPrice() {
 		if (payMethod.equals(PayMethod.MONTHLY)) {
@@ -61,6 +70,12 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
             //return correct price if you pay yearly
 	}
 
+    /**
+     * Indicates whether the reservation is over.
+     *
+     * @param date  present time
+     * @return      is the present time after Reservation end
+     */
 	public boolean isNextYearAvaible(LocalDateTime date) {
 		return date.isAfter(getEnd());
 	}
@@ -87,15 +102,33 @@ public class SeasonalPlotReservation extends Reservation<SeasonalPlot> {
 		}
 	}
 
+    /**
+     * The new meter reading is set and
+     * the difference to the cost calculation is saved
+     *
+     * @param newElectricityMeter     new meter reading
+     */
 	public void setElectricityDifference(Double newElectricityMeter) {
 		this.electricityDifference = this.electricityDifference
 				+ getProduct().settlementElectricity(newElectricityMeter, electricityDifference);
 	}
 
+    /**
+     * The new meter reading is set and
+     * the difference to the cost calculation is saved
+     *
+     * @param newWaterMeter     new meter reading
+     */
 	public void setWaterDifference(Double newWaterMeter) {
 		this.waterDifference = this.waterDifference + getProduct().settlementWater(newWaterMeter, waterDifference);
 	}
 
+    /**
+     * Check whether another payment is required for the new month
+     * if the monthly payment method is selected.
+     *
+     * @param date  present time
+     */
 	public void updateMonthlyPayment(LocalDateTime date) {
 		/* reset PAYED status if month has passed and PayMethod is MONTHLY */
 		if (date.isAfter(this.getBegin().plusMonths(payed_months)) && getState() == State.PAYED
