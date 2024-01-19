@@ -11,12 +11,12 @@
                         class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20 shadow-lg">
                     <div>
                         <label class="label-text" th:text="#{seasonalplot.electricitymeter.costs}">electricity Costs:</label>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" th:value="${electricityCosts}" min="0"
+                        <input class="input input-sm w-full focus:outline-accent" type="number" step="0.01" th:value="${electricityCosts}" min="0"
                                name="electricityCosts" required>
                     </div>
                     <div>
                         <label class="label-text" th:text="#{seasonalplot.watermeter.costs}">water Costs:</label>
-                        <input class="input input-sm w-full focus:outline-accent" type="number" th:value="${waterCosts}" min="0"
+                        <input class="input input-sm w-full focus:outline-accent" type="number" step="0.01" th:value="${waterCosts}" min="0"
                                name="waterCosts" required>
                     </div>
                     <div></div>
