@@ -79,9 +79,18 @@
         <a class="btn btn-ghost no-animation text-xl" href="/" th:text="#{home.title}">Campingplatz
         </a>
         <svg viewBox="0 0 50 50" class="w-12" xmlns="http://www.w3.org/2000/svg">
-          <use xlink:href="img/below-the-sun_logo.svg#box" />
+          <defs>
+            <g id="tent">
+              <path d="M 0,0 C 12,25,18,30,20,30 L 2,30 L 0,5" />
+              <path transform="scale(-1,1) translate (-0.1,0)" d="M 0,0 C 12,25,18,30,20,30 L 2,30 L 0,5" />
+            </g>
+          </defs>
+          <svg id="box" viewBox="7 0 46 46">
+            <circle id="sun" cx="30" cy="23" r="20" />
+            <circle id="grass" cx="30" cy="72" r="40" />
+            <use xlink:href="#tent" x="30" y="10" />
+          </svg>
         </svg>
-
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1 z-50">
