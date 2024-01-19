@@ -1,5 +1,9 @@
 package campingplatz.utils;
 
+import org.javamoney.moneta.Money;
+import org.salespointframework.core.Currencies;
+
+import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Duration;
@@ -57,4 +61,25 @@ public class Utils {
 		};
 
 	}
+
+
+	// truncate a string to a length of 255 at max
+	public static String clampLength(String input){
+		if (input.length() > 255){
+			return input.substring(0, 255);
+		}
+		else {
+			return input;
+		}
+	}
+
+    // round prices less than a zero to zero
+    public static Money clampPrice(Money input){
+        if (input.isLessThan(Money.of(0, Currencies.EURO))){
+            return Money.of(0, Currencies.EURO);
+        }
+        else {
+            return input;
+        }
+    }
 }

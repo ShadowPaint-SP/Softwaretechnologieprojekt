@@ -26,6 +26,7 @@ public class SeasonalPlot extends Plot {
 	public SeasonalPlot(String name, Double size, Money price, ParkingLot parking, double electricityMeter,
 			double waterMeter, String imagePath, String description) { // Price is per Month
 
+        // no need to validate inputs, will be done in the plot constructor
 		super(name + "\n[Dauercamper]", size, price, parking, imagePath, description);
 
 		this.electricityMeter = electricityMeter;

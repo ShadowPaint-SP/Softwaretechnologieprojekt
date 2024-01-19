@@ -31,7 +31,6 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 
 		public final String clickability;
 		public final Integer value;
-		public final String css;
 		public final String label;
 		public final String color;
 
@@ -39,7 +38,6 @@ public class SportItemAvailabilityTable extends ArrayList<SportItemAvailabilityT
 
 		FieldType(Integer size, String arg, String clickability, String color) {
 			this.value = size;
-			this.css = arg + ".css";
 			this.label = arg + ".label";
 			this.clickability = clickability;
 			this.color = color;
