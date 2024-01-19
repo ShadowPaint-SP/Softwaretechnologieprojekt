@@ -7,11 +7,21 @@
 
 <body>
     <main layout:fragment="input">
-        <div th:text="${currentDate}" >Date</div>
+        <!--<div th:text="${currentDate}" >Date</div>-->
+
+        <div role="alert" class="alert container max-w-3xl mx-auto mt-14">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                class="stroke-info shrink-0 w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span th:text="#{seasonalplot.text}">x</span>
+        </div>
+
         <div th:if="${ordersCompleted.size > 0}" th:fragment="my_orders"
-            class="overflow-x-auto container mx-auto mt-14 rounded-box">
+            class="overflow-x-auto container mx-auto my-14 rounded-box shadow-md">
             <table class="table table-zebra">
-                <thead>
+                <thead class="bg-secondary">
                     <tr>
                         <th>
                             <span th:text="#{my_orders}"></span>
@@ -23,24 +33,25 @@
                 </thead>
                 <tbody>
                     <tr th:each="order : ${ordersCompleted}">
-                        <td class="flex">
-                            <div>
-                                <img class="h-32 w-32" th:src="${order.product.imagePath}" />
+                        <th class="flex">
+                            <div class="pr-4">
+                                <img class="h-32 w-32 mask mask-squircle" th:src="${order.product.imagePath}" />
                             </div>
-                            <div>
-                                <div th:text="${order.product.name}">Plotname</div>
-                                <div>
-                                    <div th:text="'Kosten: '+${order.product.priceString}"></div>
-                                    <div th:text="'Größe: '+${order.product.sizeString}"></div>
-                                    <div th:text="#{${order.product.parking.label}}"></div>
-                                    <div th:text="${order.product.desc}"></div>
-                                    <div th:text="#{arrival} + ' ' + ${order.begin.toString().substring(0,10)}">Arrival
-                                    </div>
-                                    <div th:text="#{departure} + ' ' + ${order.end.toString().substring(0,10)}">
-                                        Departure</div>
-                                </div>
+                            <div class="my-auto justify-between">
+                                <a class="underline" th:text="${order.product.name}"
+                                    th:href="@{/seasonalplotcatalog/details/{plot}(plot=${order.product.id})}"></a>
+                                <p class="text-neutral-500">Kosten: <span class="text-accent"
+                                        th:text="${order.product.priceString}"></span>
+                                </p>
+                                <p class="text-neutral-500">Größe: <span class="text-accent"
+                                        th:text="${order.product.sizeString}"></span></p>
+                                <p class="text-neutral-500" th:text="#{${order.product.parking.label}}"></p>
+                                <p class="text-neutral-500">
+                                    <span th:text="${order.begin.toString().substring(0,10)}"></span> -> <span
+                                        th:text="${order.end.toString().substring(0,10)}"></span>
+                                </p>
                             </div>
-                        </td>
+                        </th>
                         <td>
                             <form th:if="${order.isNextYearAvaible(currentDate)}"
                                 th:action="'/seasonalcheckout/' + ${order.product.id}" method="post">
@@ -51,13 +62,11 @@
                                         <option value="0" th:text="#{seasonalcatalog.pay.monthly}"></option>
                                     </select>
                                 </div>
-                                <button class="btn btn-primary" type="submit"
-                                    th:text="#{seasonalplot.again}"></button>
+                                <button class="btn btn-primary" type="submit" th:text="#{seasonalplot.again}"></button>
                             </form>
                             <form th:if="${order.isNextYearAvaible(currentDate)}"
-                                  th:action="'/seasonalcancel/' + ${order.product.id}" method="post">
-                                  <button class="btn btn-primary" type="submit"
-                                    th:text="#{seasonalplot.nagain}"></button>
+                                th:action="'/seasonalcancel/' + ${order.product.id}" method="post">
+                                <button class="btn btn-primary" type="submit" th:text="#{seasonalplot.nagain}"></button>
                             </form>
                         </td>
                     </tr>
