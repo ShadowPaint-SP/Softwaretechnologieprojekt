@@ -1,6 +1,7 @@
 package campingplatz.equip;
 
 import campingplatz.utils.DetailedProduct;
+import campingplatz.utils.Utils;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,10 +31,15 @@ public class SportItem extends DetailedProduct {
 	// rentalFee, price = Leihgebühr | deposit = Kaution
 	public SportItem(String name, Money rentalFee, Money deposit, String category, int amount, String imagePath,
 			String description) {
-		super(name, rentalFee, imagePath, description);
+		super(
+                Utils.clampLength(name),
+                Utils.clampPrice(rentalFee),
+                Utils.clampLength(imagePath),
+                Utils.clampLength(description)
+        );
 		this.addCategory(category);
-		this.amount = amount;
-		this.deposit = deposit;
+		this.amount = Math.max(0, amount);
+		this.deposit = Utils.clampPrice(deposit);
 	}
 
 }

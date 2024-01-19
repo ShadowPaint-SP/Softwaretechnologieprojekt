@@ -1,5 +1,6 @@
 package campingplatz.customer;
 
+import campingplatz.utils.Utils;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
@@ -11,10 +12,10 @@ class RegistrationForm {
 
     public RegistrationForm(String name, String last, String password, String email) {
 
-        this.name = name;
-        this.last = last;
+        this.name = Utils.clampLength(name);
+        this.last = Utils.clampLength(last);
         this.password = password;
-        this.email = email;
+        this.email = Utils.clampLength(email);
     }
 
     public void validate(Errors errors) {

@@ -2,6 +2,7 @@ package campingplatz.seasonalplots;
 
 import campingplatz.accounting.PlotRepairAccountancyEntry;
 import campingplatz.plots.Plot;
+import campingplatz.utils.Utils;
 import jakarta.validation.Valid;
 
 import org.javamoney.moneta.Money;
@@ -57,29 +58,29 @@ public class SeasonalPlotDashboardController {
 
 		Optional<SeasonalPlot> plotOptional = seasonalPlotCatalog.findById(info.getPlotID());
 		if (plotOptional.isPresent()) {
-			SeasonalPlot plot = plotOptional.get();
-			plot.setName(info.getName());
-			plot.setSize(info.getSize());
-			plot.setParking(Plot.ParkingLot.fromNumber(info.getParkingValue()));
-			plot.setPrice(Money.of(info.getPrice(), EURO));
-			plot.setElectricityMeter(info.getElectricityMeter());
-			plot.setWaterMeter(info.getWaterMeter());
-			plot.setImagePath(info.getPicture());
-			plot.setDesc(info.getDescription());
+			SeasonalPlot splot = plotOptional.get();
+            splot.setName(Utils.clampLength(info.getName()));
+            splot.setSize(info.getSize());
+            splot.setParking(Plot.ParkingLot.fromNumber(info.getParkingValue()));
+            splot.setPrice(Money.of(info.getPrice(), EURO));
+            splot.setElectricityMeter(info.getElectricityMeter());
+            splot.setWaterMeter(info.getWaterMeter());
+            splot.setImagePath(Utils.clampLength(info.getPicture()));
+            splot.setDesc(Utils.clampLength(info.getDescription()));
 
             // if the state is null the plot was repaired
             if (info.getState() == null){
                 accountancy.add(
-                        new PlotRepairAccountancyEntry(info.getRepairCost(), plot)
+                        new PlotRepairAccountancyEntry(info.getRepairCost(), splot)
                 );
-                plot.setState(Plot.State.OPERATIONAL);
+                splot.setState(Plot.State.OPERATIONAL);
             }
             else {
-                plot.setState(Plot.State.fromNumber(info.getState()));
+                splot.setState(Plot.State.fromNumber(info.getState()));
             }
 
 			// dont forget to save
-			seasonalPlotCatalog.save(plot);
+			seasonalPlotCatalog.save(splot);
 
 			Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 			model.addAttribute("seasonalPlots", all);

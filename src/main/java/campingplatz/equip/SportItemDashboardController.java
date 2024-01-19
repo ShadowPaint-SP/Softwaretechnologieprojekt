@@ -1,5 +1,6 @@
 package campingplatz.equip;
 
+import campingplatz.utils.Utils;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -79,13 +80,13 @@ public class SportItemDashboardController {
 					imagePath,
 					desc));
 		} else {
-			item.setName(name);
-			item.setPrice(Money.of(price, EURO));
-			item.setDeposit(Money.of(deposit, EURO));
+			item.setName(Utils.clampLength(name));
+			item.setPrice(Utils.clampPrice(Money.of(price, EURO)));
+			item.setDeposit(Utils.clampPrice(Money.of(deposit, EURO)));
 			item.addCategory(category); // das ist noch nicht so gut.
-			item.setAmount(amount);
-			item.setImagePath(imagePath);
-			item.setDesc(desc);
+			item.setAmount(Math.max(amount, 0));
+			item.setImagePath(Utils.clampLength(imagePath));
+			item.setDesc(Utils.clampLength(desc));
 			itemCatalog.save(item);
 		}
 		return "redirect:/management/sportsequipment";

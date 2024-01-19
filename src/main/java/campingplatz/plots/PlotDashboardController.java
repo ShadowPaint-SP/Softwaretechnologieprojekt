@@ -1,6 +1,7 @@
 package campingplatz.plots;
 
 import campingplatz.accounting.PlotRepairAccountancyEntry;
+import campingplatz.utils.Utils;
 import jakarta.validation.Valid;
 import org.javamoney.moneta.Money;
 import org.salespointframework.accountancy.Accountancy;
@@ -44,12 +45,12 @@ public class PlotDashboardController {
 		Optional<Plot> plotOptional = plotCatalog.findById(info.getPlotID());
 		if (plotOptional.isPresent()) {
 			Plot plot = plotOptional.get();
-			plot.setName(info.getName());
+			plot.setName(Utils.clampLength(info.getName()));
 			plot.setSize(info.getSize());
 			plot.setParking(Plot.ParkingLot.fromNumber(info.getParkingValue()));
-			plot.setPrice(Money.of(info.getPrice(), EURO));
-			plot.setImagePath(info.getPicture());
-			plot.setDesc(info.getDescription());
+			plot.setPrice(Utils.clampPrice(Money.of(info.getPrice(), EURO)));
+			plot.setImagePath(Utils.clampLength(info.getPicture()));
+			plot.setDesc(Utils.clampLength(info.getDescription()));
 
             // if the state is null the plot was repaired
             if (info.getState() == null){

@@ -2,6 +2,7 @@ package campingplatz.plots;
 
 import campingplatz.utils.DetailedProduct;
 import campingplatz.utils.Comment;
+import campingplatz.utils.Utils;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -42,7 +43,12 @@ public class Plot extends DetailedProduct {
     private double averageRating = 0;
 
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
-        super(name, price, imagePath, description);
+        super(
+                Utils.clampLength(name),
+                Utils.clampPrice(price),
+                Utils.clampLength(imagePath),
+                Utils.clampLength(description)
+        );
         this.size = size;
         this.parking = parking;
     }
