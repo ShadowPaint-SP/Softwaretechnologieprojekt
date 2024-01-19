@@ -2957,14 +2957,6 @@ html {
   font-size: 0.875rem;
 }
 
-.btn-md {
-  height: 3rem;
-  min-height: 3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-size: 0.875rem;
-}
-
 .btn-square:where(.btn-xs) {
   height: 1.5rem;
   width: 1.5rem;
@@ -2974,12 +2966,6 @@ html {
 .btn-square:where(.btn-sm) {
   height: 2rem;
   width: 2rem;
-  padding: 0px;
-}
-
-.btn-square:where(.btn-md) {
-  height: 3rem;
-  width: 3rem;
   padding: 0px;
 }
 
@@ -3616,14 +3602,6 @@ html {
   margin-top: 1.5rem;
 }
 
-.ml-auto {
-  margin-left: auto;
-}
-
-.mr-auto {
-  margin-right: auto;
-}
-
 .block {
   display: block;
 }
@@ -3760,13 +3738,13 @@ html {
   width: 100%;
 }
 
+.min-w-\[200px\] {
+  min-width: 200px;
+}
+
 .min-w-fit {
   min-width: -moz-fit-content;
   min-width: fit-content;
-}
-
-.min-w-\[200px\] {
-  min-width: 200px;
 }
 
 .max-w-fit {
@@ -3786,16 +3764,28 @@ html {
   max-width: 24rem;
 }
 
-.max-w-xs {
-  max-width: 20rem;
-}
-
 .max-w-xl {
   max-width: 36rem;
 }
 
+.max-w-xs {
+  max-width: 20rem;
+}
+
 .max-w-3xl {
   max-width: 48rem;
+}
+
+.max-w-\[90\%\] {
+  max-width: 90%;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.max-w-7xl {
+  max-width: 80rem;
 }
 
 .shrink-0 {
@@ -3900,10 +3890,6 @@ html {
   align-self: flex-start;
 }
 
-.self-end {
-  align-self: flex-end;
-}
-
 .justify-self-end {
   justify-self: end;
 }
@@ -3914,6 +3900,10 @@ html {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .rounded-box {
@@ -4055,24 +4045,16 @@ html {
   padding-right: 1rem;
 }
 
-.pt-4 {
-  padding-top: 1rem;
-}
-
-.pt-14 {
-  padding-top: 3.5rem;
-}
-
 .pt-2 {
   padding-top: 0.5rem;
 }
 
-.text-center {
-  text-align: center;
+.pt-4 {
+  padding-top: 1rem;
 }
 
-.font-body {
-  font-family: Poppins;
+.text-center {
+  text-align: center;
 }
 
 .text-2xl {
