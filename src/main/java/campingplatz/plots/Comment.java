@@ -1,8 +1,10 @@
-package campingplatz.utils;
+package campingplatz.plots;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+import campingplatz.utils.Utils;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,7 +22,7 @@ public class Comment implements Serializable {
 	 * The unique identifier for the comment.
 	 */
 	@Getter
-	private @Id @GeneratedValue long id;
+	private @Id @GeneratedValue UUID id;
 
 	/**
 	 * The text content of the comment.
@@ -63,11 +65,11 @@ public class Comment implements Serializable {
 	 * @param lastName  the last name of the person who made the comment
 	 */
 	public Comment(String text, int rating, LocalDateTime time, String firstName, String lastName) {
-		this.text = text;
-		this.rating = rating;
+		this.text = Utils.clampLength(text);
+		this.rating = Math.min(5, Math.max(0, rating));
 		this.time = time;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstName = Utils.clampLength(firstName);
+		this.lastName = Utils.clampLength(lastName);
 	}
 
 	/**

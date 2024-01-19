@@ -1,17 +1,18 @@
 package campingplatz.plots;
 
 import campingplatz.utils.DetailedProduct;
-import campingplatz.utils.Comment;
 import campingplatz.utils.Utils;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Plot extends DetailedProduct {
@@ -33,10 +34,6 @@ public class Plot extends DetailedProduct {
     @Getter
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
-
-    @Setter
-    @Getter
-    private double averageRating = 0;
 
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
         super(
@@ -115,20 +112,18 @@ public class Plot extends DetailedProduct {
         }
     }
 
-    public void addComment(Comment comment) {
-        comments.add(comment);
-        int zwRating = 0;
-        for (int i = 0; i < comments.size(); i++) {
-            zwRating = zwRating + comments.get(i).getRating();
-        }
-        averageRating = (double) Math.round((double) zwRating / comments.size() * 10) / 10;
+    public Double averageRating() {
+        var rating = comments.stream()
+                .map(Comment::getRating)
+                .reduce(0, Integer::sum);
+        return (double) Math.round((double) rating / comments.size() * 10) / 10;
     }
 
-    public void deleteComment(Long commentILong) {
-        for (int i = 0; i < comments.size(); i++) {
-            if (comments.get(i).getId() == commentILong) {
-                comments.remove(i);
-            }
-        }
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    public void deleteComment(UUID id) {
+        comments.removeIf(comment -> comment.getId().equals(id));
     }
 }

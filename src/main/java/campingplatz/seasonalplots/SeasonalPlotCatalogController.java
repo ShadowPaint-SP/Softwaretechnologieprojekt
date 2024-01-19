@@ -3,7 +3,7 @@ package campingplatz.seasonalplots;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotCart;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservationRepository;
-import campingplatz.utils.Comment;
+import campingplatz.plots.Comment;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 

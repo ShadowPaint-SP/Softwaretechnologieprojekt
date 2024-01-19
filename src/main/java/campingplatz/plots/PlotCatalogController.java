@@ -3,7 +3,6 @@ package campingplatz.plots;
 import campingplatz.plots.plotreservations.PlotCart;
 import campingplatz.plots.plotreservations.PlotReservation;
 import campingplatz.plots.plotreservations.PlotReservationRepository;
-import campingplatz.utils.Comment;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -21,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -239,7 +235,7 @@ class PlotCatalogController {
     }
 
     @PostMapping("/plotcatalog/details/{plot}/comments/{commentId}")
-    public String deleteComment(@PathVariable("plot") Plot plot, @PathVariable Long commentId) {
+    public String deleteComment(@PathVariable("plot") Plot plot, @PathVariable UUID commentId) {
         plot.deleteComment(commentId);
         plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
