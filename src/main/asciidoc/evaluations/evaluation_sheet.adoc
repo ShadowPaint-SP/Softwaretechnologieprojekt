@@ -3,24 +3,39 @@
 // Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
 // Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
 
-**Von:**
+**Von:**Irina Drumeva
 
-**Gruppe:**
+**Gruppe:**06
 
 == Was habe ich gelernt / was habe ich nicht gelernt?
 // Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+Mit Frameworks wie Salespoint zu arbeiten, aber ich habe sehr viel Zeit gebraucht,zu lernen,wie man mit der SalesPoint-Dokumentation umgeht.
+mehr über HTML, CSS und Thymeleaf gelernt, über das Identifizieren nichtfunktionaler Komponenten und das Aufspüren von Bugs 
+über die Zusammenarbeit im Team und die effektive Verteilung von Aufgaben gelernt
 
 == Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
 // Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+Problemlose und konfliktlose Arbeitumgebung, Austausch von sehr vielen Ideen und Vorschlägen bei jeder Aufgabe/jedem Problem
+Beim nächsten Mal keine Paar-Programming ,denn es ist schwierig einen zeitlich passenden Termin für die beiden Teammitglieder zu finden. 
+Folglich ist es schwierig zusammenzuarbeiten und das macht die Arbeit mit der Aufgabe manchmal ein bisschen chaotisch.
+
 
 == Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
 // Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+Die Nutzung von SalesPoint hat die Entwicklung von Anwendungen durch die effiziente Nutzung vorhandener Funktionen und Module erleichtert.
+Die Dokumentation von SalesPoint könnte aber möglicherweise verbessert werden,indem sie mehr ausführlich und klar alles beschreibt.
+Eine verbesserte Unterstützung in Form von mehr Tutorials wird auch hilfreich sein.
+
 
 == Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
 // Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+die Bildung von kleineren Gruppen, damit es nicht so schwierig zeitlich miteinander anzupassen, besonders wenn wir aus verschiedenen Studiengängen sind.
 
 == Feedback für den Tutor
 // Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Ja, er hat immer das Wichtigste über die Anforderungen, die Deadlines und unsere Aufgabe erläutert.
 
 == Sonstiges und Anmerkungen
 // Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
+Bei der Aufgabe sind die verschiedenen Komponenten ein bisschen zu ähnlich zueinander,
+vielleicht mehr verschiedene Anforderungen für die Komponenten wäre besser.
