@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="discount, iStat : ${discounts}" class="hover">
-                        <form method="post">
+                        <form method="post" action="/management/discount/changeDiscount">
                             <th th:text="${iStat.count}"></th>
                             <input type="hidden" name="UUID" th:value="${discount.id}">
                             <td>
@@ -50,9 +50,13 @@
                                     th:value="${discount.discountPercent}" onchange="this.form.submit()">
                             </td>
                             <td>
+                                <button type="submit" hidden>
+
+                                </button>
                                 <button class="btn btn-error btn-sm" type="submit"
                                     formaction="/management/discount/deleteDiscount" th:text="#{discount.plot.delete}">
-                                    Delete Discount </button>
+                                    Delete Discount
+                                </button>
                             </td>
                         </form>
                     </tr>

@@ -31,22 +31,32 @@ public class PlotReservationDiscountDashboardController {
 	interface DiscountInformation {
 		UUID getUUID();
 
+        Integer getOldAmount();
+
 		Integer getAmount();
 
 		Integer getDiscount();
 	}
 
-	@PostMapping("/management/discount")
+	@PostMapping("/management/discount/changeDiscount")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
 	String changeDiscount(Model model, @Valid DiscountInformation info) {
-		var discount = plotReservationDiscounts.findById(info.getUUID()).get();
 
-		discount.setAmount(info.getAmount());
-		discount.setDiscountPercent(info.getDiscount());
+        var changedDiscount = plotReservationDiscounts.findById(info.getUUID()).get();
 
-		plotReservationDiscounts.save(discount);
+        var preexisting = plotReservationDiscounts.findAllByAmount(info.getAmount());
+        for (var discount : preexisting){
+            if (discount != changedDiscount){
+                plotReservationDiscounts.deleteById(discount.getId());
+            }
 
-		return discount(model);
+        }
+
+        changedDiscount.setAmount(info.getAmount());
+        changedDiscount.setDiscountPercent(info.getDiscount());
+
+        plotReservationDiscounts.save(changedDiscount);
+        return discount(model);
 	}
 
 	@PostMapping("/management/discount/createDiscount")
@@ -54,20 +64,18 @@ public class PlotReservationDiscountDashboardController {
 	String createDiscount(Model model, @Valid DiscountInformation info) {
 
 		var preexisting = plotReservationDiscounts.findAllByAmount(info.getAmount());
+        for (var discount : preexisting){
+            plotReservationDiscounts.deleteById(discount.getId());
+        }
 
-		PlotReservationDiscount discount;
-		if (preexisting.isEmpty()) {
-			discount = new PlotReservationDiscount();
-			discount.setAmount(info.getAmount());
-		} else {
-			discount = preexisting.get(0);
-		}
-
+        var discount = new PlotReservationDiscount();
+        discount.setAmount(info.getAmount());
 		discount.setDiscountPercent(info.getDiscount());
 
 		plotReservationDiscounts.save(discount);
 		return discount(model);
 	}
+
 
 	@PostMapping("/management/discount/deleteDiscount")
 	@PreAuthorize("hasAnyRole('EMPLOYEE', 'BOSS')")
