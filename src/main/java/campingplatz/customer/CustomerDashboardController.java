@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.UUID;
 
 /**
- * DashboardController
+ * This class is responsible for handling requests related to the customer
+ * dashboard.
+ * It provides functionalities for managing customers, updating roles, and
+ * displaying customer data.
  */
 @Controller
 @SessionAttributes("plotCart")
@@ -20,10 +23,23 @@ public class CustomerDashboardController {
 
 	CustomerManagement customerManagement;
 
+	/**
+	 * Constructs a new instance of {@link CustomerDashboardController}.
+	 *
+	 * @param customerManagement the {@link CustomerManagement} object used for
+	 *                           managing customer data.
+	 */
 	CustomerDashboardController(CustomerManagement customerManagement) {
 		this.customerManagement = customerManagement;
 	}
 
+	/**
+	 * Handles GET requests for the customer management page.
+	 *
+	 * @param model the {@link Model} object used for passing attributes to the
+	 *              view.
+	 * @return the name of the view to be rendered.
+	 */
 	@GetMapping("/management/customer")
 	@PreAuthorize("hasRole('BOSS')")
 	String customer(Model model) {
@@ -32,6 +48,15 @@ public class CustomerDashboardController {
 		return "dashboards/customer_management";
 	}
 
+	/**
+	 * Handles POST requests for updating customer roles.
+	 *
+	 * @param model the {@link Model} object used for passing attributes to the
+	 *              view.
+	 * @param info  the {@link RoleChangeInformation} object containing the
+	 *              necessary information for role update.
+	 * @return the name of the view to be rendered.
+	 */
 	@PostMapping("/management/customer/updateRoles")
 	@PreAuthorize("hasRole('BOSS')")
 	String changeRole(Model model, @Valid RoleChangeInformation info) {
@@ -42,18 +67,20 @@ public class CustomerDashboardController {
 
 		customer.setRole(role);
 
-
 		Streamable<Customer> all = customerManagement.findAll();
 		model.addAttribute("Customers", all);
 		return "dashboards/customer_management";
 	}
 
+	/**
+	 * An interface representing the necessary information for changing a customer's
+	 * role.
+	 */
 	interface RoleChangeInformation {
 		UUID getCustomerUUID();
 
 		Integer getRoleValue();
 
 	}
-
 
 }
