@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
 public class SeasonalPlotCatalogController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
 	SeasonalPlotReservationRepository reservationRepository;
+    /**
+     * Contains all user reservations that have not yet been completed
+     */
 	Set<SeasonalPlotReservation> activReservationRepository;
 	BusinessTime businessTime;
 
@@ -40,6 +43,13 @@ public class SeasonalPlotCatalogController {
 		return new SeasonalPlotCart();
 	}
 
+    /**
+     * Shows all plots that are available and
+     * shows the user all his current reservations.
+     *
+     * @param user  actual logged user
+     * @param query filter data
+     */
 	@GetMapping("/seasonalplotcatalog")
 	String setupSeasonalCatalog(Model model, @LoggedIn Optional<UserAccount> user,
 			@Valid SeasonalPlotCatalog.SeasonalSiteState query) {
@@ -82,6 +92,14 @@ public class SeasonalPlotCatalogController {
 		return setupSeasonalCatalog(model, user, query);
 	}
 
+    /**
+     * Saves a reservation with the first possible start date and ends on 31.10.
+     *
+     * @param user              actual logged user
+     * @param seasonalPlot      plot to be reserved
+     * @param payMethod         user paid monthly or yearly
+     * @param seasonalPlotCart  plot get in cart
+     */
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcheckout/{plot}")
 	String reservate(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot,
@@ -114,6 +132,13 @@ public class SeasonalPlotCatalogController {
 		return "redirect:/cart";
 	}
 
+    /**
+     * User can delete a plot if he does not want
+     * to reserve it again for the next season.
+     *
+     * @param user          actual logged user
+     * @param seasonalPlot  plot to be unsubscribed
+     */
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalcancel/{plot}")
 	String cancel(Model model, @LoggedIn UserAccount user, @PathVariable("plot") SeasonalPlot seasonalPlot) {
@@ -143,6 +168,11 @@ public class SeasonalPlotCatalogController {
 		return "redirect:/seasonalplotcatalog";
 	}*/
 
+    /**
+     * Shows the details from a plot with comments
+     *
+     * @param plot  plot from which the details are to be seen
+     */
 	@GetMapping("/seasonalplotcatalog/details/{plot}")
 	public String showSeasonalPlotDetails(Model model,
 			@Valid SeasonalPlotCatalog.SeasonalSiteState query, @PathVariable("plot") SeasonalPlot plot) {
@@ -150,6 +180,13 @@ public class SeasonalPlotCatalogController {
 		return "servings/seasonalplotdetails";
 	}
 
+    /**
+     * A comment can be added to the plot.
+     *
+     * @param plot              plot that get a comment
+     * @param info              rating and text for the comment
+     * @param currUserAccount   actual logged user
+     */
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/seasonalplotcatalog/details/{plot}/comments")
 	public String seasonalComment(Model model, @PathVariable("plot") SeasonalPlot plot, CommentInfo info,

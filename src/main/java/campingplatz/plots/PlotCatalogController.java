@@ -215,11 +215,6 @@ class PlotCatalogController {
     public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
             @Valid SiteState query, @PathVariable Plot plot) {
         model.addAttribute("item", plot);
-        if (model.containsAttribute("error")) {
-            System.out.println("model contains error");
-        } else {
-            System.out.println("doesn't contain");
-        }
         return "servings/plotdetails";
     }
 

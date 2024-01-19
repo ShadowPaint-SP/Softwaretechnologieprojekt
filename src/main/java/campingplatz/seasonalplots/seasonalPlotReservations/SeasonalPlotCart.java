@@ -8,6 +8,11 @@ import org.salespointframework.useraccount.UserAccount;
 import campingplatz.reservation.Cart;
 import campingplatz.seasonalplots.SeasonalPlot;
 
+/**
+ * All permanent camper plots that are to be reserved
+ * must first be placed in the shopping cart.
+ * Therefore, SeasonalPlotCart is an extension of {@link Cart}.
+ */
 public class SeasonalPlotCart extends Cart<SeasonalPlot, SeasonalPlotReservation> {
 
 	List<SeasonalPlotReservation> reservations = new ArrayList<>();
