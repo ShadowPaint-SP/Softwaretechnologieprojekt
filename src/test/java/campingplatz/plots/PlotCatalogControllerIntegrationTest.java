@@ -44,14 +44,30 @@ class PlotCatalogControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
-    void TPK03() throws Exception {
-		ProductIdentifier testId =plotCatalog.findAll().iterator().next().getId();
+    @WithMockUser (username = "meister@mail.de", roles = "EMPLOYEE")
+    void TPK03() throws Exception { 
+		//Comment from valid User
+		ProductIdentifier testId =plotCatalog.findByName("Platz am See I").iterator().next().getId();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/plotcatalog/details/{plot}/comments", testId)
                 .param("comment", "Test comment")
                 .param("rating", "5"))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/plotcatalog/details/"+testId));
+    }
+
+
+	@Test
+    @WithMockUser (username = "hans@mail.de", roles = "CUSTOMER")
+    void TPK04() throws Exception { 
+		//Comment from invalid User
+		ProductIdentifier testId =plotCatalog.findByName("Platz am See I").iterator().next().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/plotcatalog/details/{plot}/comments", testId)
+                .param("comment", "Test comment")
+                .param("rating", "5"))
+                .andExpect(status().is2xxSuccessful())
+				.andExpect(redirectedUrl(null));
     }
 
 
