@@ -28,10 +28,6 @@ public class Plot extends DetailedProduct {
     @Setter
     private State state = State.OPERATIONAL;
 
-    @Getter
-    @Setter
-    @OneToMany
-    private List<Issue> issueList;
 
     @Setter
     @Getter
