@@ -27,7 +27,7 @@ package campingplatz.equip {
     +SportItemReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure)
     +getIntervalUnit(): ChronoUnit
     }
-    interface SportItemReservationRepository
+    interface SportItemReservationRepository <<Repository>>
     }
     class SportItem<<Entity>>{
     -amount: int
@@ -38,7 +38,7 @@ package campingplatz.equip {
     +getDeposit(): Money
     +setDeposit(Money value): void
     }
-    interface SportItemCatalog{
+    interface SportItemCatalog <<Repository>>{
     +findById(Product.ProductIdentifier id): Optional<SportItem>
     }
     class SportItemCatalogController<<Controller>>{
@@ -59,30 +59,32 @@ package campingplatz.equip {
 
 }
 
-SportItem -r|> DetailedProduct
-SportItem -[hidden]u- SportItemCatalogDataInitializer
+SportItem -u-|> DetailedProduct
+'SportItem -[hidden]u- SportItemCatalogDataInitializer
 SportItemCatalog --|> Catalog: <<bind T->SportItem>>
-SportItemCatalogController -[hidden]u- SportItem
+'SportItemCatalogController -[hidden]u- SportItem
 
 
-SportItemCatalogDataInitializer --|> DataInitializer
+SportItemCatalogDataInitializer -|> DataInitializer
 
-campingplatz -[hidden]r- org
+'campingplatz -[hidden]r- org
 
-utils -[hidden]u- reservation
+'utils -[hidden]u- reservation
 
 SportItemCatalogController ..> SportItemCatalog: <<use>>
+SportItemCatalogDataInitializer .> SportItemCatalog: <<use>>
+SportItemDashboardController .> SportItemCatalog: <<use>>
 
-SportItemCart --|> Cart: <<bind T->SportItem, U->SportItemReservation>>
-SportItemReservation --|> Reservation
-SportItemReservationRepository --|> ReservationRepository: <<bind T->SportItem, U->SportItemReservation>>
+SportItemCart -|> Cart: <<bind T->SportItem, U->SportItemReservation>>
+SportItemReservation -|> Reservation : <<bind T->SportItem>>
+SportItemReservationRepository -|> ReservationRepository: <<bind T->SportItem, U->SportItemReservation>>
 
-Cart -[hidden]d- Reservation
-Reservation -[hidden]u- ReservationRepository
+'Cart -[hidden]d- Reservation
+'Reservation -[hidden]u- ReservationRepository
 
-SportItemCart -[hidden]d- SportItemReservation
-SportItemReservation -[hidden]u- SportItemReservationRepository
+'SportItemCart -[hidden]d- SportItemReservation
+'SportItemReservation -[hidden]u- SportItemReservationRepository
 
-SportItem -[hidden]l- sportItemReservations
+'SportItem -[hidden]l- sportItemReservations
 
 @enduml
