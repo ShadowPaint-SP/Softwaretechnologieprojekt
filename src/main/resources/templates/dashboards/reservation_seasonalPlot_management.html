@@ -5,6 +5,17 @@
 
 <body>
 	<main layout:fragment="input">
+		<div class="container mx-auto mt-14">
+			<div role="alert" class="alert max-w-xl">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+					 class="stroke-info shrink-0 w-6 h-6">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+						  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+				</svg>
+				<span th:text="#{seasonalplot.info}">x</span>
+			</div>
+		</div>
+
 		<div th:fragment="orders(reservations)" class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg mb-14">
 			<table class="table table-zebra">
 				<thead class="bg-secondary">
