@@ -10,9 +10,18 @@ import java.util.List;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ *A collection of all permanent campsites.
+ * Extension of {@link Catalog}
+ */
 @Repository
 public interface SeasonalPlotCatalog extends Catalog<SeasonalPlot> {
 
+    /**
+     * Method to filter the collection after price, size, parking method,
+     * @param query contains all data entered by the user
+     * @return      all plots that match
+     */
 	default List<SeasonalPlot> seasonalFilter(SeasonalSiteState query) {
 		return findAll().filter(seasonalPlot -> {
 			boolean isMatch = true;

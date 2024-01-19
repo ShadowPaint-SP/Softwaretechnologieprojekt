@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * A {@link DataInitializer} implementation
+ * that will create dummy data for the application
+ */
 @Component
 @Order(20)
 class SeasonalPlotCatalogDataInitializer implements DataInitializer {
