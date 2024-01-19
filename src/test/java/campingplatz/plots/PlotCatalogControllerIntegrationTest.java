@@ -47,7 +47,7 @@ class PlotCatalogControllerIntegrationTest {
     @WithMockUser (username = "meister@mail.de", roles = "EMPLOYEE")
     void TPK03() throws Exception { 
 		//Comment from valid User
-		ProductIdentifier testId =plotCatalog.findByName("Platz am See I").iterator().next().getId();
+		ProductIdentifier testId = plotCatalog.findByName("Platz im Wald I").iterator().next().getId();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/plotcatalog/details/{plot}/comments", testId)
                 .param("comment", "Test comment")
