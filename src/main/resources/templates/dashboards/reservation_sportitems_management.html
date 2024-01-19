@@ -6,25 +6,27 @@
 
 <body>
     <main layout:fragment="input">
-        <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+        <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg mb-14">
             <table class="table table-zebra">
                 <thead class="bg-secondary">
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>SportItem</th>
-                    <th>Begin</th>
-                    <th>End</th>
-                    <th>Duration</th>
-                    <th>Total Price</th>
+                    <th th:text="#{reservationSport.firstname}">First name</th>
+                    <th th:text="#{reservationSport.lastname}"> Last name</th>
+                    <th th:text="#{reservationSport.sportitem}">SportItem</th>
+                    <th th:text="#{reservationSport.begin}">Begin</th>
+                    <th th:text="#{reservationSport.end}">End</th>
+                    <th th:text="#{reservationSport.duration}">Duration</th>
+                    <th th:text="#{reservationSport.price}">Total Price</th>
                     <th></th>
                 </thead>
                 <tbody>
                     <tr th:each="reservation, iStat : ${reservationsSportItem}" class="hover">
                         <td th:text="${reservation.user.firstname}"></td>
                         <td th:text="${reservation.user.lastname}"></td>
-                        <td th:text="${reservation.product.name}"></td>
-                        <td th:text="${reservation.begin}"></td>
-                        <td th:text="${reservation.end}"></td>
+                        <td><a th:text="${reservation.product.name}"
+                                th:href="@{/sportitem/{sportitem}(sportitem=${reservation.product.id})}"></a></td>
+                        <td th:text="${#temporals.format(reservation.begin, 'dd.MM.yyyy | HH:mm')}">arrival</td>
+                        <td th:text="${#temporals.format(reservation.end.plusHours(1), 'dd.MM.yyyy | HH:mm')}">daparture
+                        </td>
                         <td th:text="${reservation.duration()}"></td>
                         <td th:text="${reservation.price}"></td>
                         <td>

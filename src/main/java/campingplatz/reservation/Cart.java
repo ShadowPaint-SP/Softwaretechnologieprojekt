@@ -1,19 +1,14 @@
 package campingplatz.reservation;
 
-import campingplatz.utils.Priced;
+import campingplatz.utils.ListOfPriced;
 import campingplatz.utils.Utils;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import one.util.streamex.StreamEx;
-import org.javamoney.moneta.Money;
 
-import javax.money.MonetaryAmount;
-
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -21,8 +16,6 @@ import java.util.stream.Collectors;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 /**
  * Abstraction of a shopping cart.
@@ -37,8 +30,11 @@ import static org.salespointframework.core.Currencies.EURO;
  * The function getReservationsOfUser recombines the individual
  * ReservationEntries back into Reservations
  */
-public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry>
-		implements Priced {
+public abstract class Cart<T extends Product, U extends Reservation<T>> extends TreeSet<Cart<T, U>.ReservationEntry> {
+
+	@Getter
+	@Setter
+	UserAccount user;
 
 	Class<U> reservationType; // unfortunately needed to create an instance of U
 
@@ -56,6 +52,56 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 	public boolean containsEntry(T product, LocalDateTime time) {
 		return super.contains(new ReservationEntry(product, time));
+	}
+
+	public ListOfPriced<U> getReservations(UserAccount user) {
+
+		if (user == null) {
+			throw new NullPointerException("user is null, because it was not set with setUser");
+		}
+
+		// remember the ReservationEntries are sorted, as this is a sorted
+		// set. They are compared by name first and time second
+
+		// groups all consecutive ReservationEntries belonging to the same
+		// reservation together. If two entries have differing products, they
+		// can not be of the same reservation. If the two times are more than
+		// the smallest unit apart, they can not be of the same reservation
+		var stream = StreamEx.of(this.stream());
+		var groupedReservationEntries = stream.groupRuns((first, second) -> {
+			var firstName = first.getProduct().getName();
+			var secondName = second.getProduct().getName();
+			var equalNames = firstName.equals(secondName);
+			if (!equalNames) {
+				return false;
+			}
+
+			U reservation = Utils.createInstance(reservationType);
+			var intervall = reservation.getIntervalAmount();
+			var firstTime = first.getTime().plus(intervall);
+			var secondTime = second.getTime();
+			var sameReservation = !firstTime.isBefore(secondTime);
+
+			return sameReservation;
+
+		});
+
+		// construct the List of reservations
+		var reservations = groupedReservationEntries.map(list -> {
+			var firstElement = list.get(0);
+			var lastElement = list.get(list.size() - 1);
+
+			U reservation = Utils.createInstance(reservationType);
+			reservation.setUser(user);
+			reservation.setProduct(firstElement.getProduct());
+			reservation.setBegin(firstElement.getTime());
+			reservation.setEnd(lastElement.getTime());
+
+			return reservation;
+		});
+
+		// collect from stream into ArrayList
+		return reservations.collect(Collectors.toCollection(ListOfPriced::new));
 	}
 
 	public List<U> getReservationsOfUser(UserAccount user) {
@@ -77,7 +123,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 			}
 
 			U reservation = Utils.createInstance(reservationType);
-			var intervall = Duration.of(1, reservation.getIntervalUnit());
+			var intervall = reservation.getIntervalAmount();
 			var firstTime = first.getTime().plus(intervall);
 			var secondTime = second.getTime();
 			var sameReservation = !firstTime.isBefore(secondTime);
@@ -104,6 +150,7 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		return reservations.collect(Collectors.toCollection(ArrayList::new));
 	}
 
+
 	// convenience function, for adding whole Reservations into the Cart at once
 	public boolean add(U reservation) {
 
@@ -122,6 +169,10 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 
 	// convenience function, for removing whole Reservations into the Cart at once
 	public boolean remove(U reservation) {
+
+		if (reservation == null) {
+			return false;
+		}
 
 		var prod = reservation.getProduct();
 		var begin = reservation.getBegin();
@@ -153,17 +204,6 @@ public abstract class Cart<T extends Product, U extends Reservation<T>> extends 
 		}
 
 		return true;
-	}
-
-	@Override
-	public MonetaryAmount getPrice() {
-
-		MonetaryAmount acuumulator = Money.of(0, EURO);
-		for (var entry : this) {
-			acuumulator = acuumulator.add(entry.getProduct().getPrice());
-		}
-
-		return acuumulator;
 	}
 
 	@EqualsAndHashCode

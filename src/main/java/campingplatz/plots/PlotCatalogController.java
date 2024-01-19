@@ -15,7 +15,6 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -124,7 +124,7 @@ class PlotCatalogController {
         var formatedWeekDates = rawWeekDates.map(date -> date.format(DateTimeFormatter.ofPattern("dd.MM"))).toList();
 
         var operationalPlots = plotCatalog.findByState(Plot.State.OPERATIONAL);
-        var reservedPlots = reservationRepository.findPlotsReservedBetween(
+        var reservedPlots = reservationRepository.findProductsReservedBetween(
                 query.getDefaultedArrival().atStartOfDay(), query.getDefaultedDeparture().atStartOfDay());
         var availablePlots = operationalPlots.stream()
                 .filter(plot -> plot.getClass().equals(Plot.class) && !reservedPlots.contains(plot)).toList();
@@ -138,7 +138,7 @@ class PlotCatalogController {
                 .addReservations(user, reservations)
                 .addHighlights(query, reservedPlots)
                 .addSelections(reservationCart)
-                .collapse();
+                .addPastMarkings(LocalDate.now());
 
         model.addAttribute("filteredPlots", filteredPlots);
         model.addAttribute("approximatelyFilteredPlots", approximatelyFilteredPlots);
@@ -152,6 +152,10 @@ class PlotCatalogController {
     @PostMapping("/plotcatalog/filter")
     String filter(Model model, @LoggedIn Optional<UserAccount> user, @Valid PlotCatalogController.SiteState query,
             @ModelAttribute("plotCart") PlotCart reservationCart) {
+
+        // set first week date to null to make the defaulted first week date recalculate
+        query.setFirstWeekDate(null);
+
         return setupCatalog(model, user, query, reservationCart);
     }
 
@@ -209,15 +213,34 @@ class PlotCatalogController {
 
     @GetMapping("/plotcatalog/details/{plot}")
     public String showPlotDetails(Model model, @LoggedIn Optional<UserAccount> user,
-            @Valid PlotCatalog.SiteState query, @PathVariable Plot plot) {
+            @Valid SiteState query, @PathVariable Plot plot) {
         model.addAttribute("item", plot);
         return "servings/plotdetails";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/plotcatalog/details/{plot}/comments")
-    public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info) {
-        plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime()));
+    public String plotComment(Model model, @PathVariable("plot") Plot plot, @Valid CommentInfo info,
+            @LoggedIn UserAccount currUserAccount) {
+        Set<UserAccount> commentarySet = reservationRepository.findUsersOfProduct(plot);
+        if (commentarySet.contains(currUserAccount)) {
+            plot.addComment(new Comment(info.getComment(), info.getRating(), businessTime.getTime(),
+                    currUserAccount.getFirstname(), currUserAccount.getLastname()));
+            plotCatalog.save(plot);
+            return "redirect:/plotcatalog/details/" + plot.getId();
+        } else {
+            model.addAttribute("error", true);
+            plotCatalog.save(plot);
+            model.addAttribute("item", plot);
+
+            return "servings/plotdetails";
+        }
+
+    }
+
+    @PostMapping("/plotcatalog/details/{plot}/comments/{commentId}")
+    public String deleteComment(@PathVariable("plot") Plot plot, @PathVariable Long commentId) {
+        plot.deleteComment(commentId);
         plotCatalog.save(plot);
         return "redirect:/plotcatalog/details/" + plot.getId();
     }

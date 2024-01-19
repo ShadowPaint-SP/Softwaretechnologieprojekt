@@ -5,7 +5,17 @@
 
 <body>
 	<main layout:fragment="input">
-		<div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+
+		<div class="container mx-auto flex justify-center mt-14">
+
+			<div class="stats shadow-2xl">
+				<div class="stat">
+					<div class="stat-title" th:text="#{accountancy.total}"></div>
+					<div class="stat-value" th:text="${total}"></div>
+				</div>
+			</div>
+		</div>
+		<div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg mb-14">
 			<table class="table table-zebra">
 				<thead class="bg-secondary">
 					<tr>
@@ -13,24 +23,26 @@
 						<th th:text="#{accountancy.date}"></th>
 						<th th:text="#{accountancy.amount}"></th>
 						<th th:text="#{accountancy.description}"></th>
+						<th th:text="#{user.email}"></th>
+						<th th:text="#{plot.begin}"></th>
+						<th th:text="#{plot.end}"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="entry, iStat : ${accountancy}">
-						<form method="post" action="/management/plots/updatePlot">
-							<td th:text="${iStat.count}">
-								1
-							</td>
-							<td>
-								<label th:text="${entry.date.get()}" class="input input-sm w-full focus:outline-accent"></label>
-							</td>
-							<td>
-								<label th:text="${entry.value}" class="input input-sm w-full focus:outline-accent"></label>
-							</td>
-							<td>
-								<label th:text="${entry.description}" class="input input-sm w-full focus:outline-accent"></label>
-							</td>
-						</form>
+						<td th:text="${iStat.count}">
+							1
+						</td>
+						<td>
+							<label th:text="${#temporals.format(entry.date.get(), 'dd.MM.yyyy | HH:mm')}"
+								class="input input-sm w-full focus:outline-accent"></label>
+						</td>
+						<td>
+							<label th:text="${entry.value}" class="input input-sm w-full focus:outline-accent"></label>
+						</td>
+						<td th:each="each : ${entry.descriptions}">
+							<span th:text="${each}"></span>
+						</td>
 					</tr>
 				</tbody>
 			</table>

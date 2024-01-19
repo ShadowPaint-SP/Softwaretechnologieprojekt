@@ -1,7 +1,9 @@
 package campingplatz.plots;
 
+import campingplatz.accounting.PlotRepairAccountancyEntry;
 import jakarta.validation.Valid;
 import org.javamoney.moneta.Money;
+import org.salespointframework.accountancy.Accountancy;
 import org.salespointframework.catalog.Product;
 import org.springframework.data.util.Streamable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,9 +20,13 @@ import static org.salespointframework.core.Currencies.EURO;
 public class PlotDashboardController {
 
 	PlotCatalog plotCatalog;
+    Accountancy accountancy;
 
-	PlotDashboardController(PlotCatalog plotCatalog) {
+	PlotDashboardController(PlotCatalog plotCatalog, Accountancy accountancy) {
+
 		this.plotCatalog = plotCatalog;
+        this.accountancy = accountancy;
+
 	}
 
 	@GetMapping("/management/plots")
@@ -44,7 +50,19 @@ public class PlotDashboardController {
 			plot.setPrice(Money.of(info.getPrice(), EURO));
 			plot.setImagePath(info.getPicture());
 			plot.setDesc(info.getDescription());
-			plot.setState(Plot.State.fromNumber(info.getState()));
+
+            // if the state is null the plot was repaired
+            if (info.getState() == null){
+                accountancy.add(
+                    new PlotRepairAccountancyEntry(info.getRepairCost(), plot)
+                );
+                plot.setState(Plot.State.OPERATIONAL);
+            }
+            else {
+                plot.setState(Plot.State.fromNumber(info.getState()));
+            }
+
+            // dont forget to save
 			plotCatalog.save(plot);
 
 			Streamable<Plot> all = plotCatalog.findAll();
@@ -91,5 +109,7 @@ public class PlotDashboardController {
 		String getPicture();
 
 		Integer getState();
+
+        Double getRepairCost();
 	}
 }

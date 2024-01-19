@@ -6,22 +6,43 @@
 
     <body>
         <main layout:fragment="input">
+            <form method="post" action="/management/seasonalplot/setCosts">
+                <div
+                        class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20 shadow-lg">
+                    <div>
+                        <label class="label-text" th:text="#{seasonalplot.electricitymeter.costs}">electricity Costs:</label>
+                        <input class="input input-sm w-full focus:outline-accent" type="number" th:value="${electricityCosts}" min="0"
+                               name="electricityCosts" required>
+                    </div>
+                    <div>
+                        <label class="label-text" th:text="#{seasonalplot.watermeter.costs}">water Costs:</label>
+                        <input class="input input-sm w-full focus:outline-accent" type="number" th:value="${waterCosts}" min="0"
+                               name="waterCosts" required>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div class="flex justify-around">
+                        <button th:text="#{management.plot.new}"
+                                formaction="/management/seasonalplot/setCosts" class="btn btn-accent"></button>
+                    </div>
+                </div>
+            </form>
 
             <form method="post" action="/management/seasonalplot/createSeasonalPlot">
                 <div
                     class="grid sm:grid-cols-3 grid-flow-row gap-3 container rounded-box bg-base-300 mx-auto justify-center p-4 mt-20 shadow-lg">
                     <div>
-                        <label class="label-text">Name:</label>
+                        <label class="label-text" th:text="#{plot.name}">Name:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="text" placeholder="Neuer Platz"
                             name="name" required>
                     </div>
                     <div>
-                        <label class="label-text">Größe:</label>
+                        <label class="label-text" th:text="#{catalog.plot.size}">Size:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="number" value="20" min="10"
                             name="size" required>
                     </div>
                     <div>
-                        <label class="label-text">Parking:</label>
+                        <label class="label-text" th:text="#{dashboard.seasonalplot.parkinglot}">Parking:</label>
                         <select name="parkingValue" class="select select-bordered select-sm w-full">
                             <option value="0" th:text="#{plot.parking.no}" selected></option>
                             <option value="1" th:text="#{plot.parking.bike}"></option>
@@ -30,27 +51,27 @@
                         </select>
                     </div>
                     <div>
-                        <label class="label-text">Price:</label>
+                        <label class="label-text" th:text="#{catalog.plot.price}">Price:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="number" value="10" min="1"
                             name="price" required>
                     </div>
                     <div>
-                        <label class="label-text">Stromzähler:</label>
+                        <label class="label-text" th:text="#{seasonalplot.electricitymeter}">Electricitymeter:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0"
                             name="electricityMeter" required>
                     </div>
                     <div>
-                        <label class="label-text">Wasserzähler:</label>
+                        <label class="label-text" th:text="#{seasonalplot.watermeter}">Watermeter:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="number" value="0" min="0"
                             name="waterMeter" required>
                     </div>
                     <div>
-                        <label class="label-text">Description:</label>
+                        <label class="label-text" th:text="#{accountancy.description}">Description:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="text" name="description"
                             placeholder="Beschreibung einfügen" required>
                     </div>
                     <div>
-                        <label class="label-text">Picture:</label>
+                        <label class="label-text" th:text="#{plot.picture}">Picture:</label>
                         <input class="input input-sm w-full focus:outline-accent" type="text" name="picture"
                             value="/img/..." required>
                     </div>
@@ -63,7 +84,7 @@
                 </div>
             </form>
 
-            <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+            <div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg mb-14">
                 <table class="table table-zebra">
                     <thead class="bg-secondary">
                         <tr>
@@ -83,9 +104,8 @@
                         <tr th:each="plot, iStat : ${seasonalPlots}">
                             <form method="post" action="/management/seasonalplot/updateSeasonalPlot">
                                 <input type="hidden" name="plotID" th:value="${plot.id}">
-                                <td th:text="${iStat.count}">
-                                    1
-                                </td>
+                                <td><a th:text="${iStat.count}"
+                                        th:href="@{/plotcatalog/details/{plot}(plot=${plot.id})}"></a></td>
                                 <td>
                                     <input class="input input-sm w-full focus:outline-accent" type="text" name="name"
                                         th:value="${plot.name}" onchange="this.form.submit()">
@@ -130,12 +150,19 @@
                                         th:value="${plot.imagePath}" onchange="this.form.submit()">
                                 </td>
                                 <th>
-                                    <select name="state" onchange="this.form.submit()"
-                                        class="select select-xs w-full max-w-xs focus:outline-accent">
-                                        <option value="0" th:selected="${plot.state.index == 0}">operational</option>
-                                        <option value="1" th:selected="${plot.state.index == 1}">defectiv</option>
-                                        <option value="2" th:selected="${plot.state.index == 2}">deleted</option>
-                                    </select>
+                                    <div th:if="${plot.state.index != 1}">
+                                        <select name="state" onchange="this.form.submit()"
+                                                class="select select-xs w-full max-w-xs focus:outline-accent">
+                                            <option value="0" th:selected="${plot.state.index == 0}">operational</option>
+                                            <option value="1" th:selected="${plot.state.index == 1}">defectiv</option>
+                                            <option value="2" th:selected="${plot.state.index == 2}">hidden</option>
+                                        </select>
+                                    </div>
+                                    <div th:if="${plot.state.index == 1}">
+                                        <input class="input input-sm w-full focus:outline-accent" type="number" name="repairCost"
+                                               th:placeholder="#{management.plot.repaircost}">
+                                        <input type="submit" hidden />
+                                    </div>
                                 </th>
                             </form>
                         </tr>

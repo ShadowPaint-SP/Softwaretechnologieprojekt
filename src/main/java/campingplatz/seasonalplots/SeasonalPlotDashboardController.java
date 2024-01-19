@@ -1,8 +1,11 @@
 package campingplatz.seasonalplots;
 
+import campingplatz.accounting.PlotRepairAccountancyEntry;
 import campingplatz.plots.Plot;
 import jakarta.validation.Valid;
+
 import org.javamoney.moneta.Money;
+import org.salespointframework.accountancy.Accountancy;
 import org.salespointframework.catalog.Product;
 import org.springframework.data.util.Streamable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,22 +18,39 @@ import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * Contains functions for managing and creating plots.
+ */
 @Controller
 public class SeasonalPlotDashboardController {
 	SeasonalPlotCatalog seasonalPlotCatalog;
+    Accountancy accountancy;
 
-	SeasonalPlotDashboardController(SeasonalPlotCatalog plotCatalog) {
+	SeasonalPlotDashboardController(SeasonalPlotCatalog plotCatalog, Accountancy accountancy) {
 		this.seasonalPlotCatalog = plotCatalog;
+        this.accountancy = accountancy;
 	}
 
+    /**
+     * Find all plots.
+     */
 	@GetMapping("/management/seasonalplot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String seasonalPlots(Model model) {
+
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 		model.addAttribute("seasonalPlots", all);
+        model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+        model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
 		return "dashboards/seasonalplot_management";
 	}
 
+    /**
+     * Can change name, size, price, parking method, meters,
+     * picture path, description.
+     *
+     * @param info  Contains the value for change
+     */
 	@PostMapping("/management/seasonalplot/updateSeasonalPlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String changeSeasonalPlotDetails(Model model, @Valid SeasonalPlotDashboardController.SeasonalPlotInformation info) {
@@ -47,18 +67,34 @@ public class SeasonalPlotDashboardController {
 			plot.setImagePath(info.getPicture());
 			plot.setDesc(info.getDescription());
 
-			// dont forget to save
-			plot.setState(Plot.State.fromNumber(info.getState()));
+            // if the state is null the plot was repaired
+            if (info.getState() == null){
+                accountancy.add(
+                        new PlotRepairAccountancyEntry(info.getRepairCost(), plot)
+                );
+                plot.setState(Plot.State.OPERATIONAL);
+            }
+            else {
+                plot.setState(Plot.State.fromNumber(info.getState()));
+            }
 
+			// dont forget to save
 			seasonalPlotCatalog.save(plot);
 
 			Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 			model.addAttribute("seasonalPlots", all);
+            model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+            model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
 		}
 
 		return "dashboards/seasonalplot_management";
 	}
 
+    /**
+     * Create a new permanent camper plot.
+     *
+     * @param info Contains all data for the new plot
+     */
 	@PostMapping("/management/seasonalplot/createSeasonalPlot")
 	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
 	String createSeasonalPlot(Model model, @Valid SeasonalPlotDashboardController.SeasonalPlotInformation info) {
@@ -78,6 +114,27 @@ public class SeasonalPlotDashboardController {
 
 		Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
 		model.addAttribute("seasonalPlots", all);
+        model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+        model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
+		return "dashboards/seasonalplot_management";
+	}
+
+    /**
+     * The fixed costs for electricity and water can be changed.
+     *
+     * @param costsInfo Contains the new value for water and electricity.
+     */
+	@PostMapping("/management/seasonalplot/setCosts")
+	@PreAuthorize("hasAnyRole('BOSS', 'EMPLOYEE')")
+	String changeCosts(Model model, @Valid SeasonalPlotDashboardController.CostsInfo costsInfo) {
+
+		Config.setElectricityCosts(Money.of(costsInfo.getElectricityCosts(), EURO));
+		Config.setWaterCosts((Money.of(costsInfo.getWaterCosts(), EURO)));
+
+        Streamable<SeasonalPlot> all = seasonalPlotCatalog.findAll();
+        model.addAttribute("seasonalPlots", all);
+        model.addAttribute("electricityCosts", Config.getElectricityCosts().getNumber());
+        model.addAttribute("waterCosts", Config.getWaterCosts().getNumber());
 		return "dashboards/seasonalplot_management";
 	}
 
@@ -102,5 +159,14 @@ public class SeasonalPlotDashboardController {
 		String getPicture();
 
 		Integer getState();
+
+        Double getRepairCost();
 	}
+
+    interface CostsInfo {
+
+        Double getElectricityCosts();
+
+        Double getWaterCosts();
+    }
 }

@@ -10,24 +10,37 @@ import org.javamoney.moneta.Money;
 import javax.money.MonetaryAmount;
 import java.util.UUID;
 
-
-@Getter
 @Entity
 public class Issue implements Priced {
 
+	@Getter
 	private @Id UUID id;
+
+	@Getter
 	@Setter
 	private Money cost;
+
+	@Getter
 	@Setter
 	private String description;
 
+	public Issue() {
+		this.id = UUID.randomUUID();
+	}
+
 	public Issue(Money cost, String description) {
+		this.id = UUID.randomUUID();
 		this.cost = cost;
 		this.description = description;
 	}
 
 	@Override
 	public MonetaryAmount getPrice() {
+		return this.cost;
+	}
+
+	@Override
+	public MonetaryAmount getPreDiscountPrice() {
 		return this.cost;
 	}
 }

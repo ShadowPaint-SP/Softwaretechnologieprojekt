@@ -12,13 +12,15 @@ import org.javamoney.moneta.Money;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
 @Entity
 public class Plot extends DetailedProduct {
 
+    @Setter
+    @Getter
     private Double size; // in square meters
 
+    @Setter
+    @Getter
     private ParkingLot parking;
 
     @Getter
@@ -30,16 +32,19 @@ public class Plot extends DetailedProduct {
     @OneToMany
     private List<Issue> issueList;
 
+    @Setter
+    @Getter
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @Setter
+    @Getter
+    private double averageRating = 0;
+
     public Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description) {
-
         super(name, price, imagePath, description);
-
         this.size = size;
         this.parking = parking;
-
     }
 
     public Plot() {
@@ -82,9 +87,7 @@ public class Plot extends DetailedProduct {
                 case 3 -> CAMPER_PARKING;
                 default -> NONE;
             };
-
         }
-
     }
 
     public enum State {
@@ -107,16 +110,23 @@ public class Plot extends DetailedProduct {
                 case 2 -> HIDDEN;
                 default -> OPERATIONAL;
             };
-
         }
     }
 
     public void addComment(Comment comment) {
         comments.add(comment);
+        int zwRating = 0;
+        for (int i = 0; i < comments.size(); i++) {
+            zwRating = zwRating + comments.get(i).getRating();
+        }
+        averageRating = (double) Math.round((double) zwRating / comments.size() * 10) / 10;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public void deleteComment(Long commentILong) {
+        for (int i = 0; i < comments.size(); i++) {
+            if (comments.get(i).getId() == commentILong) {
+                comments.remove(i);
+            }
+        }
     }
-
 }

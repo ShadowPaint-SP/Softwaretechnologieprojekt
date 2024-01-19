@@ -6,6 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.javamoney.moneta.Money;
 
+
+/**
+ *
+ * An extension of {@link DetailedProduct} to
+ * represent a sport item with details
+ * such as rental fee, deposit, category, amount, and description.
+ *
+ */
 @Setter
 @Getter
 @Entity

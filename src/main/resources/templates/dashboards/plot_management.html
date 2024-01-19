@@ -20,7 +20,7 @@
 						required>
 				</div>
 				<div>
-					<label class="label-text">Parking:</label>
+					<label class="label-text" th:text="#{plot.parking}">Parking:</label>
 					<select name="parkingValue" class="select select-bordered select-sm w-full focus:outline-accent">
 						<option value="0" th:text="#{plot.parking.no}" selected></option>
 						<option value="1" th:text="#{plot.parking.bike}"></option>
@@ -29,17 +29,17 @@
 					</select>
 				</div>
 				<div>
-					<label class="label-text">Price:</label>
+					<label class="label-text" th:text="#{plot.price}">Price:</label>
 					<input class="input input-sm w-full focus:outline-accent" type="number" value="10" min="1" name="price"
 						required>
 				</div>
 				<div>
-					<label class="label-text">Description:</label>
+					<label class="label-text" th:text="#{plot.description}">Description:</label>
 					<input class="input input-sm w-full focus:outline-accent" type="text" name="description"
 						placeholder="Beschreibung einfügen" required>
 				</div>
 				<div>
-					<label class="label-text">Picture:</label>
+					<label class="label-text" th:text="#{plot.picture}">Picture:</label>
 					<input class="input input-sm w-full focus:outline-accent" type="text" name="picture" value="/img/..."
 						required>
 				</div>
@@ -51,7 +51,7 @@
 			</div>
 		</form>
 
-		<div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+		<div class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg mb-14">
 			<table class="table table-zebra">
 				<thead class="bg-secondary">
 					<tr>
@@ -69,9 +69,7 @@
 					<tr th:each="plot, iStat : ${plots}">
 						<form method="post" action="/management/plots/updatePlot">
 							<input type="hidden" name="plotID" th:value="${plot.id}">
-							<td th:text="${iStat.count}">
-								1
-							</td>
+							<td><a th:text="${iStat.count}" th:href="@{/plotcatalog/details/{plot}(plot=${plot.id})}"></a></td>
 							<td>
 								<input class="input input-sm w-full focus:outline-accent" type="text" name="name"
 									th:value="${plot.name}" onchange="this.form.submit()">
@@ -102,12 +100,19 @@
 									th:value="${plot.imagePath}" onchange="this.form.submit()">
 							</td>
 							<th>
-								<select name="state" onchange="this.form.submit()"
-									class="select select-xs w-full max-w-xs focus:outline-accent">
-									<option value="0" th:selected="${plot.state.index == 0}">operational</option>
-									<option value="1" th:selected="${plot.state.index == 1}">defectiv</option>
-									<option value="2" th:selected="${plot.state.index == 2}">hidden</option>
-								</select>
+								<div th:if="${plot.state.index != 1}">
+									<select name="state" onchange="this.form.submit()"
+										class="select select-xs w-full max-w-xs focus:outline-accent">
+										<option value="0" th:selected="${plot.state.index == 0}" th:text="#{plotManagement.operational}">operational</option>
+										<option value="1" th:selected="${plot.state.index == 1}" th:text="#{plotManagement.defectiv}">defectiv</option>
+										<option value="2" th:selected="${plot.state.index == 2}" th:text="#{plotManagement.hidden}">hidden</option>
+									</select>
+								</div>
+								<div th:if="${plot.state.index == 1}">
+									<input class="input input-sm w-full focus:outline-accent" type="number" name="repairCost"
+										   th:placeholder="#{management.plot.repaircost}">
+									<input type="submit" hidden />
+								</div>
 							</th>
 						</form>
 					</tr>

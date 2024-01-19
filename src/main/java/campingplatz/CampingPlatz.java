@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * The main application class.
+ * Main application class for the campingplatz management system.
+ * This class bootstraps the Spring Boot application and configures the security
+ * settings.
  */
 @EnableSalespoint
 @SpringBootApplication(scanBasePackages = "campingplatz")
@@ -24,9 +26,19 @@ public class CampingPlatz {
         SpringApplication.run(CampingPlatz.class, args);
     }
 
+    /**
+     * Configures the security settings for the application.
+     */
     @Configuration
     static class WebSecurityConfiguration {
 
+        /**
+         * This method sets up the security settings for the application.
+         *
+         * @param http the HttpSecurity object to configure
+         * @return the configured SecurityFilterChain bean
+         * @throws Exception if an error occurs during configuration
+         */
         @Bean
         SecurityFilterChain CampingPlatzSecurity(HttpSecurity http) throws Exception {
 

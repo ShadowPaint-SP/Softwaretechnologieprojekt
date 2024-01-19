@@ -31,6 +31,7 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
 
     @Query("""
             select distinct r.product from #{#entityName} r
+            where r.state = 0 or r.state = 1
             """)
     Set<T> findPlotsAll();
 
@@ -41,9 +42,9 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
      */
     @Query("""
                 select r from #{#entityName} r
-                where (r.begin >= :arrival and r.begin < :departure)
-                or (r.end >= :arrival and r.end < :departure)
-                or (r.begin < :arrival and r.end > :departure)
+                where (r.begin >= :arrival and r.begin <= :departure)
+                or (r.end >= :arrival and r.end <= :departure)
+                or (r.begin <= :arrival and r.end >= :departure)
             """)
     List<U> findReservationsBetween(LocalDateTime arrival, LocalDateTime departure);
 
@@ -58,15 +59,18 @@ public interface ReservationRepository<T extends Product, U extends Reservation<
                 or (r.end > :arrival and r.end <= :departure)
                 or (r.begin <= :arrival and r.end >= :departure)
             """)
-    Set<T> findPlotsReservedBetween(LocalDateTime arrival, LocalDateTime departure);
+    Set<T> findProductsReservedBetween(LocalDateTime arrival, LocalDateTime departure);
 
     default Boolean productIsReservedIn(T product, LocalDateTime arrival, LocalDateTime departure) {
-        return findPlotsReservedBetween(arrival, departure).contains(product);
+        return findProductsReservedBetween(arrival, departure).contains(product);
     }
 
-    default Boolean productIsAvailableIn(T product, LocalDateTime arrival, LocalDateTime departure) {
-        return !findPlotsReservedBetween(arrival, departure).contains(product);
-    }
+    @Query("""
+                select distinct r.user from #{#entityName} r
+                where (r.product = :product)
+                and (r.state != 0)
+            """)
+    Set<UserAccount> findUsersOfProduct(T product);
 
     @Modifying
     @Transactional

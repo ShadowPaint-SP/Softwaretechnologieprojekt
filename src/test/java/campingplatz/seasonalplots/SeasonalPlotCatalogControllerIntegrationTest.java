@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -55,7 +54,7 @@ class SeasonalPlotCatalogControllerIntegrationTest {
 	void forwardTime() throws Exception {
 		// isn't this the dev function?
 		int days = 10;
-		mockMvc.perform(get("/forward/" + days))
+		mockMvc.perform(get("/forward/" + days + "/seasonalplotcatalog"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/seasonalplotcatalog"));
 	}

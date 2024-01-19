@@ -5,7 +5,7 @@
 
 <body>
 	<main layout:fragment="input">
-		<div th:fragment="orders(reservations)" class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+		<div th:fragment="orders(reservations)" class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg mb-14">
 			<table class="table table-zebra">
 				<thead class="bg-secondary">
 					<tr>
@@ -27,8 +27,8 @@
 								<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
 								<select onchange="this.form.submit()" name="stateValue"
 									class="select select-xs w-full max-w-xs focus:outline-accent">
-									<option value="0" th:selected="${reservation.state.value == 0}"
-										th:text="#{reservation.status.not_taken}"></option>
+									<option value="0" th:selected="${reservation.state.value == 0}" th:text="#{reservation.status.not_taken}">
+									</option>
 									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}">
 									</option>
 									<option value="2" th:selected="${reservation.state.value == 2}" th:text="#{reservation.status.payed}">
@@ -38,9 +38,10 @@
 						</td>
 						<td th:text="${reservation.user.firstname}"></td>
 						<td th:text="${reservation.user.lastname}"></td>
-						<td th:text="${reservation.product.name}"></td>
-						<td th:text="${reservation.begin}"></td>
-						<td th:text="${reservation.end}"></td>
+						<td><a th:text="${reservation.product.name}"
+								th:href="@{/plotcatalog/details/{plot}(plot=${reservation.product.id})}"></a></td>
+						<td th:text="${#temporals.format(reservation.begin, 'dd.MM.yyyy | 12:00')}"></td>
+						<td th:text="${#temporals.format(reservation.end, 'dd.MM.yyyy | 11:00')}"></td>
 						<td th:text="${reservation.price}"></td>
 					</tr>
 				</tbody>

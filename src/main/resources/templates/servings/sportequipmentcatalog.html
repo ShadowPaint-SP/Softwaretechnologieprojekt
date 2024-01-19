@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <main layout:fragment="input">
-            <div class="container mx-auto mt-20 grid grid-cols-4 gap-4">
+            <div class="container mx-auto my-14 grid grid-cols-4 gap-4">
                 <div class="flex grow place-self-auto" th:each="item : ${items}">
                     <a th:href="@{/sportitem/{id}(id=${item.id})}">
                         <div class="card card-compact w-96 bg-base-100 shadow-xl">

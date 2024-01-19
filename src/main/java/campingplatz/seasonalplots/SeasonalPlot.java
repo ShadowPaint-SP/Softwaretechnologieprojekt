@@ -8,8 +8,10 @@ import org.javamoney.moneta.Money;
 
 import java.time.LocalDateTime;
 
-import javax.money.MonetaryAmount;
-
+/**
+ * An extension of {@link Plot}
+ * to realize permanent campsites.
+ */
 @Entity
 public class SeasonalPlot extends Plot {
 
@@ -33,19 +35,46 @@ public class SeasonalPlot extends Plot {
 	public SeasonalPlot() {
 	}
 
-	public MonetaryAmount settlementElectricity(double electricityMeter) { // returns the electricity costs for this
-		// time period
+    /**
+     * Returns the difference between the old and the new counter value.
+     *
+     * @param electricityMeter new meter count
+     * @param difference       last difference from reservation
+     * @return                 new difference or 0, when the new meter
+     *                         under the count before the reservation
+     */
+	public Double settlementElectricity(double electricityMeter, Double difference) { //set new electricity meter
 		double electricity = electricityMeter - this.electricityMeter;
+		if (electricity + difference < 0.0) {
+			return 0.0;
+		}
 		this.electricityMeter = electricityMeter;
-		return Config.getElectricityCosts().multiply(electricity);
+		return electricity;
 	}
 
-	public MonetaryAmount settlementWater(double waterMeter) { // returns the water costs for this time period
+    /**
+     * Returns the difference between the old and the new counter value.
+     *
+     * @param waterMeter    new meter count
+     * @param difference    last difference from reservation
+     * @return              new difference or 0, when the new meter
+     *                      under the count before the reservation
+     */
+	public Double settlementWater(double waterMeter, Double difference) { //set new water meter
 		double water = waterMeter - this.waterMeter;
+		if (water + difference < 0.0) {
+			return 0.0;
+		}
 		this.waterMeter = waterMeter;
-		return Config.getWaterCosts().multiply(water);
+		return water;
 	}
 
+    /**
+     *Sets the fixed arrival date to 4.1. or to the next possible period.
+     *
+     * @param now   present time
+     * @return      next possible arrival date
+     */
 	public static LocalDateTime getArrival(LocalDateTime now) {
 		// at the first day of next month
 		LocalDateTime arrival = now.plusMonths(1).withDayOfMonth(1);
@@ -59,16 +88,13 @@ public class SeasonalPlot extends Plot {
 		return arrival;
 	}
 
-	public String getArrivalStr(LocalDateTime now) {
-		return getArrival(now).toString().substring(0, 10);
-	}
-
+    /**
+     *Sets the departure to 31.10. if the arrival has been set.
+     *
+     * @param now   present time
+     * @return      departure date
+     */
 	public LocalDateTime getDeparture(LocalDateTime now) {
 		return getArrival(now).withMonth(10).withDayOfMonth(31);
 	}
-
-	public String getDepartureStr(LocalDateTime now) {
-		return getDeparture(now).toString().substring(0, 10);
-	}
-
 }

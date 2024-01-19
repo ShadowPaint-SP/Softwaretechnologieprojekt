@@ -5,12 +5,14 @@
 
 <body>
 	<main layout:fragment="input">
-		<div th:fragment="orders(reservations)" class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg">
+		<div th:fragment="orders(reservations)" class="overflow-x-auto container mx-auto mt-14 rounded-box shadow-lg mb-14">
 			<table class="table table-zebra">
 				<thead class="bg-secondary">
 					<tr>
 						<th></th>
 						<th th:text="#{reservation.status}"></th>
+						<th th:text="#{reservation.electricity}"></th>
+						<th th:text="#{reservation.water}"></th>
 						<th th:text="#{user.firstName}"></th>
 						<th th:text="#{user.lastName}"></th>
 						<th th:text="#{terms.plot}"></th>
@@ -22,23 +24,37 @@
 				<tbody>
 					<tr th:each="reservation, iStat : ${reservations}" class="hover">
 						<th th:text="${iStat.count}"></th>
-						<td>
-							<form method="post" action="/management/seasonalreservation/updateReservation">
-								<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
+						<form method="post" action="/management/seasonalreservation/updateReservation">
+							<input type="hidden" name="reservationUUID" th:value="${reservation.id}">
+							<td>
 								<select onchange="this.form.submit()" name="stateValue"
 									class="select select-xs w-full max-w-xs focus:outline-accent">
 									<option value="0" th:selected="${reservation.state.value == 0}"
 										th:text="#{reservation.status.not_taken}"></option>
 									<option value="1" th:selected="${reservation.state.value == 1}" th:text="#{reservation.status.taken}">
 									</option>
+									<option value="2" th:selected="${reservation.state.value == 2}" th:text="#{reservation.status.payed}">
+									</option>
 								</select>
-							</form>
-						</td>
+							</td>
+							<td th:if="${reservation.state.value != 2}">
+								<input class="input input-sm w-full focus:outline-accent" type="number" name="newElectricityMeter"
+									th:value="${reservation.product.electricityMeter}" onchange="this.form.submit()">
+							</td>
+							<td th:if="${reservation.state.value == 2}" th:text="${reservation.product.electricityMeter}"></td>
+
+							<td th:if="${reservation.state.value != 2}">
+								<input class="input input-sm w-full focus:outline-accent" type="number" name="newWaterMeter"
+									th:value="${reservation.product.waterMeter}" onchange="this.form.submit()">
+							</td>
+							<td th:if="${reservation.state.value == 2}" th:text="${reservation.product.waterMeter}"></td>
+						</form>
 						<td th:text="${reservation.user.firstname}"></td>
 						<td th:text="${reservation.user.lastname}"></td>
-						<td th:text="${reservation.product.name}"></td>
-						<td th:text="${reservation.begin}"></td>
-						<td th:text="${reservation.end}"></td>
+						<td><a th:text="${reservation.product.name}"
+								th:href="@{/plotcatalog/details/{seasonplot}(seasonplot=${reservation.product.id})}"></a></td>
+						<td th:text="${#temporals.format(reservation.begin, 'dd.MM.yyyy | 12:00')}"></td>
+						<td th:text="${#temporals.format(reservation.end, 'dd.MM.yyyy | 11:00')}"></td>
 						<td th:text="${reservation.price}"></td>
 					</tr>
 				</tbody>

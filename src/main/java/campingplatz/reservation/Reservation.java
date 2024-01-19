@@ -1,6 +1,7 @@
 package campingplatz.reservation;
 
 import campingplatz.utils.Priced;
+import campingplatz.utils.Utils;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
@@ -14,6 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.money.MonetaryAmount;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
 import java.util.UUID;
 
 /**
@@ -31,9 +33,12 @@ import java.util.UUID;
 @EqualsAndHashCode
 public abstract class Reservation<T extends Product> implements Priced {
 
+	@Id
     @Getter
-    @Id
     public UUID id;
+
+	@Getter
+	private double discount;
 
     @Getter
     @Setter
@@ -44,6 +49,7 @@ public abstract class Reservation<T extends Product> implements Priced {
     @Setter
     @ManyToOne
     private T product;
+
 
     @Getter
     @Setter
@@ -59,6 +65,10 @@ public abstract class Reservation<T extends Product> implements Priced {
     @Setter
     private State state;
 
+
+
+
+
     public Reservation() {
         this.id = UUID.randomUUID();
         this.state = State.NOT_TAKEN;
@@ -68,6 +78,7 @@ public abstract class Reservation<T extends Product> implements Priced {
 
         this.id = UUID.randomUUID();
         this.state = State.NOT_TAKEN;
+		this.discount = 0d;
 
         this.user = user;
         this.product = product;
@@ -76,14 +87,54 @@ public abstract class Reservation<T extends Product> implements Priced {
         this.end = end;
     }
 
+	public Reservation(Reservation<T> original) {
+
+		this.id = UUID.randomUUID();
+		this.state = original.state;
+		this.discount = original.discount;
+
+		this.user = original.user;
+		this.product = original.product;
+
+		this.begin = original.begin;
+		this.end = original.end;
+	}
+
+	public void setDiscount(double discount){
+		if (0 <= discount && discount <= 1){
+			this.discount = discount;
+		}
+		else {
+			throw new IllegalArgumentException("discount has to be between 0 and 1, but was " + discount);
+		}
+
+	}
+
+
     @Override
-    public MonetaryAmount getPrice() {
+    public MonetaryAmount getPreDiscountPrice() {
         var price = product.getPrice();
         return price.multiply(duration());
     }
 
+	@Override
+	public MonetaryAmount getPrice() {
+		var price = product.getPrice();
+		return price.multiply(duration()).multiply(1 - discount);
+	}
+
+	@Override
+	public Boolean hasDiscount(){
+		return discount > 0;
+	}
+
+
     // meant to be overridden
     public abstract ChronoUnit getIntervalUnit();
+
+	public TemporalAmount getIntervalAmount(){
+		return Utils.unitToTemporalAmount(getIntervalUnit());
+	}
 
     /**
      * Get the duration between begin and end. The unit of the duration
@@ -97,7 +148,6 @@ public abstract class Reservation<T extends Product> implements Priced {
     public static enum State {
         NOT_TAKEN(0),
         TAKEN(1),
-
 		PAYED(2);
 
         private Integer value;
