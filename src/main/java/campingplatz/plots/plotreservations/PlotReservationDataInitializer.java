@@ -31,12 +31,6 @@ class PlotReservationDataInitializer implements DataInitializer {
         var userAccount = customerManagement.findAll().stream().findFirst().get().getUserAccount();
         var currentDay = LocalDate.now().atStartOfDay();
 
-        var plot3 = plotCatalog.findByName("Platz am See I").stream().findFirst().get();
-        var arrival3 = currentDay.minusDays(4);
-        var departure3 = currentDay.minusDays(0);
-        reservationRepository.save(new PlotReservation(userAccount, plot3, arrival3, departure3));
-        var newState = Reservation.State.PAYED;
-        reservationRepository.findAll().iterator().next().setState(newState);
 
 
         var plot1 = plotCatalog.findByName("Platz im Wald I").stream().findFirst().get();
@@ -48,6 +42,13 @@ class PlotReservationDataInitializer implements DataInitializer {
         var arrival2 = currentDay.plusDays(0);
         var departure2 = currentDay.plusDays(4);
         reservationRepository.save(new PlotReservation(userAccount, plot2, arrival2, departure2));
+
+        var plot3 = plotCatalog.findByName("Platz am See I").stream().findFirst().get();
+        var arrival3 = currentDay.minusDays(4);
+        var departure3 = currentDay.minusDays(0);
+        reservationRepository.save(new PlotReservation(userAccount, plot3, arrival3, departure3));
+        var newState = Reservation.State.PAYED;
+        reservationRepository.findAll().iterator().next().setState(newState);
 
         var plot4 = plotCatalog.findByName("Platz am See II").stream().findFirst().get();
         var arrival4 = currentDay.plusDays(2);
