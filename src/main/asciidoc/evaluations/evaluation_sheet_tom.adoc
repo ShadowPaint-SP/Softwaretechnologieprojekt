@@ -23,7 +23,7 @@ Die syntaktische Ähnlichkeit des Salespointframeworks war hilfreich. Die Dokume
 
 == Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
 // Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
-Unter der Annahme, dass es weniger Tutoren und größere Gruppen werden, sollten die Aufgaben Anforderungen mit höherer Komplexität enthalten (Mal einen richtigen Algorithmus schreiben, oder mathematische Berechnungen siehe RoboLab).
+Unter der Annahme, dass es weniger Tutoren und größere Gruppen werden, sollten die Aufgaben Anforderungen mit höherer Komplexität enthalten (Mal einen richtigen Algorithmus schreiben, oder mathematische Berechnungen siehe RoboLab, jedes Problem wird gleich gelöst ->mit neuen Datenbanken...).
 Den Tutoren muss es möglich sein an einen wöchentlich festen Raum zukommen.
 
 == Feedback für den Tutor
