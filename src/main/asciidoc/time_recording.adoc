@@ -46,6 +46,7 @@ Arbeitsstunden pro Woche pro Student:
 //SUMME(SPALTE(DevX)) / 12
 
 Durchschnittliche Arbeitzeit aller Studenten pro Woche:
+
 - Summe: 750,45h
 - pro Woche: 62,53h
 - pro Student: 107,20h
