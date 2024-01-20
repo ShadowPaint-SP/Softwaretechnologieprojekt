@@ -23,7 +23,7 @@ Folglich ist es schwierig zusammenzuarbeiten und das macht die Arbeit mit der Au
 == Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
 // Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
 Die Nutzung von SalesPoint hat die Entwicklung von Anwendungen durch die effiziente Nutzung vorhandener Funktionen und Module erleichtert.
-Die Dokumentation von SalesPoint könnte aber möglicherweise verbessert werden,indem sie mehr ausführlich und klar alles beschreibt.
+Die Dokumentation von SalesPoint könnte aber möglicherweise verbessert werden, indem sie mehr ausführlich und klar alles beschreibt.
 Eine verbesserte Unterstützung in Form von mehr Tutorials wird auch hilfreich sein.
 
 

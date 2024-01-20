@@ -1,0 +1,43 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2023/24
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von:** Armin Stegner
+
+**Gruppe:**06
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+Die Arbeit mit Frameworks wie Spring und Salespoint hat mir ein besseres Verständnis von dem Sinn dieser gegeben.
+Auch das Arbeiten mit HTML, CSS und Thymeleaf war mir neu.
+Ich habe auch viele neue Erkenntnisse über das Debugging gelernt und vertieft.
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+Die Zusammenarbeit im Team war sehr gut. Alle Teammitglieder waren engagiert und immer hilfsbereit.
+Leider hat das pair programming nicht so gut funktioniert, da es kaum möglich war passende Zeitslots zu finden, wo beide Teammitglieder frei haben
+aufgrund der unterschiedlichen Studiengänge.
+
+== Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+Die Verwendung von Frameworks gelang mir größtenteils gut, auch wenn man durch die Verwendung von Salespoint teilweise ziemliche Umwege gehen musste.
+Die Doku von Salespoint war leider nicht gerade hilfreich, da sie nicht besonders ausführlich ist. Viele Klassen und Methoden habe ich erst durch Probieren
+herausgefunden, was sehr zeitaufwendig war.
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+Ich hatte mir erhofft, das es weniger um Website-Anwendungen geht und mehr in Richtung von Software.
+Der größte Teil des Praktikums bestand für mich aus der Fehlersuche in HTML-Dateien. Das hat mir keinen wirklichen Mehrwert gebracht,
+da ich als Informationssystemtechniker auch keinen wirklichen Bezug dazu habe und auch nicht haben will.
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Die Betreuung durch unseren Tutor war sehr gut. Nur leider war die Raumfindung ein Problem, welches hoffentlich durch feste Räume in Zukunft behoben
+werden kann.
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
+Es wäre schön, wenn die Aufgabenstellung mehr Komplexität enthält (im Gegenzug etwas weniger von dem reinen Schreibaufwand) und nicht einfach nur eine Website ist,
+die mit JavaScript einfacher zu lösen wäre.
+
