@@ -24,6 +24,7 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 Bitte tragen Sie am Ende des Praktikums noch folgende weitere Werte ein:
 Summe der Arbeitsstunden pro Student:
 // vergesst nicht jeweils die Meetings mitzurechnen
+
 - Tom Fiedler: 86,00h
 - Daniel Arsenev: 131,40h
 - Vincent Ponizil: 119,40h
