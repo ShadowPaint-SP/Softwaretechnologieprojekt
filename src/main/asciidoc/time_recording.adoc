@@ -16,35 +16,37 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 |7     |440   |430     |180   |160     |260    |60     |210   |90+100       |20.11. - 26.11.
 |8     |450   |460     |510   |1110    |430    |590    |480   |90           |27.11. - 03.12.
 |9     |1800  |1200    |1200  |780     |670    |1380   |1380  |100          |04.12. - 10.12.
-|10    |840   |720     |420   |780     |420    |1350   |300   |240          |11.12. - 07.01.
-|11    |420   |420     |240   |420     |400      |60     |300   |90           |08.01. - 14.01.
-|12    |360   |360     |150   |180     |340      |420    |300   |90           |15.01. - 21.01.
-|13    |120   |120     |120   |120     |120    |120    |120   |90           |22.01. - 28.01.
+|10    |840   |720     |420   |780     |420    |1350   |300   |110+130      |11.12. - 07.01.
+|11    |420   |420     |240   |420     |400    |60     |300   |90           |08.01. - 14.01.
+|12    |480   |480     |270   |300     |460    |540    |420   |90+90        |15.01. - 19.01.
 |===
 // Woche 13 kann am Ende in Woche 12 integriert werden
 Bitte tragen Sie am Ende des Praktikums noch folgende weitere Werte ein:
 Summe der Arbeitsstunden pro Student:
 // vergesst nicht jeweils die Meetings mitzurechnen
-- Tom Fiedler: 86h
-- Daniel Arsenev:
-- Vincent Ponizil:
-- Armin Stegner:
-- Jannes Müller:
-- Irina Drumeva:
-- Richard Voigtmann:
+- Tom Fiedler: 86,00h
+- Daniel Arsenev: 131,40h
+- Vincent Ponizil: 119,40h
+- Armin Stegner: 124,00h
+- Jannes Müller: 88,50h
+- Irina Drumeva: 93,75h
+- Richard Voigtmann: 107,40h
 
 //SUMME(SPALTE(DevX))
 Arbeitsstunden pro Woche pro Student:
 
 - Tom Fiedler: 7.17h
-- Daniel Arsenev:
-- Vincent Ponizil:
-- Armin Stegner:
-- Jannes Müller:
-- Irina Drumeva:
-- Richard Voigtmann:
+- Daniel Arsenev: 10,95h
+- Vincent Ponizil: 9,95h
+- Armin Stegner: 10,30h
+- Jannes Müller: 7,38h
+- Irina Drumeva: 7,80h
+- Richard Voigtmann: 8,95h
 //SUMME(SPALTE(DevX)) / 12
 
 Durchschnittliche Arbeitzeit aller Studenten pro Woche:
-
+- Summe: 750,45h
+- pro Woche: 62,53h
+- pro Student: 107,20h
+- pro Student und Woche: 8,93h
 //(SUMME(SPALTE(Dev1)) + SUMME(SPALTE(Dev2)) + SUMME(SPALTE(Dev3)) + SUMME(SPALTE(Dev4)) + SUMME(SPALTE(Dev5)) +SUMME(SPALTE(Dev6))) / 12
