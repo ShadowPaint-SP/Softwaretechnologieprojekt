@@ -7,23 +7,65 @@ skinparam BackgroundColor #FEFEFE
 allowmixing
 skinparam packageStyle Frame
 
-class campingplatz.utils.DetailedProduct
-class org.salespointframework.core.DataInitializer
+class campingplatz.plots.Plot
+class campingplatz.reservation.Cart
+class campingplatz.reservation.Reservation
+interface campingplatz.reservation.ReservationRepository
 interface org.salespointframework.catalog.Catalog<T extends Product>
+interface org.salespointframework.core.DataInitializer
 
-class campingplatz.reservation.Cart<T extends Product, U extends Reservation<T>>
-class campingplatz.reservation.Reservation<T extends Product>
-interface campingplatz.reservation.ReservationRepository<T extends Product, U extends Reservation<T>>
-
-
-package campingplatz.plots {
-    package plotReservations{
-        class PlotCart
-        class PlotReservation<<Entity>>{
-        +PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure)
-        +getIntervalUnit(): ChronoUnit
-        }
-        interface PlotReservationRepository
+package campingplatz.seasonalplots {
+    package seasonalPlotReservations{
+    class SeasonalPlotCart{
+    +reservations: List<SeasonalPlotReservation>
+    +SeasonalPlotCart()
+    +add(SeasonalPlotReservation reservation): boolean
+    +getReservationsOfUser(UserAccount user): List<SeasonalPlotReservation>
+    +clear(): void
+    +remove(SeasonalPlotReservation reservation): boolean
+    }
+    class SeasonalPlotReservation<<Entity>>{
+    -payed_months: int
+    -payMethod =  ayMethod.YEARLY: PayMethod
+    -electricityDifference = 0.0: Double
+    -waterDifference = 0.0: Double
+    +SeasonalPlotReservation(UserAccount user, SeasonalPlot product, LocalDateTime begin, LocalDateTime end, PayMethod payMethod)
+    +getIntervalUnit(): ChronoUnit
+    +getPrice(): MonetaryAmount
+    +isNextYearAvaible(LocalDateTime date): boolean
+    +setElectricityDifference(Double newElectricityMeter): void
+    +setWaterDifference(Double newWaterMeter): void
+    +updateMonthlyPayment(LocalDateTime date): void
+    }
+    enum PayMethod{
+    MONTHLY
+    YEARLY
+    +index: Integer
+    +label: String
+    +PayMethod(Integer index, String label)
+    +{static} fromNumberPayMethod(Integer i): PayMethod
+    }
+    class SeasonalPlotReservationDashboardController<<Controller>>{
+    +plotReservations: SeasonalPlotReservationRepository
+    +accountancy: Accountancy
+    +seasonalPlotCatalog: SeasonalPlotCatalog
+    +businessTime: BusinessTime
+    +SeasonalPlotReservationDashboardController(SeasonalPlotReservationRepository plotReservations, BusinessTime businessTime, Accountancy accountancy, SeasonalPlotCatalog plotCatalog)
+    +reservations(Model model): String
+    +updateReservations(Model model, ReservationChangeInformation info): String
+    +dayHasPassed(): void
+    }
+    interface ReservationChangeInformation {
+    +getReservationUUID(): UUID
+    +getStateValue(): Integer
+    +getNewElectricityMeter(): Double
+    +getNewWaterMeter(): Double
+    }
+    class TimedEventListener{
+    +on(DayHasPassed event): void
+    +on(MonthHasPassed event): void
+    }
+    interface SeasonalPlotReservationRepository
     }
     class Config{
     -{static} electricityCosts = 0.29: double
@@ -33,157 +75,106 @@ package campingplatz.plots {
     +{static}getWaterCosts(): double
     +{static}setWaterCosts(double waterCosts): void
     }
-    class Plot<<Entity>>{
-    -size: Double
-    -parking: ParkingLot
-    +Plot(name: String, size: Double, price: Money, parking: ParkingLot)
-    +getPriceString(): String
-    +getParking(): ParkingLot
-    +getSize(): Double
-    +getSizeString(): String
-    }
-    enum ParkingLot<<enumeration>>{
-    NONE
-    BIKE_PARKING
-    CAR_PARKING
-    CAMPER_PARKING
-    --
-    +size: Integer
-    +label: String
-    --
-    +ParkingLot(size: Integer, label: String)
-    }
-    interface PlotCatalog{
-    +filter(query: SiteState): List<Plot>
-    }
-    interface SiteState{
-    +getArrival(): LocalDate
-    +getDepature(): LocalDate
-    }
-    class PlotCatalogAvailabilityTable{
-    +firstDay: LocalDate
-    +lastDay: LocalDate
-    +length: Integer
-    +PlotCatalogAvailabilityTable(LocalDate firstDay, LocalDate lastDay, List<Plot> plots)
-    +addReservations(Optional<UserAccount> user, List<Reservation<Plot>> reservations): PlotCatalogAvailabilityTable
-    +addHighlights(PlotCatalog.SiteState query, Set<Plot> reservedPlots): PlotCatalogAvailabilityTable
-    +addSelections(Cart<Plot> reservationCart): PlotCatalogAvailabilityTable
-    +collapse(): Map<Plot, List<Fields>>
-    }
-    enum FieldType{
-    FREE_COMPLETELY
-    FREE_HIGHLIGHTED
-    FREE_SELECTED
-    RESERVED_OTHER
-    RESERVED_SELF
-    --
-    +clickability: String
-    +value: Integer
-    +css: String
-    +label: String
-    --
-    +FieldType(Integer size, String arg, String clickability)
-    }
-    class Fields{
-    +type: FieldType
-    +index: Integer
-    +amount: Integer
-    +Fields(FieldType type, Integer index, Integer amount)
-    +getType(): FieldType
-    +setType(FieldType value): void
-    +getIndex(): Integer
-    +setIndex(Integer value): void
-    +getAmount(): Integer
-    +setAmount(Integer value): void
-    }
-    class PlotCatalogController<<Controller>>{
-    +plotCatalog: PlotCatalog
-    +reservationRepository: ReservationRepository<Plot>
-    +PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository<Plot> reservationRepository)
-    +initializeCart(): Cart<Plot>
-    +setupCatalog(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
-    +filter(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
-    +nextWeek(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
-    +prevWeek(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
-    +addReservationRange(Model model, UserAccount user, PlotCatalog.SiteState query, Plot plot, Cart<Plot> reservationCart): String
-    +addReservationDay(Model model, UserAccount user, PlotCatalog.SiteState query, Plot plot, Cart<Plot> reservationCart): String
-    +plots(Model model): String
-    }
-    class PlotCatalogDataInitializer<<Component>>{
-    -plotCatalog PlotCatalog
-    +PlotCatalogDataInitializer(PlotCatalog plotCatalog)
-    +initialize(): void
-    }
-    class SeasonalPlots{
+    class SeasonalPlot<<Entity>>{
     -electricityMeter: double
     -waterMeter: double
-    -permanentCamper: String
-    -paymentMethod: PaymentMethod
-    +SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, String permanentCamper, PaymentMethod paymentMethod)
-    +setElectricityMeter(double electricityMeter): double
-    +getElectricityMeter(): double
-    +setWaterMeter(double waterMeter): double
-    +getWaterMeter(): double
-    +getPermanentCamper(): String
-    +setPermanentCamper(String value): void
-    +getPaymentMethod(): PaymentMethod
-    +setPaymentMethod(PaymentMethod value): void
+    +SeasonalPlot(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, String imagePath, String description)
+    +settlementElectricity(double electricityMeter, Double difference): Double
+    +settlementWater(double waterMeter, Double difference): Double
+    +{static}getArrival(LocalDateTime now): LocalDateTime
+    +getDeparture(LocalDateTime now): LocalDateTime
     }
-    enum PaymentMethod{
-    NONE
-    MONTHLY
-    SEASONAL
+    interface SeasonalPlotCatalog<<Repository>>{
+    +seasonalFilter(SeasonalSiteState query): List<SeasonalPlot>
     }
-    class PlotDashboardController<<Controller>>{
-    +plotCatalog: PlotCatalog
-    +PlotDashboardController(PlotCatalog plotCatalog)
-    +plots(Model model): String
-    +changePlotDetails(Model model, PlotInformation info): String
-    +createPlot(Model model, PlotInformation info): String
-    +deletePlot(Model model, PlotInformation info): String
+    interface SeasonalSiteState{
+    +getSizeMin(): Double
+    +getSizeMax(): Double
+    +getPriceMax(): Double
+    +getPriceMin(): Double
+    +getParking(): Integer
     }
-    interface PlotInformation{
+    class SeasonalPlotCatalogController<<Controller>> {
+    +seasonalPlotCatalog: SeasonalPlotCatalog
+    +reservationRepository: SeasonalPlotReservationRepository
+    +activReservationRepository: Set<SeasonalPlotReservation>
+    +businessTime: BusinessTime
+    +SeasonalPlotCatalogController(SeasonalPlotCatalog seasonalPlotCatalog, SeasonalPlotReservationRepository reservationRepository, BusinessTime businessTime)
+    +initializeSeasonalCart(): SeasonalPlotCart
+    +setupSeasonalCatalog(Model model, Optional<UserAccount> user, SeasonalPlotCatalog.SeasonalSiteState query): String
+    +filter(Model model, Optional<UserAccount> user, SeasonalPlotCatalog.SeasonalSiteState query): String
+    +reservate(Model model, UserAccount user, SeasonalPlot seasonalPlot, Integer payMethod, SeasonalPlotCart seasonalPlotCart): String
+    +cancel(Model model, UserAccount user, SeasonalPlot seasonalPlot): String
+    +showSeasonalPlotDetails(Model model, SeasonalPlotCatalog.SeasonalSiteState query, SeasonalPlot plot): String
+    +seasonalComment(Model model, SeasonalPlot plot, CommentInfo info, UserAccount currUserAccount): String
+    }
+    interface CommentInfo {
+    +getComment(): String
+    +getRating(): int
+    }
+    class SeasonalPlotCatalogDataInitializer<<Component>>{
+    -seasonalPlotCatalog: SeasonalPlotCatalog
+    +SeasonalPlotCatalogDataInitializer(SeasonalPlotCatalog seasonalPlotCatalog)
+    +initialize(): void
+    }
+    class SeasonalPlotDashboardController<<Controller>>{
+    +seasonalPlotCatalog: SeasonalPlotCatalog
+    +accountancy: Accountancy
+    +SeasonalPlotDashboardController(SeasonalPlotCatalog plotCatalog, Accountancy accountancy)
+    +seasonalPlots(Model model): String
+    +changeSeasonalPlotDetails(Model model, SeasonalPlotDashboardController.SeasonalPlotInformation info): String
+    +createSeasonalPlot(Model model, SeasonalPlotDashboardController.SeasonalPlotInformation info): String
+    +changeCosts(Model model, SeasonalPlotDashboardController.CostsInfo costsInfo): String
+    }
+    interface SeasonalPlotInformation {
     +getPlotID(): Product.ProductIdentifier
     +getName(): String
     +getSize(): Double
     +getParkingValue(): Integer
+    +getElectricityMeter(): Double
+    +getWaterMeter(): Double
     +getPrice(): Double
     +getDescription(): String
     +getPicture(): String
+    +getState(): Integer
+    +getRepairCost(): Double
+    }
+    interface CostsInfo{
+    +getElectricityCosts(): Double
+    +getWaterCosts(): Double
     }
 }
 
-Plot --|> DetailedProduct
-ParkingLot --+ Plot
+SeasonalPlot --|> Plot
+SeasonalPlotCatalog --|> Catalog:<<bind T->SeasonalPlot>>
+SeasonalPlotDashboardController ..> SeasonalPlotCatalog:<<use>>
+SeasonalPlotDashboardController ..> Config:<<use>>
+SeasonalPlotCatalogController ..> SeasonalPlotCatalog:<<use>>
+SeasonalPlotCatalogDataInitializer ..> SeasonalPlotCatalog:<<use>>
+SeasonalPlotCatalogDataInitializer ..|> DataInitializer
+SeasonalPlotCatalog ..> SeasonalPlot:<<use>>
 
-PlotCatalog --|> Catalog: <<bind T->Plot>>
-SiteState --+ PlotCatalog
+SeasonalPlotCart --|> Cart:<<bind T->SeasonalPlot, U->SeasonalPlotReservation>>
+SeasonalPlotReservation --|> Reservation:<<bind T->SeasonalPlot>>
+SeasonalPlotReservationDashboardController ..> SeasonalPlotCatalog:<<use>>
+SeasonalPlotReservationRepository -|> ReservationRepository: <<bind T->SeasonalPlot, U->SeasonalPlotReservation>>
 
-FieldType --+ PlotCatalogAvailabilityTable
-Fields --+ PlotCatalogAvailabilityTable
+SeasonalPlotReservationDashboardController ..> SeasonalPlotReservationRepository:<<use>>
 
+SeasonalPlotReservationRepository ..> SeasonalPlotReservation:<<use>>
 
-PlotCatalogDataInitializer --|> DataInitializer
+PayMethod --+ SeasonalPlotReservation
 
-SeasonalPlots --|> Plot
+ReservationChangeInformation --+ SeasonalPlotReservationDashboardController
 
-PaymentMethod --+ SeasonalPlots
+TimedEventListener --+ SeasonalPlotReservationDashboardController
 
-Cart -[hidden]d- Reservation
-Reservation -[hidden]u- ReservationRepository
+SeasonalSiteState --+ SeasonalPlotCatalog
 
-PlotCart -[hidden]d- PlotReservation
-PlotReservation -[hidden]u- PlotReservationRepository
+CommentInfo --+ SeasonalPlotCatalogController
 
-PlotCart --|> Cart: <<bind T->Plot, U->PlotReservation>>
-PlotReservation --|> Reservation
-PlotReservationRepository --|> ReservationRepository: <<bind T->Plot, U->PlotReservation>>
+SeasonalPlotInformation --+ SeasonalPlotDashboardController
 
-PlotCatalogController ..> PlotCatalogAvailabilityTable: <<use>>
-
-PlotInformation --+ PlotDashboardController
-PlotDashboardController ..> PlotCatalog: <<use>>
-PlotCatalogController ..> PlotCatalog: <<use>>
-
+CostsInfo --+ SeasonalPlotDashboardController
 
 @enduml
