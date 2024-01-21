@@ -1,0 +1,189 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+class campingplatz.utils.DetailedProduct
+class org.salespointframework.core.DataInitializer
+interface org.salespointframework.catalog.Catalog<T extends Product>
+
+class campingplatz.reservation.Cart<T extends Product, U extends Reservation<T>>
+class campingplatz.reservation.Reservation<T extends Product>
+interface campingplatz.reservation.ReservationRepository<T extends Product, U extends Reservation<T>>
+
+
+package campingplatz.plots {
+    package plotReservations{
+        class PlotCart
+        class PlotReservation<<Entity>>{
+        +PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure)
+        +getIntervalUnit(): ChronoUnit
+        }
+        interface PlotReservationRepository
+    }
+    class Config{
+    -{static} electricityCosts = 0.29: double
+    -{static} waterCosts = 2.59: double
+    +{static}getElectricityCosts(): double
+    +{static}setElectricityCosts(double electricityCosts): void
+    +{static}getWaterCosts(): double
+    +{static}setWaterCosts(double waterCosts): void
+    }
+    class Plot<<Entity>>{
+    -size: Double
+    -parking: ParkingLot
+    +Plot(name: String, size: Double, price: Money, parking: ParkingLot)
+    +getPriceString(): String
+    +getParking(): ParkingLot
+    +getSize(): Double
+    +getSizeString(): String
+    }
+    enum ParkingLot<<enumeration>>{
+    NONE
+    BIKE_PARKING
+    CAR_PARKING
+    CAMPER_PARKING
+    --
+    +size: Integer
+    +label: String
+    --
+    +ParkingLot(size: Integer, label: String)
+    }
+    interface PlotCatalog{
+    +filter(query: SiteState): List<Plot>
+    }
+    interface SiteState{
+    +getArrival(): LocalDate
+    +getDepature(): LocalDate
+    }
+    class PlotCatalogAvailabilityTable{
+    +firstDay: LocalDate
+    +lastDay: LocalDate
+    +length: Integer
+    +PlotCatalogAvailabilityTable(LocalDate firstDay, LocalDate lastDay, List<Plot> plots)
+    +addReservations(Optional<UserAccount> user, List<Reservation<Plot>> reservations): PlotCatalogAvailabilityTable
+    +addHighlights(PlotCatalog.SiteState query, Set<Plot> reservedPlots): PlotCatalogAvailabilityTable
+    +addSelections(Cart<Plot> reservationCart): PlotCatalogAvailabilityTable
+    +collapse(): Map<Plot, List<Fields>>
+    }
+    enum FieldType{
+    FREE_COMPLETELY
+    FREE_HIGHLIGHTED
+    FREE_SELECTED
+    RESERVED_OTHER
+    RESERVED_SELF
+    --
+    +clickability: String
+    +value: Integer
+    +css: String
+    +label: String
+    --
+    +FieldType(Integer size, String arg, String clickability)
+    }
+    class Fields{
+    +type: FieldType
+    +index: Integer
+    +amount: Integer
+    +Fields(FieldType type, Integer index, Integer amount)
+    +getType(): FieldType
+    +setType(FieldType value): void
+    +getIndex(): Integer
+    +setIndex(Integer value): void
+    +getAmount(): Integer
+    +setAmount(Integer value): void
+    }
+    class PlotCatalogController<<Controller>>{
+    +plotCatalog: PlotCatalog
+    +reservationRepository: ReservationRepository<Plot>
+    +PlotCatalogController(PlotCatalog plotCatalog, ReservationRepository<Plot> reservationRepository)
+    +initializeCart(): Cart<Plot>
+    +setupCatalog(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
+    +filter(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
+    +nextWeek(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
+    +prevWeek(Model model, Optional<UserAccount> user, PlotCatalog.SiteState query, Cart<Plot> reservationCart): String
+    +addReservationRange(Model model, UserAccount user, PlotCatalog.SiteState query, Plot plot, Cart<Plot> reservationCart): String
+    +addReservationDay(Model model, UserAccount user, PlotCatalog.SiteState query, Plot plot, Cart<Plot> reservationCart): String
+    +plots(Model model): String
+    }
+    class PlotCatalogDataInitializer<<Component>>{
+    -plotCatalog PlotCatalog
+    +PlotCatalogDataInitializer(PlotCatalog plotCatalog)
+    +initialize(): void
+    }
+    class SeasonalPlots{
+    -electricityMeter: double
+    -waterMeter: double
+    -permanentCamper: String
+    -paymentMethod: PaymentMethod
+    +SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, String permanentCamper, PaymentMethod paymentMethod)
+    +setElectricityMeter(double electricityMeter): double
+    +getElectricityMeter(): double
+    +setWaterMeter(double waterMeter): double
+    +getWaterMeter(): double
+    +getPermanentCamper(): String
+    +setPermanentCamper(String value): void
+    +getPaymentMethod(): PaymentMethod
+    +setPaymentMethod(PaymentMethod value): void
+    }
+    enum PaymentMethod{
+    NONE
+    MONTHLY
+    SEASONAL
+    }
+    class PlotDashboardController<<Controller>>{
+    +plotCatalog: PlotCatalog
+    +PlotDashboardController(PlotCatalog plotCatalog)
+    +plots(Model model): String
+    +changePlotDetails(Model model, PlotInformation info): String
+    +createPlot(Model model, PlotInformation info): String
+    +deletePlot(Model model, PlotInformation info): String
+    }
+    interface PlotInformation{
+    +getPlotID(): Product.ProductIdentifier
+    +getName(): String
+    +getSize(): Double
+    +getParkingValue(): Integer
+    +getPrice(): Double
+    +getDescription(): String
+    +getPicture(): String
+    }
+}
+
+Plot --|> DetailedProduct
+ParkingLot --+ Plot
+
+PlotCatalog --|> Catalog: <<bind T->Plot>>
+SiteState --+ PlotCatalog
+
+FieldType --+ PlotCatalogAvailabilityTable
+Fields --+ PlotCatalogAvailabilityTable
+
+
+PlotCatalogDataInitializer --|> DataInitializer
+
+SeasonalPlots --|> Plot
+
+PaymentMethod --+ SeasonalPlots
+
+Cart -[hidden]d- Reservation
+Reservation -[hidden]u- ReservationRepository
+
+PlotCart -[hidden]d- PlotReservation
+PlotReservation -[hidden]u- PlotReservationRepository
+
+PlotCart --|> Cart: <<bind T->Plot, U->PlotReservation>>
+PlotReservation --|> Reservation
+PlotReservationRepository --|> ReservationRepository: <<bind T->Plot, U->PlotReservation>>
+
+PlotCatalogController ..> PlotCatalogAvailabilityTable: <<use>>
+
+PlotInformation --+ PlotDashboardController
+PlotDashboardController ..> PlotCatalog: <<use>>
+PlotCatalogController ..> PlotCatalog: <<use>>
+
+
+@enduml
