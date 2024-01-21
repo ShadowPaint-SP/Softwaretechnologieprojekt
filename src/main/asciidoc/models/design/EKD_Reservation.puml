@@ -8,31 +8,28 @@ allowmixing
 skinparam packageStyle Frame
 
 interface campingplatz.utils.Priced
-class campingplatz.reservation.Cart
-
-
-package org{
-    package salespointframework{
-    class DataInitializer{}
-    }
-    package springframework{
-    interface data.repository.CrudRepository<T, ID>
-    }
-}
+interface Comparable
 
 package campingplatz.reservation{
-
-    class Reservation<T extends Product>{
+    abstract class Reservation<T extends Product>{
     +id: UUID
+    -discount: double
     -user: UserAccount
     -product: T
     -begin: LocalDateTime
     -end: LocalDateTime
+    -state: State
     +Reservation(UserAccount user, T product, LocalDateTime begin, LocalDateTime end)
+    +Reservation(Reservation<T> original)
+    +setDiscount(double discount): void
+    +getPreDiscountPrice(): MonetaryAmount
     +getPrice(): MonetaryAmount
-    +getIntervalUnit(): ChronoUnit
+    +hasDiscount(): Boolean
+    +{abstract} getIntervalUnit(): ChronoUnit
+    +getIntervalAmount(): TemporalAmount
     +duration(): long
     +getId(): UUID
+    +getDiscount(): double
     +getUser(): UserAccount
     +setUser(UserAccount value): void
     +getProduct(): T
@@ -41,6 +38,17 @@ package campingplatz.reservation{
     +setBegin(LocalDateTime value): void
     +getEnd(): LocalDateTime
     +setEnd(LocalDateTime value): void
+    +getState(): State
+    +setState(State value): void
+    }
+    enum State{
+    NOT_TAKEN,
+    TAKEN,
+    PAYED
+    -value: Integer
+    +State(Integer value)
+    +getValue(): Integer
+    +{static} fromNumber(Integer i): State
     }
     class ReservationController{
     -reservationRepository: ReservationRepository<Plot>
@@ -56,16 +64,6 @@ package campingplatz.reservation{
     +ReservationDataInitializer(ReservationRepository<Plot> reservationRepository, CustomerManagement customerManagement, PlotCatalog plotCatalog)
     +initialize(): void
     }
-    class ReservationEntry<T extends Product>{
-    -product: T
-    -time: LocalDateTime
-    +ReservationEntry(T product, LocalDateTime time)
-    +compareTo(ReservationEntry<T> second): int
-    +getProduct(): T
-    +setProduct(T value): void
-    +getTime(): LocalDateTime
-    +setTime(LocalDateTime value): void
-    }
     interface ReservationRepository<U extends Product>{
     +findAll(): List<Reservation<U>>
     +findByUserId(UserAccount.UserAccountIdentifier id): List<Reservation<U>>
@@ -78,22 +76,35 @@ package campingplatz.reservation{
     +SportItemReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure)
     +getIntervalUnit(): ChronoUnit
     }
-        class Cart<T extends Product>{
-        +reservationType: Class<? extends Reservation<T>>
-        +getReservationOfUser(UserAccount user): List<Reservation<T>>
-        +add(Reservation<T> reservation): boolean
-        +iterator(): Iterator<ReservationEntry<T>>
-        +size(): int
-        +getPrice(): MonetaryAmount
-        }
+    abstract class Cart<T extends Product, U extends Reservation<T>>{
+    +user: UserAccount
+    +reservationType: Class<U>
+    +Cart(Class<U > reservationType)
+    +addEntry(T product, LocalDateTime time): void
+    +removeEntry(T product, LocalDateTime time): void
+    +containsEntry(T product, LocalDateTime time): boolean
+    +getReservations(UserAccount user): ListOfPriced<U>
+    +getReservationOfUser(UserAccount user): List<U>
+    +add(U reservation): boolean
+    +remove(U reservation): boolean
+    +contains(U reservation): boolean
+    }
+    class ReservationEntry{
+    -product: T
+    -time: LocalDateTime
+    +ReservationEntry(T product, LocalDateTime time)
+    +compareTo(ReservationEntry second): int
+    +getProduct(): T
+    +setProduct(T value): void
+    +getTime(): LocalDateTime
+    +setTime(LocalDateTime value): void
+    }
 }
-Reservation ..|> Priced
+Cart --|> java.util.TreeSet: <bind T->Cart<T, U>.ReservationEntry>
+ReservationEntry ..|> Comparable: <bind T->Cart<T, U>.ReservationEntry>
+ReservationEntry --+ Cart
 
-ReservationController ..> ReservationRepository: <<bind U->Plot>>
-ReservationController ..> Cart: <<bind T->Plot>>
-
-ReservationDataInitializer ..|> DataInitializer
-
-ReservationRepository ..|> CrudRepository
+Reservation ..|> campingplatz.utils.Priced
+State --+ Reservation
 
 @enduml
