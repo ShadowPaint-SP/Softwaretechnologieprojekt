@@ -37,15 +37,33 @@ class SeasonalPlotRepairAccountancyEntry <<Entity>>{
 }
 class SeasonalPlotReservationAccountancyEntry <<Entity>>{
 -{static}descriptions(SeasonalPlotReservation reservation): List<String>
-+SeasonalPlotRepairAccountancyEntry(Double cost, SeasonalPlot plot)
++SeasonalPlotReservationAccountancyEntry(SeasonalPlotReservation reservation)
+}
+class SeasonalPlotReservationDeductionEntry <<Entity>>{
+-{static}descriptions(SeasonalPlotReservation reservation): List<String>
++SeasonalPlotReservationDeductionEntry(SeasonalPlotReservation reservation)
+}
+class SportsItemAccountancyEntry <<Entity>>{
+-{static}descriptions(SportItemReservation reservation): List<String>
++SportsItemAccountancyEntry(SportItemReservation reservation)
+}
+class SportsItemDeductionEntry <<Entity>>{
+-{static}descriptions(SportItemReservation reservation): List<String>
++SportsItemDeductionEntry(SportItemReservation reservation)
 }
 
 }
+
+AccountancyDashboardController ..> AccountancyEntry: <<use>>
 
 ExtendedAccountancyEntry -|> AccountancyEntry
-PlotRepairAccountancyEntry --|> ExtendedAccountancyEntry
-PlotReservationAccountancyEntry --|> ExtendedAccountancyEntry
-PlotReservationDeductionEntry --|> ExtendedAccountancyEntry
-SeasonalPlotRepairAccountancyEntry --|> ExtendedAccountancyEntry
+PlotRepairAccountancyEntry -d-|> ExtendedAccountancyEntry
+PlotReservationAccountancyEntry -d-|> ExtendedAccountancyEntry
+PlotReservationDeductionEntry -d-|> ExtendedAccountancyEntry
+SeasonalPlotRepairAccountancyEntry -r-|> ExtendedAccountancyEntry
+SeasonalPlotReservationAccountancyEntry -r-|> ExtendedAccountancyEntry
+SeasonalPlotReservationDeductionEntry -r-|> ExtendedAccountancyEntry
+SportsItemAccountancyEntry -u-|> ExtendedAccountancyEntry
+SportsItemDeductionEntry -u-|> ExtendedAccountancyEntry
 
 @enduml
