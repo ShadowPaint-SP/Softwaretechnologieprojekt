@@ -19,6 +19,10 @@ package plots{
 }
 package utils{
 }
+package accounting{
+}
+package seasonalplots{
+}
 }
 package org{
 package org.salespointframework{
@@ -26,16 +30,22 @@ package org.salespointframework{
 package org.springframework{
 }
 }
+package jakarta
 
 customer .d.> reservation
 equip .r.> reservation
 plots .l.> reservation
 utils <.u. reservation
+accounting ..> reservation
+seasonalplots ..> reservation
+
 
 org.springframework -[hidden]u- org.salespointframework
+jakarta -[hidden]d- org
 
 
 campingplatz .r.> springframework
 campingplatz .r.> salespointframework
+campingplatz .r.> jakarta
 
 @enduml
