@@ -239,6 +239,11 @@ image::./models/design/EKD_Reservation.svg[Entwurfsklassendiagramm Reservation, 
 [options="header"]
 |===
 |===
+==== Seasonalplots
+image::./models/design/EKD_seasonalplots.svg[Entwurfsklassendiagramm Seasonalplots, 100%, 100%, pdfwidth=100%, align=center]
+[options="header"]
+|===
+|===
 ==== Accounting
 image::./models/design/EKD_Accounting.svg[Entwurfsklassendiagramm Accounting, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
