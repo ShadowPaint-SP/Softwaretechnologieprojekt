@@ -25,7 +25,7 @@ Gut
 - Auch wenn die Dependency injection von Spring sehr magisch ist, führt es auf der Skala von unserem Projekt zu keinen problemen. +
 - Thymeleaf ist sehr gut durchdacht, keine beschwerden. +
 - Das Salespoint User Management ist in Ordnung, es funktioniert gut +
-- Die Salespoint Persistenz + JPA ist leicht verwirrend und wäre als normale Datenbank library statt einem ORM einfacher verständlich, es hat
+- Die Salespoint Persistenz + JPA ist leicht verwirrend und wäre vermutlich als normale Datenbank library statt einem ORM einfacher verständlich: Es hat
 dieselben Probleme wie Spring, dass alles sehr magisch ist. Es gab vereinzelt probleme mit der generitität von Datenbanken
 und der Vererbung von Klassen die in Datenbanken gespeichert werden, konnte jedoch beides behoben werden. +
 - Die Salespoint Buisness Time ist etwas unsinnig, weil es schlechte verhaltensmuster fördert (man ruft nun Buissnesstime.now
