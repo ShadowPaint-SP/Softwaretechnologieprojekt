@@ -15,20 +15,31 @@ interface campingplatz.reservation.ReservationRepository<T extends Product, U ex
 package org{
     package salespointframework{
         interface catalog.Catalog<T extends Product>
-        class core.DataInitializer
+        interface core.DataInitializer
     }
 }
 
 package campingplatz.equip {
     package sportItemReservations{
-    class SportItemCart{
-    }
+    class SportItemCart
     class SportItemReservation<<Entity>>{
     +SportItemReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure)
     +getIntervalUnit(): ChronoUnit
     }
     interface SportItemReservationRepository <<Repository>>
+    class SportItemReservationDashboardController<<Controller>>{
+    +sportItemReservations: SportItemReservationRepository
+    +accountancy: Accountancy
+    +SportItemReservationDashboardController(SportItemReservationRepository sportItemReservations, Accountancy accountancy)
+    +customer(Model model): String
+    +returnSportItem(SportItemReservationChangeInformation information): String
     }
+    interface SportItemReservationChangeInformation{
+    +getReservationUUID(): UUID
+    +getStateValue(): Integer
+    }
+    }
+
     class SportItem<<Entity>>{
     -amount: int
     -deposit: Money
@@ -41,50 +52,100 @@ package campingplatz.equip {
     interface SportItemCatalog <<Repository>>{
     +findById(Product.ProductIdentifier id): Optional<SportItem>
     }
+
+
+
     class SportItemCatalogController<<Controller>>{
     -itemCatalog: SportItemCatalog
-    +SportItemCatalogController(SportItemCatalog itemCatalog)
-    +setupCatalog(Model model, Optional<UserAccount> user): String
-    +setup(Model model): String
-    +showSportItemDetails(Product.ProductIdentifier id, Model model): String
-    +addSportItem(String name, double price, double deposit, int amount, String category, String imagePath,	String desc): String
-    +changeSportItemAmount(int amountItem, Product.ProductIdentifier equip_id): String
-    +deleteSportItem(String itemName, Product.ProductIdentifier id): String
+    -reservationRepository: SportItemReservationRepository
+    +SportItemCatalogController(SportItemCatalog itemCatalog, SportItemReservationRepository reservationRepository)
+    +initializeCart(): SportItemCart
+    +setupCatalog(Model model): String
+    +showSportItemDetails(Model model, Optional<UserAccount> user, SiteState state, SportItem sportItem, SportItemCart reservationCart): String
+    +updateSportItemDetails(Model model, Optional<UserAccount> user, SiteState state, SportItem sportItem, SportItemCart reservationCart): String
+    +addReservationDay(Model model, UserAccount user, SiteState state,  SportItem sportItem, Integer index, SportItemCart reservationCart): String
     }
+    interface SiteState{
+    +getDay(): LocalDate
+    +getDefaultedDay(): LocalDate
+    }
+    class SportItemAvailabilityTable{
+    +firstTime: LocalDateTime
+    +lastTime: LocalDateTime
+    +length: Integer
+    +currentItem: SportItem
+    +SportItemAvailabilityTable(LocalDateTime firstTime, LocalDateTime lastDay, SportItem currentItem)
+    +addMaxAmount(Integer n): SportItemAvailabilityTable
+    +addReservations(Optional<UserAccount> user, List<SportItemReservation> reservations): SportItemAvailabilityTable
+    +addSelections(SportItemCart reservationCart): SportItemAvailabilityTable
+    +addPastMarkings(LocalDateTime cutofTime): SportItemAvailabilityTable
+    }
+    enum FieldType{
+    FREE_COMPLETELY,
+    FREE_SELECTED,
+    RESERVED_OTHER,
+    RESERVED_SELF,
+    BACK_IN_TIME
+    +clickability: String
+    +value: Integer
+    +label: String
+    +color: String
+    +FieldType(Integer size, String arg, String clickability, String color)
+    }
+    class Field{
+    +type: FieldType
+    +index: Integer
+    +amount: Integer
+    +Field(FieldType type, Integer index, Integer amount)
+    +getFieldType(): FieldType
+    +setFieldType(FieldType value): void
+    +getIndex(): Integer
+    +setIndex(Integer value): void
+    +getAmount(): FieldType
+    +setAmount(Integer value): void
+    }
+
     class SportItemCatalogDataInitializer<<Component>>{
     -sportItemCatalog: SportItemCatalog
     +SportItemCatalogDataInitializer(SportItemCatalog sportItemCatalog)
     +initialize(): void
     }
 
+    class SportItemDashboardController <<Controller>>{
+    -itemCatalog: SportItemCatalog
+    +SportItemDashboardController(SportItemCatalog itemCatalog)
+    +setup(Model model): String
+    +addSportItem(String name, double price, double deposit, int amount, String category, imagePath, String desc): String
+    +changeSportItemAmount(int amountItem, Product.ProductIdentifier equip_id): String
+    +deleteSportItem(String itemName, Product.ProductIdentifier id): String
+    }
+
 }
 
-SportItem -u-|> DetailedProduct
-'SportItem -[hidden]u- SportItemCatalogDataInitializer
-SportItemCatalog --|> Catalog: <<bind T->SportItem>>
-'SportItemCatalogController -[hidden]u- SportItem
+SportItem --|> DetailedProduct
+SportItemCatalog --|> Catalog:<<bind T->SportItem>>
+
+SportItemDashboardController ..> SportItemCatalog:<<use>>
+SportItemCatalogDataInitializer ..|> DataInitializer
+SportItemCatalogDataInitializer ..> SportItemCatalog:<<use>>
+SportItemCatalogController ..> SportItemCatalog:<<use>>
+SportItemCatalog .u.> SportItem:<<use>>
+
+SportItemCatalogController ..> SportItemCart:<<use>>
+SportItemCatalogController ..> SportItemReservationRepository:<<use>>
+SiteState --+ SportItemCatalogController
+
+SportItemAvailabilityTable --|> java.util.ArrayList: <<bind T->SportItemAvailabilityTable.Field>>
+
+FieldType --+ SportItemAvailabilityTable
+Field --+ SportItemAvailabilityTable
+
+SportItemReservationRepository --|> ReservationRepository: <<bind T->SportItem, U->SportItemReservation>>
+SportItemReservation --|> Reservation: <<bind T->SportItem>>
+SportItemCart --|> Cart:<<bind T->SportItem, U->SportItemReservation>>
+
+SportItemReservationChangeInformation -+ SportItemReservationDashboardController
 
 
-SportItemCatalogDataInitializer -|> DataInitializer
-
-'campingplatz -[hidden]r- org
-
-'utils -[hidden]u- reservation
-
-SportItemCatalogController ..> SportItemCatalog: <<use>>
-SportItemCatalogDataInitializer .> SportItemCatalog: <<use>>
-SportItemDashboardController .> SportItemCatalog: <<use>>
-
-SportItemCart -|> Cart: <<bind T->SportItem, U->SportItemReservation>>
-SportItemReservation -|> Reservation : <<bind T->SportItem>>
-SportItemReservationRepository -|> ReservationRepository: <<bind T->SportItem, U->SportItemReservation>>
-
-'Cart -[hidden]d- Reservation
-'Reservation -[hidden]u- ReservationRepository
-
-'SportItemCart -[hidden]d- SportItemReservation
-'SportItemReservation -[hidden]u- SportItemReservationRepository
-
-'SportItem -[hidden]l- sportItemReservations
 
 @enduml
