@@ -9,6 +9,7 @@ skinparam packageStyle Frame
 
 interface campingplatz.utils.Priced
 interface Comparable
+interface org.springframework.data.repository.CrudRepository
 
 package campingplatz.reservation{
     abstract class Reservation<T extends Product>{
@@ -50,31 +51,37 @@ package campingplatz.reservation{
     +getValue(): Integer
     +{static} fromNumber(Integer i): State
     }
-    class ReservationController{
-    -reservationRepository: ReservationRepository<Plot>
-    +initializeCart(): Cart<Plot>
-    +cart(Model model, UserAccount userAccount, Cart<Plot> reservationCart): String
-    +reservate(Model model, UserAccount userAccount, Cart<Plot> reservationCart): String
+    class ReservationController <<Controller>>{
+    -plotReservationRepository: PlotReservationRepository
+    -sportItemReservationRepository: SportItemReservationRepository
+    -seasonalPlotReservationRepository: SeasonalPlotReservationRepository
+    -plotReservationDiscountRepository: PlotReservationDiscountRepository
+    +ReservationController(PlotReservationRepository plotReservationRepository,	SportItemReservationRepository sportItemReservationRepository, SeasonalPlotReservationRepository seasonalPlotReservationRepository, PlotReservationDiscountRepository plotReservationDiscountRepository)
+    +initializeCart(): PlotCart
+    +initializeSportCart(): SportItemCart
+    +initializeSeasonalCart(): SeasonalPlotCart
+    +cart(Model model, UserAccount userAccount, PlotCart reservationCart, SeasonalPlotCart seasonalPlotCart, SportItemCart sportItemCart): String
+    +removeCartItem(Model model, UserAccount userAccount, int index String type, PlotCart reservationCart, SeasonalPlotCart seasonalPlotCart, SportItemCart sportItemCart): String
+    +reservate(Model model, UserAccount userAccount, PlotCart reservationCart, SeasonalPlotCart seasonPlotCart, SportItemCart sportItemCart): String
     +orders(Model model, UserAccount user): String
+    +periodicallyDeleteReservatinos(): void
+    +validatePlotReservations(List<PlotReservation> input): List<PlotReservation>
+    +validateSportItemReservations(List<SportItemReservation> input): List<SportItemReservation>
     }
-    class ReservationDataInitializer{
-    -reservationRepository: ReservationRepository<Plot>
-    -customerManagement: CustomerManagement
-    -plotCatalog: PlotCatalog
-    +ReservationDataInitializer(ReservationRepository<Plot> reservationRepository, CustomerManagement customerManagement, PlotCatalog plotCatalog)
-    +initialize(): void
+    abstract class ReservationDiscounter<T extends Product, U extends Reservation<T>>{
+    +{abstract} applyDiscount(U reservation): void
+    +applyDiscountToAll(List<U> reservations): void
     }
-    interface ReservationRepository<U extends Product>{
-    +findAll(): List<Reservation<U>>
-    +findByUserId(UserAccount.UserAccountIdentifier id): List<Reservation<U>>
-    +findReservationsBetween(LocalDateTime arrival, LocalDateTime departure): List<Reservation<U>>
-    +findPlotsReservedBetween(LocalDateTime arrival, LocalDateTime departure): Set<U>
-    +productIsReservedIn(U product, LocalDateTime arrival, LocalDateTime departure): Boolean
-    +productIsAvailableIn(U product, LocalDateTime arrival, LocalDateTime departure): Boolean
-    }
-    class SportItemReservation{
-    +SportItemReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure)
-    +getIntervalUnit(): ChronoUnit
+
+    interface ReservationRepository<T extends Product, U extends Reservation<T>><<NoRepositoryBean>>{
+    +findAll(): List<U>
+    +findByUserId(UserAccount.UserAccountIdentifier id): List<U>
+    +findPlotsAll(): Set<T>
+    +findReservationsBetween(LocalDateTime arrival, LocalDateTime departure): List<U>
+    +findPlotsReservedBetween(LocalDateTime arrival, LocalDateTime departure): Set<T>
+    +productIsReservedIn(T product, LocalDateTime arrival, LocalDateTime departure): Boolean
+    +findUsersOfProduct(T product): Set<UserAccount>
+    +deleteBeforeThan(LocalDateTime time): void
     }
     abstract class Cart<T extends Product, U extends Reservation<T>>{
     +user: UserAccount
@@ -106,5 +113,7 @@ ReservationEntry --+ Cart
 
 Reservation ..|> campingplatz.utils.Priced
 State --+ Reservation
+
+ReservationRepository --|> CrudRepository:<bind T->U, ID->UUID>
 
 @enduml
