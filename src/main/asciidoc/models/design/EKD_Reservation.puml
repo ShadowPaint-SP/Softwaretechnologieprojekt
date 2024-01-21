@@ -116,4 +116,7 @@ State --+ Reservation
 
 ReservationRepository --|> CrudRepository:<bind T->U, ID->UUID>
 
+ReservationDiscounter -[hidden]d- ReservationController
+ReservationController -[hidden]d- State
+
 @enduml
