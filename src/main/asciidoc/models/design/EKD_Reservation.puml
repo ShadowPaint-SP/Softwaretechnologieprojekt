@@ -78,6 +78,14 @@ package campingplatz.reservation{
     +SportItemReservation(UserAccount userAccount, SportItem sportItem, LocalDateTime arrival, LocalDateTime departure)
     +getIntervalUnit(): ChronoUnit
     }
+        class Cart<T extends Product>{
+        +reservationType: Class<? extends Reservation<T>>
+        +getReservationOfUser(UserAccount user): List<Reservation<T>>
+        +add(Reservation<T> reservation): boolean
+        +iterator(): Iterator<ReservationEntry<T>>
+        +size(): int
+        +getPrice(): MonetaryAmount
+        }
 }
 Reservation ..|> Priced
 

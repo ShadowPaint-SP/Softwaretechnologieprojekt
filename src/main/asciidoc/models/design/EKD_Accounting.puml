@@ -1,0 +1,69 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+class org.salespointframework.accountancy.AccountancyEntry
+
+package campingplatz.accounting{
+class AccountancyDashboardController <<Controller>>{
++accountancy: Accountancy
++AccountancyDashboardController(Accountancy accountancy)
++accountyncy(Model model): String
+}
+class ExtendedAccountancyEntry <<Entity>>{
+-descriptions: List<String>
++ExtendedAccountancyEntry(MonetaryAmount value, List<String> descriptions)
+}
+class PlotRepairAccountancyEntry <<Entity>>{
+-{static}descriptions(Plot plot): List<String>
++PlotRepairAccountancyEntry(Double cost, Plot plot)
+}
+class PlotReservationAccountancyEntry <<Entity>>{
+-{static}descriptions(PlotReservation reservation): List<String>
++PlotReservationAccountancyEntry(PlotReservation reservation)
+}
+class PlotReservationDeductionEntry <<Entity>>{
+-{static}descriptions(PlotReservation reservation): List<String>
++PlotReservationDeductionEntry(PlotReservation reservation)
+}
+class SeasonalPlotRepairAccountancyEntry <<Entity>>{
+-{static}descriptions(SeasonalPlot plot): List<String>
++SeasonalPlotRepairAccountancyEntry(Double cost, SeasonalPlot plot)
+}
+class SeasonalPlotReservationAccountancyEntry <<Entity>>{
+-{static}descriptions(SeasonalPlotReservation reservation): List<String>
++SeasonalPlotReservationAccountancyEntry(SeasonalPlotReservation reservation)
+}
+class SeasonalPlotReservationDeductionEntry <<Entity>>{
+-{static}descriptions(SeasonalPlotReservation reservation): List<String>
++SeasonalPlotReservationDeductionEntry(SeasonalPlotReservation reservation)
+}
+class SportsItemAccountancyEntry <<Entity>>{
+-{static}descriptions(SportItemReservation reservation): List<String>
++SportsItemAccountancyEntry(SportItemReservation reservation)
+}
+class SportsItemDeductionEntry <<Entity>>{
+-{static}descriptions(SportItemReservation reservation): List<String>
++SportsItemDeductionEntry(SportItemReservation reservation)
+}
+
+}
+
+AccountancyDashboardController ..> AccountancyEntry: <<use>>
+
+ExtendedAccountancyEntry -|> AccountancyEntry
+PlotRepairAccountancyEntry -d-|> ExtendedAccountancyEntry
+PlotReservationAccountancyEntry -d-|> ExtendedAccountancyEntry
+PlotReservationDeductionEntry -d-|> ExtendedAccountancyEntry
+SeasonalPlotRepairAccountancyEntry -r-|> ExtendedAccountancyEntry
+SeasonalPlotReservationAccountancyEntry -r-|> ExtendedAccountancyEntry
+SeasonalPlotReservationDeductionEntry -r-|> ExtendedAccountancyEntry
+SportsItemAccountancyEntry -u-|> ExtendedAccountancyEntry
+SportsItemDeductionEntry -u-|> ExtendedAccountancyEntry
+
+@enduml
