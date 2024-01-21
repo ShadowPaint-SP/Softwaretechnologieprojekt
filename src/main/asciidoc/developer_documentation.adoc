@@ -284,3 +284,5 @@ Konzeptänderungen seit dem Erstellen des Pflichtenhefts +
 === Plätze Inventar [F0100]
 Plätze werden in einem Katalog statt einem Inventar gespeichert.
 
+=== Attatchment
+Ist nicht nur falsch geschrieben, sondern wurde durch den Begriff ParkingLot ersetzt
