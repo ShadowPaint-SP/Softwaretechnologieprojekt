@@ -81,10 +81,10 @@ package campingplatz.equip {
     +addPastMarkings(LocalDateTime cutofTime): SportItemAvailabilityTable
     }
     enum FieldType{
-    FREE_COMPLETELY,
-    FREE_SELECTED,
-    RESERVED_OTHER,
-    RESERVED_SELF,
+    FREE_COMPLETELY
+    FREE_SELECTED
+    RESERVED_OTHER
+    RESERVED_SELF
     BACK_IN_TIME
     +clickability: String
     +value: Integer
