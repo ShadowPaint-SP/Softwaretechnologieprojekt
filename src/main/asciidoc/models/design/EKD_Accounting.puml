@@ -1,0 +1,51 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+class org.salespointframework.accountancy.AccountancyEntry
+
+package accounting{
+class AccountancyDashboardController <<Controller>>{
++accountancy: Accountancy
++AccountancyDashboardController(Accountancy accountancy)
++accountyncy(Model model): String
+}
+class ExtendedAccountancyEntry <<Entity>>{
+-descriptions: List<String>
++ExtendedAccountancyEntry(MonetaryAmount value, List<String> descriptions)
+}
+class PlotRepairAccountancyEntry <<Entity>>{
+-{static}descriptions(Plot plot): List<String>
++PlotRepairAccountancyEntry(Double cost, Plot plot)
+}
+class PlotReservationAccountancyEntry <<Entity>>{
+-{static}descriptions(PlotReservation reservation): List<String>
++PlotReservationAccountancyEntry(PlotReservation reservation)
+}
+class PlotReservationDeductionEntry <<Entity>>{
+-{static}descriptions(PlotReservation reservation): List<String>
++PlotReservationDeductionEntry(PlotReservation reservation)
+}
+class SeasonalPlotRepairAccountancyEntry <<Entity>>{
+-{static}descriptions(SeasonalPlot plot): List<String>
++SeasonalPlotRepairAccountancyEntry(Double cost, SeasonalPlot plot)
+}
+class SeasonalPlotReservationAccountancyEntry <<Entity>>{
+-{static}descriptions(SeasonalPlotReservation reservation): List<String>
++SeasonalPlotRepairAccountancyEntry(Double cost, SeasonalPlot plot)
+}
+
+}
+
+ExtendedAccountancyEntry -|> AccountancyEntry
+PlotRepairAccountancyEntry --|> ExtendedAccountancyEntry
+PlotReservationAccountancyEntry --|> ExtendedAccountancyEntry
+PlotReservationDeductionEntry --|> ExtendedAccountancyEntry
+SeasonalPlotRepairAccountancyEntry --|> ExtendedAccountancyEntry
+
+@enduml
