@@ -1,0 +1,51 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2023/24
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von:**
+
+**Gruppe:**06
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+- Arbeit den einzelnen Frameworks des Salespoint Stackes, +
+- Sinnvolles Strukturieren von Packsages, +
+- Das Waterfall Modell ist nur mäßig sinnvoll, weil zu begin eines Projektes am wenigsten Domain Wissen vorhanden ist, +
+- Die Typgelöschung der Generics macht das Arbeiten mit Generics in Java unnötig limitierend und benötigt inelegante hacks
+
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+Gut
+
+== Welche Erfahrungen habe ich bei der Verwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+- Über die meisten Frameworks unseres Stackes denke ich eher positiv.
+- Auch wenn die Dependency injection von Spring sehr magisch ist, führt es auf der Skala von unserem Projekt zu keinen problemen. +
+- Thymeleaf ist sehr gut durchdacht, keine beschwerden. +
+- Das Salespoint User Management ist in Ordnung, es funktioniert gut +
+- Die Salespoint Persistenz + JPA ist leicht verwirrend und wäre als normale Datenbank library statt einem ORM einfacher verständlich, es hat
+dieselben Probleme wie Spring, dass alles sehr magisch ist. Es gab vereinzelt probleme mit der generitität von Datenbanken
+und der Vererbung von Klassen die in Datenbanken gespeichert werden, konnte jedoch beides behoben werden. +
+- Die Salespoint Buisness Time ist etwas unsinnig, weil es schlechte verhaltensmuster fördert (man ruft nun Buissnesstime.now
+statt Date.now, obwohl die bessere Lösung wäre, keine globalen variablen in der funktion zu verwenden und die Zeit einfach
+als argument in die Funktion zu geben. So ist forwarding mit einer einfachen Zeit addition gelöst)
+- Die Point of Sales Klassen von Salespoint sind wegen der Fehlenden generalität und generizität von wenig Nutzen für
+unsere Businessapplikation geworden. Der Aufwand die entsprechenden Salespint Klassen (unnatürlich) zu verwenden ist
+größer, als die benötigten Klassen selber zu schreiben.
+
+
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+Keine Vorschläge
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Keine Vorschläge
+
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
+Keine Anmerkungen
