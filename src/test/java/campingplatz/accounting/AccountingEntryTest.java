@@ -1,9 +1,7 @@
 package campingplatz.accounting;
 
-import campingplatz.equip.SportItem;
 import campingplatz.plots.Plot;
 import campingplatz.seasonalplots.SeasonalPlot;
-import campingplatz.seasonalplots.seasonalPlotReservations.SeasonalPlotReservation;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +20,16 @@ public class AccountingEntryTest {
                 );
         assertDoesNotThrow(() -> {
             new SeasonalPlotRepairAccountancyEntry(10.0, sp);
+        }, "SeasonalPlotRepairAccountancyEntry constructor failed");
+    }
+
+    @Test
+    public void PlotRepairAccountancyEntryConstructorTest() {
+        Plot sp = new Plot("lol",100.0,
+                Money.of(10,EURO), Plot.ParkingLot.BIKE_PARKING,
+                "","");
+        assertDoesNotThrow(() -> {
+            new PlotRepairAccountancyEntry(10.0, sp);
         }, "SeasonalPlotRepairAccountancyEntry constructor failed");
     }
 
