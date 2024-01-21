@@ -13,9 +13,12 @@ interface org.salespointframework.catalog.Catalog<T extends Product>
 interface java.io.Serializable
 class campingplatz.customer.CustomerManagement
 class java.util.HashMap
+interface org.springframework.data.repository.CrudRepository<T, ID>
+abstract class campingplatz.reservation.ReservationDiscounter<T extends Product, U extends Reservation<T>>
 
 class campingplatz.reservation.Cart<T extends Product, U extends Reservation<T>>
 class campingplatz.reservation.Reservation<T extends Product>
+
 interface campingplatz.reservation.ReservationRepository<T extends Product, U extends Reservation<T>>
 
 
@@ -45,15 +48,75 @@ package campingplatz.plots {
     +createComment(String text, Integer rating, Customer customer): Comment
     +initialize(): void
     }
-    package plotReservations{
-        class PlotCart{
-        }
+    package plotreservations{
+        class PlotCart
         class PlotReservation<<Entity>>{
         +PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure)
         +getIntervalUnit(): ChronoUnit
         }
         interface PlotReservationRepository
+        class PlotReservationDataInitializer<<Component>>{
+        -reservationRepository: PlotReservationRepository
+        -customerManagement: CustomerManagement
+        -plotCatalog: PlotCatalog
+        +PlotReservationDataInitializer(PlotReservationRepository reservationRepository, CustomerManagement customerManagement, PlotCatalog plotCatalog)
+        +initialize(): void
+        }
+        class PlotReservationDashboardController<<Controller>>{
+        +plotReservations: PlotReservationRepository
+        +accountancy: Accountancy
+        +PlotReservationDashboardController(PlotReservationRepository plotReservations, Accountancy accountancy)
+        +reservations(Model model): String
+        +updateReservations(Model model, ReservationChangeInformation info): String
+        }
+        interface ReservationChangeInformation{
+        +getReservationUUID(): UUID
+        +getStateValue(): Integer
+        }
     }
+    package plotdiscounts{
+        interface PlotReservationDiscountRepository<<Repository>>{
+        +findAll(): List<PlotReservationDiscount>
+        +findAllByAmount(Integer amount): List<PlotReservationDiscount>
+        }
+        class PlotReservationDiscountDataInitilizer<<Component>>{
+        -discountRepository: PlotReservationDiscountRepository
+        +PlotReservationDiscountDataInitilizer(PlotReservationDiscountRepository discountRepository)
+        +initialize(): void
+        }
+        class PlotReservationDiscount<<Entity>>{
+        -id: UUID
+        -amount: Integer
+        -discount: Double
+        +PlotReservationDiscount(Integer amount, Double discount)
+        +getDiscountPercent(): Long
+        +setDiscountPercent(Integer discountPercent): void
+        +setDiscount(double discount): void
+        +getId(): UUID
+        +getAmount(): Integer
+        +setAmount(Integer value): void
+        +getDiscount(): Double
+        }
+        class PlotReservationDiscounter{
+        +reservations: List<PlotReservation>
+        +discounts: List<PlotReservationDiscount>
+        +PlotReservationDiscounter(List<PlotReservation> reservations, List<PlotReservationDiscount> discounts)
+        +applyDiscount(PlotReservation reservation): void
+        }
+        class PlotReservationDiscountDashboardController<<Controller>>{
+        -plotReservationDiscounts: PlotReservationDiscountRepository
+        +PlotReservationDiscountDashboardController(PlotReservationDiscountRepository plotReservationDiscounts)
+        +discount(Model model): String
+        +changeDiscount(Model model, DiscountInformation info): String
+        +createDiscount(Model model, DiscountInformation info): String
+        +deleteDiscount(Model model, DiscountInformation info): String
+        }
+        interface DiscountInformation{
+        +getUUID(): UUID
+        +getAmount(): Integer
+        +getDiscount(): Integer
+        }
+        }
 
     class Plot<<Entity>>{
     -size: Double
@@ -207,9 +270,10 @@ FieldType --+ PlotCatalogAvailabilityTable
 Field --+ PlotCatalogAvailabilityTable
 
 PlotCatalogDataInitializer ..|> DataInitializer
+PlotReservationDataInitializer ..|> DataInitializer
 
 PlotCart --|> Cart: <<bind T->Plot, U->PlotReservation>>
-PlotReservation --|> Reservation
+PlotReservation --|> Reservation: <<bind T->Plot>>
 PlotReservationRepository --|> ReservationRepository: <<bind T->Plot, U->PlotReservation>>
 
 PlotCatalogController ..> PlotCatalogAvailabilityTable: <<use>>
@@ -218,5 +282,17 @@ PlotInformation --+ PlotDashboardController
 PlotDashboardController ..> PlotCatalog: <<use>>
 PlotCatalogController ..> PlotCatalog: <<use>>
 
+PlotCatalogDataInitializer ..> PlotCatalog: <<use>>
 
+PlotReservationDataInitializer ..> PlotReservationRepository: <<use>>
+
+ReservationChangeInformation --+ PlotReservationDashboardController
+
+PlotReservationDiscountRepository --|> CrudRepository: <<bind T->PlotReservationDiscount, ID->UUID>>
+
+PlotReservationDiscountDataInitilizer ..|> DataInitializer
+
+PlotReservationDiscounter --|> ReservationDiscounter: <<bind T->Plot, U->PlotReservation>>
+
+DiscountInformation --+ PlotReservationDiscountDashboardController
 @enduml
