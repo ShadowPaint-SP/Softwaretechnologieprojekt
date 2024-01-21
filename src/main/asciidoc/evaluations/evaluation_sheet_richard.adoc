@@ -1,0 +1,35 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2023/24
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von:** Richard Voigtmann
+
+**Gruppe:**06
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
+Zusammenarbeit in einem Team und dessen organisierung. 
+Im umgang mit java html und css habe ich nicht wirklich neues gelernt aber war ganz ok etwas mehr damit zu machen. ein paar kleine quirks hat man dann doch noch gefunden die man vorher nicht kannte. ¯\\_(ツ)_/¯
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+Als Team wurde aktiv zusammengearbeitet wenn auch nicht unbedingt in form des Pair-Programmings (eher wenn wer eine frage hatte hat sich wer gefunden um es zu erklären/helfen).
+
+== Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+Die Nutzung von SalesPoint war intuitiv und war weitgehend problemlos.
+Es war sehr angenehm ein eigenes css framework zu nutzen da ich bereits erfahrungen mit Tailwindcss habe und dies den bau der Webseite sehr vereinfacht hat.
+Die anwendung von thymeleaf war etwas holprig da gewisse dinge dort irgendwie nicht gut findbar in der doku sind.
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+Bei genauerer Betrachtung der Anwendung wird schnell klar das diese nicht wirklich hohe anforderungen hat. Die Features wurden schlussendlich alle ungefähr auf die selbe art und weise eingebaut wodurch es schnell etwas monoton wurde.
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+Unser Tutor war bei fragen immer zur verfügung und hat uns gut durch das Praktikum betreut. keine Vorschläge. ᕙ(⇀‸↼‶)ᕗ
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
+Keine Anmerkungen. (づ ◕‿◕ )づ
