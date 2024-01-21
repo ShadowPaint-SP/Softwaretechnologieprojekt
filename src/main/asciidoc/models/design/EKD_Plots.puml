@@ -295,4 +295,12 @@ PlotReservationDiscountDataInitilizer ..|> DataInitializer
 PlotReservationDiscounter --|> ReservationDiscounter: <<bind T->Plot, U->PlotReservation>>
 
 DiscountInformation --+ PlotReservationDiscountDashboardController
+
+PlotReservationDiscountDashboardController ..> PlotReservationDiscounter: <<use>>
+
+PlotCatalogController ..> PlotCart: <<use>>
+
+PlotReservationDiscountRepository ..> PlotReservationDiscount: <<use>>
+
+CommentDataInitializer ..> Comment: <<use>>
 @enduml
