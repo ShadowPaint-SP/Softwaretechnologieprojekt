@@ -8,10 +8,8 @@ allowmixing
 skinparam packageStyle Frame
 
 class campingplatz.utils.DetailedProduct
-interface org.salespointframework.core.DataInitializer
+class org.salespointframework.core.DataInitializer
 interface org.salespointframework.catalog.Catalog<T extends Product>
-interface java.io.Serializable
-class campingplatz.customer.CustomerManagement
 
 class campingplatz.reservation.Cart<T extends Product, U extends Reservation<T>>
 class campingplatz.reservation.Reservation<T extends Product>
@@ -19,61 +17,30 @@ interface campingplatz.reservation.ReservationRepository<T extends Product, U ex
 
 
 package campingplatz.plots {
-    class Comment<<Entity>>{
-    -id: UUID
-    -text: String
-    -rating: int
-    -time: LocalDateTime
-    -firstName: String
-    -lastName: String
-    +Comment(String text, int rating, LocalDateTime time, String firstName, String lastName)
-    +getId(): UUID
-    +getText(): String
-    +getRating(): int
-    +getTime(): LocalDateTime
-    +getFirstName(): String
-    +getLastName(): String
-    }
-    class CommentDataInitializer<<Component>>{
-    -reservationRepository: PlotReservationRepository
-    -customerManagement: CustomerManagement
-    -plotCatalog: PlotCatalog
-    +CommentDataInitializer(PlotReservationRepository reservationRepository, CustomerManagement customerManagement, PlotCatalog plotCatalog)
-    +maxDaysInThePast = 1000: Integer
-    +randomTime(): LocalDateTime
-    +createComment(String text, Integer rating, Customer customer): Comment
-    +initialize(): void
-    }
     package plotReservations{
-        class PlotCart{
-        }
+        class PlotCart
         class PlotReservation<<Entity>>{
         +PlotReservation(UserAccount userAccount, Plot plot, LocalDateTime arrival, LocalDateTime departure)
         +getIntervalUnit(): ChronoUnit
         }
         interface PlotReservationRepository
     }
-
+    class Config{
+    -{static} electricityCosts = 0.29: double
+    -{static} waterCosts = 2.59: double
+    +{static}getElectricityCosts(): double
+    +{static}setElectricityCosts(double electricityCosts): void
+    +{static}getWaterCosts(): double
+    +{static}setWaterCosts(double waterCosts): void
+    }
     class Plot<<Entity>>{
     -size: Double
     -parking: ParkingLot
-    -state = State.OPERATIONAL: State
-    -comments: List<Comment>
-    +Plot(String name, Double size, Money price, ParkingLot parking, String imagePath, String description)
-    +getPriceDouble(): Double
+    +Plot(name: String, size: Double, price: Money, parking: ParkingLot)
     +getPriceString(): String
-    +getSizeString(): String
-    +averageRating(): Double
-    +addComment(Comment comment): void
-    +deleteComment(UUID id): void
-    +getSize(): Double
-    +setSize(Double value): void
     +getParking(): ParkingLot
-    +setParking(ParkingLot value): void
-    +getState(): State
-    +setState(State value): void
-    +getComments(): List<Comment>
-    +setComments(List<Comment> value): void
+    +getSize(): Double
+    +getSizeString(): String
     }
     enum ParkingLot<<enumeration>>{
     NONE
@@ -85,22 +52,14 @@ package campingplatz.plots {
     +label: String
     --
     +ParkingLot(size: Integer, label: String)
-    +{static} fromNumber(Integer i): ParkingLot
     }
-    enum State{
-    OPERATIONAL,
-    DEFECTIVE,
-    HIDDEN
-    +index: Integer
-    +label: String
-    +State(Integer index, String label)
-    +{static}fromNumber(Integer i): State
+    interface PlotCatalog{
+    +filter(query: SiteState): List<Plot>
     }
-    interface PlotCatalog<<Repository>>{
-    +findByState(Plot.State state): List<Plot>
+    interface SiteState{
+    +getArrival(): LocalDate
+    +getDepature(): LocalDate
     }
-
-
     class PlotCatalogAvailabilityTable{
     +firstDay: LocalDate
     +lastDay: LocalDate
@@ -125,7 +84,6 @@ package campingplatz.plots {
     --
     +FieldType(Integer size, String arg, String clickability)
     }
-
     class Fields{
     +type: FieldType
     +index: Integer
@@ -151,14 +109,30 @@ package campingplatz.plots {
     +addReservationDay(Model model, UserAccount user, PlotCatalog.SiteState query, Plot plot, Cart<Plot> reservationCart): String
     +plots(Model model): String
     }
-    interface SiteState{
-    +getArrival(): LocalDate
-    +getDepature(): LocalDate
-    }
     class PlotCatalogDataInitializer<<Component>>{
     -plotCatalog PlotCatalog
     +PlotCatalogDataInitializer(PlotCatalog plotCatalog)
     +initialize(): void
+    }
+    class SeasonalPlots{
+    -electricityMeter: double
+    -waterMeter: double
+    -permanentCamper: String
+    -paymentMethod: PaymentMethod
+    +SeasonalPlots(String name, Double size, Money price, ParkingLot parking, double electricityMeter, double waterMeter, String permanentCamper, PaymentMethod paymentMethod)
+    +setElectricityMeter(double electricityMeter): double
+    +getElectricityMeter(): double
+    +setWaterMeter(double waterMeter): double
+    +getWaterMeter(): double
+    +getPermanentCamper(): String
+    +setPermanentCamper(String value): void
+    +getPaymentMethod(): PaymentMethod
+    +setPaymentMethod(PaymentMethod value): void
+    }
+    enum PaymentMethod{
+    NONE
+    MONTHLY
+    SEASONAL
     }
     class PlotDashboardController<<Controller>>{
     +plotCatalog: PlotCatalog
@@ -178,15 +152,9 @@ package campingplatz.plots {
     +getPicture(): String
     }
 }
-Comment ..|> Serializable
-CommentDataInitializer ..|> DataInitializer
-CommentDataInitializer ..> PlotCatalog:<<use>>
-CommentDataInitializer ..> PlotReservationRepository:<<use>>
-CommentDataInitializer ..> CustomerManagement:<<use>>
 
 Plot --|> DetailedProduct
 ParkingLot --+ Plot
-State --+ Plot
 
 PlotCatalog --|> Catalog: <<bind T->Plot>>
 SiteState --+ PlotCatalog
@@ -195,7 +163,7 @@ FieldType --+ PlotCatalogAvailabilityTable
 Fields --+ PlotCatalogAvailabilityTable
 
 
-PlotCatalogDataInitializer ..|> DataInitializer
+PlotCatalogDataInitializer --|> DataInitializer
 
 SeasonalPlots --|> Plot
 
