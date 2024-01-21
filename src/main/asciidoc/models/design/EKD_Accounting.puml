@@ -9,7 +9,7 @@ skinparam packageStyle Frame
 
 class org.salespointframework.accountancy.AccountancyEntry
 
-package accounting{
+package campingplatz.accounting{
 class AccountancyDashboardController <<Controller>>{
 +accountancy: Accountancy
 +AccountancyDashboardController(Accountancy accountancy)

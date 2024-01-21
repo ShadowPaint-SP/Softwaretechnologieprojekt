@@ -7,18 +7,6 @@ skinparam BackgroundColor #FEFEFE
 allowmixing
 skinparam packageStyle Frame
 
-package campingplatz{
-    package reservation
-}
-
-
-package org{
-    package springframework
-    package salespointframework{
-    class catalog.Product
-    }
-}
-
 package campingplatz.utils {
     class DetailedProduct{
     -imagePath: String
@@ -29,34 +17,45 @@ package campingplatz.utils {
     +getDesc(): String
     +setDesc(String value): void
     }
-    class Cart<T extends Product>{
-    +reservationType: Class<? extends Reservation<T>>
-    +getReservationOfUser(UserAccount user): List<Reservation<T>>
-    +add(Reservation<T> reservation): boolean
-    +iterator(): Iterator<ReservationEntry<T>>
-    +size(): int
-    +getPrice(): MonetaryAmount
+    class Pair<T1,T2>{
+    +first: T1
+    +second: T2
+    +Pair(T1 first, T2 second)
+    +getFirst(): T1
+    +setFirst(T1 value): void
+    +getSecond(): T2
+    +setSecond(T2 value): void
     }
     interface Priced{
-    +gerPriced(): MonetaryAmount
+    +getPrice(): MonetaryAmount
+    +getPreDiscountPrice(): MonetaryAmount
+    +hasDiscount(): Boolean
     }
     class Utils{
     -Utils()
-    +{static} createInstance(Class<T> cls): <T> T
+    +{static} createInstance(Class<T> cls): T
+    +{static} min(LocalDateTime first, LocalDateTime second): LocalDateTime
+    +{static} max(LocalDateTime first, LocalDateTime second): LocalDateTime
+    +{static} formatDate(LocalDateTime date): String
+    +{static} formatDateTime(LocalDateTime date): String
+    +{static} unitToTemporalAmount(ChronoUnit intervalUnit): TemporalAmount
+    +{static} clampLength(String input): String
+    +{static} clampPrice(Money input): Money
     }
-    class DashboardController{
-    +sportsequipment(Model model): String
+    class ListOfPriced <T extends Priced> {
+    +getPrice(): MonetaryAmount
+    +getPreDiscountPrice(): MonetaryAmount
+    }
+    class BusinessTimeController<<Controller>> {
+    -businessTime: BusinessTime
+    +BusinessTimeController(BusinessTime businessTime)
+    +fTime(Model model, int days, HttpServletRequest request): String
     }
 
 }
 
-Cart --|> java.util.ArrayList
-Cart ..|> Priced
-Cart ..> salespointframework: <<use>>
-Cart ..> reservation: <<use>>
-
-DashboardController ..> springframework: <<use>>
-
-DetailedProduct --|> Product
+DetailedProduct --|> org.salespointframework.catalog.Product
+ListOfPriced --|> java.util.ArrayList: <bind T->T>
+ListOfPriced ..|> Priced
 
 @enduml

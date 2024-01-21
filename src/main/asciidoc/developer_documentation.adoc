@@ -243,6 +243,11 @@ image::./models/design/EKD_Reservation.svg[Entwurfsklassendiagramm Reservation, 
 image::./models/design/EKD_Accounting.svg[Entwurfsklassendiagramm Accounting, 100%, 100%, pdfwidth=100%, align=center]
 [options="header"]
 |===
+|===
+==== Utils
+image::./models/design/EKD_Utils.svg[Entwurfsklassendiagramm Utils, 100%, 100%, pdfwidth=100%, align=center]
+[options="header"]
+|===
 
 |===
 
