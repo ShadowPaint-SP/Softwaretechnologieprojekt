@@ -22,9 +22,10 @@ __Teilnehmer:__
 
 == Bemerkungen
 
-== Retrospektive des letzten Sprints
 
-== Planung des nächsten Sprints
+== Retrospektive des letzten Sprints
+Kleinigkeiten, Dev Doku vervollständigt, Tests+
+Branches vereint
 
 |===
 
