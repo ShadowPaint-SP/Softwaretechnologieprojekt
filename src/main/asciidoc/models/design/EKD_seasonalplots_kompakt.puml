@@ -1,0 +1,83 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+' skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+class campingplatz.plots.Plot
+' class campingplatz.reservation.Cart
+class campingplatz.reservation.Reservation
+' interface campingplatz.reservation.ReservationRepository
+' interface org.salespointframework.catalog.Catalog<T extends Product>
+' interface org.salespointframework.core.DataInitializer
+
+package campingplatz.seasonalplots {
+    package seasonalPlotReservations{
+        ' class SeasonalPlotCart{
+        ' }
+        class SeasonalPlotReservation<<Entity>>{
+            -payed_months: int
+            -payMethod =  ayMethod.YEARLY: PayMethod
+            -electricityDifference = 0.0: Double
+            -waterDifference = 0.0: Double
+        }
+        enum PayMethod{
+            MONTHLY
+            YEARLY
+        }
+        class SeasonalPlotReservationDashboardController<<Controller>>{
+        }
+        class TimedEventListener{
+            +on(DayHasPassed event): void
+            +on(MonthHasPassed event): void
+        }
+        interface SeasonalPlotReservationRepository
+    }
+
+    class SeasonalPlot<<Entity>>{
+        -electricityMeter: double
+        -waterMeter: double
+    }
+    interface SeasonalPlotCatalog<<Repository>>{
+    }
+    class SeasonalPlotCatalogController<<Controller>> {
+    }
+    ' class SeasonalPlotCatalogDataInitializer<<Component>>{
+    '     -seasonalPlotCatalog: SeasonalPlotCatalog
+    ' }
+    class SeasonalPlotDashboardController<<Controller>>{
+    }
+}
+
+SeasonalPlot --|> campingplatz.plots.Plot
+' SeasonalPlotCatalog --|> org.salespointframework.catalog.Catalog:<<bind T->SeasonalPlot>>
+SeasonalPlotDashboardController ...> SeasonalPlotCatalog:<<use>>
+SeasonalPlotCatalogController ..> SeasonalPlotCatalog:<<use>>
+' SeasonalPlotCatalogDataInitializer ..> SeasonalPlotCatalog:<<use>>
+' SeasonalPlotCatalogDataInitializer ..|> DataInitializer
+SeasonalPlotCatalog ..> SeasonalPlot:<<use>>
+
+' SeasonalPlotCart --|> Cart:<<bind T->SeasonalPlot, U->SeasonalPlotReservation>>
+SeasonalPlotReservation --|> campingplatz.reservation.Reservation:<<bind T->SeasonalPlot>>
+SeasonalPlotReservation -> PayMethod: -payMethod
+SeasonalPlotReservationDashboardController ..> SeasonalPlotCatalog:<<use>>
+' SeasonalPlotReservationRepository -|> ReservationRepository: <<bind T->SeasonalPlot, U->SeasonalPlotReservation>>
+
+SeasonalPlotReservationDashboardController ..> SeasonalPlotReservationRepository:<<use>>
+
+SeasonalPlotReservationRepository ..> SeasonalPlotReservation:<<use>>
+
+TimedEventListener --+ SeasonalPlotReservationDashboardController
+
+
+
+
+
+
+
+
+
+@enduml
