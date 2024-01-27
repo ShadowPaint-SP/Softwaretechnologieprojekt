@@ -21,10 +21,11 @@ __Teilnehmer:__
 - Richard Voigtmann
 
 == Bemerkungen
-
+Präsentation durchgesprochen, vor allem das Rollenspiel
 
 == Retrospektive des letzten Sprints
-Kleinigkeiten, Dev Doku vervollständigt, Tests+
+Kleinigkeiten, Dev Doku vervollständigt, Tests
+
 Branches vereint
 
 |===
