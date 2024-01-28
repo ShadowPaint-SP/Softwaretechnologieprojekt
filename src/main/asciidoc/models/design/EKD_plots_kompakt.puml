@@ -21,15 +21,16 @@ package campingplatz {
             "Vergangen"
          }
 
-        enum State{
-            OPERATIONAL,
-            DEFECTIVE,
-            HIDDEN
+        enum ParkingLot {
+            None
+            Bike parking
+            Car parking
+            Camper parking
         }
         class Plot<<Entity>>{
             +size: Double
-            +parking: ParkingLot
             +comments: List<Comment>
+            +state: State
         }
         interface PlotCatalog<<Repository>>{
 
@@ -88,7 +89,7 @@ ReservationRepository .down.> Reservation: <<contains>>
 PlotReservationRepository .down.> PlotReservation: <<contains>>
 
 Plot --|> campingplatz.utils.DetailedProduct
-Plot ---+ State: +state
+Plot ---+ ParkingLot: +parking
 Plot --> PlotReservation: +product
 ' above arrow goes in the wrong direction, but I cant seem to get the
 ' layout to work correctly when flipping it the right way around. it
