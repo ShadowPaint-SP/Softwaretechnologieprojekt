@@ -1,0 +1,103 @@
+@startuml
+hide empty fields
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam BackgroundColor #FEFEFE
+allowmixing
+skinparam packageStyle Frame
+
+package campingplatz {
+    package plots {
+
+        class AvailabilityTable {
+        }
+
+        enum FieldType{
+            "Verfügbar"
+            "Ausgewählt"
+            "Fremd Reserviert"
+            "Selbst Reserviert"
+            "Vergangen"
+         }
+
+        enum State{
+            OPERATIONAL,
+            DEFECTIVE,
+            HIDDEN
+        }
+        class Plot<<Entity>>{
+            +size: Double
+            +parking: ParkingLot
+            +comments: List<Comment>
+        }
+        interface PlotCatalog<<Repository>>{
+
+        }
+
+        class PlotCatalogController<<Controller>> {
+
+        }
+
+        package plotReservations {
+
+            class PlotCart {
+
+            }
+
+            class PlotReservation<<Entity>>{
+
+            }
+
+            interface PlotReservationRepository<<Repository>> {
+
+            }
+
+        }
+    }
+
+    package reservation {
+        class Cart<T, U> {
+
+        }
+
+        class Reservation<T> {
+
+        }
+
+        interface ReservationRepository<T, U> {
+
+        }
+    }
+}
+
+PlotCatalogController .left.> AvailabilityTable
+AvailabilityTable -down-+ FieldType
+
+PlotCatalogController .down.> PlotCatalog: <<use>>
+PlotCatalogController .down.> Plot: <<use>>
+PlotCatalog .down.> Plot: <<contains>>
+
+PlotCart -left-|> campingplatz.reservation.Cart
+PlotReservation -left-|> campingplatz.reservation.Reservation
+PlotReservationRepository -left-|> campingplatz.reservation.ReservationRepository
+
+Cart .up.> Reservation: <<contains>>
+PlotCart .up.> PlotReservation: <<contains>>
+ReservationRepository .down.> Reservation: <<contains>>
+PlotReservationRepository .down.> PlotReservation: <<contains>>
+
+Plot --|> campingplatz.utils.DetailedProduct
+Plot ---+ State: +state
+Plot --> PlotReservation: +product
+' above arrow goes in the wrong direction, but I cant seem to get the
+' layout to work correctly when flipping it the right way around. it
+' just has to be fixed in post
+
+
+
+
+
+
+
+@enduml
